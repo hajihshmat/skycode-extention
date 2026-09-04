@@ -20,13 +20,15 @@ interface SettingsViewProps extends KeyOps {
 const RESPONSE_TYPES_BY_PROVIDER: Record<ProviderTypeId, ResponseType[]> = {
 	ollamaCloud: ['chat-completion'],
 	openai: ['chat-completion', 'response'],
-	anthropic: ['chat-completion']
+	anthropic: ['chat-completion'],
+	'openai-compatible': ['chat-completion', 'response']
 };
 
 const RESPONSE_FORMATS_BY_PROVIDER: Record<ProviderTypeId, ResponseFormat[]> = {
 	ollamaCloud: ['text', 'json_object'],
 	openai: ['text', 'json_object'],
-	anthropic: ['text']
+	anthropic: ['text'],
+	'openai-compatible': ['text', 'json_object']
 };
 
 function blankEntry(providerId: ProviderTypeId): ProviderSettingsEntry {

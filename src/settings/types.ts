@@ -23,6 +23,12 @@ export const PROVIDER_CATALOG = [
 		displayName: 'Anthropic',
 		defaultBaseUrl: 'https://api.anthropic.com/v1',
 		requiresApiKey: true
+	},
+	{
+		providerId: 'openai-compatible',
+		displayName: 'OpenAI Compatible',
+		defaultBaseUrl: '',
+		requiresApiKey: true
 	}
 ] as const;
 
@@ -65,6 +71,8 @@ export interface ProviderSettingsEntry {
 	baseUrl: string;
 	/** URL to fetch the model list from. Defaults to `${baseUrl}/models`. */
 	modelsUrl?: string;
+	/** Overrides the adapter's default chat endpoint path (e.g. '/v1/chat/completions'). */
+	chatEndpoint?: string;
 	/** Available models with their capabilities. */
 	models: ModelEntry[];
 	/** Model used by default when none is chosen. */

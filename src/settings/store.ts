@@ -67,20 +67,20 @@ export class SettingsStore {
 	}
 
 	async saveProvider(entry: ProviderSettingsEntry): Promise<void> {
+		const configPatch = {
+			name: entry.displayName,
+			baseUrl: entry.baseUrl,
+			modelsUrl: entry.modelsUrl,
+			chatEndpoint: entry.chatEndpoint
+		};
 		let provider = this.providers.getProvider(entry.id);
 		if (!provider) {
 			provider = await this.providers.addProvider({
 				adapterType: entry.providerId === 'ollamaCloud' ? 'ollama' : entry.providerId,
-				name: entry.displayName,
-				baseUrl: entry.baseUrl,
-				modelsUrl: entry.modelsUrl
+				...configPatch
 			});
 		} else {
-			await this.providers.updateProvider(provider.id, {
-				name: entry.displayName,
-				baseUrl: entry.baseUrl,
-				modelsUrl: entry.modelsUrl
-			});
+			await this.providers.updateProvider(provider.id, configPatch);
 		}
 
 		const staged = new Map(this.models.takeStaged(provider.id).map(d => [d.modelIdentifier, d]));
@@ -181,6 +181,7 @@ export class SettingsStore {
 			displayName: provider.name,
 			baseUrl: provider.baseUrl,
 			modelsUrl: provider.modelsUrl,
+			chatEndpoint: provider.chatEndpoint,
 			supportedResponseTypes: adapter.supportedResponseTypes,
 			supportedResponseFormats: adapter.supportedResponseFormats,
 			models: models.map(m => {

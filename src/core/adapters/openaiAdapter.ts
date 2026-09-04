@@ -9,8 +9,9 @@ import { ModelDraft, ProviderAdapter } from './providerAdapter';
  * any OpenAI-compatible base URL.
  */
 export class OpenAIAdapter implements ProviderAdapter {
-	readonly type = 'openai';
-	readonly displayName = 'OpenAI';
+	// Typed as string so subclasses (e.g. OpenAICompatibleAdapter) can override the identity.
+	readonly type: string = 'openai';
+	readonly displayName: string = 'OpenAI';
 	readonly requiresCredentials = true;
 	readonly supportedResponseTypes: ResponseType[] = ['chat-completion', 'response'];
 	readonly supportedResponseFormats: ResponseFormat[] = ['text', 'json_object'];

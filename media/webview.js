@@ -21770,6 +21770,12 @@
       displayName: "Anthropic",
       defaultBaseUrl: "https://api.anthropic.com/v1",
       requiresApiKey: true
+    },
+    {
+      providerId: "openai-compatible",
+      displayName: "OpenAI Compatible",
+      defaultBaseUrl: "",
+      requiresApiKey: true
     }
   ];
 
@@ -22086,6 +22092,54 @@
   // src/webview/ProviderForm.tsx
   var import_jsx_runtime4 = __toESM(require_jsx_runtime());
   var urlPattern = /^https?:\/\/\S+$/;
+  var CATALOG_ADAPTER_TYPE = {
+    ollamaCloud: "ollama",
+    openai: "openai",
+    anthropic: "anthropic",
+    "openai-compatible": "openai-compatible"
+  };
+  var ADAPTER_META = {
+    ollamaCloud: {
+      adapterType: "ollama",
+      description: "Local or remote Ollama instance.",
+      defaultName: "Ollama",
+      baseUrlDefault: "http://localhost:11434",
+      baseUrlPlaceholder: "http://localhost:11434 or https://ollama.com/v1",
+      modelsUrlPlaceholder: "/v1/models",
+      chatEndpointPlaceholder: "/v1/chat/completions",
+      requiresApiKey: false
+    },
+    openai: {
+      adapterType: "openai",
+      description: "OpenAI hosted API.",
+      defaultName: "OpenAI",
+      baseUrlDefault: "https://api.openai.com/v1",
+      baseUrlPlaceholder: "https://api.openai.com/v1",
+      modelsUrlPlaceholder: "/v1/models",
+      chatEndpointPlaceholder: "/v1/chat/completions",
+      requiresApiKey: true
+    },
+    anthropic: {
+      adapterType: "anthropic",
+      description: "Anthropic Messages API.",
+      defaultName: "Anthropic",
+      baseUrlDefault: "https://api.anthropic.com/v1",
+      baseUrlPlaceholder: "https://api.anthropic.com/v1",
+      modelsUrlPlaceholder: "/v1/models",
+      chatEndpointPlaceholder: "/v1/messages",
+      requiresApiKey: true
+    },
+    "openai-compatible": {
+      adapterType: "openai-compatible",
+      description: "Any OpenAI-compatible service (LM Studio, vLLM, Groq, \u2026).",
+      defaultName: "Custom Provider",
+      baseUrlDefault: "",
+      baseUrlPlaceholder: "http://localhost:1234/v1",
+      modelsUrlPlaceholder: "/v1/models",
+      chatEndpointPlaceholder: "/v1/chat/completions",
+      requiresApiKey: true
+    }
+  };
   function ProviderForm({
     entry,
     isNew,
@@ -22101,8 +22155,14 @@
     onConsumeInfoResults
   }) {
     const [displayName, setDisplayName] = (0, import_react2.useState)(entry.displayName);
+    const adapterId = CATALOG_ADAPTER_TYPE[entry.providerId] ? entry.providerId : "ollamaCloud";
+    const [selectedType, setSelectedType] = (0, import_react2.useState)(adapterId);
+    const meta = ADAPTER_META[selectedType];
     const [baseUrl, setBaseUrl] = (0, import_react2.useState)(entry.baseUrl);
-    const [modelsUrl, setModelsUrl] = (0, import_react2.useState)(entry.modelsUrl?.trim() || `${entry.baseUrl}/models`);
+    const [modelsUrl, setModelsUrl] = (0, import_react2.useState)(
+      entry.modelsUrl?.trim() || (entry.baseUrl ? `${entry.baseUrl}/models` : "")
+    );
+    const [chatEndpoint, setChatEndpoint] = (0, import_react2.useState)(entry.chatEndpoint?.trim() || "");
     const [models, setModels] = (0, import_react2.useState)(entry.models);
     const [defaultModel, setDefaultModel] = (0, import_react2.useState)(entry.defaultModel ?? "");
     const [touched, setTouched] = (0, import_react2.useState)({});
@@ -22158,9 +22218,19 @@
       setInfoPending((prev) => new Set(prev).add(modelId));
       onFetchModelInfo(entry.id, `info_${Date.now().toString(36)}`, modelId);
     };
+    const baseUrlRequired = !meta.baseUrlDefault;
     const errors = {
       displayName: displayName.trim() ? void 0 : "A name is required so you can recognise this provider.",
-      baseUrl: urlPattern.test(baseUrl.trim()) ? void 0 : "Enter a valid endpoint starting with http:// or https://."
+      baseUrl: (() => {
+        const trimmed = baseUrl.trim();
+        if (baseUrlRequired && !trimmed) {
+          return `A base URL is required for ${meta.defaultName}.`;
+        }
+        if (trimmed && !urlPattern.test(trimmed)) {
+          return "Enter a valid endpoint starting with http:// or https://.";
+        }
+        return void 0;
+      })()
     };
     const showError = (field) => touched[field] && errors[field] ? errors[field] : void 0;
     if (modelsFetch && !modelsFetch.pending && modelsFetch.requestId !== lastHandledFetch) {
@@ -22183,6 +22253,16 @@
         return next;
       });
     };
+    const handleAdapterChange = (next) => {
+      setSelectedType(next);
+      if (isNew) {
+        const nextMeta = ADAPTER_META[next];
+        setDisplayName(nextMeta.defaultName);
+        setBaseUrl(nextMeta.baseUrlDefault);
+        setModelsUrl(nextMeta.baseUrlDefault ? `${nextMeta.baseUrlDefault}/models` : "");
+        setTouched({});
+      }
+    };
     const addSelectedModels = () => {
       setModels((prev) => mergeFetchedModels(prev, [...selected]));
       setFetchedModels(null);
@@ -22197,9 +22277,14 @@
       onSave({
         entry: {
           ...entry,
-          displayName: displayName.trim(),
-          baseUrl: baseUrl.trim(),
-          modelsUrl: modelsUrl.trim(),
+          providerId: selectedType,
+          // adapter → core pipeline uses this
+          displayName: displayName.trim() || meta.defaultName,
+          baseUrl: baseUrl.trim() || meta.baseUrlDefault,
+          // Empty modelsUrl → the adapter's own default (e.g. {base}/v1/models) applies.
+          modelsUrl: modelsUrl.trim() || void 0,
+          // Empty chatEndpoint → the adapter's default chat path applies.
+          chatEndpoint: chatEndpoint.trim() || void 0,
           models,
           defaultModel: models.some((m) => m.id === defaultModel) ? defaultModel : models[0]?.id
         }
@@ -22209,6 +22294,29 @@
       /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "page-header", children: [
         /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("h1", { className: "heading", children: isNew ? "Add provider" : "Edit provider" }),
         /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("button", { type: "button", className: "btn btn--ghost", onClick: onCancel, "aria-label": "Cancel", children: "Cancel" })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "field", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("label", { className: "field__label", htmlFor: "f-adapter", children: "Adapter" }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+          "select",
+          {
+            id: "f-adapter",
+            className: "input",
+            value: selectedType,
+            disabled: !isNew,
+            title: !isNew ? "Adapter of a saved provider cannot be changed." : void 0,
+            onChange: (e) => handleAdapterChange(e.target.value),
+            children: PROVIDER_CATALOG.map((p) => /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("option", { value: p.providerId, children: [
+              p.displayName,
+              " \u2014 ",
+              ADAPTER_META[p.providerId].description
+            ] }, p.providerId))
+          }
+        ),
+        !isNew ? /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("p", { className: "field__hint", children: [
+          "Set when the provider was created. ",
+          meta.adapterType
+        ] }) : /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { className: "field__hint", children: "Pick the adapter that matches your service, then fill in its settings below." })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "field", children: [
         /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("label", { className: "field__label", htmlFor: "f-name", children: "Name" }),
@@ -22229,6 +22337,7 @@
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "field", children: [
         /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("label", { className: "field__label", htmlFor: "f-url", children: "Endpoint URL" }),
+        baseUrlRequired && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "field__label-required", "aria-hidden": "true", children: " *" }),
         /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
           "input",
           {
@@ -22236,14 +22345,18 @@
             className: "input",
             type: "url",
             value: baseUrl,
+            placeholder: meta.baseUrlPlaceholder,
             onChange: (e) => setBaseUrl(e.target.value),
             onBlur: () => setTouched((t) => ({ ...t, baseUrl: true })),
-            "aria-required": "true",
+            "aria-required": baseUrlRequired ? "true" : void 0,
             "aria-invalid": showError("baseUrl") ? "true" : void 0,
             "aria-describedby": showError("baseUrl") ? "f-url-err" : void 0
           }
         ),
-        showError("baseUrl") ? /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { className: "field__error", id: "f-url-err", children: showError("baseUrl") }) : /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { className: "field__hint", children: "OpenAI-compatible base URL." })
+        showError("baseUrl") ? /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { className: "field__error", id: "f-url-err", children: showError("baseUrl") }) : /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("p", { className: "field__hint", children: [
+          "OpenAI-compatible base URL. ",
+          meta.baseUrlDefault ? `Defaults to ${meta.baseUrlDefault}.` : "Required for this adapter."
+        ] })
       ] }),
       !isNew && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
         KeysEditor,
@@ -22256,78 +22369,102 @@
           onSetActiveKey: (keyId) => onSetActiveKey(entry.id, keyId)
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "field", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("label", { className: "field__label", htmlFor: "f-models-url", children: "Models URL" }),
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
-          "input",
-          {
-            id: "f-models-url",
-            className: "input",
-            type: "url",
-            value: modelsUrl,
-            onChange: (e) => setModelsUrl(e.target.value),
-            "aria-describedby": "f-models-url-hint"
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { className: "field__hint", id: "f-models-url-hint", children: "Where the model list is fetched from. Uses the active API key." }),
-        !isNew && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "models-fetch", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "advanced", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("details", { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("summary", { className: "advanced__summary", children: "Advanced options" }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "field", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("label", { className: "field__label", htmlFor: "f-models-url", children: "Models URL" }),
           /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
-            "button",
+            "input",
             {
-              type: "button",
-              className: "btn",
-              disabled: modelsFetch?.pending === true,
-              title: modelsFetch?.pending ? "Fetching\u2026" : void 0,
-              onClick: () => onFetchModels(entry.id, `req_${Date.now().toString(36)}`),
-              children: modelsFetch?.pending ? "Fetching\u2026" : "Fetch models from API"
+              id: "f-models-url",
+              className: "input",
+              type: "url",
+              value: modelsUrl,
+              placeholder: meta.modelsUrlPlaceholder,
+              onChange: (e) => setModelsUrl(e.target.value),
+              "aria-describedby": "f-models-url-hint"
             }
           ),
-          modelsFetch?.error && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { className: "field__error", children: modelsFetch.error }),
-          fetchedModels && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "model-pick", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "model-pick__head", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("span", { className: "field__hint", children: [
-                fetchedModels.length,
-                " available \u2014 pick the ones to add:"
-              ] }),
-              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
-                "button",
-                {
-                  type: "button",
-                  className: "btn btn--ghost",
-                  onClick: () => setFetchedModels(null),
-                  children: "Dismiss"
-                }
-              )
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("ul", { className: "model-pick__list", children: fetchedModels.map((id) => /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("label", { className: "check", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
-                "input",
-                {
-                  type: "checkbox",
-                  checked: selected.has(id),
-                  onChange: () => toggleSelected(id)
-                }
-              ),
-              models.some((m) => m.id === id) ? `${id} (already added)` : id
-            ] }) }, id)) }),
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("p", { className: "field__hint", id: "f-models-url-hint", children: [
+            "Where the model list is fetched from. Uses the active API key. Empty \u2192 ",
+            meta.modelsUrlPlaceholder,
+            "."
+          ] }),
+          !isNew && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "models-fetch", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
               "button",
               {
                 type: "button",
-                className: "btn btn--primary",
-                disabled: selected.size === 0,
-                title: selected.size === 0 ? "Select at least one model" : void 0,
-                onClick: addSelectedModels,
-                children: [
-                  "Add ",
-                  selected.size > 0 ? `${selected.size} ` : "",
-                  "selected"
-                ]
+                className: "btn",
+                disabled: modelsFetch?.pending === true,
+                title: modelsFetch?.pending ? "Fetching\u2026" : void 0,
+                onClick: () => onFetchModels(entry.id, `req_${Date.now().toString(36)}`),
+                children: modelsFetch?.pending ? "Fetching\u2026" : "Fetch models from API"
               }
-            )
+            ),
+            modelsFetch?.error && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { className: "field__error", children: modelsFetch.error }),
+            fetchedModels && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "model-pick", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "model-pick__head", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("span", { className: "field__hint", children: [
+                  fetchedModels.length,
+                  " available \u2014 pick the ones to add:"
+                ] }),
+                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+                  "button",
+                  {
+                    type: "button",
+                    className: "btn btn--ghost",
+                    onClick: () => setFetchedModels(null),
+                    children: "Dismiss"
+                  }
+                )
+              ] }),
+              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("ul", { className: "model-pick__list", children: fetchedModels.map((id) => /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("label", { className: "check", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+                  "input",
+                  {
+                    type: "checkbox",
+                    checked: selected.has(id),
+                    onChange: () => toggleSelected(id)
+                  }
+                ),
+                models.some((m) => m.id === id) ? `${id} (already added)` : id
+              ] }) }, id)) }),
+              /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+                "button",
+                {
+                  type: "button",
+                  className: "btn btn--primary",
+                  disabled: selected.size === 0,
+                  title: selected.size === 0 ? "Select at least one model" : void 0,
+                  onClick: addSelectedModels,
+                  children: [
+                    "Add ",
+                    selected.size > 0 ? `${selected.size} ` : "",
+                    "selected"
+                  ]
+                }
+              )
+            ] })
           ] })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "field", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("label", { className: "field__label", htmlFor: "f-chat-endpoint", children: "Chat endpoint (optional)" }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+            "input",
+            {
+              id: "f-chat-endpoint",
+              className: "input",
+              type: "text",
+              value: chatEndpoint,
+              placeholder: meta.chatEndpointPlaceholder,
+              onChange: (e) => setChatEndpoint(e.target.value),
+              "aria-describedby": "f-chat-endpoint-hint"
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { className: "field__hint", id: "f-chat-endpoint-hint", children: "Override the chat path. Leave empty to use the provider default." })
         ] })
-      ] }),
+      ] }) }),
       /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
         ModelListEditor,
         {
@@ -22365,12 +22502,14 @@
   var RESPONSE_TYPES_BY_PROVIDER = {
     ollamaCloud: ["chat-completion"],
     openai: ["chat-completion", "response"],
-    anthropic: ["chat-completion"]
+    anthropic: ["chat-completion"],
+    "openai-compatible": ["chat-completion", "response"]
   };
   var RESPONSE_FORMATS_BY_PROVIDER = {
     ollamaCloud: ["text", "json_object"],
     openai: ["text", "json_object"],
-    anthropic: ["text"]
+    anthropic: ["text"],
+    "openai-compatible": ["text", "json_object"]
   };
   function blankEntry(providerId) {
     const catalog = PROVIDER_CATALOG.find((p) => p.providerId === providerId);

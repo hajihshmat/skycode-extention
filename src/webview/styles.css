@@ -381,3 +381,27 @@ select.input {
 	margin: 0;
 	color: var(--sc-muted);
 }
+
+.field__label-required {
+	color: var(--sc-error, #f14c4c);
+	margin-left: 2px;
+}
+
+.advanced {
+	margin-top: 8px;
+}
+
+.advanced__summary {
+	cursor: pointer;
+	color: var(--sc-muted);
+	font-size: 12px;
+	user-select: none;
+}
+
+.advanced__summary:hover {
+	color: var(--sc-fg);
+}
+
+.advanced .field {
+	padding-top: 8px;
+}
