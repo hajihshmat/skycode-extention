@@ -722,6 +722,7 @@ body {
 	place-items: center;
 	border-radius: var(--sc-radius);
 }
+.composer-send--cancel { background: var(--sc-surface-hover); color: var(--sc-ink); }
 .composer-send:disabled { cursor: not-allowed; background: var(--sc-surface-hover); color: var(--sc-muted); }
 .chat-composer__hint { margin: var(--space-xs) 0 0; color: var(--sc-muted); text-align: center; font-size: 0.6875rem; }
 
@@ -756,7 +757,8 @@ body {
 
 @media (hover: hover) {
 	.chat-primary-action:hover,
-	.composer-send:not(:disabled):hover { background: var(--sc-button-hover); }
+	.composer-send:not(:disabled):not(.composer-send--cancel):hover { background: var(--sc-button-hover); }
+	.composer-send--cancel:hover { background: var(--sc-surface-raised); }
 	.chat-suggestion:hover { border-color: var(--sc-accent); background: var(--sc-surface-hover); transform: translateY(-1px); }
 	.composer-tool:hover,
 	.model-popover__option:hover { background: var(--sc-surface-hover); color: var(--sc-ink); }

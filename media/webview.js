@@ -36365,6 +36365,12 @@
   ];
   var Search = createLucideIcon("search", __iconNode9);
 
+  // node_modules/lucide-react/dist/esm/icons/square.mjs
+  var __iconNode10 = [
+    ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }]
+  ];
+  var Square = createLucideIcon("square", __iconNode10);
+
   // src/webview/utils/textDirection.ts
   function detectDirection(text7) {
     const rtlRegex = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/;
@@ -36531,7 +36537,7 @@
     }
     return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { dir, className: "md", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(md.Comp, { remarkPlugins: md.plugins, components: markdownComponents, children: text7 }) });
   }
-  function ChatView({ providers, messages, streaming, onChangeMessages, onOpenSettings, onSend }) {
+  function ChatView({ providers, messages, streaming, onChangeMessages, onOpenSettings, onSend, onCancel }) {
     const [input, setInput] = (0, import_react6.useState)("");
     const [lastPrompt, setLastPrompt] = (0, import_react6.useState)(null);
     const [selected, setSelected] = (0, import_react6.useState)(null);
@@ -36792,12 +36798,13 @@
                 /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "flex shrink-0 items-center gap-1", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
                   "button",
                   {
-                    type: "submit",
-                    title: streaming ? "Sending\u2026" : !target ? "Select a provider first" : "Send",
-                    "aria-label": "Send message",
-                    disabled: streaming || !input.trim() || !target,
-                    className: "composer-send",
-                    children: streaming ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(RefreshCw, { className: "h-4 w-4 animate-spin" }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ArrowUp, { className: "h-4 w-4" })
+                    type: streaming ? "button" : "submit",
+                    title: streaming ? "Cancel response" : !target ? "Select a provider first" : "Send",
+                    "aria-label": streaming ? "Cancel response" : "Send message",
+                    disabled: !streaming && (!input.trim() || !target),
+                    className: `composer-send${streaming ? " composer-send--cancel" : ""}`,
+                    onClick: streaming ? onCancel : void 0,
+                    children: streaming ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Square, { className: "h-3.5 w-3.5" }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ArrowUp, { className: "h-4 w-4" })
                   }
                 ) })
               ] })
@@ -37714,6 +37721,7 @@
     const [infoResults, setInfoResults] = (0, import_react10.useState)([]);
     const [chatMessages, setChatMessages] = (0, import_react10.useState)([]);
     const [streaming, setStreaming] = (0, import_react10.useState)(false);
+    const activeRequestId = (0, import_react10.useRef)(null);
     (0, import_react10.useEffect)(() => {
       const handler = (event) => {
         const msg = event.data;
@@ -37733,11 +37741,15 @@
             setInfoResults((prev) => [...prev, msg]);
             break;
           case "chatChunk":
+            if (activeRequestId.current !== msg.requestId) {
+              break;
+            }
             setChatMessages(
               (prev) => applyChatDelta(prev, { requestId: msg.requestId, text: msg.text, error: msg.error })
             );
             if (msg.done) {
               setStreaming(false);
+              activeRequestId.current = null;
             }
             break;
         }
@@ -37784,6 +37796,7 @@
         onOpenSettings: () => setView("settings"),
         onSend: (track) => {
           setStreaming(true);
+          activeRequestId.current = track.requestId;
           postToHost({
             type: "sendChatMessage",
             providerId: track.providerId,
@@ -37791,6 +37804,15 @@
             messages: track.messages,
             requestId: track.requestId
           });
+        },
+        onCancel: () => {
+          const requestId = activeRequestId.current;
+          if (!requestId) {
+            return;
+          }
+          activeRequestId.current = null;
+          setStreaming(false);
+          postToHost({ type: "cancelChatMessage", requestId });
         }
       }
     );
@@ -37878,6 +37900,7 @@ lucide-react/dist/esm/icons/message-square.mjs:
 lucide-react/dist/esm/icons/paperclip.mjs:
 lucide-react/dist/esm/icons/refresh-cw.mjs:
 lucide-react/dist/esm/icons/search.mjs:
+lucide-react/dist/esm/icons/square.mjs:
 lucide-react/dist/esm/lucide-react.mjs:
   (**
    * @license lucide-react v1.40.0 - ISC

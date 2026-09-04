@@ -55,7 +55,7 @@ export class OpenAIAdapter implements ProviderAdapter {
 			messages: ctx.messages,
 			...(ctx.responseFormat === 'json_object' && { response_format: { type: 'json_object' } }),
 			...ctx.options
-		})) {
+		}, ctx.signal)) {
 			yield parseOpenAiStreamChunk(payload);
 		}
 	}
@@ -147,7 +147,8 @@ export class OpenAIAdapter implements ProviderAdapter {
 				accept: 'text/event-stream',
 				...(ctx.apiKey && { authorization: `Bearer ${ctx.apiKey}` })
 			},
-			body: JSON.stringify(body)
+			body: JSON.stringify(body),
+			signal: ctx.signal
 		});
 		this.checkStatus(response);
 		if (!response.body) {

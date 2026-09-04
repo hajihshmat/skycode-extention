@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { HostToWebviewMessage, ModelInfoFetchedMessage, SkyCodeSettings, WebviewToHostMessage } from '../settings/types';
 import { ChatMessage, ChatTarget, ChatView, applyChatDelta } from './ChatView';
 import { SettingsView } from './SettingsView';
@@ -34,6 +34,7 @@ export function App() {
 	// Tracks whether the current chat completion is still streaming, so the UI can
 	// re-enable the Send button the moment the host reports `done: true`.
 	const [streaming, setStreaming] = useState(false);
+	const activeRequestId = useRef<string | null>(null);
 
 	useEffect(() => {
 		const handler = (event: MessageEvent<HostToWebviewMessage>) => {
@@ -56,12 +57,16 @@ export function App() {
 					setInfoResults(prev => [...prev, msg]);
 					break;
 				case 'chatChunk':
+					if (activeRequestId.current !== msg.requestId) {
+						break;
+					}
 					setChatMessages(prev =>
 						applyChatDelta(prev, { requestId: msg.requestId, text: msg.text, error: msg.error })
 					);
 					// The host always emits a `done: true` chunk on completion or error.
 					if (msg.done) {
 						setStreaming(false);
+						activeRequestId.current = null;
 					}
 					break;
 			}
@@ -114,6 +119,7 @@ export function App() {
 			onOpenSettings={() => setView('settings')}
 			onSend={track => {
 				setStreaming(true);
+				activeRequestId.current = track.requestId;
 				postToHost({
 					type: 'sendChatMessage',
 					providerId: track.providerId,
@@ -121,6 +127,15 @@ export function App() {
 					messages: track.messages,
 					requestId: track.requestId
 				});
+			}}
+			onCancel={() => {
+				const requestId = activeRequestId.current;
+				if (!requestId) {
+					return;
+				}
+				activeRequestId.current = null;
+				setStreaming(false);
+				postToHost({ type: 'cancelChatMessage', requestId });
 			}}
 		/>
 	);

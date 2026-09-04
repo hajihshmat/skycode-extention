@@ -73,7 +73,8 @@ export class AnthropicAdapter implements ProviderAdapter {
 		const response = await fetch(ctx.endpoint, {
 			method: 'POST',
 			headers: this.headers(ctx.apiKey),
-			body: JSON.stringify(body)
+			body: JSON.stringify(body),
+			signal: ctx.signal
 		});
 		this.checkStatus(response);
 		const json = (await response.json()) as {
@@ -124,7 +125,8 @@ export class AnthropicAdapter implements ProviderAdapter {
 		const response = await fetch(ctx.endpoint, {
 			method: 'POST',
 			headers: { ...this.headers(ctx.apiKey), accept: 'text/event-stream' },
-			body: JSON.stringify(body)
+			body: JSON.stringify(body),
+			signal: ctx.signal
 		});
 		this.checkStatus(response);
 		if (!response.body) {

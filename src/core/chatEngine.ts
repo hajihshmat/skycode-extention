@@ -13,6 +13,7 @@ export interface SendChatInput {
 	modelIdentifier: string;
 	messages: ChatMessageInput[];
 	options?: Record<string, unknown>;
+	signal?: AbortSignal;
 }
 
 const MAX_CREDENTIAL_ATTEMPTS = 3;
@@ -188,7 +189,8 @@ export class ChatEngine {
 					model: input.modelIdentifier,
 					messages: input.messages,
 					options: input.options,
-					responseFormat: resolvedStream?.responseFormat ?? 'text'
+					responseFormat: resolvedStream?.responseFormat ?? 'text',
+					signal: input.signal
 				})) {
 					if (!yielded) {
 						yielded = true; // stream started — rotation no longer possible
@@ -207,6 +209,9 @@ export class ChatEngine {
 				}
 				return; // stream ended without a done chunk
 			} catch (err) {
+				if (input.signal?.aborted) {
+					return;
+				}
 				// Mid-stream failure or no credentials involved: report, don't rotate.
 				if (yielded || !activeCredId) {
 					throw err;

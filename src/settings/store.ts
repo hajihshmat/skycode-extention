@@ -42,14 +42,16 @@ export class SettingsStore {
 	async *streamChat(
 		providerId: string,
 		modelIdentifier: string,
-		messages: ChatMessageInput[]
+		messages: ChatMessageInput[],
+		signal?: AbortSignal
 	): AsyncGenerator<ChatStreamChunk> {
 		const engine = new ChatEngine(this.storage, this.providers, this.models, this.credentials);
 		for await (const chunk of engine.sendChatStream({
 			providerId,
 			modelIdentifier,
 			messages,
-			options: {}
+			options: {},
+			signal
 		})) {
 			yield chunk;
 		}

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import type { FormEvent, ReactNode } from 'react';
-import { ArrowUp, Bot, ChevronDown, Copy, MessageSquare, Paperclip, RefreshCw } from 'lucide-react';
+import { ArrowUp, Bot, ChevronDown, Copy, MessageSquare, Paperclip, RefreshCw, Square } from 'lucide-react';
 import type { Components } from 'react-markdown' with { 'resolution-mode': 'import' };
 import { detectDirection } from './utils/textDirection';
 import { ModelSelectorPopover } from './ModelSelectorPopover';
@@ -24,6 +24,7 @@ interface ChatViewProps {
 	onChangeMessages: (next: ChatMessage[]) => void;
 	onOpenSettings: () => void;
 	onSend: (track: { providerId: string; model: string; messages: ChatMessage[]; requestId: string }) => void;
+	onCancel: () => void;
 }
 
 /** Small suggestion prompts shown in the empty (welcome) state. */
@@ -148,7 +149,7 @@ function MarkdownRenderer({ text }: { text: string }) {
 		</div>
 	);
 }
-export function ChatView({ providers, messages, streaming, onChangeMessages, onOpenSettings, onSend }: ChatViewProps) {
+export function ChatView({ providers, messages, streaming, onChangeMessages, onOpenSettings, onSend, onCancel }: ChatViewProps) {
 	const [input, setInput] = useState('');
 	const [lastPrompt, setLastPrompt] = useState<string | null>(null);
 	const [selected, setSelected] = useState<{ p: string; m: string } | null>(null);
@@ -443,13 +444,14 @@ export function ChatView({ providers, messages, streaming, onChangeMessages, onO
 
 							<div className="flex shrink-0 items-center gap-1">
 								<button
-									type="submit"
-									title={streaming ? 'Sending…' : !target ? 'Select a provider first' : 'Send'}
-									aria-label="Send message"
-									disabled={streaming || !input.trim() || !target}
-									className="composer-send"
+									type={streaming ? 'button' : 'submit'}
+									title={streaming ? 'Cancel response' : !target ? 'Select a provider first' : 'Send'}
+									aria-label={streaming ? 'Cancel response' : 'Send message'}
+									disabled={!streaming && (!input.trim() || !target)}
+									className={`composer-send${streaming ? ' composer-send--cancel' : ''}`}
+									onClick={streaming ? onCancel : undefined}
 								>
-									{streaming ? <RefreshCw className="h-4 w-4 animate-spin" /> : <ArrowUp className="h-4 w-4" />}
+									{streaming ? <Square className="h-3.5 w-3.5" /> : <ArrowUp className="h-4 w-4" />}
 								</button>
 							</div>
 						</div>

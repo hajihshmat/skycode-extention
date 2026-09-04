@@ -63,7 +63,7 @@ export class OllamaAdapter implements ProviderAdapter {
 			messages: ctx.messages,
 			...(ctx.responseFormat === 'json_object' && { format: 'json' }),
 			...ctx.options
-		})) {
+		}, ctx.signal)) {
 			yield parseOpenAiStreamChunk(payload);
 		}
 	}

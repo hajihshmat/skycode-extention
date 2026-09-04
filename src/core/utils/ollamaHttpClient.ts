@@ -48,13 +48,19 @@ export class OllamaClient {
 		return headers;
 	}
 
-	private async fetchWithTimeout(url: string, init: RequestInit): Promise<Response> {
+	private async fetchWithTimeout(url: string, init: RequestInit, signal?: AbortSignal): Promise<Response> {
 		const controller = new AbortController();
 		const timer = setTimeout(() => controller.abort(), this.options.timeoutMs);
+		const abort = () => controller.abort();
+		if (signal?.aborted) {
+			abort();
+		}
+		signal?.addEventListener('abort', abort, { once: true });
 		try {
 			return await fetch(url, { ...init, signal: controller.signal });
 		} finally {
 			clearTimeout(timer);
+			signal?.removeEventListener('abort', abort);
 		}
 	}
 
@@ -119,12 +125,12 @@ export class OllamaClient {
 	}
 
 	/** POST {baseUrl}/chat/completions with stream:true; yields SSE data payloads. */
-	async *chatStream(body: ChatRequestBody): AsyncGenerator<SsePayload> {
+	async *chatStream(body: ChatRequestBody, signal?: AbortSignal): AsyncGenerator<SsePayload> {
 		const response = await this.fetchWithTimeout(`${this.options.baseUrl}/chat/completions`, {
 			method: 'POST',
 			headers: this.headers(),
 			body: JSON.stringify({ ...body, stream: true })
-		});
+		}, signal);
 		this.handleStatus(response);
 
 		if (!response.body) {

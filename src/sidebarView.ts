@@ -35,6 +35,7 @@ export class SkyCodeSidebarProvider implements vscode.WebviewViewProvider {
 	public static readonly viewId = 'skycode.sidebar';
 
 	private webviewView?: vscode.WebviewView;
+	private readonly activeChatRequests = new Map<string, AbortController>();
 
 	constructor(
 		private readonly context: vscode.ExtensionContext,
@@ -108,11 +109,20 @@ export class SkyCodeSidebarProvider implements vscode.WebviewViewProvider {
 				await this.fetchModelInfo(msg.providerId, msg.requestId, msg.modelId, webview);
 				break;
 			case 'sendChatMessage':
-					await this.streamChatMessage(
+					if (this.activeChatRequests.has(msg.requestId)) {
+						break;
+					}
+					const controller = new AbortController();
+					this.activeChatRequests.set(msg.requestId, controller);
+					void this.streamChatMessage(
 						{ providerId: msg.providerId, modelIdentifier: msg.modelIdentifier, messages: msg.messages, requestId: msg.requestId },
-						webview
+						webview,
+						controller
 					);
 					break;
+			case 'cancelChatMessage':
+				this.activeChatRequests.get(msg.requestId)?.abort();
+				break;
 		}
 	}
 
@@ -189,10 +199,11 @@ export class SkyCodeSidebarProvider implements vscode.WebviewViewProvider {
 	/** Stream a chat completion through the core ChatEngine and relay deltas. */
 	private async streamChatMessage(
 		msg: { providerId: string; modelIdentifier: string; messages: ChatMessageInput[]; requestId: string },
-		webview: vscode.Webview
+		webview: vscode.Webview,
+		controller: AbortController
 	): Promise<void> {
 		try {
-			for await (const chunk of this.store.streamChat(msg.providerId, msg.modelIdentifier, msg.messages)) {
+			for await (const chunk of this.store.streamChat(msg.providerId, msg.modelIdentifier, msg.messages, controller.signal)) {
 				await webview.postMessage({
 					type: 'chatChunk',
 					requestId: msg.requestId,
@@ -207,6 +218,10 @@ export class SkyCodeSidebarProvider implements vscode.WebviewViewProvider {
 				done: true
 			} satisfies HostToWebviewMessage);
 		} catch (err) {
+			if (controller.signal.aborted) {
+				await webview.postMessage({ type: 'chatChunk', requestId: msg.requestId, text: '', done: true } satisfies HostToWebviewMessage);
+				return;
+			}
 			const message = err instanceof Error ? err.message : String(err);
 			await webview.postMessage({
 				type: 'chatChunk',
@@ -215,6 +230,8 @@ export class SkyCodeSidebarProvider implements vscode.WebviewViewProvider {
 				done: true,
 				error: message
 			} satisfies HostToWebviewMessage);
+		} finally {
+			this.activeChatRequests.delete(msg.requestId);
 		}
 	}
 

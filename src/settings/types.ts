@@ -211,6 +211,12 @@ export interface SendChatMessage {
 	requestId: string;
 }
 
+/** Cancel one in-flight chat stream. */
+export interface CancelChatMessage {
+	type: 'cancelChatMessage';
+	requestId: string;
+}
+
 export type WebviewToHostMessage =
 	| SaveProviderMessage
 	| DeleteProviderMessage
@@ -220,4 +226,5 @@ export type WebviewToHostMessage =
 	| FetchModelsMessage
 	| FetchModelInfoMessage
 	| SendChatMessage
+	| CancelChatMessage
 	| ReadyMessage;

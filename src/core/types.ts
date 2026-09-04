@@ -123,6 +123,8 @@ export interface ChatRequestContext {
 	options?: Record<string, unknown>;
 	/** Requested output format; adapters map it to their own wire fields. */
 	responseFormat?: ResponseFormat;
+	/** Cancels the in-flight provider request when the user stops generation. */
+	signal?: AbortSignal;
 }
 
 export interface ChatResponse {
