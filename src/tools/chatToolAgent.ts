@@ -1,11 +1,12 @@
 import * as vscode from 'vscode';
 import { exec } from 'child_process';
 import { ChatMessageInput } from '../core/types';
+import { ChatToolName } from '../settings/types';
 
 const MAX_STEPS = 8;
 const MAX_OUTPUT_CHARS = 12_000;
 
-type ToolName = 'read-file' | 'check-workspace' | 'edit-file' | 'delete-file' | 'run-command';
+export type ToolName = ChatToolName;
 
 interface ToolCall {
 	type: 'tool';
@@ -18,12 +19,18 @@ interface FinalReply {
 	content: string;
 }
 
+export interface ToolAgentEvents {
+	activity?: (event: { activityId: string; tool: ToolName; summary: string; status: 'waiting' | 'running' | 'complete' | 'failed'; detail?: string }) => void;
+	requestApproval?: (call: ToolCall, summary: string, signal: AbortSignal) => Promise<boolean>;
+}
+
 const AGENT_INSTRUCTIONS = `You are SkyCode, a coding assistant with workspace tools.
 You must respond with JSON only, never Markdown or explanations outside JSON.
 To use one tool, respond exactly with {"type":"tool","name":"TOOL_NAME","arguments":{...}}.
 Available tools:
 - read-file: {"path":"relative/file.ts","startLine":1,"endLine":120}
 - check-workspace: {}
+- create-file: {"path":"relative/new-file.ts","content":"complete file contents"}; only for a new file.
 - edit-file: {"path":"relative/file.ts","startLine":1,"endLine":1,"content":"replacement text"}; replaces inclusive lines.
 - delete-file: {"path":"relative/file.ts"}
 - run-command: {"command":"npm test","cwd":"relative/optional"}
@@ -35,7 +42,8 @@ If no tool is needed, finish with a final reply.`;
 export class ChatToolAgent {
 	constructor(
 		private readonly complete: (messages: ChatMessageInput[], signal: AbortSignal) => Promise<string>,
-		private readonly output: vscode.OutputChannel
+		private readonly output: vscode.OutputChannel,
+		private readonly events: ToolAgentEvents = {}
 	) {}
 
 	async run(messages: ChatMessageInput[], autoApprove: boolean, signal: AbortSignal): Promise<string> {
@@ -61,31 +69,53 @@ export class ChatToolAgent {
 	}
 
 	private async execute(call: ToolCall, autoApprove: boolean, signal: AbortSignal): Promise<string> {
+		const activityId = `tool-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+		const summary = toolSummary(call);
+		this.events.activity?.({ activityId, tool: call.name, summary, status: 'running' });
 		try {
+			let result: string;
 			switch (call.name) {
 				case 'read-file':
-					return this.readFile(call.arguments);
+					result = await this.readFile(call.arguments);
+					break;
 				case 'check-workspace':
-					return this.checkWorkspace();
+					result = await this.checkWorkspace();
+					break;
+				case 'create-file':
+					if (!(await this.approve(call, autoApprove, activityId, summary, signal))) {
+						result = 'Denied by user.';
+						break;
+					}
+					result = await this.createFile(call.arguments);
+					break;
 				case 'edit-file':
-					if (!(await this.approve(call, autoApprove))) {
-						return 'Denied by user.';
+					if (!(await this.approve(call, autoApprove, activityId, summary, signal))) {
+						result = 'Denied by user.';
+						break;
 					}
-					return this.editFile(call.arguments);
+					result = await this.editFile(call.arguments);
+					break;
 				case 'delete-file':
-					if (!(await this.approve(call, autoApprove))) {
-						return 'Denied by user.';
+					if (!(await this.approve(call, autoApprove, activityId, summary, signal))) {
+						result = 'Denied by user.';
+						break;
 					}
-					return this.deleteFile(call.arguments);
+					result = await this.deleteFile(call.arguments);
+					break;
 				case 'run-command':
-					if (!(await this.approve(call, autoApprove))) {
-						return 'Denied by user.';
+					if (!(await this.approve(call, autoApprove, activityId, summary, signal))) {
+						result = 'Denied by user.';
+						break;
 					}
-					return this.runCommand(call.arguments, signal);
+					result = await this.runCommand(call.arguments, signal);
+					break;
 			}
+			this.events.activity?.({ activityId, tool: call.name, summary, status: 'complete', detail: shortDetail(result) });
+			return result;
 		} catch (error) {
 			const message = error instanceof Error ? error.message : String(error);
 			this.output.appendLine(`Tool ${call.name} failed: ${message}`);
+			this.events.activity?.({ activityId, tool: call.name, summary, status: 'failed', detail: message });
 			return `Tool failed: ${message}`;
 		}
 	}
@@ -132,6 +162,23 @@ export class ChatToolAgent {
 		return `Edited ${vscode.workspace.asRelativePath(uri, false)} lines ${startLine + 1}-${endLine + 1}.`;
 	}
 
+	private async createFile(args: Record<string, unknown>): Promise<string> {
+		const relativePath = stringArg(args, 'path');
+		const uri = this.workspaceFile(relativePath);
+		try {
+			await vscode.workspace.fs.stat(uri);
+			throw new Error('The file already exists. Use edit-file instead.');
+		} catch (error) {
+			if (!(error instanceof vscode.FileSystemError) || error.code !== 'FileNotFound') {
+				throw error;
+			}
+		}
+		const segments = relativePath.replace(/\\/g, '/').split('/').filter(Boolean);
+		await vscode.workspace.fs.createDirectory(vscode.Uri.joinPath(this.workspaceFolder().uri, ...segments.slice(0, -1)));
+		await vscode.workspace.fs.writeFile(uri, Buffer.from(stringArg(args, 'content'), 'utf8'));
+		return `Created ${vscode.workspace.asRelativePath(uri, false)}.`;
+	}
+
 	private async deleteFile(args: Record<string, unknown>): Promise<string> {
 		const uri = this.workspaceFile(stringArg(args, 'path'));
 		const stat = await vscode.workspace.fs.stat(uri);
@@ -163,19 +210,16 @@ export class ChatToolAgent {
 		});
 	}
 
-	private async approve(call: ToolCall, autoApprove: boolean): Promise<boolean> {
+	private async approve(call: ToolCall, autoApprove: boolean, activityId: string, summary: string, signal: AbortSignal): Promise<boolean> {
 		if (autoApprove) {
 			return true;
 		}
-		const detail = call.name === 'run-command'
-			? stringArg(call.arguments, 'command')
-			: stringArg(call.arguments, 'path');
-		const choice = await vscode.window.showWarningMessage(
-			`SkyCode wants to ${call.name}: ${detail}`,
-			{ modal: true },
-			'Allow once'
-		);
-		return choice === 'Allow once';
+		this.events.activity?.({ activityId, tool: call.name, summary, status: 'waiting' });
+		const approved = await this.events.requestApproval?.(call, summary, signal);
+		if (approved) {
+			this.events.activity?.({ activityId, tool: call.name, summary, status: 'running' });
+		}
+		return approved === true;
 	}
 
 	private workspaceFolder(): vscode.WorkspaceFolder {
@@ -217,7 +261,25 @@ function parseAgentResponse(raw: string): ToolCall | FinalReply | undefined {
 }
 
 function isToolName(value: unknown): value is ToolName {
-	return value === 'read-file' || value === 'check-workspace' || value === 'edit-file' || value === 'delete-file' || value === 'run-command';
+	return value === 'read-file' || value === 'check-workspace' || value === 'create-file' || value === 'edit-file' || value === 'delete-file' || value === 'run-command';
+}
+
+function toolSummary(call: ToolCall): string {
+	if (call.name === 'check-workspace') {
+		return 'Inspect workspace files';
+	}
+	if (call.name === 'run-command') {
+		return `Run ${stringArg(call.arguments, 'command').replace(/\s+/g, ' ').slice(0, 140)}`;
+	}
+	const path = stringArg(call.arguments, 'path');
+	if (call.name === 'edit-file') {
+		return `Edit ${path} (lines ${positiveInt(call.arguments.startLine, 1)}–${positiveInt(call.arguments.endLine, 1)})`;
+	}
+	return `${call.name.replace('-', ' ')} ${path}`;
+}
+
+function shortDetail(value: string): string {
+	return value.replace(/\s+/g, ' ').slice(0, 180);
 }
 
 function stringArg(args: Record<string, unknown>, key: string): string {

@@ -3,7 +3,7 @@ import { SettingsStore } from './settings/store';
 import { HostToWebviewMessage, WebviewToHostMessage } from './settings/types';
 import { getAdapter } from './core/adapterRegistry';
 import { ChatMessageInput, ProviderEntity } from './core/types';
-import { ChatToolAgent } from './tools/chatToolAgent';
+import { ChatToolAgent, ToolName } from './tools/chatToolAgent';
 
 /** UI catalog id → core adapter type ('ollamaCloud' → 'ollama'; others identity). */
 function uiToAdapterType(uiId: string): string {
@@ -37,6 +37,7 @@ export class SkyCodeSidebarProvider implements vscode.WebviewViewProvider {
 
 	private webviewView?: vscode.WebviewView;
 	private readonly activeChatRequests = new Map<string, AbortController>();
+	private readonly pendingToolApprovals = new Map<string, (approved: boolean) => void>();
 
 	constructor(
 		private readonly context: vscode.ExtensionContext,
@@ -124,6 +125,10 @@ export class SkyCodeSidebarProvider implements vscode.WebviewViewProvider {
 					break;
 			case 'cancelChatMessage':
 				this.activeChatRequests.get(msg.requestId)?.abort();
+				this.resolvePendingApprovals(msg.requestId, false);
+				break;
+			case 'resolveToolApproval':
+				this.resolveToolApproval(msg.requestId, msg.approvalId, msg.approved);
 				break;
 		}
 	}
@@ -207,7 +212,13 @@ export class SkyCodeSidebarProvider implements vscode.WebviewViewProvider {
 		try {
 			const tools = new ChatToolAgent(
 				(messages, signal) => this.store.completeMessages(msg.providerId, msg.modelIdentifier, messages, signal, { temperature: 0.2, max_tokens: 1_000 }),
-				this.output
+				this.output,
+				{
+					activity: event => {
+						void webview.postMessage({ type: 'toolActivity', requestId: msg.requestId, ...event } satisfies HostToWebviewMessage);
+					},
+					requestApproval: (call, summary, signal) => this.requestToolApproval(msg.requestId, call.name, summary, webview, signal)
+				}
 			);
 			const response = await tools.run(msg.messages, msg.autoApproveTools, controller.signal);
 			if (controller.signal.aborted) {
@@ -233,7 +244,36 @@ export class SkyCodeSidebarProvider implements vscode.WebviewViewProvider {
 				error: message
 			} satisfies HostToWebviewMessage);
 		} finally {
+			this.resolvePendingApprovals(msg.requestId, false);
 			this.activeChatRequests.delete(msg.requestId);
+		}
+	}
+
+	private requestToolApproval(requestId: string, tool: ToolName, summary: string, webview: vscode.Webview, signal: AbortSignal): Promise<boolean> {
+		const approvalId = `approval-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+		return new Promise(resolve => {
+			const key = `${requestId}:${approvalId}`;
+			const finish = (approved: boolean) => {
+				this.pendingToolApprovals.delete(key);
+				signal.removeEventListener('abort', cancel);
+				resolve(approved);
+			};
+			const cancel = () => finish(false);
+			this.pendingToolApprovals.set(key, finish);
+			signal.addEventListener('abort', cancel, { once: true });
+			void webview.postMessage({ type: 'toolApprovalRequested', requestId, approvalId, tool, summary } satisfies HostToWebviewMessage);
+		});
+	}
+
+	private resolveToolApproval(requestId: string, approvalId: string, approved: boolean): void {
+		this.pendingToolApprovals.get(`${requestId}:${approvalId}`)?.(approved);
+	}
+
+	private resolvePendingApprovals(requestId: string, approved: boolean): void {
+		for (const [key, resolve] of this.pendingToolApprovals) {
+			if (key.startsWith(`${requestId}:`)) {
+				resolve(approved);
+			}
 		}
 	}
 

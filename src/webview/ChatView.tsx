@@ -4,6 +4,7 @@ import { ArrowUp, Bot, ChevronDown, Copy, MessageSquare, Paperclip, RefreshCw, S
 import type { Components } from 'react-markdown' with { 'resolution-mode': 'import' };
 import { detectDirection } from './utils/textDirection';
 import { ModelSelectorPopover } from './ModelSelectorPopover';
+import type { ToolActivityMessage, ToolApprovalRequestedMessage } from '../settings/types';
 
 export interface ChatMessage {
 	role: 'user' | 'assistant';
@@ -21,10 +22,13 @@ interface ChatViewProps {
 	providers: ChatTarget[];
 	messages: ChatMessage[];
 	streaming: boolean;
+	toolActivities: ToolActivityMessage[];
+	toolApprovals: ToolApprovalRequestedMessage[];
 	onChangeMessages: (next: ChatMessage[]) => void;
 	onOpenSettings: () => void;
 	onSend: (track: { providerId: string; model: string; messages: ChatMessage[]; requestId: string; autoApproveTools: boolean }) => void;
 	onCancel: () => void;
+	onResolveToolApproval: (approval: ToolApprovalRequestedMessage, approved: boolean) => void;
 }
 
 /** Small suggestion prompts shown in the empty (welcome) state. */
@@ -149,7 +153,7 @@ function MarkdownRenderer({ text }: { text: string }) {
 		</div>
 	);
 }
-export function ChatView({ providers, messages, streaming, onChangeMessages, onOpenSettings, onSend, onCancel }: ChatViewProps) {
+export function ChatView({ providers, messages, streaming, toolActivities, toolApprovals, onChangeMessages, onOpenSettings, onSend, onCancel, onResolveToolApproval }: ChatViewProps) {
 	const [input, setInput] = useState('');
 	const [lastPrompt, setLastPrompt] = useState<string | null>(null);
 	const [selected, setSelected] = useState<{ p: string; m: string } | null>(null);
@@ -169,7 +173,7 @@ export function ChatView({ providers, messages, streaming, onChangeMessages, onO
 	// Keep the composer growing smoothly when streaming.
 	useEffect(() => {
 		messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-	}, [messages]);
+	}, [messages, toolActivities, toolApprovals]);
 
 	// Close the model popover when clicking/tapping outside of it.
 	useEffect(() => {
@@ -366,6 +370,29 @@ export function ChatView({ providers, messages, streaming, onChangeMessages, onO
 								</div>
 							)
 						)}
+						{toolActivities.length > 0 && (
+							<div className="tool-timeline" aria-label="Tool activity">
+								{toolActivities.map(activity => (
+									<div key={activity.activityId} className={`tool-card tool-card--${activity.status}`}>
+										<div className="tool-card__head">
+											<span className="tool-card__name">{activity.tool.replace('-', ' ')}</span>
+											<span className="tool-card__status">{activity.status}</span>
+										</div>
+										<p>{activity.summary}</p>
+										{activity.detail && <p className="tool-card__detail">{activity.detail}</p>}
+									</div>
+								))}
+							</div>
+						)}
+						{toolApprovals.map(approval => (
+							<div key={approval.approvalId} className="tool-approval" role="group" aria-label="Tool permission request">
+								<p>SkyCode wants to <strong>{approval.summary}</strong></p>
+								<div className="tool-approval__actions">
+									<button type="button" className="tool-action tool-action--allow" onClick={() => onResolveToolApproval(approval, true)}>Allow once</button>
+									<button type="button" className="tool-action" onClick={() => onResolveToolApproval(approval, false)}>Reject</button>
+								</div>
+							</div>
+						))}
 						<div ref={messagesEndRef} />
 					</div>
 				)}

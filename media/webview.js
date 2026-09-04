@@ -36570,7 +36570,7 @@
     }
     return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { dir, className: "md", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(md.Comp, { remarkPlugins: md.plugins, components: markdownComponents, children: text7 }) });
   }
-  function ChatView({ providers, messages, streaming, onChangeMessages, onOpenSettings, onSend, onCancel }) {
+  function ChatView({ providers, messages, streaming, toolActivities, toolApprovals, onChangeMessages, onOpenSettings, onSend, onCancel, onResolveToolApproval }) {
     const [input, setInput] = (0, import_react6.useState)("");
     const [lastPrompt, setLastPrompt] = (0, import_react6.useState)(null);
     const [selected, setSelected] = (0, import_react6.useState)(null);
@@ -36585,7 +36585,7 @@
     const target = selected && sorted.some((s) => s.id === selected.p && s.model === selected.m) ? sorted.find((s) => s.id === selected.p && s.model === selected.m) : sorted[0];
     (0, import_react6.useEffect)(() => {
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, [messages]);
+    }, [messages, toolActivities, toolApprovals]);
     (0, import_react6.useEffect)(() => {
       if (!modelMenuOpen) {
         return;
@@ -36751,6 +36751,24 @@
             ] })
           ] }, i)
         ),
+        toolActivities.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "tool-timeline", "aria-label": "Tool activity", children: toolActivities.map((activity) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: `tool-card tool-card--${activity.status}`, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "tool-card__head", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "tool-card__name", children: activity.tool.replace("-", " ") }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "tool-card__status", children: activity.status })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { children: activity.summary }),
+          activity.detail && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: "tool-card__detail", children: activity.detail })
+        ] }, activity.activityId)) }),
+        toolApprovals.map((approval) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "tool-approval", role: "group", "aria-label": "Tool permission request", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("p", { children: [
+            "SkyCode wants to ",
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("strong", { children: approval.summary })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "tool-approval__actions", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", className: "tool-action tool-action--allow", onClick: () => onResolveToolApproval(approval, true), children: "Allow once" }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", className: "tool-action", onClick: () => onResolveToolApproval(approval, false), children: "Reject" })
+          ] })
+        ] }, approval.approvalId)),
         /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { ref: messagesEndRef })
       ] }) }),
       /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "chat-composer-area", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "chat-composer-wrap", children: [
@@ -37771,6 +37789,8 @@
     const [infoResults, setInfoResults] = (0, import_react10.useState)([]);
     const [chatMessages, setChatMessages] = (0, import_react10.useState)([]);
     const [streaming, setStreaming] = (0, import_react10.useState)(false);
+    const [toolActivities, setToolActivities] = (0, import_react10.useState)([]);
+    const [toolApprovals, setToolApprovals] = (0, import_react10.useState)([]);
     const activeRequestId = (0, import_react10.useRef)(null);
     (0, import_react10.useEffect)(() => {
       const handler = (event) => {
@@ -37799,7 +37819,21 @@
             );
             if (msg.done) {
               setStreaming(false);
+              setToolApprovals((prev) => prev.filter((approval) => approval.requestId !== msg.requestId));
               activeRequestId.current = null;
+            }
+            break;
+          case "toolActivity":
+            if (activeRequestId.current === msg.requestId) {
+              setToolActivities((prev) => {
+                const index2 = prev.findIndex((activity) => activity.activityId === msg.activityId);
+                return index2 < 0 ? [...prev, msg] : [...prev.slice(0, index2), msg, ...prev.slice(index2 + 1)];
+              });
+            }
+            break;
+          case "toolApprovalRequested":
+            if (activeRequestId.current === msg.requestId) {
+              setToolApprovals((prev) => [...prev, msg]);
             }
             break;
         }
@@ -37842,10 +37876,14 @@
         providers: withChatTargets(settings),
         messages: chatMessages,
         streaming,
+        toolActivities,
+        toolApprovals,
         onChangeMessages: setChatMessages,
         onOpenSettings: () => setView("settings"),
         onSend: (track) => {
           setStreaming(true);
+          setToolActivities([]);
+          setToolApprovals([]);
           activeRequestId.current = track.requestId;
           postToHost({
             type: "sendChatMessage",
@@ -37863,7 +37901,12 @@
           }
           activeRequestId.current = null;
           setStreaming(false);
+          setToolApprovals([]);
           postToHost({ type: "cancelChatMessage", requestId });
+        },
+        onResolveToolApproval: (approval, approved) => {
+          setToolApprovals((prev) => prev.filter((item) => item.approvalId !== approval.approvalId));
+          postToHost({ type: "resolveToolApproval", requestId: approval.requestId, approvalId: approval.approvalId, approved });
         }
       }
     );

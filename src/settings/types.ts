@@ -130,12 +130,36 @@ export interface ChatChunkMessage {
 	error?: string;
 }
 
+export type ChatToolName = 'read-file' | 'check-workspace' | 'create-file' | 'edit-file' | 'delete-file' | 'run-command';
+
+/** A visible status update while the assistant uses a workspace tool. */
+export interface ToolActivityMessage {
+	type: 'toolActivity';
+	requestId: string;
+	activityId: string;
+	tool: ChatToolName;
+	summary: string;
+	status: 'waiting' | 'running' | 'complete' | 'failed';
+	detail?: string;
+}
+
+/** A workspace-changing operation awaiting the user's decision in the chat UI. */
+export interface ToolApprovalRequestedMessage {
+	type: 'toolApprovalRequested';
+	requestId: string;
+	approvalId: string;
+	tool: ChatToolName;
+	summary: string;
+}
+
 export type HostToWebviewMessage =
 	| SettingsUpdatedMessage
 	| NavigateMessage
 	| ModelsFetchedMessage
 	| ModelInfoFetchedMessage
-	| ChatChunkMessage;
+	| ChatChunkMessage
+	| ToolActivityMessage
+	| ToolApprovalRequestedMessage;
 
 /* --- Messages: webview -> host --- */
 export interface SaveProviderMessage {
@@ -219,6 +243,14 @@ export interface CancelChatMessage {
 	requestId: string;
 }
 
+/** Resolve a tool approval card displayed in the webview. */
+export interface ResolveToolApprovalMessage {
+	type: 'resolveToolApproval';
+	requestId: string;
+	approvalId: string;
+	approved: boolean;
+}
+
 export type WebviewToHostMessage =
 	| SaveProviderMessage
 	| DeleteProviderMessage
@@ -229,4 +261,5 @@ export type WebviewToHostMessage =
 	| FetchModelInfoMessage
 	| SendChatMessage
 	| CancelChatMessage
+	| ResolveToolApprovalMessage
 	| ReadyMessage;

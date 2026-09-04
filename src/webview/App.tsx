@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { HostToWebviewMessage, ModelInfoFetchedMessage, SkyCodeSettings, WebviewToHostMessage } from '../settings/types';
+import { HostToWebviewMessage, ModelInfoFetchedMessage, SkyCodeSettings, ToolActivityMessage, ToolApprovalRequestedMessage, WebviewToHostMessage } from '../settings/types';
 import { ChatMessage, ChatTarget, ChatView, applyChatDelta } from './ChatView';
 import { SettingsView } from './SettingsView';
 import { ModelsFetchState } from './ProviderForm';
@@ -34,6 +34,8 @@ export function App() {
 	// Tracks whether the current chat completion is still streaming, so the UI can
 	// re-enable the Send button the moment the host reports `done: true`.
 	const [streaming, setStreaming] = useState(false);
+	const [toolActivities, setToolActivities] = useState<ToolActivityMessage[]>([]);
+	const [toolApprovals, setToolApprovals] = useState<ToolApprovalRequestedMessage[]>([]);
 	const activeRequestId = useRef<string | null>(null);
 
 	useEffect(() => {
@@ -66,7 +68,21 @@ export function App() {
 					// The host always emits a `done: true` chunk on completion or error.
 					if (msg.done) {
 						setStreaming(false);
+						setToolApprovals(prev => prev.filter(approval => approval.requestId !== msg.requestId));
 						activeRequestId.current = null;
+					}
+					break;
+				case 'toolActivity':
+					if (activeRequestId.current === msg.requestId) {
+						setToolActivities(prev => {
+							const index = prev.findIndex(activity => activity.activityId === msg.activityId);
+							return index < 0 ? [...prev, msg] : [...prev.slice(0, index), msg, ...prev.slice(index + 1)];
+						});
+					}
+					break;
+				case 'toolApprovalRequested':
+					if (activeRequestId.current === msg.requestId) {
+						setToolApprovals(prev => [...prev, msg]);
 					}
 					break;
 			}
@@ -115,10 +131,14 @@ export function App() {
 			providers={withChatTargets(settings)}
 			messages={chatMessages}
 			streaming={streaming}
+			toolActivities={toolActivities}
+			toolApprovals={toolApprovals}
 			onChangeMessages={setChatMessages}
 			onOpenSettings={() => setView('settings')}
 			onSend={track => {
 				setStreaming(true);
+				setToolActivities([]);
+				setToolApprovals([]);
 				activeRequestId.current = track.requestId;
 				postToHost({
 					type: 'sendChatMessage',
@@ -136,7 +156,12 @@ export function App() {
 				}
 				activeRequestId.current = null;
 				setStreaming(false);
+				setToolApprovals([]);
 				postToHost({ type: 'cancelChatMessage', requestId });
+			}}
+			onResolveToolApproval={(approval, approved) => {
+				setToolApprovals(prev => prev.filter(item => item.approvalId !== approval.approvalId));
+				postToHost({ type: 'resolveToolApproval', requestId: approval.requestId, approvalId: approval.approvalId, approved });
 			}}
 		/>
 	);
