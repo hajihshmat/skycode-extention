@@ -6,12 +6,24 @@
   var __getOwnPropNames = Object.getOwnPropertyNames;
   var __getProtoOf = Object.getPrototypeOf;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __esm = (fn, res, err) => function __init() {
+    if (err) throw err[0];
+    try {
+      return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
+    } catch (e) {
+      throw err = [e], e;
+    }
+  };
   var __commonJS = (cb, mod) => function __require() {
     try {
       return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
     } catch (e) {
       throw mod = 0, e;
     }
+  };
+  var __export = (target, all2) => {
+    for (var name2 in all2)
+      __defProp(target, name2, { get: all2[name2], enumerable: true });
   };
   var __copyProps = (to, from, except, desc) => {
     if (from && typeof from === "object" || typeof from === "function") {
@@ -91,13 +103,13 @@
             }
           }
         }
-        function push(heap, node) {
-          var index = heap.length;
-          heap.push(node);
-          a: for (; 0 < index; ) {
-            var parentIndex = index - 1 >>> 1, parent = heap[parentIndex];
-            if (0 < compare(parent, node))
-              heap[parentIndex] = node, heap[index] = parent, index = parentIndex;
+        function push2(heap, node2) {
+          var index2 = heap.length;
+          heap.push(node2);
+          a: for (; 0 < index2; ) {
+            var parentIndex = index2 - 1 >>> 1, parent = heap[parentIndex];
+            if (0 < compare(parent, node2))
+              heap[parentIndex] = node2, heap[index2] = parent, index2 = parentIndex;
             else break a;
           }
         }
@@ -109,12 +121,12 @@
           var first = heap[0], last = heap.pop();
           if (last !== first) {
             heap[0] = last;
-            a: for (var index = 0, length = heap.length, halfLength = length >>> 1; index < halfLength; ) {
-              var leftIndex = 2 * (index + 1) - 1, left = heap[leftIndex], rightIndex = leftIndex + 1, right = heap[rightIndex];
+            a: for (var index2 = 0, length = heap.length, halfLength = length >>> 1; index2 < halfLength; ) {
+              var leftIndex = 2 * (index2 + 1) - 1, left = heap[leftIndex], rightIndex = leftIndex + 1, right = heap[rightIndex];
               if (0 > compare(left, last))
-                rightIndex < length && 0 > compare(right, left) ? (heap[index] = right, heap[rightIndex] = last, index = rightIndex) : (heap[index] = left, heap[leftIndex] = last, index = leftIndex);
+                rightIndex < length && 0 > compare(right, left) ? (heap[index2] = right, heap[rightIndex] = last, index2 = rightIndex) : (heap[index2] = left, heap[leftIndex] = last, index2 = leftIndex);
               else if (rightIndex < length && 0 > compare(right, last))
-                heap[index] = right, heap[rightIndex] = last, index = rightIndex;
+                heap[index2] = right, heap[rightIndex] = last, index2 = rightIndex;
               else break a;
             }
           }
@@ -128,7 +140,7 @@
           for (var timer = peek(timerQueue); null !== timer; ) {
             if (null === timer.callback) pop(timerQueue);
             else if (timer.startTime <= currentTime)
-              pop(timerQueue), timer.sortIndex = timer.expirationTime, push(taskQueue, timer);
+              pop(timerQueue), timer.sortIndex = timer.expirationTime, push2(taskQueue, timer);
             else break;
             timer = peek(timerQueue);
           }
@@ -268,7 +280,7 @@
             expirationTime: timeout,
             sortIndex: -1
           };
-          options > currentTime ? (priorityLevel.sortIndex = options, push(timerQueue, priorityLevel), null === peek(taskQueue) && priorityLevel === peek(timerQueue) && (isHostTimeoutScheduled ? (localClearTimeout(taskTimeoutID), taskTimeoutID = -1) : isHostTimeoutScheduled = true, requestHostTimeout(handleTimeout, options - currentTime))) : (priorityLevel.sortIndex = timeout, push(taskQueue, priorityLevel), isHostCallbackScheduled || isPerformingWork || (isHostCallbackScheduled = true, isMessageLoopRunning || (isMessageLoopRunning = true, schedulePerformWorkUntilDeadline())));
+          options > currentTime ? (priorityLevel.sortIndex = options, push2(timerQueue, priorityLevel), null === peek(taskQueue) && priorityLevel === peek(timerQueue) && (isHostTimeoutScheduled ? (localClearTimeout(taskTimeoutID), taskTimeoutID = -1) : isHostTimeoutScheduled = true, requestHostTimeout(handleTimeout, options - currentTime))) : (priorityLevel.sortIndex = timeout, push2(taskQueue, priorityLevel), isHostCallbackScheduled || isPerformingWork || (isHostCallbackScheduled = true, isMessageLoopRunning || (isMessageLoopRunning = true, schedulePerformWorkUntilDeadline())));
           return priorityLevel;
         };
         exports.unstable_shouldYield = shouldYieldToHost;
@@ -421,8 +433,8 @@
           if ("object" === typeof type && null !== type && type.$$typeof === REACT_LAZY_TYPE)
             return "<...>";
           try {
-            var name = getComponentNameFromType(type);
-            return name ? "<" + name + ">" : "<...>";
+            var name2 = getComponentNameFromType(type);
+            return name2 ? "<" + name2 + ">" : "<...>";
           } catch (x) {
             return "<...>";
           }
@@ -435,7 +447,7 @@
           return Error("react-stack-top-frame");
         }
         function hasValidKey(config) {
-          if (hasOwnProperty.call(config, "key")) {
+          if (hasOwnProperty2.call(config, "key")) {
             var getter = Object.getOwnPropertyDescriptor(config, "key").get;
             if (getter && getter.isReactWarning) return false;
           }
@@ -515,8 +527,8 @@
           oldElement._store && (newKey._store.validated = oldElement._store.validated);
           return newKey;
         }
-        function validateChildKeys(node) {
-          isValidElement(node) ? node._store && (node._store.validated = 1) : "object" === typeof node && null !== node && node.$$typeof === REACT_LAZY_TYPE && ("fulfilled" === node._payload.status ? isValidElement(node._payload.value) && node._payload.value._store && (node._payload.value._store.validated = 1) : node._store && (node._store.validated = 1));
+        function validateChildKeys(node2) {
+          isValidElement(node2) ? node2._store && (node2._store.validated = 1) : "object" === typeof node2 && null !== node2 && node2.$$typeof === REACT_LAZY_TYPE && ("fulfilled" === node2._payload.status ? isValidElement(node2._payload.value) && node2._payload.value._store && (node2._payload.value._store.validated = 1) : node2._store && (node2._store.validated = 1));
         }
         function isValidElement(object) {
           return "object" === typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
@@ -527,8 +539,8 @@
             return escaperLookup[match];
           });
         }
-        function getElementKey(element, index) {
-          return "object" === typeof element && null !== element && null != element.key ? (checkKeyStringCoercion(element.key), escape("" + element.key)) : index.toString(36);
+        function getElementKey(element3, index2) {
+          return "object" === typeof element3 && null !== element3 && null != element3.key ? (checkKeyStringCoercion(element3.key), escape("" + element3.key)) : index2.toString(36);
         }
         function resolveThenable(thenable) {
           switch (thenable.status) {
@@ -826,7 +838,7 @@
           thrownErrors: [],
           getCurrentStack: null,
           recentlyCreatedOwnerStacks: 0
-        }, hasOwnProperty = Object.prototype.hasOwnProperty, createTask = console.createTask ? console.createTask : function() {
+        }, hasOwnProperty2 = Object.prototype.hasOwnProperty, createTask = console.createTask ? console.createTask : function() {
           return null;
         };
         deprecatedAPIs = {
@@ -996,16 +1008,16 @@
           var getCurrentStack = ReactSharedInternals.getCurrentStack;
           return null === getCurrentStack ? null : getCurrentStack();
         };
-        exports.cloneElement = function(element, config, children) {
-          if (null === element || void 0 === element)
+        exports.cloneElement = function(element3, config, children) {
+          if (null === element3 || void 0 === element3)
             throw Error(
-              "The argument must be a React element, but you passed " + element + "."
+              "The argument must be a React element, but you passed " + element3 + "."
             );
-          var props = assign({}, element.props), key = element.key, owner = element._owner;
+          var props = assign({}, element3.props), key = element3.key, owner = element3._owner;
           if (null != config) {
             var JSCompiler_inline_result;
             a: {
-              if (hasOwnProperty.call(config, "ref") && (JSCompiler_inline_result = Object.getOwnPropertyDescriptor(
+              if (hasOwnProperty2.call(config, "ref") && (JSCompiler_inline_result = Object.getOwnPropertyDescriptor(
                 config,
                 "ref"
               ).get) && JSCompiler_inline_result.isReactWarning) {
@@ -1017,7 +1029,7 @@
             JSCompiler_inline_result && (owner = getOwner());
             hasValidKey(config) && (checkKeyStringCoercion(config.key), key = "" + config.key);
             for (propName in config)
-              !hasOwnProperty.call(config, propName) || "key" === propName || "__self" === propName || "__source" === propName || "ref" === propName && void 0 === config.ref || (props[propName] = config[propName]);
+              !hasOwnProperty2.call(config, propName) || "key" === propName || "__self" === propName || "__source" === propName || "ref" === propName && void 0 === config.ref || (props[propName] = config[propName]);
           }
           var propName = arguments.length - 2;
           if (1 === propName) props.children = children;
@@ -1028,12 +1040,12 @@
             props.children = JSCompiler_inline_result;
           }
           props = ReactElement(
-            element.type,
+            element3.type,
             key,
             props,
             owner,
-            element._debugStack,
-            element._debugTask
+            element3._debugStack,
+            element3._debugTask
           );
           for (key = 2; key < arguments.length; key++)
             validateChildKeys(arguments[key]);
@@ -1066,7 +1078,7 @@
             for (propName in didWarnAboutOldJSXRuntime || !("__self" in config) || "key" in config || (didWarnAboutOldJSXRuntime = true, console.warn(
               "Your app (or one of its dependencies) is using an outdated JSX transform. Update to the modern JSX transform for faster performance: https://react.dev/link/new-jsx-transform"
             )), hasValidKey(config) && (checkKeyStringCoercion(config.key), key = "" + config.key), config)
-              hasOwnProperty.call(config, propName) && "key" !== propName && "__self" !== propName && "__source" !== propName && (i[propName] = config[propName]);
+              hasOwnProperty2.call(config, propName) && "key" !== propName && "__self" !== propName && "__source" !== propName && (i[propName] = config[propName]);
           var childrenLength = arguments.length - 2;
           if (1 === childrenLength) i.children = children;
           else if (1 < childrenLength) {
@@ -1117,9 +1129,9 @@
             get: function() {
               return ownName;
             },
-            set: function(name) {
-              ownName = name;
-              render.name || render.displayName || (Object.defineProperty(render, "name", { value: name }), render.displayName = name);
+            set: function(name2) {
+              ownName = name2;
+              render.name || render.displayName || (Object.defineProperty(render, "name", { value: name2 }), render.displayName = name2);
             }
           });
           return elementType;
@@ -1161,9 +1173,9 @@
             get: function() {
               return ownName;
             },
-            set: function(name) {
-              ownName = name;
-              type.name || type.displayName || (Object.defineProperty(type, "name", { value: name }), type.displayName = name);
+            set: function(name2) {
+              ownName = name2;
+              type.name || type.displayName || (Object.defineProperty(type, "name", { value: name2 }), type.displayName = name2);
             }
           });
           return compare;
@@ -1215,11 +1227,11 @@
         exports.useDeferredValue = function(value, initialValue) {
           return resolveDispatcher().useDeferredValue(value, initialValue);
         };
-        exports.useEffect = function(create, deps) {
-          null == create && console.warn(
+        exports.useEffect = function(create2, deps) {
+          null == create2 && console.warn(
             "React Hook useEffect requires an effect callback. Did you forget to pass a callback to the hook?"
           );
-          return resolveDispatcher().useEffect(create, deps);
+          return resolveDispatcher().useEffect(create2, deps);
         };
         exports.useEffectEvent = function(callback) {
           return resolveDispatcher().useEffectEvent(callback);
@@ -1227,23 +1239,23 @@
         exports.useId = function() {
           return resolveDispatcher().useId();
         };
-        exports.useImperativeHandle = function(ref, create, deps) {
-          return resolveDispatcher().useImperativeHandle(ref, create, deps);
+        exports.useImperativeHandle = function(ref, create2, deps) {
+          return resolveDispatcher().useImperativeHandle(ref, create2, deps);
         };
-        exports.useInsertionEffect = function(create, deps) {
-          null == create && console.warn(
+        exports.useInsertionEffect = function(create2, deps) {
+          null == create2 && console.warn(
             "React Hook useInsertionEffect requires an effect callback. Did you forget to pass a callback to the hook?"
           );
-          return resolveDispatcher().useInsertionEffect(create, deps);
+          return resolveDispatcher().useInsertionEffect(create2, deps);
         };
-        exports.useLayoutEffect = function(create, deps) {
-          null == create && console.warn(
+        exports.useLayoutEffect = function(create2, deps) {
+          null == create2 && console.warn(
             "React Hook useLayoutEffect requires an effect callback. Did you forget to pass a callback to the hook?"
           );
-          return resolveDispatcher().useLayoutEffect(create, deps);
+          return resolveDispatcher().useLayoutEffect(create2, deps);
         };
-        exports.useMemo = function(create, deps) {
-          return resolveDispatcher().useMemo(create, deps);
+        exports.useMemo = function(create2, deps) {
+          return resolveDispatcher().useMemo(create2, deps);
         };
         exports.useOptimistic = function(passthrough, reducer) {
           return resolveDispatcher().useOptimistic(passthrough, reducer);
@@ -1552,10 +1564,10 @@
             fiber = fiber.next, id--;
           return fiber;
         }
-        function copyWithSetImpl(obj, path, index, value) {
-          if (index >= path.length) return value;
-          var key = path[index], updated = isArrayImpl(obj) ? obj.slice() : assign({}, obj);
-          updated[key] = copyWithSetImpl(obj[key], path, index + 1, value);
+        function copyWithSetImpl(obj, path2, index2, value) {
+          if (index2 >= path2.length) return value;
+          var key = path2[index2], updated = isArrayImpl(obj) ? obj.slice() : assign({}, obj);
+          updated[key] = copyWithSetImpl(obj[key], path2, index2 + 1, value);
           return updated;
         }
         function copyWithRename(obj, oldPath, newPath) {
@@ -1572,21 +1584,21 @@
             return copyWithRenameImpl(obj, oldPath, newPath, 0);
           }
         }
-        function copyWithRenameImpl(obj, oldPath, newPath, index) {
-          var oldKey = oldPath[index], updated = isArrayImpl(obj) ? obj.slice() : assign({}, obj);
-          index + 1 === oldPath.length ? (updated[newPath[index]] = updated[oldKey], isArrayImpl(updated) ? updated.splice(oldKey, 1) : delete updated[oldKey]) : updated[oldKey] = copyWithRenameImpl(
+        function copyWithRenameImpl(obj, oldPath, newPath, index2) {
+          var oldKey = oldPath[index2], updated = isArrayImpl(obj) ? obj.slice() : assign({}, obj);
+          index2 + 1 === oldPath.length ? (updated[newPath[index2]] = updated[oldKey], isArrayImpl(updated) ? updated.splice(oldKey, 1) : delete updated[oldKey]) : updated[oldKey] = copyWithRenameImpl(
             obj[oldKey],
             oldPath,
             newPath,
-            index + 1
+            index2 + 1
           );
           return updated;
         }
-        function copyWithDeleteImpl(obj, path, index) {
-          var key = path[index], updated = isArrayImpl(obj) ? obj.slice() : assign({}, obj);
-          if (index + 1 === path.length)
+        function copyWithDeleteImpl(obj, path2, index2) {
+          var key = path2[index2], updated = isArrayImpl(obj) ? obj.slice() : assign({}, obj);
+          if (index2 + 1 === path2.length)
             return isArrayImpl(updated) ? updated.splice(key, 1) : delete updated[key], updated;
-          updated[key] = copyWithDeleteImpl(obj[key], path, index + 1);
+          updated[key] = copyWithDeleteImpl(obj[key], path2, index2 + 1);
           return updated;
         }
         function shouldSuspendImpl() {
@@ -1619,16 +1631,16 @@
         function createFiber(tag, pendingProps, key, mode) {
           return new FiberNode(tag, pendingProps, key, mode);
         }
-        function scheduleRoot(root2, element) {
-          root2.context === emptyContextObject && (updateContainerImpl(root2.current, 2, element, root2, null, null), flushSyncWork$1());
+        function scheduleRoot(root5, element3) {
+          root5.context === emptyContextObject && (updateContainerImpl(root5.current, 2, element3, root5, null, null), flushSyncWork$1());
         }
-        function scheduleRefresh(root2, update) {
+        function scheduleRefresh(root5, update) {
           if (null !== resolveFamily) {
             var staleFamilies = update.staleFamilies;
             update = update.updatedFamilies;
             flushPendingEffects();
             scheduleFibersWithFamiliesRecursively(
-              root2.current,
+              root5.current,
               update,
               staleFamilies
             );
@@ -1638,19 +1650,19 @@
         function setRefreshHandler(handler) {
           resolveFamily = handler;
         }
-        function isValidContainer(node) {
-          return !(!node || 1 !== node.nodeType && 9 !== node.nodeType && 11 !== node.nodeType);
+        function isValidContainer(node2) {
+          return !(!node2 || 1 !== node2.nodeType && 9 !== node2.nodeType && 11 !== node2.nodeType);
         }
         function getNearestMountedFiber(fiber) {
-          var node = fiber, nearestMounted = fiber;
-          if (fiber.alternate) for (; node.return; ) node = node.return;
+          var node2 = fiber, nearestMounted = fiber;
+          if (fiber.alternate) for (; node2.return; ) node2 = node2.return;
           else {
-            fiber = node;
+            fiber = node2;
             do
-              node = fiber, 0 !== (node.flags & 4098) && (nearestMounted = node.return), fiber = node.return;
+              node2 = fiber, 0 !== (node2.flags & 4098) && (nearestMounted = node2.return), fiber = node2.return;
             while (fiber);
           }
-          return 3 === node.tag ? nearestMounted : null;
+          return 3 === node2.tag ? nearestMounted : null;
         }
         function getSuspenseInstanceFromFiber(fiber) {
           if (13 === fiber.tag) {
@@ -1748,13 +1760,13 @@
             throw Error("Unable to find node on an unmounted component.");
           return a.stateNode.current === a ? fiber : alternate;
         }
-        function findCurrentHostFiberImpl(node) {
-          var tag = node.tag;
-          if (5 === tag || 26 === tag || 27 === tag || 6 === tag) return node;
-          for (node = node.child; null !== node; ) {
-            tag = findCurrentHostFiberImpl(node);
+        function findCurrentHostFiberImpl(node2) {
+          var tag = node2.tag;
+          if (5 === tag || 26 === tag || 27 === tag || 6 === tag) return node2;
+          for (node2 = node2.child; null !== node2; ) {
+            tag = findCurrentHostFiberImpl(node2);
             if (null !== tag) return tag;
-            node = node.sibling;
+            node2 = node2.sibling;
           }
           return null;
         }
@@ -1881,7 +1893,7 @@
         function pop(cursor, fiber) {
           0 > index$jscomp$0 ? console.error("Unexpected pop.") : (fiber !== fiberStack[index$jscomp$0] && console.error("Unexpected Fiber popped."), cursor.current = valueStack[index$jscomp$0], valueStack[index$jscomp$0] = null, fiberStack[index$jscomp$0] = null, index$jscomp$0--);
         }
-        function push(cursor, value, fiber) {
+        function push2(cursor, value, fiber) {
           index$jscomp$0++;
           valueStack[index$jscomp$0] = cursor.current;
           fiberStack[index$jscomp$0] = fiber;
@@ -1894,9 +1906,9 @@
           return c;
         }
         function pushHostContainer(fiber, nextRootInstance) {
-          push(rootInstanceStackCursor, nextRootInstance, fiber);
-          push(contextFiberStackCursor, fiber, fiber);
-          push(contextStackCursor, null, fiber);
+          push2(rootInstanceStackCursor, nextRootInstance, fiber);
+          push2(contextFiberStackCursor, fiber, fiber);
+          push2(contextStackCursor, null, fiber);
           var nextRootContext = nextRootInstance.nodeType;
           switch (nextRootContext) {
             case 9:
@@ -1929,7 +1941,7 @@
             ancestorInfo: nextRootContext
           };
           pop(contextStackCursor, fiber);
-          push(contextStackCursor, nextRootContext, fiber);
+          push2(contextStackCursor, nextRootContext, fiber);
         }
         function popHostContainer(fiber) {
           pop(contextStackCursor, fiber);
@@ -1940,13 +1952,13 @@
           return requiredContext(contextStackCursor.current);
         }
         function pushHostContext(fiber) {
-          null !== fiber.memoizedState && push(hostTransitionProviderCursor, fiber, fiber);
+          null !== fiber.memoizedState && push2(hostTransitionProviderCursor, fiber, fiber);
           var context = requiredContext(contextStackCursor.current);
           var type = fiber.type;
           var nextContext = getChildHostContextProd(context.context, type);
           type = updatedAncestorInfoDev(context.ancestorInfo, type);
           nextContext = { context: nextContext, ancestorInfo: type };
-          context !== nextContext && (push(contextFiberStackCursor, fiber, fiber), push(contextStackCursor, nextContext, fiber));
+          context !== nextContext && (push2(contextFiberStackCursor, fiber, fiber), push2(contextStackCursor, nextContext, fiber));
         }
         function popHostContext(fiber) {
           contextFiberStackCursor.current === fiber && (pop(contextStackCursor, fiber), pop(contextFiberStackCursor, fiber));
@@ -2017,7 +2029,7 @@
           else return "";
           return error;
         }
-        function describeBuiltInComponentFrame(name) {
+        function describeBuiltInComponentFrame(name2) {
           if (void 0 === prefix)
             try {
               throw Error();
@@ -2026,7 +2038,7 @@
               prefix = match && match[1] || "";
               suffix = -1 < x.stack.indexOf("\n    at") ? " (<anonymous>)" : -1 < x.stack.indexOf("@") ? "@unknown:0:0" : "";
             }
-          return "\n" + prefix + name + suffix;
+          return "\n" + prefix + name2 + suffix;
         }
         function describeNativeComponentFrame(fn, construct) {
           if (!fn || reentry) return "";
@@ -2159,9 +2171,9 @@
         }
         function getStackByFiberInDevAndProd(workInProgress2) {
           try {
-            var info = "", previous = null;
+            var info = "", previous3 = null;
             do {
-              info += describeFiber(workInProgress2, previous);
+              info += describeFiber(workInProgress2, previous3);
               var debugInfo = workInProgress2._debugInfo;
               if (debugInfo)
                 for (var i = debugInfo.length - 1; 0 <= i; i--) {
@@ -2169,22 +2181,22 @@
                   if ("string" === typeof entry.name) {
                     var JSCompiler_temp_const = info;
                     a: {
-                      var name = entry.name, env = entry.env, location = entry.debugLocation;
+                      var name2 = entry.name, env2 = entry.env, location = entry.debugLocation;
                       if (null != location) {
                         var childStack = formatOwnerStack(location), idx = childStack.lastIndexOf("\n"), lastLine = -1 === idx ? childStack : childStack.slice(idx + 1);
-                        if (-1 !== lastLine.indexOf(name)) {
+                        if (-1 !== lastLine.indexOf(name2)) {
                           var JSCompiler_inline_result = "\n" + lastLine;
                           break a;
                         }
                       }
                       JSCompiler_inline_result = describeBuiltInComponentFrame(
-                        name + (env ? " [" + env + "]" : "")
+                        name2 + (env2 ? " [" + env2 + "]" : "")
                       );
                     }
                     info = JSCompiler_temp_const + JSCompiler_inline_result;
                   }
                 }
-              previous = workInProgress2;
+              previous3 = workInProgress2;
               workInProgress2 = workInProgress2.return;
             } while (workInProgress2);
             return info;
@@ -2396,17 +2408,17 @@
               ), lanes;
           }
         }
-        function getNextLanes(root2, wipLanes, rootHasPendingCommit) {
-          var pendingLanes = root2.pendingLanes;
+        function getNextLanes(root5, wipLanes, rootHasPendingCommit) {
+          var pendingLanes = root5.pendingLanes;
           if (0 === pendingLanes) return 0;
-          var nextLanes = 0, suspendedLanes = root2.suspendedLanes, pingedLanes = root2.pingedLanes;
-          root2 = root2.warmLanes;
+          var nextLanes = 0, suspendedLanes = root5.suspendedLanes, pingedLanes = root5.pingedLanes;
+          root5 = root5.warmLanes;
           var nonIdlePendingLanes = pendingLanes & 134217727;
-          0 !== nonIdlePendingLanes ? (pendingLanes = nonIdlePendingLanes & ~suspendedLanes, 0 !== pendingLanes ? nextLanes = getHighestPriorityLanes(pendingLanes) : (pingedLanes &= nonIdlePendingLanes, 0 !== pingedLanes ? nextLanes = getHighestPriorityLanes(pingedLanes) : rootHasPendingCommit || (rootHasPendingCommit = nonIdlePendingLanes & ~root2, 0 !== rootHasPendingCommit && (nextLanes = getHighestPriorityLanes(rootHasPendingCommit))))) : (nonIdlePendingLanes = pendingLanes & ~suspendedLanes, 0 !== nonIdlePendingLanes ? nextLanes = getHighestPriorityLanes(nonIdlePendingLanes) : 0 !== pingedLanes ? nextLanes = getHighestPriorityLanes(pingedLanes) : rootHasPendingCommit || (rootHasPendingCommit = pendingLanes & ~root2, 0 !== rootHasPendingCommit && (nextLanes = getHighestPriorityLanes(rootHasPendingCommit))));
+          0 !== nonIdlePendingLanes ? (pendingLanes = nonIdlePendingLanes & ~suspendedLanes, 0 !== pendingLanes ? nextLanes = getHighestPriorityLanes(pendingLanes) : (pingedLanes &= nonIdlePendingLanes, 0 !== pingedLanes ? nextLanes = getHighestPriorityLanes(pingedLanes) : rootHasPendingCommit || (rootHasPendingCommit = nonIdlePendingLanes & ~root5, 0 !== rootHasPendingCommit && (nextLanes = getHighestPriorityLanes(rootHasPendingCommit))))) : (nonIdlePendingLanes = pendingLanes & ~suspendedLanes, 0 !== nonIdlePendingLanes ? nextLanes = getHighestPriorityLanes(nonIdlePendingLanes) : 0 !== pingedLanes ? nextLanes = getHighestPriorityLanes(pingedLanes) : rootHasPendingCommit || (rootHasPendingCommit = pendingLanes & ~root5, 0 !== rootHasPendingCommit && (nextLanes = getHighestPriorityLanes(rootHasPendingCommit))));
           return 0 === nextLanes ? 0 : 0 !== wipLanes && wipLanes !== nextLanes && 0 === (wipLanes & suspendedLanes) && (suspendedLanes = nextLanes & -nextLanes, rootHasPendingCommit = wipLanes & -wipLanes, suspendedLanes >= rootHasPendingCommit || 32 === suspendedLanes && 0 !== (rootHasPendingCommit & 4194048)) ? wipLanes : nextLanes;
         }
-        function checkIfRootIsPrerendering(root2, renderLanes2) {
-          return 0 === (root2.pendingLanes & ~(root2.suspendedLanes & ~root2.pingedLanes) & renderLanes2);
+        function checkIfRootIsPrerendering(root5, renderLanes2) {
+          return 0 === (root5.pendingLanes & ~(root5.suspendedLanes & ~root5.pingedLanes) & renderLanes2);
         }
         function computeExpirationTime(lane, currentTime) {
           switch (lane) {
@@ -2461,55 +2473,55 @@
           for (var laneMap = [], i = 0; 31 > i; i++) laneMap.push(initial);
           return laneMap;
         }
-        function markRootUpdated$1(root2, updateLane) {
-          root2.pendingLanes |= updateLane;
-          268435456 !== updateLane && (root2.suspendedLanes = 0, root2.pingedLanes = 0, root2.warmLanes = 0);
+        function markRootUpdated$1(root5, updateLane) {
+          root5.pendingLanes |= updateLane;
+          268435456 !== updateLane && (root5.suspendedLanes = 0, root5.pingedLanes = 0, root5.warmLanes = 0);
         }
-        function markRootFinished(root2, finishedLanes, remainingLanes, spawnedLane, updatedLanes, suspendedRetryLanes) {
-          var previouslyPendingLanes = root2.pendingLanes;
-          root2.pendingLanes = remainingLanes;
-          root2.suspendedLanes = 0;
-          root2.pingedLanes = 0;
-          root2.warmLanes = 0;
-          root2.expiredLanes &= remainingLanes;
-          root2.entangledLanes &= remainingLanes;
-          root2.errorRecoveryDisabledLanes &= remainingLanes;
-          root2.shellSuspendCounter = 0;
-          var entanglements = root2.entanglements, expirationTimes = root2.expirationTimes, hiddenUpdates = root2.hiddenUpdates;
+        function markRootFinished(root5, finishedLanes, remainingLanes, spawnedLane, updatedLanes, suspendedRetryLanes) {
+          var previouslyPendingLanes = root5.pendingLanes;
+          root5.pendingLanes = remainingLanes;
+          root5.suspendedLanes = 0;
+          root5.pingedLanes = 0;
+          root5.warmLanes = 0;
+          root5.expiredLanes &= remainingLanes;
+          root5.entangledLanes &= remainingLanes;
+          root5.errorRecoveryDisabledLanes &= remainingLanes;
+          root5.shellSuspendCounter = 0;
+          var entanglements = root5.entanglements, expirationTimes = root5.expirationTimes, hiddenUpdates = root5.hiddenUpdates;
           for (remainingLanes = previouslyPendingLanes & ~remainingLanes; 0 < remainingLanes; ) {
-            var index = 31 - clz32(remainingLanes), lane = 1 << index;
-            entanglements[index] = 0;
-            expirationTimes[index] = -1;
-            var hiddenUpdatesForLane = hiddenUpdates[index];
+            var index2 = 31 - clz32(remainingLanes), lane = 1 << index2;
+            entanglements[index2] = 0;
+            expirationTimes[index2] = -1;
+            var hiddenUpdatesForLane = hiddenUpdates[index2];
             if (null !== hiddenUpdatesForLane)
-              for (hiddenUpdates[index] = null, index = 0; index < hiddenUpdatesForLane.length; index++) {
-                var update = hiddenUpdatesForLane[index];
+              for (hiddenUpdates[index2] = null, index2 = 0; index2 < hiddenUpdatesForLane.length; index2++) {
+                var update = hiddenUpdatesForLane[index2];
                 null !== update && (update.lane &= -536870913);
               }
             remainingLanes &= ~lane;
           }
-          0 !== spawnedLane && markSpawnedDeferredLane(root2, spawnedLane, 0);
-          0 !== suspendedRetryLanes && 0 === updatedLanes && 0 !== root2.tag && (root2.suspendedLanes |= suspendedRetryLanes & ~(previouslyPendingLanes & ~finishedLanes));
+          0 !== spawnedLane && markSpawnedDeferredLane(root5, spawnedLane, 0);
+          0 !== suspendedRetryLanes && 0 === updatedLanes && 0 !== root5.tag && (root5.suspendedLanes |= suspendedRetryLanes & ~(previouslyPendingLanes & ~finishedLanes));
         }
-        function markSpawnedDeferredLane(root2, spawnedLane, entangledLanes) {
-          root2.pendingLanes |= spawnedLane;
-          root2.suspendedLanes &= ~spawnedLane;
+        function markSpawnedDeferredLane(root5, spawnedLane, entangledLanes) {
+          root5.pendingLanes |= spawnedLane;
+          root5.suspendedLanes &= ~spawnedLane;
           var spawnedLaneIndex = 31 - clz32(spawnedLane);
-          root2.entangledLanes |= spawnedLane;
-          root2.entanglements[spawnedLaneIndex] = root2.entanglements[spawnedLaneIndex] | 1073741824 | entangledLanes & 261930;
+          root5.entangledLanes |= spawnedLane;
+          root5.entanglements[spawnedLaneIndex] = root5.entanglements[spawnedLaneIndex] | 1073741824 | entangledLanes & 261930;
         }
-        function markRootEntangled(root2, entangledLanes) {
-          var rootEntangledLanes = root2.entangledLanes |= entangledLanes;
-          for (root2 = root2.entanglements; rootEntangledLanes; ) {
-            var index = 31 - clz32(rootEntangledLanes), lane = 1 << index;
-            lane & entangledLanes | root2[index] & entangledLanes && (root2[index] |= entangledLanes);
+        function markRootEntangled(root5, entangledLanes) {
+          var rootEntangledLanes = root5.entangledLanes |= entangledLanes;
+          for (root5 = root5.entanglements; rootEntangledLanes; ) {
+            var index2 = 31 - clz32(rootEntangledLanes), lane = 1 << index2;
+            lane & entangledLanes | root5[index2] & entangledLanes && (root5[index2] |= entangledLanes);
             rootEntangledLanes &= ~lane;
           }
         }
-        function getBumpedLaneForHydration(root2, renderLanes2) {
+        function getBumpedLaneForHydration(root5, renderLanes2) {
           var renderLane = renderLanes2 & -renderLanes2;
           renderLane = 0 !== (renderLane & 42) ? 1 : getBumpedLaneForHydrationByLane(renderLane);
-          return 0 !== (renderLane & (root2.suspendedLanes | renderLanes2)) ? 0 : renderLane;
+          return 0 !== (renderLane & (root5.suspendedLanes | renderLanes2)) ? 0 : renderLane;
         }
         function getBumpedLaneForHydrationByLane(lane) {
           switch (lane) {
@@ -2550,25 +2562,25 @@
           }
           return lane;
         }
-        function addFiberToLanesMap(root2, fiber, lanes) {
+        function addFiberToLanesMap(root5, fiber, lanes) {
           if (isDevToolsPresent)
-            for (root2 = root2.pendingUpdatersLaneMap; 0 < lanes; ) {
-              var index = 31 - clz32(lanes), lane = 1 << index;
-              root2[index].add(fiber);
+            for (root5 = root5.pendingUpdatersLaneMap; 0 < lanes; ) {
+              var index2 = 31 - clz32(lanes), lane = 1 << index2;
+              root5[index2].add(fiber);
               lanes &= ~lane;
             }
         }
-        function movePendingFibersToMemoized(root2, lanes) {
+        function movePendingFibersToMemoized(root5, lanes) {
           if (isDevToolsPresent)
-            for (var pendingUpdatersLaneMap = root2.pendingUpdatersLaneMap, memoizedUpdaters = root2.memoizedUpdaters; 0 < lanes; ) {
-              var index = 31 - clz32(lanes);
-              root2 = 1 << index;
-              index = pendingUpdatersLaneMap[index];
-              0 < index.size && (index.forEach(function(fiber) {
+            for (var pendingUpdatersLaneMap = root5.pendingUpdatersLaneMap, memoizedUpdaters = root5.memoizedUpdaters; 0 < lanes; ) {
+              var index2 = 31 - clz32(lanes);
+              root5 = 1 << index2;
+              index2 = pendingUpdatersLaneMap[index2];
+              0 < index2.size && (index2.forEach(function(fiber) {
                 var alternate = fiber.alternate;
                 null !== alternate && memoizedUpdaters.has(alternate) || memoizedUpdaters.add(fiber);
-              }), index.clear());
-              lanes &= ~root2;
+              }), index2.clear());
+              lanes &= ~root5;
             }
         }
         function lanesToEventPriority(lanes) {
@@ -2589,12 +2601,12 @@
             ReactDOMSharedInternals.p = previousPriority;
           }
         }
-        function detachDeletedInstance(node) {
-          delete node[internalInstanceKey];
-          delete node[internalPropsKey];
-          delete node[internalEventHandlersKey];
-          delete node[internalEventHandlerListenersKey];
-          delete node[internalEventHandlesSetKey];
+        function detachDeletedInstance(node2) {
+          delete node2[internalInstanceKey];
+          delete node2[internalPropsKey];
+          delete node2[internalEventHandlersKey];
+          delete node2[internalEventHandlerListenersKey];
+          delete node2[internalEventHandlesSetKey];
         }
         function getClosestInstanceFromNode(targetNode) {
           var targetInst = targetNode[internalInstanceKey];
@@ -2615,11 +2627,11 @@
           }
           return null;
         }
-        function getInstanceFromNode(node) {
-          if (node = node[internalInstanceKey] || node[internalContainerInstanceKey]) {
-            var tag = node.tag;
+        function getInstanceFromNode(node2) {
+          if (node2 = node2[internalInstanceKey] || node2[internalContainerInstanceKey]) {
+            var tag = node2.tag;
             if (5 === tag || 6 === tag || 13 === tag || 31 === tag || 26 === tag || 27 === tag || 3 === tag)
-              return node;
+              return node2;
           }
           return null;
         }
@@ -2629,13 +2641,13 @@
             return inst.stateNode;
           throw Error("getNodeFromInstance: Invalid argument.");
         }
-        function getResourcesFromRoot(root2) {
-          var resources = root2[internalRootNodeResourcesKey];
-          resources || (resources = root2[internalRootNodeResourcesKey] = { hoistableStyles: /* @__PURE__ */ new Map(), hoistableScripts: /* @__PURE__ */ new Map() });
+        function getResourcesFromRoot(root5) {
+          var resources = root5[internalRootNodeResourcesKey];
+          resources || (resources = root5[internalRootNodeResourcesKey] = { hoistableStyles: /* @__PURE__ */ new Map(), hoistableScripts: /* @__PURE__ */ new Map() });
           return resources;
         }
-        function markNodeAsHoistable(node) {
-          node[internalHoistableMarker] = true;
+        function markNodeAsHoistable(node2) {
+          node2[internalHoistableMarker] = true;
         }
         function registerTwoPhaseEvent(registrationName, dependencies) {
           registerDirectEvent(registrationName, dependencies);
@@ -2664,9 +2676,9 @@
           );
         }
         function isAttributeNameSafe(attributeName) {
-          if (hasOwnProperty.call(validatedAttributeNameCache, attributeName))
+          if (hasOwnProperty2.call(validatedAttributeNameCache, attributeName))
             return true;
-          if (hasOwnProperty.call(illegalAttributeNameCache, attributeName))
+          if (hasOwnProperty2.call(illegalAttributeNameCache, attributeName))
             return false;
           if (VALID_ATTRIBUTE_NAME_REGEX.test(attributeName))
             return validatedAttributeNameCache[attributeName] = true;
@@ -2674,9 +2686,9 @@
           console.error("Invalid attribute name: `%s`", attributeName);
           return false;
         }
-        function getValueForAttributeOnCustomComponent(node, name, expected) {
-          if (isAttributeNameSafe(name)) {
-            if (!node.hasAttribute(name)) {
+        function getValueForAttributeOnCustomComponent(node2, name2, expected) {
+          if (isAttributeNameSafe(name2)) {
+            if (!node2.hasAttribute(name2)) {
               switch (typeof expected) {
                 case "symbol":
                 case "object":
@@ -2688,61 +2700,61 @@
               }
               return void 0 === expected ? void 0 : null;
             }
-            node = node.getAttribute(name);
-            if ("" === node && true === expected) return true;
-            checkAttributeStringCoercion(expected, name);
-            return node === "" + expected ? expected : node;
+            node2 = node2.getAttribute(name2);
+            if ("" === node2 && true === expected) return true;
+            checkAttributeStringCoercion(expected, name2);
+            return node2 === "" + expected ? expected : node2;
           }
         }
-        function setValueForAttribute(node, name, value) {
-          if (isAttributeNameSafe(name))
-            if (null === value) node.removeAttribute(name);
+        function setValueForAttribute(node2, name2, value) {
+          if (isAttributeNameSafe(name2))
+            if (null === value) node2.removeAttribute(name2);
             else {
               switch (typeof value) {
                 case "undefined":
                 case "function":
                 case "symbol":
-                  node.removeAttribute(name);
+                  node2.removeAttribute(name2);
                   return;
                 case "boolean":
-                  var prefix2 = name.toLowerCase().slice(0, 5);
+                  var prefix2 = name2.toLowerCase().slice(0, 5);
                   if ("data-" !== prefix2 && "aria-" !== prefix2) {
-                    node.removeAttribute(name);
+                    node2.removeAttribute(name2);
                     return;
                   }
               }
-              checkAttributeStringCoercion(value, name);
-              node.setAttribute(name, "" + value);
+              checkAttributeStringCoercion(value, name2);
+              node2.setAttribute(name2, "" + value);
             }
         }
-        function setValueForKnownAttribute(node, name, value) {
-          if (null === value) node.removeAttribute(name);
+        function setValueForKnownAttribute(node2, name2, value) {
+          if (null === value) node2.removeAttribute(name2);
           else {
             switch (typeof value) {
               case "undefined":
               case "function":
               case "symbol":
               case "boolean":
-                node.removeAttribute(name);
+                node2.removeAttribute(name2);
                 return;
             }
-            checkAttributeStringCoercion(value, name);
-            node.setAttribute(name, "" + value);
+            checkAttributeStringCoercion(value, name2);
+            node2.setAttribute(name2, "" + value);
           }
         }
-        function setValueForNamespacedAttribute(node, namespace, name, value) {
-          if (null === value) node.removeAttribute(name);
+        function setValueForNamespacedAttribute(node2, namespace, name2, value) {
+          if (null === value) node2.removeAttribute(name2);
           else {
             switch (typeof value) {
               case "undefined":
               case "function":
               case "symbol":
               case "boolean":
-                node.removeAttribute(name);
+                node2.removeAttribute(name2);
                 return;
             }
-            checkAttributeStringCoercion(value, name);
-            node.setAttributeNS(namespace, name, "" + value);
+            checkAttributeStringCoercion(value, name2);
+            node2.setAttributeNS(namespace, name2, "" + value);
           }
         }
         function getToStringValue(value) {
@@ -2763,14 +2775,14 @@
           var type = elem.type;
           return (elem = elem.nodeName) && "input" === elem.toLowerCase() && ("checkbox" === type || "radio" === type);
         }
-        function trackValueOnNode(node, valueField, currentValue) {
+        function trackValueOnNode(node2, valueField, currentValue) {
           var descriptor = Object.getOwnPropertyDescriptor(
-            node.constructor.prototype,
+            node2.constructor.prototype,
             valueField
           );
-          if (!node.hasOwnProperty(valueField) && "undefined" !== typeof descriptor && "function" === typeof descriptor.get && "function" === typeof descriptor.set) {
+          if (!node2.hasOwnProperty(valueField) && "undefined" !== typeof descriptor && "function" === typeof descriptor.get && "function" === typeof descriptor.set) {
             var get = descriptor.get, set = descriptor.set;
-            Object.defineProperty(node, valueField, {
+            Object.defineProperty(node2, valueField, {
               configurable: true,
               get: function() {
                 return get.call(this);
@@ -2781,7 +2793,7 @@
                 set.call(this, value);
               }
             });
-            Object.defineProperty(node, valueField, {
+            Object.defineProperty(node2, valueField, {
               enumerable: descriptor.enumerable
             });
             return {
@@ -2793,31 +2805,31 @@
                 currentValue = "" + value;
               },
               stopTracking: function() {
-                node._valueTracker = null;
-                delete node[valueField];
+                node2._valueTracker = null;
+                delete node2[valueField];
               }
             };
           }
         }
-        function track(node) {
-          if (!node._valueTracker) {
-            var valueField = isCheckable(node) ? "checked" : "value";
-            node._valueTracker = trackValueOnNode(
-              node,
+        function track(node2) {
+          if (!node2._valueTracker) {
+            var valueField = isCheckable(node2) ? "checked" : "value";
+            node2._valueTracker = trackValueOnNode(
+              node2,
               valueField,
-              "" + node[valueField]
+              "" + node2[valueField]
             );
           }
         }
-        function updateValueIfChanged(node) {
-          if (!node) return false;
-          var tracker = node._valueTracker;
+        function updateValueIfChanged(node2) {
+          if (!node2) return false;
+          var tracker = node2._valueTracker;
           if (!tracker) return true;
           var lastValue = tracker.getValue();
           var value = "";
-          node && (value = isCheckable(node) ? node.checked ? "true" : "false" : node.value);
-          node = value;
-          return node !== lastValue ? (tracker.setValue(node), true) : false;
+          node2 && (value = isCheckable(node2) ? node2.checked ? "true" : "false" : node2.value);
+          node2 = value;
+          return node2 !== lastValue ? (tracker.setValue(node2), true) : false;
         }
         function getActiveElement(doc) {
           doc = doc || ("undefined" !== typeof document ? document : void 0);
@@ -2836,7 +2848,7 @@
             }
           );
         }
-        function validateInputProps(element, props) {
+        function validateInputProps(element3, props) {
           void 0 === props.checked || void 0 === props.defaultChecked || didWarnCheckedDefaultChecked || (console.error(
             "%s contains an input of type %s with both checked and defaultChecked props. Input elements must be either controlled or uncontrolled (specify either the checked prop, or the defaultChecked prop, but not both). Decide between using a controlled or uncontrolled input element and remove one of these props. More info: https://react.dev/link/controlled-components",
             getCurrentFiberOwnerNameInDevOrNull() || "A component",
@@ -2848,45 +2860,45 @@
             props.type
           ), didWarnValueDefaultValue$1 = true);
         }
-        function updateInput(element, value, defaultValue, lastDefaultValue, checked, defaultChecked, type, name) {
-          element.name = "";
-          null != type && "function" !== typeof type && "symbol" !== typeof type && "boolean" !== typeof type ? (checkAttributeStringCoercion(type, "type"), element.type = type) : element.removeAttribute("type");
+        function updateInput(element3, value, defaultValue, lastDefaultValue, checked, defaultChecked, type, name2) {
+          element3.name = "";
+          null != type && "function" !== typeof type && "symbol" !== typeof type && "boolean" !== typeof type ? (checkAttributeStringCoercion(type, "type"), element3.type = type) : element3.removeAttribute("type");
           if (null != value)
             if ("number" === type) {
-              if (0 === value && "" === element.value || element.value != value)
-                element.value = "" + getToStringValue(value);
+              if (0 === value && "" === element3.value || element3.value != value)
+                element3.value = "" + getToStringValue(value);
             } else
-              element.value !== "" + getToStringValue(value) && (element.value = "" + getToStringValue(value));
+              element3.value !== "" + getToStringValue(value) && (element3.value = "" + getToStringValue(value));
           else
-            "submit" !== type && "reset" !== type || element.removeAttribute("value");
-          null != value ? setDefaultValue(element, type, getToStringValue(value)) : null != defaultValue ? setDefaultValue(element, type, getToStringValue(defaultValue)) : null != lastDefaultValue && element.removeAttribute("value");
-          null == checked && null != defaultChecked && (element.defaultChecked = !!defaultChecked);
-          null != checked && (element.checked = checked && "function" !== typeof checked && "symbol" !== typeof checked);
-          null != name && "function" !== typeof name && "symbol" !== typeof name && "boolean" !== typeof name ? (checkAttributeStringCoercion(name, "name"), element.name = "" + getToStringValue(name)) : element.removeAttribute("name");
+            "submit" !== type && "reset" !== type || element3.removeAttribute("value");
+          null != value ? setDefaultValue(element3, type, getToStringValue(value)) : null != defaultValue ? setDefaultValue(element3, type, getToStringValue(defaultValue)) : null != lastDefaultValue && element3.removeAttribute("value");
+          null == checked && null != defaultChecked && (element3.defaultChecked = !!defaultChecked);
+          null != checked && (element3.checked = checked && "function" !== typeof checked && "symbol" !== typeof checked);
+          null != name2 && "function" !== typeof name2 && "symbol" !== typeof name2 && "boolean" !== typeof name2 ? (checkAttributeStringCoercion(name2, "name"), element3.name = "" + getToStringValue(name2)) : element3.removeAttribute("name");
         }
-        function initInput(element, value, defaultValue, checked, defaultChecked, type, name, isHydrating2) {
-          null != type && "function" !== typeof type && "symbol" !== typeof type && "boolean" !== typeof type && (checkAttributeStringCoercion(type, "type"), element.type = type);
+        function initInput(element3, value, defaultValue, checked, defaultChecked, type, name2, isHydrating2) {
+          null != type && "function" !== typeof type && "symbol" !== typeof type && "boolean" !== typeof type && (checkAttributeStringCoercion(type, "type"), element3.type = type);
           if (null != value || null != defaultValue) {
             if (!("submit" !== type && "reset" !== type || void 0 !== value && null !== value)) {
-              track(element);
+              track(element3);
               return;
             }
             defaultValue = null != defaultValue ? "" + getToStringValue(defaultValue) : "";
             value = null != value ? "" + getToStringValue(value) : defaultValue;
-            isHydrating2 || value === element.value || (element.value = value);
-            element.defaultValue = value;
+            isHydrating2 || value === element3.value || (element3.value = value);
+            element3.defaultValue = value;
           }
           checked = null != checked ? checked : defaultChecked;
           checked = "function" !== typeof checked && "symbol" !== typeof checked && !!checked;
-          element.checked = isHydrating2 ? element.checked : !!checked;
-          element.defaultChecked = !!checked;
-          null != name && "function" !== typeof name && "symbol" !== typeof name && "boolean" !== typeof name && (checkAttributeStringCoercion(name, "name"), element.name = name);
-          track(element);
+          element3.checked = isHydrating2 ? element3.checked : !!checked;
+          element3.defaultChecked = !!checked;
+          null != name2 && "function" !== typeof name2 && "symbol" !== typeof name2 && "boolean" !== typeof name2 && (checkAttributeStringCoercion(name2, "name"), element3.name = name2);
+          track(element3);
         }
-        function setDefaultValue(node, type, value) {
-          "number" === type && getActiveElement(node.ownerDocument) === node || node.defaultValue === "" + value || (node.defaultValue = "" + value);
+        function setDefaultValue(node2, type, value) {
+          "number" === type && getActiveElement(node2.ownerDocument) === node2 || node2.defaultValue === "" + value || (node2.defaultValue = "" + value);
         }
-        function validateOptionProps(element, props) {
+        function validateOptionProps(element3, props) {
           null == props.value && ("object" === typeof props.children && null !== props.children ? React.Children.forEach(props.children, function(child) {
             null == child || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || didWarnInvalidChild || (didWarnInvalidChild = true, console.error(
               "Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."
@@ -2902,31 +2914,31 @@
           var ownerName = getCurrentFiberOwnerNameInDevOrNull();
           return ownerName ? "\n\nCheck the render method of `" + ownerName + "`." : "";
         }
-        function updateOptions(node, multiple, propValue, setDefaultSelected) {
-          node = node.options;
+        function updateOptions(node2, multiple, propValue, setDefaultSelected) {
+          node2 = node2.options;
           if (multiple) {
             multiple = {};
             for (var i = 0; i < propValue.length; i++)
               multiple["$" + propValue[i]] = true;
-            for (propValue = 0; propValue < node.length; propValue++)
-              i = multiple.hasOwnProperty("$" + node[propValue].value), node[propValue].selected !== i && (node[propValue].selected = i), i && setDefaultSelected && (node[propValue].defaultSelected = true);
+            for (propValue = 0; propValue < node2.length; propValue++)
+              i = multiple.hasOwnProperty("$" + node2[propValue].value), node2[propValue].selected !== i && (node2[propValue].selected = i), i && setDefaultSelected && (node2[propValue].defaultSelected = true);
           } else {
             propValue = "" + getToStringValue(propValue);
             multiple = null;
-            for (i = 0; i < node.length; i++) {
-              if (node[i].value === propValue) {
-                node[i].selected = true;
-                setDefaultSelected && (node[i].defaultSelected = true);
+            for (i = 0; i < node2.length; i++) {
+              if (node2[i].value === propValue) {
+                node2[i].selected = true;
+                setDefaultSelected && (node2[i].defaultSelected = true);
                 return;
               }
-              null !== multiple || node[i].disabled || (multiple = node[i]);
+              null !== multiple || node2[i].disabled || (multiple = node2[i]);
             }
             null !== multiple && (multiple.selected = true);
           }
         }
-        function validateSelectProps(element, props) {
-          for (element = 0; element < valuePropNames.length; element++) {
-            var propName = valuePropNames[element];
+        function validateSelectProps(element3, props) {
+          for (element3 = 0; element3 < valuePropNames.length; element3++) {
+            var propName = valuePropNames[element3];
             if (null != props[propName]) {
               var propNameIsArray = isArrayImpl(props[propName]);
               props.multiple && !propNameIsArray ? console.error(
@@ -2944,7 +2956,7 @@
             "Select elements must be either controlled or uncontrolled (specify either the value prop, or the defaultValue prop, but not both). Decide between using a controlled or uncontrolled select element and remove one of these props. More info: https://react.dev/link/controlled-components"
           ), didWarnValueDefaultValue = true);
         }
-        function validateTextareaProps(element, props) {
+        function validateTextareaProps(element3, props) {
           void 0 === props.value || void 0 === props.defaultValue || didWarnValDefaultVal || (console.error(
             "%s contains a textarea with both value and defaultValue props. Textarea elements must be either controlled or uncontrolled (specify either the value prop, or the defaultValue prop, but not both). Decide between using a controlled or uncontrolled textarea and remove one of these props. More info: https://react.dev/link/controlled-components",
             getCurrentFiberOwnerNameInDevOrNull() || "A component"
@@ -2953,14 +2965,14 @@
             "Use the `defaultValue` or `value` props instead of setting children on <textarea>."
           );
         }
-        function updateTextarea(element, value, defaultValue) {
-          if (null != value && (value = "" + getToStringValue(value), value !== element.value && (element.value = value), null == defaultValue)) {
-            element.defaultValue !== value && (element.defaultValue = value);
+        function updateTextarea(element3, value, defaultValue) {
+          if (null != value && (value = "" + getToStringValue(value), value !== element3.value && (element3.value = value), null == defaultValue)) {
+            element3.defaultValue !== value && (element3.defaultValue = value);
             return;
           }
-          element.defaultValue = null != defaultValue ? "" + getToStringValue(defaultValue) : "";
+          element3.defaultValue = null != defaultValue ? "" + getToStringValue(defaultValue) : "";
         }
-        function initTextarea(element, value, defaultValue, children) {
+        function initTextarea(element3, value, defaultValue, children) {
           if (null == value) {
             if (null != children) {
               if (null != defaultValue)
@@ -2978,22 +2990,22 @@
             value = defaultValue;
           }
           defaultValue = getToStringValue(value);
-          element.defaultValue = defaultValue;
-          children = element.textContent;
-          children === defaultValue && "" !== children && null !== children && (element.value = children);
-          track(element);
+          element3.defaultValue = defaultValue;
+          children = element3.textContent;
+          children === defaultValue && "" !== children && null !== children && (element3.value = children);
+          track(element3);
         }
-        function findNotableNode(node, indent) {
-          return void 0 === node.serverProps && 0 === node.serverTail.length && 1 === node.children.length && 3 < node.distanceFromLeaf && node.distanceFromLeaf > 15 - indent ? findNotableNode(node.children[0], indent) : node;
+        function findNotableNode(node2, indent2) {
+          return void 0 === node2.serverProps && 0 === node2.serverTail.length && 1 === node2.children.length && 3 < node2.distanceFromLeaf && node2.distanceFromLeaf > 15 - indent2 ? findNotableNode(node2.children[0], indent2) : node2;
         }
-        function indentation(indent) {
-          return "  " + "  ".repeat(indent);
+        function indentation(indent2) {
+          return "  " + "  ".repeat(indent2);
         }
-        function added(indent) {
-          return "+ " + "  ".repeat(indent);
+        function added(indent2) {
+          return "+ " + "  ".repeat(indent2);
         }
-        function removed(indent) {
-          return "- " + "  ".repeat(indent);
+        function removed(indent2) {
+          return "- " + "  ".repeat(indent2);
         }
         function describeFiberType(fiber) {
           switch (fiber.tag) {
@@ -3020,19 +3032,19 @@
               return null;
           }
         }
-        function describeTextNode(content, maxLength) {
-          return needsEscaping.test(content) ? (content = JSON.stringify(content), content.length > maxLength - 2 ? 8 > maxLength ? '{"..."}' : "{" + content.slice(0, maxLength - 7) + '..."}' : "{" + content + "}") : content.length > maxLength ? 5 > maxLength ? '{"..."}' : content.slice(0, maxLength - 3) + "..." : content;
+        function describeTextNode(content3, maxLength) {
+          return needsEscaping.test(content3) ? (content3 = JSON.stringify(content3), content3.length > maxLength - 2 ? 8 > maxLength ? '{"..."}' : "{" + content3.slice(0, maxLength - 7) + '..."}' : "{" + content3 + "}") : content3.length > maxLength ? 5 > maxLength ? '{"..."}' : content3.slice(0, maxLength - 3) + "..." : content3;
         }
-        function describeTextDiff(clientText, serverProps, indent) {
-          var maxLength = 120 - 2 * indent;
+        function describeTextDiff(clientText, serverProps, indent2) {
+          var maxLength = 120 - 2 * indent2;
           if (null === serverProps)
-            return added(indent) + describeTextNode(clientText, maxLength) + "\n";
+            return added(indent2) + describeTextNode(clientText, maxLength) + "\n";
           if ("string" === typeof serverProps) {
             for (var firstDiff = 0; firstDiff < serverProps.length && firstDiff < clientText.length && serverProps.charCodeAt(firstDiff) === clientText.charCodeAt(firstDiff); firstDiff++) ;
             firstDiff > maxLength - 8 && 10 < firstDiff && (clientText = "..." + clientText.slice(firstDiff - 8), serverProps = "..." + serverProps.slice(firstDiff - 8));
-            return added(indent) + describeTextNode(clientText, maxLength) + "\n" + removed(indent) + describeTextNode(serverProps, maxLength) + "\n";
+            return added(indent2) + describeTextNode(clientText, maxLength) + "\n" + removed(indent2) + describeTextNode(serverProps, maxLength) + "\n";
           }
-          return indentation(indent) + describeTextNode(clientText, maxLength) + "\n";
+          return indentation(indent2) + describeTextNode(clientText, maxLength) + "\n";
         }
         function objectName(object) {
           return Object.prototype.toString.call(object).replace(/^\[object (.*)\]$/, function(m, p0) {
@@ -3048,9 +3060,9 @@
               if (isArrayImpl(value)) return "[...]";
               if (value.$$typeof === REACT_ELEMENT_TYPE)
                 return (maxLength = getComponentNameFromType(value.type)) ? "<" + maxLength + ">" : "<...>";
-              var name = objectName(value);
-              if ("Object" === name) {
-                name = "";
+              var name2 = objectName(value);
+              if ("Object" === name2) {
+                name2 = "";
                 maxLength -= 2;
                 for (var propName in value)
                   if (value.hasOwnProperty(propName)) {
@@ -3063,14 +3075,14 @@
                     );
                     maxLength -= jsonPropName.length;
                     if (0 > maxLength) {
-                      name += "" === name ? "..." : ", ...";
+                      name2 += "" === name2 ? "..." : ", ...";
                       break;
                     }
-                    name += ("" === name ? "" : ",") + propName + ":" + jsonPropName;
+                    name2 += ("" === name2 ? "" : ",") + propName + ":" + jsonPropName;
                   }
-                return "{" + name + "}";
+                return "{" + name2 + "}";
               }
-              return name;
+              return name2;
             case "function":
               return (maxLength = value.displayName || value.name) ? "function " + maxLength : "function";
             default:
@@ -3093,38 +3105,38 @@
             }
           return 0 === properties.length ? rowPrefix + "<" + type + ">\n" : 0 < remainingRowLength ? rowPrefix + "<" + type + " " + properties.join(" ") + ">\n" : rowPrefix + "<" + type + "\n" + rowPrefix + "  " + properties.join("\n" + rowPrefix + "  ") + "\n" + rowPrefix + ">\n";
         }
-        function describePropertiesDiff(clientObject, serverObject, indent) {
+        function describePropertiesDiff(clientObject, serverObject, indent2) {
           var properties = "", remainingServerProperties = assign({}, serverObject), propName;
           for (propName in clientObject)
             if (clientObject.hasOwnProperty(propName)) {
               delete remainingServerProperties[propName];
-              var maxLength = 120 - 2 * indent - propName.length - 2, clientPropValue = describeValue(clientObject[propName], maxLength);
-              serverObject.hasOwnProperty(propName) ? (maxLength = describeValue(serverObject[propName], maxLength), properties += added(indent) + propName + ": " + clientPropValue + "\n", properties += removed(indent) + propName + ": " + maxLength + "\n") : properties += added(indent) + propName + ": " + clientPropValue + "\n";
+              var maxLength = 120 - 2 * indent2 - propName.length - 2, clientPropValue = describeValue(clientObject[propName], maxLength);
+              serverObject.hasOwnProperty(propName) ? (maxLength = describeValue(serverObject[propName], maxLength), properties += added(indent2) + propName + ": " + clientPropValue + "\n", properties += removed(indent2) + propName + ": " + maxLength + "\n") : properties += added(indent2) + propName + ": " + clientPropValue + "\n";
             }
           for (var _propName in remainingServerProperties)
             remainingServerProperties.hasOwnProperty(_propName) && (clientObject = describeValue(
               remainingServerProperties[_propName],
-              120 - 2 * indent - _propName.length - 2
-            ), properties += removed(indent) + _propName + ": " + clientObject + "\n");
+              120 - 2 * indent2 - _propName.length - 2
+            ), properties += removed(indent2) + _propName + ": " + clientObject + "\n");
           return properties;
         }
-        function describeElementDiff(type, clientProps, serverProps, indent) {
-          var content = "", serverPropNames = /* @__PURE__ */ new Map();
+        function describeElementDiff(type, clientProps, serverProps, indent2) {
+          var content3 = "", serverPropNames = /* @__PURE__ */ new Map();
           for (propName$jscomp$0 in serverProps)
             serverProps.hasOwnProperty(propName$jscomp$0) && serverPropNames.set(
               propName$jscomp$0.toLowerCase(),
               propName$jscomp$0
             );
           if (1 === serverPropNames.size && serverPropNames.has("children"))
-            content += describeExpandedElement(
+            content3 += describeExpandedElement(
               type,
               clientProps,
-              indentation(indent)
+              indentation(indent2)
             );
           else {
             for (var _propName2 in clientProps)
               if (clientProps.hasOwnProperty(_propName2) && "children" !== _propName2) {
-                var maxLength$jscomp$0 = 120 - 2 * (indent + 1) - _propName2.length - 1, serverPropName = serverPropNames.get(_propName2.toLowerCase());
+                var maxLength$jscomp$0 = 120 - 2 * (indent2 + 1) - _propName2.length - 1, serverPropName = serverPropNames.get(_propName2.toLowerCase());
                 if (void 0 !== serverPropName) {
                   serverPropNames.delete(_propName2.toLowerCase());
                   var propName$jscomp$0 = clientProps[_propName2];
@@ -3137,21 +3149,21 @@
                     serverPropName,
                     maxLength$jscomp$0
                   );
-                  "object" === typeof propName$jscomp$0 && null !== propName$jscomp$0 && "object" === typeof serverPropName && null !== serverPropName && "Object" === objectName(propName$jscomp$0) && "Object" === objectName(serverPropName) && (2 < Object.keys(propName$jscomp$0).length || 2 < Object.keys(serverPropName).length || -1 < clientPropValue.indexOf("...") || -1 < maxLength$jscomp$0.indexOf("...")) ? content += indentation(indent + 1) + _propName2 + "={{\n" + describePropertiesDiff(
+                  "object" === typeof propName$jscomp$0 && null !== propName$jscomp$0 && "object" === typeof serverPropName && null !== serverPropName && "Object" === objectName(propName$jscomp$0) && "Object" === objectName(serverPropName) && (2 < Object.keys(propName$jscomp$0).length || 2 < Object.keys(serverPropName).length || -1 < clientPropValue.indexOf("...") || -1 < maxLength$jscomp$0.indexOf("...")) ? content3 += indentation(indent2 + 1) + _propName2 + "={{\n" + describePropertiesDiff(
                     propName$jscomp$0,
                     serverPropName,
-                    indent + 2
-                  ) + indentation(indent + 1) + "}}\n" : (content += added(indent + 1) + _propName2 + "=" + clientPropValue + "\n", content += removed(indent + 1) + _propName2 + "=" + maxLength$jscomp$0 + "\n");
+                    indent2 + 2
+                  ) + indentation(indent2 + 1) + "}}\n" : (content3 += added(indent2 + 1) + _propName2 + "=" + clientPropValue + "\n", content3 += removed(indent2 + 1) + _propName2 + "=" + maxLength$jscomp$0 + "\n");
                 } else
-                  content += indentation(indent + 1) + _propName2 + "=" + describePropValue(clientProps[_propName2], maxLength$jscomp$0) + "\n";
+                  content3 += indentation(indent2 + 1) + _propName2 + "=" + describePropValue(clientProps[_propName2], maxLength$jscomp$0) + "\n";
               }
             serverPropNames.forEach(function(propName) {
               if ("children" !== propName) {
-                var maxLength = 120 - 2 * (indent + 1) - propName.length - 1;
-                content += removed(indent + 1) + propName + "=" + describePropValue(serverProps[propName], maxLength) + "\n";
+                var maxLength = 120 - 2 * (indent2 + 1) - propName.length - 1;
+                content3 += removed(indent2 + 1) + propName + "=" + describePropValue(serverProps[propName], maxLength) + "\n";
               }
             });
-            content = "" === content ? indentation(indent) + "<" + type + ">\n" : indentation(indent) + "<" + type + "\n" + content + indentation(indent) + ">\n";
+            content3 = "" === content3 ? indentation(indent2) + "<" + type + ">\n" : indentation(indent2) + "<" + type + "\n" + content3 + indentation(indent2) + ">\n";
           }
           type = serverProps.children;
           clientProps = clientProps.children;
@@ -3159,77 +3171,77 @@
             serverPropNames = "";
             if ("string" === typeof clientProps || "number" === typeof clientProps || "bigint" === typeof clientProps)
               serverPropNames = "" + clientProps;
-            content += describeTextDiff(serverPropNames, "" + type, indent + 1);
+            content3 += describeTextDiff(serverPropNames, "" + type, indent2 + 1);
           } else if ("string" === typeof clientProps || "number" === typeof clientProps || "bigint" === typeof clientProps)
-            content = null == type ? content + describeTextDiff("" + clientProps, null, indent + 1) : content + describeTextDiff("" + clientProps, void 0, indent + 1);
-          return content;
+            content3 = null == type ? content3 + describeTextDiff("" + clientProps, null, indent2 + 1) : content3 + describeTextDiff("" + clientProps, void 0, indent2 + 1);
+          return content3;
         }
-        function describeSiblingFiber(fiber, indent) {
+        function describeSiblingFiber(fiber, indent2) {
           var type = describeFiberType(fiber);
           if (null === type) {
             type = "";
             for (fiber = fiber.child; fiber; )
-              type += describeSiblingFiber(fiber, indent), fiber = fiber.sibling;
+              type += describeSiblingFiber(fiber, indent2), fiber = fiber.sibling;
             return type;
           }
-          return indentation(indent) + "<" + type + ">\n";
+          return indentation(indent2) + "<" + type + ">\n";
         }
-        function describeNode(node, indent) {
-          var skipToNode = findNotableNode(node, indent);
-          if (skipToNode !== node && (1 !== node.children.length || node.children[0] !== skipToNode))
-            return indentation(indent) + "...\n" + describeNode(skipToNode, indent + 1);
+        function describeNode(node2, indent2) {
+          var skipToNode = findNotableNode(node2, indent2);
+          if (skipToNode !== node2 && (1 !== node2.children.length || node2.children[0] !== skipToNode))
+            return indentation(indent2) + "...\n" + describeNode(skipToNode, indent2 + 1);
           skipToNode = "";
-          var debugInfo = node.fiber._debugInfo;
+          var debugInfo = node2.fiber._debugInfo;
           if (debugInfo)
             for (var i = 0; i < debugInfo.length; i++) {
               var serverComponentName = debugInfo[i].name;
-              "string" === typeof serverComponentName && (skipToNode += indentation(indent) + "<" + serverComponentName + ">\n", indent++);
+              "string" === typeof serverComponentName && (skipToNode += indentation(indent2) + "<" + serverComponentName + ">\n", indent2++);
             }
           debugInfo = "";
-          i = node.fiber.pendingProps;
-          if (6 === node.fiber.tag)
-            debugInfo = describeTextDiff(i, node.serverProps, indent), indent++;
-          else if (serverComponentName = describeFiberType(node.fiber), null !== serverComponentName)
-            if (void 0 === node.serverProps) {
-              debugInfo = indent;
-              var maxLength = 120 - 2 * debugInfo - serverComponentName.length - 2, content = "";
+          i = node2.fiber.pendingProps;
+          if (6 === node2.fiber.tag)
+            debugInfo = describeTextDiff(i, node2.serverProps, indent2), indent2++;
+          else if (serverComponentName = describeFiberType(node2.fiber), null !== serverComponentName)
+            if (void 0 === node2.serverProps) {
+              debugInfo = indent2;
+              var maxLength = 120 - 2 * debugInfo - serverComponentName.length - 2, content3 = "";
               for (propName in i)
                 if (i.hasOwnProperty(propName) && "children" !== propName) {
                   var propValue = describePropValue(i[propName], 15);
                   maxLength -= propName.length + propValue.length + 2;
                   if (0 > maxLength) {
-                    content += " ...";
+                    content3 += " ...";
                     break;
                   }
-                  content += " " + propName + "=" + propValue;
+                  content3 += " " + propName + "=" + propValue;
                 }
-              debugInfo = indentation(debugInfo) + "<" + serverComponentName + content + ">\n";
-              indent++;
+              debugInfo = indentation(debugInfo) + "<" + serverComponentName + content3 + ">\n";
+              indent2++;
             } else
-              null === node.serverProps ? (debugInfo = describeExpandedElement(
+              null === node2.serverProps ? (debugInfo = describeExpandedElement(
                 serverComponentName,
                 i,
-                added(indent)
-              ), indent++) : "string" === typeof node.serverProps ? console.error(
+                added(indent2)
+              ), indent2++) : "string" === typeof node2.serverProps ? console.error(
                 "Should not have matched a non HostText fiber to a Text node. This is a bug in React."
               ) : (debugInfo = describeElementDiff(
                 serverComponentName,
                 i,
-                node.serverProps,
-                indent
-              ), indent++);
+                node2.serverProps,
+                indent2
+              ), indent2++);
           var propName = "";
-          i = node.fiber.child;
-          for (serverComponentName = 0; i && serverComponentName < node.children.length; )
-            maxLength = node.children[serverComponentName], maxLength.fiber === i ? (propName += describeNode(maxLength, indent), serverComponentName++) : propName += describeSiblingFiber(i, indent), i = i.sibling;
-          i && 0 < node.children.length && (propName += indentation(indent) + "...\n");
-          i = node.serverTail;
-          null === node.serverProps && indent--;
-          for (node = 0; node < i.length; node++)
-            serverComponentName = i[node], propName = "string" === typeof serverComponentName ? propName + (removed(indent) + describeTextNode(serverComponentName, 120 - 2 * indent) + "\n") : propName + describeExpandedElement(
+          i = node2.fiber.child;
+          for (serverComponentName = 0; i && serverComponentName < node2.children.length; )
+            maxLength = node2.children[serverComponentName], maxLength.fiber === i ? (propName += describeNode(maxLength, indent2), serverComponentName++) : propName += describeSiblingFiber(i, indent2), i = i.sibling;
+          i && 0 < node2.children.length && (propName += indentation(indent2) + "...\n");
+          i = node2.serverTail;
+          null === node2.serverProps && indent2--;
+          for (node2 = 0; node2 < i.length; node2++)
+            serverComponentName = i[node2], propName = "string" === typeof serverComponentName ? propName + (removed(indent2) + describeTextNode(serverComponentName, 120 - 2 * indent2) + "\n") : propName + describeExpandedElement(
               serverComponentName.type,
               serverComponentName.props,
-              removed(indent)
+              removed(indent2)
             );
           return skipToNode + debugInfo + propName;
         }
@@ -3241,15 +3253,15 @@
           }
         }
         function describeAncestors(ancestor, child, props) {
-          for (var fiber = child, node = null, distanceFromLeaf = 0; fiber; )
-            fiber === ancestor && (distanceFromLeaf = 0), node = {
+          for (var fiber = child, node2 = null, distanceFromLeaf = 0; fiber; )
+            fiber === ancestor && (distanceFromLeaf = 0), node2 = {
               fiber,
-              children: null !== node ? [node] : [],
+              children: null !== node2 ? [node2] : [],
               serverProps: fiber === child ? props : fiber === ancestor ? null : void 0,
               serverTail: [],
               distanceFromLeaf
             }, distanceFromLeaf++, fiber = fiber.return;
-          return null !== node ? describeDiff(node).replaceAll(/^[+-]/gm, ">") : "";
+          return null !== node2 ? describeDiff(node2).replaceAll(/^[+-]/gm, ">") : "";
         }
         function updatedAncestorInfoDev(oldInfo, tag) {
           var ancestorInfo = assign({}, oldInfo || emptyAncestorInfoDev), info = { tag };
@@ -3454,18 +3466,18 @@
           );
           return false;
         }
-        function setTextContent(node, text) {
-          if (text) {
-            var firstChild = node.firstChild;
-            if (firstChild && firstChild === node.lastChild && 3 === firstChild.nodeType) {
-              firstChild.nodeValue = text;
+        function setTextContent(node2, text7) {
+          if (text7) {
+            var firstChild = node2.firstChild;
+            if (firstChild && firstChild === node2.lastChild && 3 === firstChild.nodeType) {
+              firstChild.nodeValue = text7;
               return;
             }
           }
-          node.textContent = text;
+          node2.textContent = text7;
         }
-        function camelize(string) {
-          return string.replace(hyphenPattern, function(_, character) {
+        function camelize(string3) {
+          return string3.replace(hyphenPattern, function(_, character) {
             return character.toUpperCase();
           });
         }
@@ -3492,13 +3504,13 @@
           ))));
           null == value || "boolean" === typeof value || "" === value ? isCustomProperty ? style2.setProperty(styleName, "") : "float" === styleName ? style2.cssFloat = "" : style2[styleName] = "" : isCustomProperty ? style2.setProperty(styleName, value) : "number" !== typeof value || 0 === value || unitlessNumbers.has(styleName) ? "float" === styleName ? style2.cssFloat = value : (checkCSSPropertyStringCoercion(value, styleName), style2[styleName] = ("" + value).trim()) : style2[styleName] = value + "px";
         }
-        function setValueForStyles(node, styles, prevStyles) {
+        function setValueForStyles(node2, styles, prevStyles) {
           if (null != styles && "object" !== typeof styles)
             throw Error(
               "The `style` prop expects a mapping from style properties to values, not a string. For example, style={{marginRight: spacing + 'em'}} when using JSX."
             );
           styles && Object.freeze(styles);
-          node = node.style;
+          node2 = node2.style;
           if (null != prevStyles) {
             if (styles) {
               var expandedUpdates = {};
@@ -3532,12 +3544,12 @@
                 }
             }
             for (var styleName in prevStyles)
-              !prevStyles.hasOwnProperty(styleName) || null != styles && styles.hasOwnProperty(styleName) || (0 === styleName.indexOf("--") ? node.setProperty(styleName, "") : "float" === styleName ? node.cssFloat = "" : node[styleName] = "");
+              !prevStyles.hasOwnProperty(styleName) || null != styles && styles.hasOwnProperty(styleName) || (0 === styleName.indexOf("--") ? node2.setProperty(styleName, "") : "float" === styleName ? node2.cssFloat = "" : node2[styleName] = "");
             for (var _styleName in styles)
-              _key2 = styles[_styleName], styles.hasOwnProperty(_styleName) && prevStyles[_styleName] !== _key2 && setValueForStyle(node, _styleName, _key2);
+              _key2 = styles[_styleName], styles.hasOwnProperty(_styleName) && prevStyles[_styleName] !== _key2 && setValueForStyle(node2, _styleName, _key2);
           } else
             for (expandedUpdates in styles)
-              styles.hasOwnProperty(expandedUpdates) && setValueForStyle(node, expandedUpdates, styles[expandedUpdates]);
+              styles.hasOwnProperty(expandedUpdates) && setValueForStyle(node2, expandedUpdates, styles[expandedUpdates]);
         }
         function isCustomElement(tagName) {
           if (-1 === tagName.indexOf("-")) return false;
@@ -3555,36 +3567,36 @@
               return true;
           }
         }
-        function getAttributeAlias(name) {
-          return aliases.get(name) || name;
+        function getAttributeAlias(name2) {
+          return aliases.get(name2) || name2;
         }
-        function validateProperty$1(tagName, name) {
-          if (hasOwnProperty.call(warnedProperties$1, name) && warnedProperties$1[name])
+        function validateProperty$1(tagName, name2) {
+          if (hasOwnProperty2.call(warnedProperties$1, name2) && warnedProperties$1[name2])
             return true;
-          if (rARIACamel$1.test(name)) {
-            tagName = "aria-" + name.slice(4).toLowerCase();
+          if (rARIACamel$1.test(name2)) {
+            tagName = "aria-" + name2.slice(4).toLowerCase();
             tagName = ariaProperties.hasOwnProperty(tagName) ? tagName : null;
             if (null == tagName)
               return console.error(
                 "Invalid ARIA attribute `%s`. ARIA attributes follow the pattern aria-* and must be lowercase.",
-                name
-              ), warnedProperties$1[name] = true;
-            if (name !== tagName)
+                name2
+              ), warnedProperties$1[name2] = true;
+            if (name2 !== tagName)
               return console.error(
                 "Invalid ARIA attribute `%s`. Did you mean `%s`?",
-                name,
+                name2,
                 tagName
-              ), warnedProperties$1[name] = true;
+              ), warnedProperties$1[name2] = true;
           }
-          if (rARIA$1.test(name)) {
-            tagName = name.toLowerCase();
+          if (rARIA$1.test(name2)) {
+            tagName = name2.toLowerCase();
             tagName = ariaProperties.hasOwnProperty(tagName) ? tagName : null;
-            if (null == tagName) return warnedProperties$1[name] = true, false;
-            name !== tagName && (console.error(
+            if (null == tagName) return warnedProperties$1[name2] = true, false;
+            name2 !== tagName && (console.error(
               "Unknown ARIA attribute `%s`. Did you mean `%s`?",
-              name,
+              name2,
               tagName
-            ), warnedProperties$1[name] = true);
+            ), warnedProperties$1[name2] = true);
           }
           return true;
         }
@@ -3605,70 +3617,70 @@
             type
           );
         }
-        function validateProperty(tagName, name, value, eventRegistry) {
-          if (hasOwnProperty.call(warnedProperties, name) && warnedProperties[name])
+        function validateProperty(tagName, name2, value, eventRegistry) {
+          if (hasOwnProperty2.call(warnedProperties, name2) && warnedProperties[name2])
             return true;
-          var lowerCasedName = name.toLowerCase();
+          var lowerCasedName = name2.toLowerCase();
           if ("onfocusin" === lowerCasedName || "onfocusout" === lowerCasedName)
             return console.error(
               "React uses onFocus and onBlur instead of onFocusIn and onFocusOut. All React events are normalized to bubble, so onFocusIn and onFocusOut are not needed/supported by React."
-            ), warnedProperties[name] = true;
-          if ("function" === typeof value && ("form" === tagName && "action" === name || "input" === tagName && "formAction" === name || "button" === tagName && "formAction" === name))
+            ), warnedProperties[name2] = true;
+          if ("function" === typeof value && ("form" === tagName && "action" === name2 || "input" === tagName && "formAction" === name2 || "button" === tagName && "formAction" === name2))
             return true;
           if (null != eventRegistry) {
             tagName = eventRegistry.possibleRegistrationNames;
-            if (eventRegistry.registrationNameDependencies.hasOwnProperty(name))
+            if (eventRegistry.registrationNameDependencies.hasOwnProperty(name2))
               return true;
             eventRegistry = tagName.hasOwnProperty(lowerCasedName) ? tagName[lowerCasedName] : null;
             if (null != eventRegistry)
               return console.error(
                 "Invalid event handler property `%s`. Did you mean `%s`?",
-                name,
+                name2,
                 eventRegistry
-              ), warnedProperties[name] = true;
-            if (EVENT_NAME_REGEX.test(name))
+              ), warnedProperties[name2] = true;
+            if (EVENT_NAME_REGEX.test(name2))
               return console.error(
                 "Unknown event handler property `%s`. It will be ignored.",
-                name
-              ), warnedProperties[name] = true;
-          } else if (EVENT_NAME_REGEX.test(name))
-            return INVALID_EVENT_NAME_REGEX.test(name) && console.error(
+                name2
+              ), warnedProperties[name2] = true;
+          } else if (EVENT_NAME_REGEX.test(name2))
+            return INVALID_EVENT_NAME_REGEX.test(name2) && console.error(
               "Invalid event handler property `%s`. React events use the camelCase naming convention, for example `onClick`.",
-              name
-            ), warnedProperties[name] = true;
-          if (rARIA.test(name) || rARIACamel.test(name)) return true;
+              name2
+            ), warnedProperties[name2] = true;
+          if (rARIA.test(name2) || rARIACamel.test(name2)) return true;
           if ("innerhtml" === lowerCasedName)
             return console.error(
               "Directly setting property `innerHTML` is not permitted. For more information, lookup documentation on `dangerouslySetInnerHTML`."
-            ), warnedProperties[name] = true;
+            ), warnedProperties[name2] = true;
           if ("aria" === lowerCasedName)
             return console.error(
               "The `aria` attribute is reserved for future use in React. Pass individual `aria-` attributes instead."
-            ), warnedProperties[name] = true;
+            ), warnedProperties[name2] = true;
           if ("is" === lowerCasedName && null !== value && void 0 !== value && "string" !== typeof value)
             return console.error(
               "Received a `%s` for a string attribute `is`. If this is expected, cast the value to a string.",
               typeof value
-            ), warnedProperties[name] = true;
+            ), warnedProperties[name2] = true;
           if ("number" === typeof value && isNaN(value))
             return console.error(
               "Received NaN for the `%s` attribute. If this is expected, cast the value to a string.",
-              name
-            ), warnedProperties[name] = true;
+              name2
+            ), warnedProperties[name2] = true;
           if (possibleStandardNames.hasOwnProperty(lowerCasedName)) {
-            if (lowerCasedName = possibleStandardNames[lowerCasedName], lowerCasedName !== name)
+            if (lowerCasedName = possibleStandardNames[lowerCasedName], lowerCasedName !== name2)
               return console.error(
                 "Invalid DOM property `%s`. Did you mean `%s`?",
-                name,
+                name2,
                 lowerCasedName
-              ), warnedProperties[name] = true;
-          } else if (name !== lowerCasedName)
+              ), warnedProperties[name2] = true;
+          } else if (name2 !== lowerCasedName)
             return console.error(
               "React does not recognize the `%s` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `%s` instead. If you accidentally passed it from a parent component, remove it from the DOM element.",
-              name,
+              name2,
               lowerCasedName
-            ), warnedProperties[name] = true;
-          switch (name) {
+            ), warnedProperties[name2] = true;
+          switch (name2) {
             case "dangerouslySetInnerHTML":
             case "children":
             case "style":
@@ -3685,7 +3697,7 @@
           }
           switch (typeof value) {
             case "boolean":
-              switch (name) {
+              switch (name2) {
                 case "autoFocus":
                 case "checked":
                 case "multiple":
@@ -3726,34 +3738,34 @@
                 case "inert":
                   return true;
                 default:
-                  lowerCasedName = name.toLowerCase().slice(0, 5);
+                  lowerCasedName = name2.toLowerCase().slice(0, 5);
                   if ("data-" === lowerCasedName || "aria-" === lowerCasedName)
                     return true;
                   value ? console.error(
                     'Received `%s` for a non-boolean attribute `%s`.\n\nIf you want to write it to the DOM, pass a string instead: %s="%s" or %s={value.toString()}.',
                     value,
-                    name,
-                    name,
+                    name2,
+                    name2,
                     value,
-                    name
+                    name2
                   ) : console.error(
                     'Received `%s` for a non-boolean attribute `%s`.\n\nIf you want to write it to the DOM, pass a string instead: %s="%s" or %s={value.toString()}.\n\nIf you used to conditionally omit it with %s={condition && value}, pass %s={condition ? value : undefined} instead.',
                     value,
-                    name,
-                    name,
+                    name2,
+                    name2,
                     value,
-                    name,
-                    name,
-                    name
+                    name2,
+                    name2,
+                    name2
                   );
-                  return warnedProperties[name] = true;
+                  return warnedProperties[name2] = true;
               }
             case "function":
             case "symbol":
-              return warnedProperties[name] = true, false;
+              return warnedProperties[name2] = true, false;
             case "string":
               if ("false" === value || "true" === value) {
-                switch (name) {
+                switch (name2) {
                   case "checked":
                   case "selected":
                   case "multiple":
@@ -3788,12 +3800,12 @@
                 console.error(
                   "Received the string `%s` for the boolean attribute `%s`. %s Did you mean %s={%s}?",
                   value,
-                  name,
+                  name2,
                   "false" === value ? "The browser will interpret it as a truthy value." : 'Although this works, it will not work as expected if you pass the string "false".',
-                  name,
+                  name2,
                   value
                 );
-                warnedProperties[name] = true;
+                warnedProperties[name2] = true;
               }
           }
           return true;
@@ -3928,11 +3940,11 @@
         }
         function getData() {
           if (fallbackText) return fallbackText;
-          var start, startValue = startText, startLength = startValue.length, end, endValue = "value" in root ? root.value : root.textContent, endLength = endValue.length;
-          for (start = 0; start < startLength && startValue[start] === endValue[start]; start++) ;
-          var minEnd = startLength - start;
+          var start2, startValue = startText, startLength = startValue.length, end, endValue = "value" in root4 ? root4.value : root4.textContent, endLength = endValue.length;
+          for (start2 = 0; start2 < startLength && startValue[start2] === endValue[start2]; start2++) ;
+          var minEnd = startLength - start2;
           for (end = 1; end <= minEnd && startValue[startLength - end] === endValue[endLength - end]; end++) ;
-          return fallbackText = endValue.slice(start, 1 < end ? 1 - end : void 0);
+          return fallbackText = endValue.slice(start2, 1 < end ? 1 - end : void 0);
         }
         function getEventCharCode(nativeEvent) {
           var keyCode = nativeEvent.keyCode;
@@ -4017,7 +4029,7 @@
         }
         function getFallbackBeforeInputChars(domEventName, nativeEvent) {
           if (isComposing)
-            return "compositionend" === domEventName || !canUseCompositionEvent && isFallbackCompositionEnd(domEventName, nativeEvent) ? (domEventName = getData(), fallbackText = startText = root = null, isComposing = false, domEventName) : null;
+            return "compositionend" === domEventName || !canUseCompositionEvent && isFallbackCompositionEnd(domEventName, nativeEvent) ? (domEventName = getData(), fallbackText = startText = root4 = null, isComposing = false, domEventName) : null;
           switch (domEventName) {
             case "paste":
               return null;
@@ -4096,7 +4108,7 @@
           if ("input" === domEventName || "change" === domEventName)
             return getInstIfValueChanged(targetInst);
         }
-        function is(x, y) {
+        function is3(x, y) {
           return x === y && (0 !== x || 1 / x === 1 / y) || x !== x && y !== y;
         }
         function shallowEqual(objA, objB) {
@@ -4107,36 +4119,36 @@
           if (keysA.length !== keysB.length) return false;
           for (keysB = 0; keysB < keysA.length; keysB++) {
             var currentKey = keysA[keysB];
-            if (!hasOwnProperty.call(objB, currentKey) || !objectIs(objA[currentKey], objB[currentKey]))
+            if (!hasOwnProperty2.call(objB, currentKey) || !objectIs(objA[currentKey], objB[currentKey]))
               return false;
           }
           return true;
         }
-        function getLeafNode(node) {
-          for (; node && node.firstChild; ) node = node.firstChild;
-          return node;
+        function getLeafNode(node2) {
+          for (; node2 && node2.firstChild; ) node2 = node2.firstChild;
+          return node2;
         }
-        function getNodeForCharacterOffset(root2, offset) {
-          var node = getLeafNode(root2);
-          root2 = 0;
-          for (var nodeEnd; node; ) {
-            if (3 === node.nodeType) {
-              nodeEnd = root2 + node.textContent.length;
-              if (root2 <= offset && nodeEnd >= offset)
-                return { node, offset: offset - root2 };
-              root2 = nodeEnd;
+        function getNodeForCharacterOffset(root5, offset) {
+          var node2 = getLeafNode(root5);
+          root5 = 0;
+          for (var nodeEnd; node2; ) {
+            if (3 === node2.nodeType) {
+              nodeEnd = root5 + node2.textContent.length;
+              if (root5 <= offset && nodeEnd >= offset)
+                return { node: node2, offset: offset - root5 };
+              root5 = nodeEnd;
             }
             a: {
-              for (; node; ) {
-                if (node.nextSibling) {
-                  node = node.nextSibling;
+              for (; node2; ) {
+                if (node2.nextSibling) {
+                  node2 = node2.nextSibling;
                   break a;
                 }
-                node = node.parentNode;
+                node2 = node2.parentNode;
               }
-              node = void 0;
+              node2 = void 0;
             }
-            node = getLeafNode(node);
+            node2 = getLeafNode(node2);
           }
         }
         function containsNode(outerNode, innerNode) {
@@ -4144,17 +4156,17 @@
         }
         function getActiveElementDeep(containerInfo) {
           containerInfo = null != containerInfo && null != containerInfo.ownerDocument && null != containerInfo.ownerDocument.defaultView ? containerInfo.ownerDocument.defaultView : window;
-          for (var element = getActiveElement(containerInfo.document); element instanceof containerInfo.HTMLIFrameElement; ) {
+          for (var element3 = getActiveElement(containerInfo.document); element3 instanceof containerInfo.HTMLIFrameElement; ) {
             try {
-              var JSCompiler_inline_result = "string" === typeof element.contentWindow.location.href;
+              var JSCompiler_inline_result = "string" === typeof element3.contentWindow.location.href;
             } catch (err) {
               JSCompiler_inline_result = false;
             }
-            if (JSCompiler_inline_result) containerInfo = element.contentWindow;
+            if (JSCompiler_inline_result) containerInfo = element3.contentWindow;
             else break;
-            element = getActiveElement(containerInfo.document);
+            element3 = getActiveElement(containerInfo.document);
           }
-          return element;
+          return element3;
         }
         function hasSelectionCapabilities(elem) {
           var nodeName = elem && elem.nodeName && elem.nodeName.toLowerCase();
@@ -4212,11 +4224,11 @@
           }
           return kind;
         }
-        function addObjectToProperties(object, properties, indent, prefix2) {
+        function addObjectToProperties(object, properties, indent2, prefix2) {
           for (var key in object)
-            hasOwnProperty.call(object, key) && "_" !== key[0] && addValueToProperties(key, object[key], properties, indent, prefix2);
+            hasOwnProperty2.call(object, key) && "_" !== key[0] && addValueToProperties(key, object[key], properties, indent2, prefix2);
         }
-        function addValueToProperties(propertyName, value, properties, indent, prefix2) {
+        function addValueToProperties(propertyName, value, properties, indent2, prefix2) {
           switch (typeof value) {
             case "object":
               if (null === value) {
@@ -4231,28 +4243,28 @@
                     value = "<" + typeName2 + " />";
                     break;
                   }
-                  if (3 > indent || 1 === propsLength && "children" === propsKeys[0] && null == key) {
+                  if (3 > indent2 || 1 === propsLength && "children" === propsKeys[0] && null == key) {
                     value = "<" + typeName2 + " \u2026 />";
                     break;
                   }
                   properties.push([
-                    prefix2 + "\xA0\xA0".repeat(indent) + propertyName,
+                    prefix2 + "\xA0\xA0".repeat(indent2) + propertyName,
                     "<" + typeName2
                   ]);
                   null !== key && addValueToProperties(
                     "key",
                     key,
                     properties,
-                    indent + 1,
+                    indent2 + 1,
                     prefix2
                   );
                   propertyName = false;
                   for (var propKey in value)
-                    "children" === propKey ? null != value.children && (!isArrayImpl(value.children) || 0 < value.children.length) && (propertyName = true) : hasOwnProperty.call(value, propKey) && "_" !== propKey[0] && addValueToProperties(
+                    "children" === propKey ? null != value.children && (!isArrayImpl(value.children) || 0 < value.children.length) && (propertyName = true) : hasOwnProperty2.call(value, propKey) && "_" !== propKey[0] && addValueToProperties(
                       propKey,
                       value[propKey],
                       properties,
-                      indent + 1,
+                      indent2 + 1,
                       prefix2
                     );
                   properties.push([
@@ -4269,7 +4281,7 @@
                     break;
                   } else if (propKey === ENTRIES_ARRAY) {
                     properties.push([
-                      prefix2 + "\xA0\xA0".repeat(indent) + propertyName,
+                      prefix2 + "\xA0\xA0".repeat(indent2) + propertyName,
                       ""
                     ]);
                     for (propertyName = 0; propertyName < value.length; propertyName++)
@@ -4277,7 +4289,7 @@
                         typeName2[0],
                         typeName2[1],
                         properties,
-                        indent + 1,
+                        indent2 + 1,
                         prefix2
                       );
                     return;
@@ -4289,7 +4301,7 @@
                       propertyName,
                       value.value,
                       properties,
-                      indent,
+                      indent2,
                       prefix2
                     ), properties.length > typeName2) {
                       properties = properties[typeName2];
@@ -4300,7 +4312,7 @@
                     propertyName,
                     value.reason,
                     properties,
-                    indent,
+                    indent2,
                     prefix2
                   ), properties.length > typeName2)) {
                     properties = properties[typeName2];
@@ -4308,17 +4320,17 @@
                     return;
                   }
                   properties.push([
-                    "\xA0\xA0".repeat(indent) + propertyName,
+                    "\xA0\xA0".repeat(indent2) + propertyName,
                     "Promise"
                   ]);
                   return;
                 }
                 "Object" === typeName2 && (propKey = Object.getPrototypeOf(value)) && "function" === typeof propKey.constructor && (typeName2 = propKey.constructor.name);
                 properties.push([
-                  prefix2 + "\xA0\xA0".repeat(indent) + propertyName,
-                  "Object" === typeName2 ? 3 > indent ? "" : "\u2026" : typeName2
+                  prefix2 + "\xA0\xA0".repeat(indent2) + propertyName,
+                  "Object" === typeName2 ? 3 > indent2 ? "" : "\u2026" : typeName2
                 ]);
-                3 > indent && addObjectToProperties(value, properties, indent + 1, prefix2);
+                3 > indent2 && addObjectToProperties(value, properties, indent2 + 1, prefix2);
                 return;
               }
             case "function":
@@ -4337,15 +4349,15 @@
               value = String(value);
           }
           properties.push([
-            prefix2 + "\xA0\xA0".repeat(indent) + propertyName,
+            prefix2 + "\xA0\xA0".repeat(indent2) + propertyName,
             value
           ]);
         }
-        function addObjectDiffToProperties(prev, next, properties, indent) {
+        function addObjectDiffToProperties(prev, next, properties, indent2) {
           var isDeeplyEqual = true;
           for (key in prev)
             key in next || (properties.push([
-              REMOVED + "\xA0\xA0".repeat(indent) + key,
+              REMOVED + "\xA0\xA0".repeat(indent2) + key,
               "\u2026"
             ]), isDeeplyEqual = false);
           for (var _key in next)
@@ -4353,18 +4365,18 @@
               var key = prev[_key];
               var nextValue = next[_key];
               if (key !== nextValue) {
-                if (0 === indent && "children" === _key)
-                  isDeeplyEqual = "\xA0\xA0".repeat(indent) + _key, properties.push(
+                if (0 === indent2 && "children" === _key)
+                  isDeeplyEqual = "\xA0\xA0".repeat(indent2) + _key, properties.push(
                     [REMOVED + isDeeplyEqual, "\u2026"],
                     [ADDED + isDeeplyEqual, "\u2026"]
                   );
                 else {
-                  if (!(3 <= indent)) {
+                  if (!(3 <= indent2)) {
                     if ("object" === typeof key && "object" === typeof nextValue && null !== key && null !== nextValue && key.$$typeof === nextValue.$$typeof)
                       if (nextValue.$$typeof === REACT_ELEMENT_TYPE) {
                         if (key.type === nextValue.type && key.key === nextValue.key) {
                           key = getComponentNameFromType(nextValue.type) || "\u2026";
-                          isDeeplyEqual = "\xA0\xA0".repeat(indent) + _key;
+                          isDeeplyEqual = "\xA0\xA0".repeat(indent2) + _key;
                           key = "<" + key + " \u2026 />";
                           properties.push(
                             [REMOVED + isDeeplyEqual, key],
@@ -4377,7 +4389,7 @@
                         var prevKind = Object.prototype.toString.call(key), nextKind = Object.prototype.toString.call(nextValue);
                         if (prevKind === nextKind && ("[object Object]" === nextKind || "[object Array]" === nextKind)) {
                           prevKind = [
-                            UNCHANGED + "\xA0\xA0".repeat(indent) + _key,
+                            UNCHANGED + "\xA0\xA0".repeat(indent2) + _key,
                             "[object Array]" === nextKind ? "Array" : ""
                           ];
                           properties.push(prevKind);
@@ -4386,7 +4398,7 @@
                             key,
                             nextValue,
                             properties,
-                            indent + 1
+                            indent2 + 1
                           ) ? nextKind === properties.length && (prevKind[1] = "Referentially unequal but deeply equal objects. Consider memoization.") : isDeeplyEqual = false;
                           continue;
                         }
@@ -4394,20 +4406,20 @@
                     else if ("function" === typeof key && "function" === typeof nextValue && key.name === nextValue.name && key.length === nextValue.length && (prevKind = Function.prototype.toString.call(key), nextKind = Function.prototype.toString.call(nextValue), prevKind === nextKind)) {
                       key = "" === nextValue.name ? "() => {}" : nextValue.name + "() {}";
                       properties.push([
-                        UNCHANGED + "\xA0\xA0".repeat(indent) + _key,
+                        UNCHANGED + "\xA0\xA0".repeat(indent2) + _key,
                         key + " Referentially unequal function closure. Consider memoization."
                       ]);
                       continue;
                     }
                   }
-                  addValueToProperties(_key, key, properties, indent, REMOVED);
-                  addValueToProperties(_key, nextValue, properties, indent, ADDED);
+                  addValueToProperties(_key, key, properties, indent2, REMOVED);
+                  addValueToProperties(_key, nextValue, properties, indent2, ADDED);
                 }
                 isDeeplyEqual = false;
               }
             } else
               properties.push([
-                ADDED + "\xA0\xA0".repeat(indent) + _key,
+                ADDED + "\xA0\xA0".repeat(indent2) + _key,
                 "\u2026"
               ]), isDeeplyEqual = false;
           return isDeeplyEqual;
@@ -4428,8 +4440,8 @@
           logComponentTrigger(fiber, startTime, endTime, "Reconnect");
         }
         function logComponentRender(fiber, startTime, endTime, wasHydrated, committedLanes) {
-          var name = getComponentNameFromFiber(fiber);
-          if (null !== name && supportsUserTiming) {
+          var name2 = getComponentNameFromFiber(fiber);
+          if (null !== name2 && supportsUserTiming) {
             var alternate = fiber.alternate, selfTime = fiber.actualDuration;
             if (null === alternate || alternate.child !== fiber.child)
               for (var child = fiber.child; null !== child; child = child.sibling)
@@ -4442,19 +4454,19 @@
               props,
               child,
               0
-            ), 1 < child.length && (props && !alreadyWarnedForDeepEquality && 0 === (alternate.lanes & committedLanes) && 100 < fiber.actualDuration ? (alreadyWarnedForDeepEquality = true, child[0] = reusableDeeplyEqualPropsEntry, reusableComponentDevToolDetails.color = "warning", reusableComponentDevToolDetails.tooltipText = DEEP_EQUALITY_WARNING) : (reusableComponentDevToolDetails.color = wasHydrated, reusableComponentDevToolDetails.tooltipText = name), reusableComponentDevToolDetails.properties = child, reusableComponentOptions.start = startTime, reusableComponentOptions.end = endTime, null != selfTime ? selfTime.run(
+            ), 1 < child.length && (props && !alreadyWarnedForDeepEquality && 0 === (alternate.lanes & committedLanes) && 100 < fiber.actualDuration ? (alreadyWarnedForDeepEquality = true, child[0] = reusableDeeplyEqualPropsEntry, reusableComponentDevToolDetails.color = "warning", reusableComponentDevToolDetails.tooltipText = DEEP_EQUALITY_WARNING) : (reusableComponentDevToolDetails.color = wasHydrated, reusableComponentDevToolDetails.tooltipText = name2), reusableComponentDevToolDetails.properties = child, reusableComponentOptions.start = startTime, reusableComponentOptions.end = endTime, null != selfTime ? selfTime.run(
               performance.measure.bind(
                 performance,
-                "\u200B" + name,
+                "\u200B" + name2,
                 reusableComponentOptions
               )
             ) : performance.measure(
-              "\u200B" + name,
+              "\u200B" + name2,
               reusableComponentOptions
             ))) : null != selfTime ? selfTime.run(
               console.timeStamp.bind(
                 console,
-                name,
+                name2,
                 startTime,
                 endTime,
                 COMPONENTS_TRACK,
@@ -4462,7 +4474,7 @@
                 wasHydrated
               )
             ) : console.timeStamp(
-              name,
+              name2,
               startTime,
               endTime,
               COMPONENTS_TRACK,
@@ -4473,8 +4485,8 @@
         }
         function logComponentErrored(fiber, startTime, endTime, errors) {
           if (supportsUserTiming) {
-            var name = getComponentNameFromFiber(fiber);
-            if (null !== name) {
+            var name2 = getComponentNameFromFiber(fiber);
+            if (null !== name2) {
               for (var debugTask = null, properties = [], i = 0; i < errors.length; i++) {
                 var capturedValue = errors[i];
                 null == debugTask && null !== capturedValue.source && (debugTask = capturedValue.source._debugTask);
@@ -4500,16 +4512,16 @@
                 }
               };
               debugTask ? debugTask.run(
-                performance.measure.bind(performance, "\u200B" + name, fiber)
-              ) : performance.measure("\u200B" + name, fiber);
+                performance.measure.bind(performance, "\u200B" + name2, fiber)
+              ) : performance.measure("\u200B" + name2, fiber);
             }
           }
         }
         function logComponentEffect(fiber, startTime, endTime, selfTime, errors) {
           if (null !== errors) {
             if (supportsUserTiming) {
-              var name = getComponentNameFromFiber(fiber);
-              if (null !== name) {
+              var name2 = getComponentNameFromFiber(fiber);
+              if (null !== name2) {
                 selfTime = [];
                 for (var i = 0; i < errors.length; i++) {
                   var error = errors[i].value;
@@ -4535,17 +4547,17 @@
                 (fiber = fiber._debugTask) ? fiber.run(
                   performance.measure.bind(
                     performance,
-                    "\u200B" + name,
+                    "\u200B" + name2,
                     startTime
                   )
-                ) : performance.measure("\u200B" + name, startTime);
+                ) : performance.measure("\u200B" + name2, startTime);
               }
             }
           } else
-            name = getComponentNameFromFiber(fiber), null !== name && supportsUserTiming && (errors = 1 > selfTime ? "secondary-light" : 100 > selfTime ? "secondary" : 500 > selfTime ? "secondary-dark" : "error", (fiber = fiber._debugTask) ? fiber.run(
+            name2 = getComponentNameFromFiber(fiber), null !== name2 && supportsUserTiming && (errors = 1 > selfTime ? "secondary-light" : 100 > selfTime ? "secondary" : 500 > selfTime ? "secondary-dark" : "error", (fiber = fiber._debugTask) ? fiber.run(
               console.timeStamp.bind(
                 console,
-                name,
+                name2,
                 startTime,
                 endTime,
                 COMPONENTS_TRACK,
@@ -4553,7 +4565,7 @@
                 errors
               )
             ) : console.timeStamp(
-              name,
+              name2,
               startTime,
               endTime,
               COMPONENTS_TRACK,
@@ -4563,7 +4575,7 @@
         }
         function logRenderPhase(startTime, endTime, lanes, debugTask) {
           if (supportsUserTiming && !(endTime <= startTime)) {
-            var color = (lanes & 738197653) === lanes ? "tertiary-dark" : "primary-dark";
+            var color2 = (lanes & 738197653) === lanes ? "tertiary-dark" : "primary-dark";
             lanes = (lanes & 536870912) === lanes ? "Prepared" : (lanes & 201326741) === lanes ? "Hydrated" : "Render";
             debugTask ? debugTask.run(
               console.timeStamp.bind(
@@ -4573,7 +4585,7 @@
                 endTime,
                 currentTrack,
                 LANES_TRACK_GROUP,
-                color
+                color2
               )
             ) : console.timeStamp(
               lanes,
@@ -4581,7 +4593,7 @@
               endTime,
               currentTrack,
               LANES_TRACK_GROUP,
-              color
+              color2
             );
           }
         }
@@ -4793,9 +4805,9 @@
             "Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render."
           ));
           null === sourceFiber.alternate && 0 !== (sourceFiber.flags & 4098) && warnAboutUpdateOnNotYetMountedFiberInDEV(sourceFiber);
-          for (var node = sourceFiber, parent = node.return; null !== parent; )
-            null === node.alternate && 0 !== (node.flags & 4098) && warnAboutUpdateOnNotYetMountedFiberInDEV(sourceFiber), node = parent, parent = node.return;
-          return 3 === node.tag ? node.stateNode : null;
+          for (var node2 = sourceFiber, parent = node2.return; null !== parent; )
+            null === node2.alternate && 0 !== (node2.flags & 4098) && warnAboutUpdateOnNotYetMountedFiberInDEV(sourceFiber), node2 = parent, parent = node2.return;
+          return 3 === node2.tag ? node2.stateNode : null;
         }
         function resolveFunctionForHotReloading(type) {
           if (null === resolveFamily) return type;
@@ -4807,17 +4819,17 @@
           var family = resolveFamily(type);
           return void 0 === family ? null !== type && void 0 !== type && "function" === typeof type.render && (family = resolveFunctionForHotReloading(type.render), type.render !== family) ? (family = { $$typeof: REACT_FORWARD_REF_TYPE, render: family }, void 0 !== type.displayName && (family.displayName = type.displayName), family) : type : family.current;
         }
-        function isCompatibleFamilyForHotReloading(fiber, element) {
+        function isCompatibleFamilyForHotReloading(fiber, element3) {
           if (null === resolveFamily) return false;
           var prevType = fiber.elementType;
-          element = element.type;
-          var needsCompareFamilies = false, $$typeofNextType = "object" === typeof element && null !== element ? element.$$typeof : null;
+          element3 = element3.type;
+          var needsCompareFamilies = false, $$typeofNextType = "object" === typeof element3 && null !== element3 ? element3.$$typeof : null;
           switch (fiber.tag) {
             case 1:
-              "function" === typeof element && (needsCompareFamilies = true);
+              "function" === typeof element3 && (needsCompareFamilies = true);
               break;
             case 0:
-              "function" === typeof element ? needsCompareFamilies = true : $$typeofNextType === REACT_LAZY_TYPE && (needsCompareFamilies = true);
+              "function" === typeof element3 ? needsCompareFamilies = true : $$typeofNextType === REACT_LAZY_TYPE && (needsCompareFamilies = true);
               break;
             case 11:
               $$typeofNextType === REACT_FORWARD_REF_TYPE ? needsCompareFamilies = true : $$typeofNextType === REACT_LAZY_TYPE && (needsCompareFamilies = true);
@@ -4829,7 +4841,7 @@
             default:
               return false;
           }
-          return needsCompareFamilies && (fiber = resolveFamily(prevType), void 0 !== fiber && fiber === resolveFamily(element)) ? true : false;
+          return needsCompareFamilies && (fiber = resolveFamily(prevType), void 0 !== fiber && fiber === resolveFamily(element3)) ? true : false;
         }
         function markFailedErrorBoundaryForHotReloading(fiber) {
           null !== resolveFamily && "function" === typeof WeakSet && (null === failedBoundaries && (failedBoundaries = /* @__PURE__ */ new WeakSet()), failedBoundaries.add(fiber));
@@ -5013,18 +5025,18 @@
           key._debugOwner = owner;
           return key;
         }
-        function createFiberFromElement(element, mode, lanes) {
+        function createFiberFromElement(element3, mode, lanes) {
           mode = createFiberFromTypeAndProps(
-            element.type,
-            element.key,
-            element.props,
-            element._owner,
+            element3.type,
+            element3.key,
+            element3.props,
+            element3._owner,
             mode,
             lanes
           );
-          mode._debugOwner = element._owner;
-          mode._debugStack = element._debugStack;
-          mode._debugTask = element._debugTask;
+          mode._debugOwner = element3._owner;
+          mode._debugStack = element3._debugStack;
+          mode._debugTask = element3._debugTask;
           return mode;
         }
         function createFiberFromFragment(elements, mode, lanes, key) {
@@ -5032,10 +5044,10 @@
           elements.lanes = lanes;
           return elements;
         }
-        function createFiberFromText(content, mode, lanes) {
-          content = createFiber(6, content, null, mode);
-          content.lanes = lanes;
-          return content;
+        function createFiberFromText(content3, mode, lanes) {
+          content3 = createFiber(6, content3, null, mode);
+          content3.lanes = lanes;
+          return content3;
         }
         function createFiberFromDehydratedFragment(dehydratedNode) {
           var fiber = createFiber(18, null, null, NoMode);
@@ -5082,7 +5094,7 @@
           treeForkProvider = workInProgress2;
           treeForkCount = totalChildren;
         }
-        function pushTreeId(workInProgress2, totalChildren, index) {
+        function pushTreeId(workInProgress2, totalChildren, index2) {
           warnIfNotHydrating();
           idStack[idStackIndex++] = treeContextId;
           idStack[idStackIndex++] = treeContextOverflow;
@@ -5092,17 +5104,17 @@
           workInProgress2 = treeContextOverflow;
           var baseLength = 32 - clz32(baseIdWithLeadingBit) - 1;
           baseIdWithLeadingBit &= ~(1 << baseLength);
-          index += 1;
+          index2 += 1;
           var length = 32 - clz32(totalChildren) + baseLength;
           if (30 < length) {
             var numberOfOverflowBits = baseLength - baseLength % 5;
             length = (baseIdWithLeadingBit & (1 << numberOfOverflowBits) - 1).toString(32);
             baseIdWithLeadingBit >>= numberOfOverflowBits;
             baseLength -= numberOfOverflowBits;
-            treeContextId = 1 << 32 - clz32(totalChildren) + baseLength | index << baseLength | baseIdWithLeadingBit;
+            treeContextId = 1 << 32 - clz32(totalChildren) + baseLength | index2 << baseLength | baseIdWithLeadingBit;
             treeContextOverflow = length + workInProgress2;
           } else
-            treeContextId = 1 << length | index << baseLength | baseIdWithLeadingBit, treeContextOverflow = workInProgress2;
+            treeContextId = 1 << length | index2 << baseLength | baseIdWithLeadingBit, treeContextOverflow = workInProgress2;
         }
         function pushMaterializedTreeId(workInProgress2) {
           warnIfNotHydrating();
@@ -5346,9 +5358,9 @@
           isDisallowedContextReadInDEV = false;
         }
         function pushProvider(providerFiber, context, nextValue) {
-          push(valueCursor, context._currentValue, providerFiber);
+          push2(valueCursor, context._currentValue, providerFiber);
           context._currentValue = nextValue;
-          push(rendererCursorDEV, context._currentRenderer, providerFiber);
+          push2(rendererCursorDEV, context._currentRenderer, providerFiber);
           void 0 !== context._currentRenderer && null !== context._currentRenderer && context._currentRenderer !== rendererSigil && console.error(
             "Detected multiple renderers concurrently rendering the same context provider. This is currently unsupported."
           );
@@ -5376,27 +5388,27 @@
           var fiber = workInProgress2.child;
           null !== fiber && (fiber.return = workInProgress2);
           for (; null !== fiber; ) {
-            var list = fiber.dependencies;
-            if (null !== list) {
+            var list4 = fiber.dependencies;
+            if (null !== list4) {
               var nextFiber = fiber.child;
-              list = list.firstContext;
-              a: for (; null !== list; ) {
-                var dependency = list;
-                list = fiber;
+              list4 = list4.firstContext;
+              a: for (; null !== list4; ) {
+                var dependency = list4;
+                list4 = fiber;
                 for (var i = 0; i < contexts.length; i++)
                   if (dependency.context === contexts[i]) {
-                    list.lanes |= renderLanes2;
-                    dependency = list.alternate;
+                    list4.lanes |= renderLanes2;
+                    dependency = list4.alternate;
                     null !== dependency && (dependency.lanes |= renderLanes2);
                     scheduleContextWorkOnParentPath(
-                      list.return,
+                      list4.return,
                       renderLanes2,
                       workInProgress2
                     );
                     forcePropagateEntireTree || (nextFiber = null);
                     break a;
                   }
-                list = dependency.next;
+                list4 = dependency.next;
               }
             } else if (18 === fiber.tag) {
               nextFiber = fiber.return;
@@ -5405,8 +5417,8 @@
                   "We just came from a parent so we must have had a parent. This is a bug in React."
                 );
               nextFiber.lanes |= renderLanes2;
-              list = nextFiber.alternate;
-              null !== list && (list.lanes |= renderLanes2);
+              list4 = nextFiber.alternate;
+              null !== list4 && (list4.lanes |= renderLanes2);
               scheduleContextWorkOnParentPath(
                 nextFiber,
                 renderLanes2,
@@ -5704,7 +5716,7 @@
           return null !== cacheResumedFromPreviousRender ? cacheResumedFromPreviousRender : workInProgressRoot.pooledCache;
         }
         function pushTransition(offscreenWorkInProgress, prevCachePool) {
-          null === prevCachePool ? push(resumedCache, resumedCache.current, offscreenWorkInProgress) : push(resumedCache, prevCachePool.pool, offscreenWorkInProgress);
+          null === prevCachePool ? push2(resumedCache, resumedCache.current, offscreenWorkInProgress) : push2(resumedCache, prevCachePool.pool, offscreenWorkInProgress);
         }
         function getSuspendedCache() {
           var cacheFromPool = peekCacheFromPool();
@@ -5717,13 +5729,13 @@
           thenable = thenable.status;
           return "fulfilled" === thenable || "rejected" === thenable;
         }
-        function trackUsedThenable(thenableState2, thenable, index) {
+        function trackUsedThenable(thenableState2, thenable, index2) {
           null !== ReactSharedInternals.actQueue && (ReactSharedInternals.didUsePromise = true);
           var trackedThenables = thenableState2.thenables;
-          index = trackedThenables[index];
-          void 0 === index ? trackedThenables.push(thenable) : index !== thenable && (thenableState2.didWarnAboutUncachedPromise || (thenableState2.didWarnAboutUncachedPromise = true, console.error(
+          index2 = trackedThenables[index2];
+          void 0 === index2 ? trackedThenables.push(thenable) : index2 !== thenable && (thenableState2.didWarnAboutUncachedPromise || (thenableState2.didWarnAboutUncachedPromise = true, console.error(
             "A component was suspended by an uncached promise. Creating promises inside a Client Component or hook is not yet supported, except via a Suspense-compatible library or framework."
-          )), thenable.then(noop$1, noop$1), thenable = index);
+          )), thenable.then(noop$1, noop$1), thenable = index2);
           if (void 0 === thenable._debugInfo) {
             thenableState2 = performance.now();
             trackedThenables = thenable.displayName;
@@ -5823,11 +5835,11 @@
           }
           return null;
         }
-        function validateFragmentProps(element, fiber, returnFiber) {
-          for (var keys = Object.keys(element.props), i = 0; i < keys.length; i++) {
-            var key = keys[i];
+        function validateFragmentProps(element3, fiber, returnFiber) {
+          for (var keys2 = Object.keys(element3.props), i = 0; i < keys2.length; i++) {
+            var key = keys2[i];
             if ("children" !== key && "key" !== key) {
-              null === fiber && (fiber = createFiberFromElement(element, returnFiber.mode, 0), fiber._debugInfo = currentDebugInfo, fiber.return = returnFiber);
+              null === fiber && (fiber = createFiberFromElement(element3, returnFiber.mode, 0), fiber._debugInfo = currentDebugInfo, fiber.return = returnFiber);
               runWithFiberInDEV(
                 fiber,
                 function(erroredKey) {
@@ -5843,14 +5855,14 @@
           }
         }
         function unwrapThenable(thenable) {
-          var index = thenableIndexCounter$1;
+          var index2 = thenableIndexCounter$1;
           thenableIndexCounter$1 += 1;
           null === thenableState$1 && (thenableState$1 = createThenableState());
-          return trackUsedThenable(thenableState$1, thenable, index);
+          return trackUsedThenable(thenableState$1, thenable, index2);
         }
-        function coerceRef(workInProgress2, element) {
-          element = element.props.ref;
-          workInProgress2.ref = void 0 !== element ? element : null;
+        function coerceRef(workInProgress2, element3) {
+          element3 = element3.props.ref;
+          workInProgress2.ref = void 0 !== element3 ? element3 : null;
         }
         function throwOnInvalidObjectTypeImpl(returnFiber, newChild) {
           if (newChild.$$typeof === REACT_LEGACY_ELEMENT_TYPE)
@@ -5958,20 +5970,20 @@
             current2._debugInfo = currentDebugInfo;
             return current2;
           }
-          function updateElement(returnFiber, current2, element, lanes) {
-            var elementType = element.type;
+          function updateElement(returnFiber, current2, element3, lanes) {
+            var elementType = element3.type;
             if (elementType === REACT_FRAGMENT_TYPE)
               return current2 = updateFragment(
                 returnFiber,
                 current2,
-                element.props.children,
+                element3.props.children,
                 lanes,
-                element.key
-              ), validateFragmentProps(element, current2, returnFiber), current2;
-            if (null !== current2 && (current2.elementType === elementType || isCompatibleFamilyForHotReloading(current2, element) || "object" === typeof elementType && null !== elementType && elementType.$$typeof === REACT_LAZY_TYPE && resolveLazy(elementType) === current2.type))
-              return current2 = useFiber(current2, element.props), coerceRef(current2, element), current2.return = returnFiber, current2._debugOwner = element._owner, current2._debugInfo = currentDebugInfo, current2;
-            current2 = createFiberFromElement(element, returnFiber.mode, lanes);
-            coerceRef(current2, element);
+                element3.key
+              ), validateFragmentProps(element3, current2, returnFiber), current2;
+            if (null !== current2 && (current2.elementType === elementType || isCompatibleFamilyForHotReloading(current2, element3) || "object" === typeof elementType && null !== elementType && elementType.$$typeof === REACT_LAZY_TYPE && resolveLazy(elementType) === current2.type))
+              return current2 = useFiber(current2, element3.props), coerceRef(current2, element3), current2.return = returnFiber, current2._debugOwner = element3._owner, current2._debugInfo = currentDebugInfo, current2;
+            current2 = createFiberFromElement(element3, returnFiber.mode, lanes);
+            coerceRef(current2, element3);
             current2.return = returnFiber;
             current2._debugInfo = currentDebugInfo;
             return current2;
@@ -6527,13 +6539,13 @@
             }
           };
         }
-        function validateSuspenseListNestedChild(childSlot, index) {
+        function validateSuspenseListNestedChild(childSlot, index2) {
           var isAnArray = isArrayImpl(childSlot);
           childSlot = !isAnArray && "function" === typeof getIteratorFn(childSlot);
           return isAnArray || childSlot ? (isAnArray = isAnArray ? "array" : "iterable", console.error(
             "A nested %s was passed to row #%s in <SuspenseList />. Wrap it in an additional SuspenseList to configure its revealOrder: <SuspenseList revealOrder=...> ... <SuspenseList revealOrder=...>{%s}</SuspenseList> ... </SuspenseList>",
             isAnArray,
-            index,
+            index2,
             isAnArray
           ), false) : true;
         }
@@ -6582,14 +6594,14 @@
           enqueueUpdate$1(fiber, updateQueue, update, lane);
           return getRootForUpdatedFiber(fiber);
         }
-        function entangleTransitions(root2, fiber, lane) {
+        function entangleTransitions(root5, fiber, lane) {
           fiber = fiber.updateQueue;
           if (null !== fiber && (fiber = fiber.shared, 0 !== (lane & 4194048))) {
             var queueLanes = fiber.lanes;
-            queueLanes &= root2.pendingLanes;
+            queueLanes &= root5.pendingLanes;
             lane |= queueLanes;
             fiber.lanes = lane;
-            markRootEntangled(root2, lane);
+            markRootEntangled(root5, lane);
           }
         }
         function enqueueCapturedUpdate(workInProgress2, capturedUpdate) {
@@ -6767,13 +6779,13 @@
         }
         function pushHiddenContext(fiber, context) {
           var prevEntangledRenderLanes = entangledRenderLanes;
-          push(prevEntangledRenderLanesCursor, prevEntangledRenderLanes, fiber);
-          push(currentTreeHiddenStackCursor, context, fiber);
+          push2(prevEntangledRenderLanesCursor, prevEntangledRenderLanes, fiber);
+          push2(currentTreeHiddenStackCursor, context, fiber);
           entangledRenderLanes = prevEntangledRenderLanes | context.baseLanes;
         }
         function reuseHiddenContextOnStack(fiber) {
-          push(prevEntangledRenderLanesCursor, entangledRenderLanes, fiber);
-          push(
+          push2(prevEntangledRenderLanesCursor, entangledRenderLanes, fiber);
+          push2(
             currentTreeHiddenStackCursor,
             currentTreeHiddenStackCursor.current,
             fiber
@@ -6786,25 +6798,25 @@
         }
         function pushPrimaryTreeSuspenseHandler(handler) {
           var current2 = handler.alternate;
-          push(
+          push2(
             suspenseStackCursor,
             suspenseStackCursor.current & SubtreeSuspenseContextMask,
             handler
           );
-          push(suspenseHandlerStackCursor, handler, handler);
+          push2(suspenseHandlerStackCursor, handler, handler);
           null === shellBoundary && (null === current2 || null !== currentTreeHiddenStackCursor.current ? shellBoundary = handler : null !== current2.memoizedState && (shellBoundary = handler));
         }
         function pushDehydratedActivitySuspenseHandler(fiber) {
-          push(suspenseStackCursor, suspenseStackCursor.current, fiber);
-          push(suspenseHandlerStackCursor, fiber, fiber);
+          push2(suspenseStackCursor, suspenseStackCursor.current, fiber);
+          push2(suspenseHandlerStackCursor, fiber, fiber);
           null === shellBoundary && (shellBoundary = fiber);
         }
         function pushOffscreenSuspenseHandler(fiber) {
-          22 === fiber.tag ? (push(suspenseStackCursor, suspenseStackCursor.current, fiber), push(suspenseHandlerStackCursor, fiber, fiber), null === shellBoundary && (shellBoundary = fiber)) : reuseSuspenseHandlerOnStack(fiber);
+          22 === fiber.tag ? (push2(suspenseStackCursor, suspenseStackCursor.current, fiber), push2(suspenseHandlerStackCursor, fiber, fiber), null === shellBoundary && (shellBoundary = fiber)) : reuseSuspenseHandlerOnStack(fiber);
         }
         function reuseSuspenseHandlerOnStack(fiber) {
-          push(suspenseStackCursor, suspenseStackCursor.current, fiber);
-          push(
+          push2(suspenseStackCursor, suspenseStackCursor.current, fiber);
+          push2(
             suspenseHandlerStackCursor,
             suspenseHandlerStackCursor.current,
             fiber
@@ -6816,25 +6828,25 @@
           pop(suspenseStackCursor, fiber);
         }
         function findFirstSuspended(row) {
-          for (var node = row; null !== node; ) {
-            if (13 === node.tag) {
-              var state = node.memoizedState;
+          for (var node2 = row; null !== node2; ) {
+            if (13 === node2.tag) {
+              var state = node2.memoizedState;
               if (null !== state && (state = state.dehydrated, null === state || isSuspenseInstancePending(state) || isSuspenseInstanceFallback(state)))
-                return node;
-            } else if (19 === node.tag && ("forwards" === node.memoizedProps.revealOrder || "backwards" === node.memoizedProps.revealOrder || "unstable_legacy-backwards" === node.memoizedProps.revealOrder || "together" === node.memoizedProps.revealOrder)) {
-              if (0 !== (node.flags & 128)) return node;
-            } else if (null !== node.child) {
-              node.child.return = node;
-              node = node.child;
+                return node2;
+            } else if (19 === node2.tag && ("forwards" === node2.memoizedProps.revealOrder || "backwards" === node2.memoizedProps.revealOrder || "unstable_legacy-backwards" === node2.memoizedProps.revealOrder || "together" === node2.memoizedProps.revealOrder)) {
+              if (0 !== (node2.flags & 128)) return node2;
+            } else if (null !== node2.child) {
+              node2.child.return = node2;
+              node2 = node2.child;
               continue;
             }
-            if (node === row) break;
-            for (; null === node.sibling; ) {
-              if (null === node.return || node.return === row) return null;
-              node = node.return;
+            if (node2 === row) break;
+            for (; null === node2.sibling; ) {
+              if (null === node2.return || node2.return === row) return null;
+              node2 = node2.return;
             }
-            node.sibling.return = node.return;
-            node = node.sibling;
+            node2.sibling.return = node2.return;
+            node2 = node2.sibling;
           }
           return null;
         }
@@ -6847,17 +6859,17 @@
           if (null !== hookTypesDev && (hookTypesUpdateIndexDev++, hookTypesDev[hookTypesUpdateIndexDev] !== hookName)) {
             var componentName2 = getComponentNameFromFiber(currentlyRenderingFiber);
             if (!didWarnAboutMismatchedHooksForComponent.has(componentName2) && (didWarnAboutMismatchedHooksForComponent.add(componentName2), null !== hookTypesDev)) {
-              for (var table = "", i = 0; i <= hookTypesUpdateIndexDev; i++) {
+              for (var table2 = "", i = 0; i <= hookTypesUpdateIndexDev; i++) {
                 var oldHookName = hookTypesDev[i], newHookName = i === hookTypesUpdateIndexDev ? hookName : oldHookName;
                 for (oldHookName = i + 1 + ". " + oldHookName; 30 > oldHookName.length; )
                   oldHookName += " ";
                 oldHookName += newHookName + "\n";
-                table += oldHookName;
+                table2 += oldHookName;
               }
               console.error(
                 "React has detected a change in the order of Hooks called by %s. This will lead to bugs and errors if not fixed. For more information, read the Rules of Hooks: https://react.dev/link/rules-of-hooks\n\n   Previous render            Next render\n   ------------------------------------------------------\n%s   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
                 componentName2,
-                table
+                table2
               );
             }
           }
@@ -7070,12 +7082,12 @@
           return { lastEffect: null, events: null, stores: null, memoCache: null };
         }
         function useThenable(thenable) {
-          var index = thenableIndexCounter;
+          var index2 = thenableIndexCounter;
           thenableIndexCounter += 1;
           null === thenableState && (thenableState = createThenableState());
-          thenable = trackUsedThenable(thenableState, thenable, index);
-          index = currentlyRenderingFiber;
-          null === (null === workInProgressHook ? index.memoizedState : workInProgressHook.next) && (index = index.alternate, ReactSharedInternals.H = null !== index && null !== index.memoizedState ? HooksDispatcherOnUpdateInDEV : HooksDispatcherOnMountInDEV);
+          thenable = trackUsedThenable(thenableState, thenable, index2);
+          index2 = currentlyRenderingFiber;
+          null === (null === workInProgressHook ? index2.memoizedState : workInProgressHook.next) && (index2 = index2.alternate, ReactSharedInternals.H = null !== index2 && null !== index2.memoizedState ? HooksDispatcherOnUpdateInDEV : HooksDispatcherOnMountInDEV);
           return thenable;
         }
         function use(usable) {
@@ -7313,8 +7325,8 @@
           ))
             hook.memoizedState = getServerSnapshot, didReceiveUpdate = true;
           hook = hook.queue;
-          var create = subscribeToStore.bind(null, fiber, hook, subscribe);
-          updateEffectImpl(2048, Passive, create, [subscribe]);
+          var create2 = subscribeToStore.bind(null, fiber, hook, subscribe);
+          updateEffectImpl(2048, Passive, create2, [subscribe]);
           if (hook.getSnapshot !== getSnapshot || cachedSnapshot || null !== workInProgressHook && workInProgressHook.memoizedState.tag & HasEffect) {
             fiber.flags |= 2048;
             pushSimpleEffect(
@@ -7364,8 +7376,8 @@
           }
         }
         function forceStoreRerender(fiber) {
-          var root2 = enqueueConcurrentRenderForLane(fiber, 2);
-          null !== root2 && scheduleUpdateOnFiber(root2, fiber, 2);
+          var root5 = enqueueConcurrentRenderForLane(fiber, 2);
+          null !== root5 && scheduleUpdateOnFiber(root5, fiber, 2);
         }
         function mountStateImpl(initialState) {
           var hook = mountWorkInProgressHook();
@@ -7460,18 +7472,18 @@
             null === setPendingState ? (actionNode.next = actionQueue.pending = actionNode, runActionStateAction(actionQueue, actionNode)) : (actionNode.next = setPendingState.next, actionQueue.pending = setPendingState.next = actionNode);
           }
         }
-        function runActionStateAction(actionQueue, node) {
-          var action = node.action, payload = node.payload, prevState = actionQueue.state;
-          if (node.isTransition) {
+        function runActionStateAction(actionQueue, node2) {
+          var action = node2.action, payload = node2.payload, prevState = actionQueue.state;
+          if (node2.isTransition) {
             var prevTransition = ReactSharedInternals.T, currentTransition = {};
             currentTransition._updatedFibers = /* @__PURE__ */ new Set();
             ReactSharedInternals.T = currentTransition;
             try {
               var returnValue = action(prevState, payload), onStartTransitionFinish = ReactSharedInternals.S;
               null !== onStartTransitionFinish && onStartTransitionFinish(currentTransition, returnValue);
-              handleActionReturnValue(actionQueue, node, returnValue);
+              handleActionReturnValue(actionQueue, node2, returnValue);
             } catch (error) {
-              onActionError(actionQueue, node, error);
+              onActionError(actionQueue, node2, error);
             } finally {
               null !== prevTransition && null !== currentTransition.types && (null !== prevTransition.types && prevTransition.types !== currentTransition.types && console.error(
                 "We expected inner Transitions to have transferred the outer types set and that you cannot add to the outer Transition while inside the inner.This is a bug in React."
@@ -7481,22 +7493,22 @@
             }
           } else
             try {
-              currentTransition = action(prevState, payload), handleActionReturnValue(actionQueue, node, currentTransition);
+              currentTransition = action(prevState, payload), handleActionReturnValue(actionQueue, node2, currentTransition);
             } catch (error$4) {
-              onActionError(actionQueue, node, error$4);
+              onActionError(actionQueue, node2, error$4);
             }
         }
-        function handleActionReturnValue(actionQueue, node, returnValue) {
+        function handleActionReturnValue(actionQueue, node2, returnValue) {
           null !== returnValue && "object" === typeof returnValue && "function" === typeof returnValue.then ? (ReactSharedInternals.asyncTransitions++, returnValue.then(releaseAsyncTransition, releaseAsyncTransition), returnValue.then(
             function(nextState) {
-              onActionSuccess(actionQueue, node, nextState);
+              onActionSuccess(actionQueue, node2, nextState);
             },
             function(error) {
-              return onActionError(actionQueue, node, error);
+              return onActionError(actionQueue, node2, error);
             }
-          ), node.isTransition || console.error(
+          ), node2.isTransition || console.error(
             "An async function with useActionState was called outside of a transition. This is likely not what you intended (for example, isPending will not update correctly). Either call the returned function inside startTransition, or pass it to an `action` or `formAction` prop."
-          )) : onActionSuccess(actionQueue, node, returnValue);
+          )) : onActionSuccess(actionQueue, node2, returnValue);
         }
         function onActionSuccess(actionQueue, actionNode, nextState) {
           actionNode.status = "fulfilled";
@@ -7650,12 +7662,12 @@
           currentStateHook.memoizedState = action;
           return [stateHook, dispatch, false];
         }
-        function pushSimpleEffect(tag, inst, create, deps) {
-          tag = { tag, create, deps, inst, next: null };
+        function pushSimpleEffect(tag, inst, create2, deps) {
+          tag = { tag, create: create2, deps, inst, next: null };
           inst = currentlyRenderingFiber.updateQueue;
           null === inst && (inst = createFunctionComponentUpdateQueue(), currentlyRenderingFiber.updateQueue = inst);
-          create = inst.lastEffect;
-          null === create ? inst.lastEffect = tag.next = tag : (deps = create.next, create.next = tag, tag.next = deps, inst.lastEffect = tag);
+          create2 = inst.lastEffect;
+          null === create2 ? inst.lastEffect = tag.next = tag : (deps = create2.next, create2.next = tag, tag.next = deps, inst.lastEffect = tag);
           return tag;
         }
         function mountRef(initialValue) {
@@ -7663,29 +7675,29 @@
           initialValue = { current: initialValue };
           return hook.memoizedState = initialValue;
         }
-        function mountEffectImpl(fiberFlags, hookFlags, create, deps) {
+        function mountEffectImpl(fiberFlags, hookFlags, create2, deps) {
           var hook = mountWorkInProgressHook();
           currentlyRenderingFiber.flags |= fiberFlags;
           hook.memoizedState = pushSimpleEffect(
             HasEffect | hookFlags,
             { destroy: void 0 },
-            create,
+            create2,
             void 0 === deps ? null : deps
           );
         }
-        function updateEffectImpl(fiberFlags, hookFlags, create, deps) {
+        function updateEffectImpl(fiberFlags, hookFlags, create2, deps) {
           var hook = updateWorkInProgressHook();
           deps = void 0 === deps ? null : deps;
           var inst = hook.memoizedState.inst;
-          null !== currentHook && null !== deps && areHookInputsEqual(deps, currentHook.memoizedState.deps) ? hook.memoizedState = pushSimpleEffect(hookFlags, inst, create, deps) : (currentlyRenderingFiber.flags |= fiberFlags, hook.memoizedState = pushSimpleEffect(
+          null !== currentHook && null !== deps && areHookInputsEqual(deps, currentHook.memoizedState.deps) ? hook.memoizedState = pushSimpleEffect(hookFlags, inst, create2, deps) : (currentlyRenderingFiber.flags |= fiberFlags, hook.memoizedState = pushSimpleEffect(
             HasEffect | hookFlags,
             inst,
-            create,
+            create2,
             deps
           ));
         }
-        function mountEffect(create, deps) {
-          (currentlyRenderingFiber.mode & StrictEffectsMode) !== NoMode ? mountEffectImpl(276826112, Passive, create, deps) : mountEffectImpl(8390656, Passive, create, deps);
+        function mountEffect(create2, deps) {
+          (currentlyRenderingFiber.mode & StrictEffectsMode) !== NoMode ? mountEffectImpl(276826112, Passive, create2, deps) : mountEffectImpl(8390656, Passive, create2, deps);
         }
         function useEffectEventImpl(payload) {
           currentlyRenderingFiber.flags |= 4;
@@ -7719,15 +7731,15 @@
             return ref.impl.apply(void 0, arguments);
           };
         }
-        function mountLayoutEffect(create, deps) {
+        function mountLayoutEffect(create2, deps) {
           var fiberFlags = 4194308;
           (currentlyRenderingFiber.mode & StrictEffectsMode) !== NoMode && (fiberFlags |= 134217728);
-          return mountEffectImpl(fiberFlags, Layout, create, deps);
+          return mountEffectImpl(fiberFlags, Layout, create2, deps);
         }
-        function imperativeHandleEffect(create, ref) {
+        function imperativeHandleEffect(create2, ref) {
           if ("function" === typeof ref) {
-            create = create();
-            var refCleanup = ref(create);
+            create2 = create2();
+            var refCleanup = ref(create2);
             return function() {
               "function" === typeof refCleanup ? refCleanup() : ref(null);
             };
@@ -7736,14 +7748,14 @@
             return ref.hasOwnProperty("current") || console.error(
               "Expected useImperativeHandle() first argument to either be a ref callback or React.createRef() object. Instead received: %s.",
               "an object with keys {" + Object.keys(ref).join(", ") + "}"
-            ), create = create(), ref.current = create, function() {
+            ), create2 = create2(), ref.current = create2, function() {
               ref.current = null;
             };
         }
-        function mountImperativeHandle(ref, create, deps) {
-          "function" !== typeof create && console.error(
+        function mountImperativeHandle(ref, create2, deps) {
+          "function" !== typeof create2 && console.error(
             "Expected useImperativeHandle() second argument to be a function that creates a handle. Instead received: %s.",
-            null !== create ? typeof create : "null"
+            null !== create2 ? typeof create2 : "null"
           );
           deps = null !== deps && void 0 !== deps ? deps.concat([ref]) : null;
           var fiberFlags = 4194308;
@@ -7751,20 +7763,20 @@
           mountEffectImpl(
             fiberFlags,
             Layout,
-            imperativeHandleEffect.bind(null, create, ref),
+            imperativeHandleEffect.bind(null, create2, ref),
             deps
           );
         }
-        function updateImperativeHandle(ref, create, deps) {
-          "function" !== typeof create && console.error(
+        function updateImperativeHandle(ref, create2, deps) {
+          "function" !== typeof create2 && console.error(
             "Expected useImperativeHandle() second argument to be a function that creates a handle. Instead received: %s.",
-            null !== create ? typeof create : "null"
+            null !== create2 ? typeof create2 : "null"
           );
           deps = null !== deps && void 0 !== deps ? deps.concat([ref]) : null;
           updateEffectImpl(
             4,
             Layout,
-            imperativeHandleEffect.bind(null, create, ref),
+            imperativeHandleEffect.bind(null, create2, ref),
             deps
           );
         }
@@ -7987,17 +7999,17 @@
           return [false, stateHook];
         }
         function updateTransition() {
-          var booleanOrThenable = updateReducer(basicStateReducer)[0], start = updateWorkInProgressHook().memoizedState;
+          var booleanOrThenable = updateReducer(basicStateReducer)[0], start2 = updateWorkInProgressHook().memoizedState;
           return [
             "boolean" === typeof booleanOrThenable ? booleanOrThenable : useThenable(booleanOrThenable),
-            start
+            start2
           ];
         }
         function rerenderTransition() {
-          var booleanOrThenable = rerenderReducer(basicStateReducer)[0], start = updateWorkInProgressHook().memoizedState;
+          var booleanOrThenable = rerenderReducer(basicStateReducer)[0], start2 = updateWorkInProgressHook().memoizedState;
           return [
             "boolean" === typeof booleanOrThenable ? booleanOrThenable : useThenable(booleanOrThenable),
-            start
+            start2
           ];
         }
         function useHostTransitionStatus() {
@@ -8028,10 +8040,10 @@
             switch (provider.tag) {
               case 24:
               case 3:
-                var lane = requestUpdateLane(provider), refreshUpdate = createUpdate(lane), root2 = enqueueUpdate(provider, refreshUpdate, lane);
-                null !== root2 && (startUpdateTimerByLane(lane, "refresh()", fiber), scheduleUpdateOnFiber(root2, provider, lane), entangleTransitions(root2, provider, lane));
+                var lane = requestUpdateLane(provider), refreshUpdate = createUpdate(lane), root5 = enqueueUpdate(provider, refreshUpdate, lane);
+                null !== root5 && (startUpdateTimerByLane(lane, "refresh()", fiber), scheduleUpdateOnFiber(root5, provider, lane), entangleTransitions(root5, provider, lane));
                 fiber = createCache();
-                null !== seedKey && void 0 !== seedKey && null !== root2 && console.error(
+                null !== seedKey && void 0 !== seedKey && null !== root5 && console.error(
                   "The seed argument is not enabled outside experimental channels."
                 );
                 refreshUpdate.payload = { cache: fiber };
@@ -8133,13 +8145,13 @@
           null === pending ? update.next = update : (update.next = pending.next, pending.next = update);
           queue.pending = update;
         }
-        function entangleTransitionUpdate(root2, queue, lane) {
+        function entangleTransitionUpdate(root5, queue, lane) {
           if (0 !== (lane & 4194048)) {
             var queueLanes = queue.lanes;
-            queueLanes &= root2.pendingLanes;
+            queueLanes &= root5.pendingLanes;
             lane |= queueLanes;
             queue.lanes = lane;
-            markRootEntangled(root2, lane);
+            markRootEntangled(root5, lane);
           }
         }
         function warnOnInvalidCallback(callback) {
@@ -8271,7 +8283,7 @@
         function defaultOnRecoverableError(error) {
           reportGlobalError(error);
         }
-        function logUncaughtError(root2, errorInfo) {
+        function logUncaughtError(root5, errorInfo) {
           try {
             componentName = errorInfo.source ? getComponentNameFromFiber(errorInfo.source) : null;
             errorBoundaryName = null;
@@ -8279,7 +8291,7 @@
             if (null !== ReactSharedInternals.actQueue)
               ReactSharedInternals.thrownErrors.push(error);
             else {
-              var onUncaughtError = root2.onUncaughtError;
+              var onUncaughtError = root5.onUncaughtError;
               onUncaughtError(error, { componentStack: errorInfo.stack });
             }
           } catch (e$5) {
@@ -8288,11 +8300,11 @@
             });
           }
         }
-        function logCaughtError(root2, boundary, errorInfo) {
+        function logCaughtError(root5, boundary, errorInfo) {
           try {
             componentName = errorInfo.source ? getComponentNameFromFiber(errorInfo.source) : null;
             errorBoundaryName = getComponentNameFromFiber(boundary);
-            var onCaughtError = root2.onCaughtError;
+            var onCaughtError = root5.onCaughtError;
             onCaughtError(errorInfo.value, {
               componentStack: errorInfo.stack,
               errorBoundary: 1 === boundary.tag ? boundary.stateNode : null
@@ -8303,12 +8315,12 @@
             });
           }
         }
-        function createRootErrorUpdate(root2, errorInfo, lane) {
+        function createRootErrorUpdate(root5, errorInfo, lane) {
           lane = createUpdate(lane);
           lane.tag = CaptureUpdate;
           lane.payload = { element: null };
           lane.callback = function() {
-            runWithFiberInDEV(errorInfo.source, logUncaughtError, root2, errorInfo);
+            runWithFiberInDEV(errorInfo.source, logUncaughtError, root5, errorInfo);
           };
           return lane;
         }
@@ -8317,7 +8329,7 @@
           lane.tag = CaptureUpdate;
           return lane;
         }
-        function initializeClassErrorUpdate(update, root2, fiber, errorInfo) {
+        function initializeClassErrorUpdate(update, root5, fiber, errorInfo) {
           var getDerivedStateFromError = fiber.type.getDerivedStateFromError;
           if ("function" === typeof getDerivedStateFromError) {
             var error = errorInfo.value;
@@ -8329,7 +8341,7 @@
               runWithFiberInDEV(
                 errorInfo.source,
                 logCaughtError,
-                root2,
+                root5,
                 fiber,
                 errorInfo
               );
@@ -8341,7 +8353,7 @@
             runWithFiberInDEV(
               errorInfo.source,
               logCaughtError,
-              root2,
+              root5,
               fiber,
               errorInfo
             );
@@ -8353,9 +8365,9 @@
             );
           });
         }
-        function throwException(root2, returnFiber, sourceFiber, value, rootRenderLanes) {
+        function throwException(root5, returnFiber, sourceFiber, value, rootRenderLanes) {
           sourceFiber.flags |= 32768;
-          isDevToolsPresent && restorePendingUpdaters(root2, rootRenderLanes);
+          isDevToolsPresent && restorePendingUpdaters(root5, rootRenderLanes);
           if (null !== value && "object" === typeof value && "function" === typeof value.then) {
             returnFiber = sourceFiber.alternate;
             null !== returnFiber && propagateParentContextChanges(
@@ -8370,19 +8382,19 @@
               switch (sourceFiber.tag) {
                 case 31:
                 case 13:
-                  return null === shellBoundary ? renderDidSuspendDelayIfPossible() : null === sourceFiber.alternate && workInProgressRootExitStatus === RootInProgress && (workInProgressRootExitStatus = RootSuspended), sourceFiber.flags &= -257, sourceFiber.flags |= 65536, sourceFiber.lanes = rootRenderLanes, value === noopSuspenseyCommitThenable ? sourceFiber.flags |= 16384 : (returnFiber = sourceFiber.updateQueue, null === returnFiber ? sourceFiber.updateQueue = /* @__PURE__ */ new Set([value]) : returnFiber.add(value), attachPingListener(root2, value, rootRenderLanes)), false;
+                  return null === shellBoundary ? renderDidSuspendDelayIfPossible() : null === sourceFiber.alternate && workInProgressRootExitStatus === RootInProgress && (workInProgressRootExitStatus = RootSuspended), sourceFiber.flags &= -257, sourceFiber.flags |= 65536, sourceFiber.lanes = rootRenderLanes, value === noopSuspenseyCommitThenable ? sourceFiber.flags |= 16384 : (returnFiber = sourceFiber.updateQueue, null === returnFiber ? sourceFiber.updateQueue = /* @__PURE__ */ new Set([value]) : returnFiber.add(value), attachPingListener(root5, value, rootRenderLanes)), false;
                 case 22:
                   return sourceFiber.flags |= 65536, value === noopSuspenseyCommitThenable ? sourceFiber.flags |= 16384 : (returnFiber = sourceFiber.updateQueue, null === returnFiber ? (returnFiber = {
                     transitions: null,
                     markerInstances: null,
                     retryQueue: /* @__PURE__ */ new Set([value])
-                  }, sourceFiber.updateQueue = returnFiber) : (sourceFiber = returnFiber.retryQueue, null === sourceFiber ? returnFiber.retryQueue = /* @__PURE__ */ new Set([value]) : sourceFiber.add(value)), attachPingListener(root2, value, rootRenderLanes)), false;
+                  }, sourceFiber.updateQueue = returnFiber) : (sourceFiber = returnFiber.retryQueue, null === sourceFiber ? returnFiber.retryQueue = /* @__PURE__ */ new Set([value]) : sourceFiber.add(value)), attachPingListener(root5, value, rootRenderLanes)), false;
               }
               throw Error(
                 "Unexpected Suspense handler tag (" + sourceFiber.tag + "). This is a bug in React."
               );
             }
-            attachPingListener(root2, value, rootRenderLanes);
+            attachPingListener(root5, value, rootRenderLanes);
             renderDidSuspendDelayIfPossible();
             return false;
           }
@@ -8403,11 +8415,11 @@
                 ),
                 sourceFiber
               )
-            ), root2 = root2.current.alternate, root2.flags |= 65536, rootRenderLanes &= -rootRenderLanes, root2.lanes |= rootRenderLanes, value = createCapturedValueAtFiber(value, sourceFiber), rootRenderLanes = createRootErrorUpdate(
-              root2.stateNode,
+            ), root5 = root5.current.alternate, root5.flags |= 65536, rootRenderLanes &= -rootRenderLanes, root5.lanes |= rootRenderLanes, value = createCapturedValueAtFiber(value, sourceFiber), rootRenderLanes = createRootErrorUpdate(
+              root5.stateNode,
               value,
               rootRenderLanes
-            ), enqueueCapturedUpdate(root2, rootRenderLanes), workInProgressRootExitStatus !== RootSuspendedWithDelay && (workInProgressRootExitStatus = RootErrored)), false;
+            ), enqueueCapturedUpdate(root5, rootRenderLanes), workInProgressRootExitStatus !== RootSuspendedWithDelay && (workInProgressRootExitStatus = RootErrored)), false;
           var error = createCapturedValueAtFiber(
             Error(
               "There was an error during concurrent rendering but React was able to recover by instead synchronously rendering the entire root.",
@@ -8423,16 +8435,16 @@
           do {
             switch (sourceFiber.tag) {
               case 3:
-                return sourceFiber.flags |= 65536, root2 = rootRenderLanes & -rootRenderLanes, sourceFiber.lanes |= root2, root2 = createRootErrorUpdate(
+                return sourceFiber.flags |= 65536, root5 = rootRenderLanes & -rootRenderLanes, sourceFiber.lanes |= root5, root5 = createRootErrorUpdate(
                   sourceFiber.stateNode,
                   value,
-                  root2
-                ), enqueueCapturedUpdate(sourceFiber, root2), false;
+                  root5
+                ), enqueueCapturedUpdate(sourceFiber, root5), false;
               case 1:
                 if (returnFiber = sourceFiber.type, error = sourceFiber.stateNode, 0 === (sourceFiber.flags & 128) && ("function" === typeof returnFiber.getDerivedStateFromError || null !== error && "function" === typeof error.componentDidCatch && (null === legacyErrorBoundariesThatAlreadyFailed || !legacyErrorBoundariesThatAlreadyFailed.has(error))))
                   return sourceFiber.flags |= 65536, rootRenderLanes &= -rootRenderLanes, sourceFiber.lanes |= rootRenderLanes, rootRenderLanes = createClassErrorUpdate(rootRenderLanes), initializeClassErrorUpdate(
                     rootRenderLanes,
-                    root2,
+                    root5,
                     sourceFiber,
                     value
                   ), enqueueCapturedUpdate(sourceFiber, rootRenderLanes), false;
@@ -9385,7 +9397,7 @@
         function updateSuspenseListComponent(current2, workInProgress2, renderLanes2) {
           var nextProps = workInProgress2.pendingProps, revealOrder = nextProps.revealOrder, tailMode = nextProps.tail, newChildren = nextProps.children, suspenseContext = suspenseStackCursor.current;
           (nextProps = 0 !== (suspenseContext & ForceSuspenseFallback)) ? (suspenseContext = suspenseContext & SubtreeSuspenseContextMask | ForceSuspenseFallback, workInProgress2.flags |= 128) : suspenseContext &= SubtreeSuspenseContextMask;
-          push(suspenseStackCursor, suspenseContext, workInProgress2);
+          push2(suspenseStackCursor, suspenseContext, workInProgress2);
           suspenseContext = null == revealOrder ? "null" : revealOrder;
           if ("forwards" !== revealOrder && "unstable_legacy-backwards" !== revealOrder && "together" !== revealOrder && "independent" !== revealOrder && !didWarnAboutRevealOrder[suspenseContext])
             if (didWarnAboutRevealOrder[suspenseContext] = true, null == revealOrder)
@@ -9653,7 +9665,7 @@
               }
               didSuspendBefore = workInProgress2.memoizedState;
               null !== didSuspendBefore && (didSuspendBefore.rendering = null, didSuspendBefore.tail = null, didSuspendBefore.lastEffect = null);
-              push(
+              push2(
                 suspenseStackCursor,
                 suspenseStackCursor.current,
                 workInProgress2
@@ -10311,7 +10323,7 @@
                           }) : nextResource.createElement(type), -1 === type.indexOf("-") && (type !== type.toLowerCase() && console.error(
                             "<%s /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.",
                             type
-                          ), "[object HTMLUnknownElement]" !== Object.prototype.toString.call(nextResource) || hasOwnProperty.call(warnedUnknownTags, type) || (warnedUnknownTags[type] = true, console.error(
+                          ), "[object HTMLUnknownElement]" !== Object.prototype.toString.call(nextResource) || hasOwnProperty2.call(warnedUnknownTags, type) || (warnedUnknownTags[type] = true, console.error(
                             "The tag <%s> is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter.",
                             type
                           )));
@@ -10520,7 +10532,7 @@
                         current2 = renderLanes2;
                         for (renderLanes2 = workInProgress2.child; null !== renderLanes2; )
                           resetWorkInProgress(renderLanes2, current2), renderLanes2 = renderLanes2.sibling;
-                        push(
+                        push2(
                           suspenseStackCursor,
                           suspenseStackCursor.current & SubtreeSuspenseContextMask | ForceSuspenseFallback,
                           workInProgress2
@@ -10542,7 +10554,7 @@
                 newProps.isBackwards ? (nextResource.sibling = workInProgress2.child, workInProgress2.child = nextResource) : (current2 = newProps.last, null !== current2 ? current2.sibling = nextResource : workInProgress2.child = nextResource, newProps.last = nextResource);
               }
               if (null !== newProps.tail)
-                return current2 = newProps.tail, newProps.rendering = current2, newProps.tail = current2.sibling, newProps.renderingStartTime = now$1(), current2.sibling = null, renderLanes2 = suspenseStackCursor.current, renderLanes2 = type ? renderLanes2 & SubtreeSuspenseContextMask | ForceSuspenseFallback : renderLanes2 & SubtreeSuspenseContextMask, push(suspenseStackCursor, renderLanes2, workInProgress2), isHydrating && pushTreeFork(workInProgress2, newProps.treeForkCount), current2;
+                return current2 = newProps.tail, newProps.rendering = current2, newProps.tail = current2.sibling, newProps.renderingStartTime = now$1(), current2.sibling = null, renderLanes2 = suspenseStackCursor.current, renderLanes2 = type ? renderLanes2 & SubtreeSuspenseContextMask | ForceSuspenseFallback : renderLanes2 & SubtreeSuspenseContextMask, push2(suspenseStackCursor, renderLanes2, workInProgress2), isHydrating && pushTreeFork(workInProgress2, newProps.treeForkCount), current2;
               bubbleProperties(workInProgress2);
               return null;
             case 22:
@@ -10963,21 +10975,21 @@
             if (!(fiber.flags & 2)) return fiber.stateNode;
           }
         }
-        function insertOrAppendPlacementNodeIntoContainer(node, before, parent) {
-          var tag = node.tag;
+        function insertOrAppendPlacementNodeIntoContainer(node2, before, parent) {
+          var tag = node2.tag;
           if (5 === tag || 6 === tag)
-            node = node.stateNode, before ? (warnForReactChildrenConflict(parent), (9 === parent.nodeType ? parent.body : "HTML" === parent.nodeName ? parent.ownerDocument.body : parent).insertBefore(node, before)) : (warnForReactChildrenConflict(parent), before = 9 === parent.nodeType ? parent.body : "HTML" === parent.nodeName ? parent.ownerDocument.body : parent, before.appendChild(node), parent = parent._reactRootContainer, null !== parent && void 0 !== parent || null !== before.onclick || (before.onclick = noop$1));
-          else if (4 !== tag && (27 === tag && isSingletonScope(node.type) && (parent = node.stateNode, before = null), node = node.child, null !== node))
-            for (insertOrAppendPlacementNodeIntoContainer(node, before, parent), node = node.sibling; null !== node; )
-              insertOrAppendPlacementNodeIntoContainer(node, before, parent), node = node.sibling;
+            node2 = node2.stateNode, before ? (warnForReactChildrenConflict(parent), (9 === parent.nodeType ? parent.body : "HTML" === parent.nodeName ? parent.ownerDocument.body : parent).insertBefore(node2, before)) : (warnForReactChildrenConflict(parent), before = 9 === parent.nodeType ? parent.body : "HTML" === parent.nodeName ? parent.ownerDocument.body : parent, before.appendChild(node2), parent = parent._reactRootContainer, null !== parent && void 0 !== parent || null !== before.onclick || (before.onclick = noop$1));
+          else if (4 !== tag && (27 === tag && isSingletonScope(node2.type) && (parent = node2.stateNode, before = null), node2 = node2.child, null !== node2))
+            for (insertOrAppendPlacementNodeIntoContainer(node2, before, parent), node2 = node2.sibling; null !== node2; )
+              insertOrAppendPlacementNodeIntoContainer(node2, before, parent), node2 = node2.sibling;
         }
-        function insertOrAppendPlacementNode(node, before, parent) {
-          var tag = node.tag;
+        function insertOrAppendPlacementNode(node2, before, parent) {
+          var tag = node2.tag;
           if (5 === tag || 6 === tag)
-            node = node.stateNode, before ? parent.insertBefore(node, before) : parent.appendChild(node);
-          else if (4 !== tag && (27 === tag && isSingletonScope(node.type) && (parent = node.stateNode), node = node.child, null !== node))
-            for (insertOrAppendPlacementNode(node, before, parent), node = node.sibling; null !== node; )
-              insertOrAppendPlacementNode(node, before, parent), node = node.sibling;
+            node2 = node2.stateNode, before ? parent.insertBefore(node2, before) : parent.appendChild(node2);
+          else if (4 !== tag && (27 === tag && isSingletonScope(node2.type) && (parent = node2.stateNode), node2 = node2.child, null !== node2))
+            for (insertOrAppendPlacementNode(node2, before, parent), node2 = node2.sibling; null !== node2; )
+              insertOrAppendPlacementNode(node2, before, parent), node2 = node2.sibling;
         }
         function commitPlacement(finishedWork) {
           for (var hostParentFiber, parentFiber = finishedWork.return; null !== parentFiber; ) {
@@ -11045,19 +11057,19 @@
         function isHydratingParent(current2, finishedWork) {
           return 31 === finishedWork.tag ? (finishedWork = finishedWork.memoizedState, null !== current2.memoizedState && null === finishedWork) : 13 === finishedWork.tag ? (current2 = current2.memoizedState, finishedWork = finishedWork.memoizedState, null !== current2 && null !== current2.dehydrated && (null === finishedWork || null === finishedWork.dehydrated)) : 3 === finishedWork.tag ? current2.memoizedState.isDehydrated && 0 === (finishedWork.flags & 256) : false;
         }
-        function commitBeforeMutationEffects(root2, firstChild) {
-          root2 = root2.containerInfo;
+        function commitBeforeMutationEffects(root5, firstChild) {
+          root5 = root5.containerInfo;
           eventsEnabled = _enabled;
-          root2 = getActiveElementDeep(root2);
-          if (hasSelectionCapabilities(root2)) {
-            if ("selectionStart" in root2)
+          root5 = getActiveElementDeep(root5);
+          if (hasSelectionCapabilities(root5)) {
+            if ("selectionStart" in root5)
               var JSCompiler_temp = {
-                start: root2.selectionStart,
-                end: root2.selectionEnd
+                start: root5.selectionStart,
+                end: root5.selectionEnd
               };
             else
               a: {
-                JSCompiler_temp = (JSCompiler_temp = root2.ownerDocument) && JSCompiler_temp.defaultView || window;
+                JSCompiler_temp = (JSCompiler_temp = root5.ownerDocument) && JSCompiler_temp.defaultView || window;
                 var selection = JSCompiler_temp.getSelection && JSCompiler_temp.getSelection();
                 if (selection && 0 !== selection.rangeCount) {
                   JSCompiler_temp = selection.anchorNode;
@@ -11069,69 +11081,69 @@
                     JSCompiler_temp = null;
                     break a;
                   }
-                  var length = 0, start = -1, end = -1, indexWithinAnchor = 0, indexWithinFocus = 0, node = root2, parentNode = null;
+                  var length = 0, start2 = -1, end = -1, indexWithinAnchor = 0, indexWithinFocus = 0, node2 = root5, parentNode = null;
                   b: for (; ; ) {
                     for (var next; ; ) {
-                      node !== JSCompiler_temp || 0 !== anchorOffset && 3 !== node.nodeType || (start = length + anchorOffset);
-                      node !== focusNode || 0 !== selection && 3 !== node.nodeType || (end = length + selection);
-                      3 === node.nodeType && (length += node.nodeValue.length);
-                      if (null === (next = node.firstChild)) break;
-                      parentNode = node;
-                      node = next;
+                      node2 !== JSCompiler_temp || 0 !== anchorOffset && 3 !== node2.nodeType || (start2 = length + anchorOffset);
+                      node2 !== focusNode || 0 !== selection && 3 !== node2.nodeType || (end = length + selection);
+                      3 === node2.nodeType && (length += node2.nodeValue.length);
+                      if (null === (next = node2.firstChild)) break;
+                      parentNode = node2;
+                      node2 = next;
                     }
                     for (; ; ) {
-                      if (node === root2) break b;
-                      parentNode === JSCompiler_temp && ++indexWithinAnchor === anchorOffset && (start = length);
+                      if (node2 === root5) break b;
+                      parentNode === JSCompiler_temp && ++indexWithinAnchor === anchorOffset && (start2 = length);
                       parentNode === focusNode && ++indexWithinFocus === selection && (end = length);
-                      if (null !== (next = node.nextSibling)) break;
-                      node = parentNode;
-                      parentNode = node.parentNode;
+                      if (null !== (next = node2.nextSibling)) break;
+                      node2 = parentNode;
+                      parentNode = node2.parentNode;
                     }
-                    node = next;
+                    node2 = next;
                   }
-                  JSCompiler_temp = -1 === start || -1 === end ? null : { start, end };
+                  JSCompiler_temp = -1 === start2 || -1 === end ? null : { start: start2, end };
                 } else JSCompiler_temp = null;
               }
             JSCompiler_temp = JSCompiler_temp || { start: 0, end: 0 };
           } else JSCompiler_temp = null;
           selectionInformation = {
-            focusedElem: root2,
+            focusedElem: root5,
             selectionRange: JSCompiler_temp
           };
           _enabled = false;
           for (nextEffect = firstChild; null !== nextEffect; )
-            if (firstChild = nextEffect, root2 = firstChild.child, 0 !== (firstChild.subtreeFlags & 1028) && null !== root2)
-              root2.return = firstChild, nextEffect = root2;
+            if (firstChild = nextEffect, root5 = firstChild.child, 0 !== (firstChild.subtreeFlags & 1028) && null !== root5)
+              root5.return = firstChild, nextEffect = root5;
             else
               for (; null !== nextEffect; ) {
-                root2 = firstChild = nextEffect;
-                JSCompiler_temp = root2.alternate;
-                anchorOffset = root2.flags;
-                switch (root2.tag) {
+                root5 = firstChild = nextEffect;
+                JSCompiler_temp = root5.alternate;
+                anchorOffset = root5.flags;
+                switch (root5.tag) {
                   case 0:
-                    if (0 !== (anchorOffset & 4) && (root2 = root2.updateQueue, root2 = null !== root2 ? root2.events : null, null !== root2))
-                      for (JSCompiler_temp = 0; JSCompiler_temp < root2.length; JSCompiler_temp++)
-                        anchorOffset = root2[JSCompiler_temp], anchorOffset.ref.impl = anchorOffset.nextImpl;
+                    if (0 !== (anchorOffset & 4) && (root5 = root5.updateQueue, root5 = null !== root5 ? root5.events : null, null !== root5))
+                      for (JSCompiler_temp = 0; JSCompiler_temp < root5.length; JSCompiler_temp++)
+                        anchorOffset = root5[JSCompiler_temp], anchorOffset.ref.impl = anchorOffset.nextImpl;
                     break;
                   case 11:
                   case 15:
                     break;
                   case 1:
-                    0 !== (anchorOffset & 1024) && null !== JSCompiler_temp && commitClassSnapshot(root2, JSCompiler_temp);
+                    0 !== (anchorOffset & 1024) && null !== JSCompiler_temp && commitClassSnapshot(root5, JSCompiler_temp);
                     break;
                   case 3:
                     if (0 !== (anchorOffset & 1024)) {
-                      if (root2 = root2.stateNode.containerInfo, JSCompiler_temp = root2.nodeType, 9 === JSCompiler_temp)
-                        clearContainerSparingly(root2);
+                      if (root5 = root5.stateNode.containerInfo, JSCompiler_temp = root5.nodeType, 9 === JSCompiler_temp)
+                        clearContainerSparingly(root5);
                       else if (1 === JSCompiler_temp)
-                        switch (root2.nodeName) {
+                        switch (root5.nodeName) {
                           case "HEAD":
                           case "HTML":
                           case "BODY":
-                            clearContainerSparingly(root2);
+                            clearContainerSparingly(root5);
                             break;
                           default:
-                            root2.textContent = "";
+                            root5.textContent = "";
                         }
                     }
                     break;
@@ -11148,10 +11160,10 @@
                         "This unit of work tag should not have side-effects. This error is likely caused by a bug in React. Please file an issue."
                       );
                 }
-                root2 = firstChild.sibling;
-                if (null !== root2) {
-                  root2.return = firstChild.return;
-                  nextEffect = root2;
+                root5 = firstChild.sibling;
+                if (null !== root5) {
+                  root5.return = firstChild.return;
+                  nextEffect = root5;
                   break;
                 }
                 nextEffect = firstChild.return;
@@ -11613,7 +11625,7 @@
           var deletions = parentFiber.deletions;
           if (null !== deletions)
             for (var i = 0; i < deletions.length; i++) {
-              var root2 = root$jscomp$0, returnFiber = parentFiber, deletedFiber = deletions[i], prevEffectStart = pushComponentEffectStart(), parent = returnFiber;
+              var root5 = root$jscomp$0, returnFiber = parentFiber, deletedFiber = deletions[i], prevEffectStart = pushComponentEffectStart(), parent = returnFiber;
               a: for (; null !== parent; ) {
                 switch (parent.tag) {
                   case 27:
@@ -11639,7 +11651,7 @@
                 throw Error(
                   "Expected to find a host parent. This error is likely caused by a bug in React. Please file an issue."
                 );
-              commitDeletionEffectsOnFiber(root2, returnFiber, deletedFiber);
+              commitDeletionEffectsOnFiber(root5, returnFiber, deletedFiber);
               hostParent = null;
               hostParentIsContainer = false;
               (deletedFiber.mode & ProfileMode) !== NoMode && 0 <= componentEffectStartTime && 0 <= componentEffectEndTime && 0.05 < componentEffectEndTime - componentEffectStartTime && logComponentTrigger(
@@ -11649,23 +11661,23 @@
                 "Unmount"
               );
               popComponentEffectStart(prevEffectStart);
-              root2 = deletedFiber;
-              returnFiber = root2.alternate;
+              root5 = deletedFiber;
+              returnFiber = root5.alternate;
               null !== returnFiber && (returnFiber.return = null);
-              root2.return = null;
+              root5.return = null;
             }
           if (parentFiber.subtreeFlags & 13886)
             for (parentFiber = parentFiber.child; null !== parentFiber; )
               commitMutationEffectsOnFiber(parentFiber, root$jscomp$0), parentFiber = parentFiber.sibling;
         }
-        function commitMutationEffectsOnFiber(finishedWork, root2) {
+        function commitMutationEffectsOnFiber(finishedWork, root5) {
           var prevEffectStart = pushComponentEffectStart(), prevEffectDuration = pushComponentEffectDuration(), prevEffectErrors = pushComponentEffectErrors(), prevEffectDidSpawnUpdate = pushComponentEffectDidSpawnUpdate(), current2 = finishedWork.alternate, flags = finishedWork.flags;
           switch (finishedWork.tag) {
             case 0:
             case 11:
             case 14:
             case 15:
-              recursivelyTraverseMutationEffects(root2, finishedWork);
+              recursivelyTraverseMutationEffects(root5, finishedWork);
               commitReconciliationEffects(finishedWork);
               flags & 4 && (commitHookEffectListUnmount(
                 Insertion | HasEffect,
@@ -11678,7 +11690,7 @@
               ));
               break;
             case 1:
-              recursivelyTraverseMutationEffects(root2, finishedWork);
+              recursivelyTraverseMutationEffects(root5, finishedWork);
               commitReconciliationEffects(finishedWork);
               flags & 512 && (offscreenSubtreeWasHidden || null === current2 || safelyDetachRef(current2, current2.return));
               if (flags & 64 && offscreenSubtreeIsHidden && (flags = finishedWork.updateQueue, null !== flags && (current2 = flags.callbacks, null !== current2))) {
@@ -11688,7 +11700,7 @@
               break;
             case 26:
               existingHiddenCallbacks = currentHoistableRoot;
-              recursivelyTraverseMutationEffects(root2, finishedWork);
+              recursivelyTraverseMutationEffects(root5, finishedWork);
               commitReconciliationEffects(finishedWork);
               flags & 512 && (offscreenSubtreeWasHidden || null === current2 || safelyDetachRef(current2, current2.return));
               if (flags & 4) {
@@ -11797,7 +11809,7 @@
               }
               break;
             case 27:
-              recursivelyTraverseMutationEffects(root2, finishedWork);
+              recursivelyTraverseMutationEffects(root5, finishedWork);
               commitReconciliationEffects(finishedWork);
               flags & 512 && (offscreenSubtreeWasHidden || null === current2 || safelyDetachRef(current2, current2.return));
               null !== current2 && flags & 4 && commitHostUpdate(
@@ -11807,7 +11819,7 @@
               );
               break;
             case 5:
-              recursivelyTraverseMutationEffects(root2, finishedWork);
+              recursivelyTraverseMutationEffects(root5, finishedWork);
               commitReconciliationEffects(finishedWork);
               flags & 512 && (offscreenSubtreeWasHidden || null === current2 || safelyDetachRef(current2, current2.return));
               if (finishedWork.flags & 32) {
@@ -11832,7 +11844,7 @@
               ));
               break;
             case 6:
-              recursivelyTraverseMutationEffects(root2, finishedWork);
+              recursivelyTraverseMutationEffects(root5, finishedWork);
               commitReconciliationEffects(finishedWork);
               if (flags & 4) {
                 if (null === finishedWork.stateNode)
@@ -11859,8 +11871,8 @@
               existingHiddenCallbacks = pushNestedEffectDurations();
               tagCaches = null;
               currentResource = currentHoistableRoot;
-              currentHoistableRoot = getHoistableRoot(root2.containerInfo);
-              recursivelyTraverseMutationEffects(root2, finishedWork);
+              currentHoistableRoot = getHoistableRoot(root5.containerInfo);
+              recursivelyTraverseMutationEffects(root5, finishedWork);
               currentHoistableRoot = currentResource;
               commitReconciliationEffects(finishedWork);
               if (flags & 4 && null !== current2 && current2.memoizedState.isDehydrated)
@@ -11868,13 +11880,13 @@
                   runWithFiberInDEV(
                     finishedWork,
                     commitHydratedContainer,
-                    root2.containerInfo
+                    root5.containerInfo
                   );
                 } catch (error) {
                   captureCommitPhaseError(finishedWork, finishedWork.return, error);
                 }
               needsFormReset && (needsFormReset = false, recursivelyResetForms(finishedWork));
-              root2.effectDuration += popNestedEffectDurations(
+              root5.effectDuration += popNestedEffectDurations(
                 existingHiddenCallbacks
               );
               break;
@@ -11883,23 +11895,23 @@
               currentHoistableRoot = getHoistableRoot(
                 finishedWork.stateNode.containerInfo
               );
-              recursivelyTraverseMutationEffects(root2, finishedWork);
+              recursivelyTraverseMutationEffects(root5, finishedWork);
               commitReconciliationEffects(finishedWork);
               currentHoistableRoot = flags;
               break;
             case 12:
               flags = pushNestedEffectDurations();
-              recursivelyTraverseMutationEffects(root2, finishedWork);
+              recursivelyTraverseMutationEffects(root5, finishedWork);
               commitReconciliationEffects(finishedWork);
               finishedWork.stateNode.effectDuration += bubbleNestedEffectDurations(flags);
               break;
             case 31:
-              recursivelyTraverseMutationEffects(root2, finishedWork);
+              recursivelyTraverseMutationEffects(root5, finishedWork);
               commitReconciliationEffects(finishedWork);
               flags & 4 && (flags = finishedWork.updateQueue, null !== flags && (finishedWork.updateQueue = null, attachSuspenseRetryListeners(finishedWork, flags)));
               break;
             case 13:
-              recursivelyTraverseMutationEffects(root2, finishedWork);
+              recursivelyTraverseMutationEffects(root5, finishedWork);
               commitReconciliationEffects(finishedWork);
               finishedWork.child.flags & 8192 && null !== finishedWork.memoizedState !== (null !== current2 && null !== current2.memoizedState) && (globalMostRecentFallbackTime = now$1());
               flags & 4 && (flags = finishedWork.updateQueue, null !== flags && (finishedWork.updateQueue = null, attachSuspenseRetryListeners(finishedWork, flags)));
@@ -11909,7 +11921,7 @@
               var wasHidden = null !== current2 && null !== current2.memoizedState, prevOffscreenSubtreeIsHidden = offscreenSubtreeIsHidden, prevOffscreenSubtreeWasHidden = offscreenSubtreeWasHidden;
               offscreenSubtreeIsHidden = prevOffscreenSubtreeIsHidden || existingHiddenCallbacks;
               offscreenSubtreeWasHidden = prevOffscreenSubtreeWasHidden || wasHidden;
-              recursivelyTraverseMutationEffects(root2, finishedWork);
+              recursivelyTraverseMutationEffects(root5, finishedWork);
               offscreenSubtreeWasHidden = prevOffscreenSubtreeWasHidden;
               offscreenSubtreeIsHidden = prevOffscreenSubtreeIsHidden;
               wasHidden && !existingHiddenCallbacks && !prevOffscreenSubtreeIsHidden && !prevOffscreenSubtreeWasHidden && (finishedWork.mode & ProfileMode) !== NoMode && 0 <= componentEffectStartTime && 0 <= componentEffectEndTime && 0.05 < componentEffectEndTime - componentEffectStartTime && logComponentReappeared(
@@ -11919,15 +11931,15 @@
               );
               commitReconciliationEffects(finishedWork);
               if (flags & 8192)
-                a: for (root2 = finishedWork.stateNode, root2._visibility = existingHiddenCallbacks ? root2._visibility & ~OffscreenVisible : root2._visibility | OffscreenVisible, !existingHiddenCallbacks || null === current2 || wasHidden || offscreenSubtreeIsHidden || offscreenSubtreeWasHidden || (recursivelyTraverseDisappearLayoutEffects(finishedWork), (finishedWork.mode & ProfileMode) !== NoMode && 0 <= componentEffectStartTime && 0 <= componentEffectEndTime && 0.05 < componentEffectEndTime - componentEffectStartTime && logComponentTrigger(
+                a: for (root5 = finishedWork.stateNode, root5._visibility = existingHiddenCallbacks ? root5._visibility & ~OffscreenVisible : root5._visibility | OffscreenVisible, !existingHiddenCallbacks || null === current2 || wasHidden || offscreenSubtreeIsHidden || offscreenSubtreeWasHidden || (recursivelyTraverseDisappearLayoutEffects(finishedWork), (finishedWork.mode & ProfileMode) !== NoMode && 0 <= componentEffectStartTime && 0 <= componentEffectEndTime && 0.05 < componentEffectEndTime - componentEffectStartTime && logComponentTrigger(
                   finishedWork,
                   componentEffectStartTime,
                   componentEffectEndTime,
                   "Disconnect"
-                )), current2 = null, root2 = finishedWork; ; ) {
-                  if (5 === root2.tag || 26 === root2.tag) {
+                )), current2 = null, root5 = finishedWork; ; ) {
+                  if (5 === root5.tag || 26 === root5.tag) {
                     if (null === current2) {
-                      wasHidden = current2 = root2;
+                      wasHidden = current2 = root5;
                       try {
                         currentResource = wasHidden.stateNode, existingHiddenCallbacks ? runWithFiberInDEV(
                           wasHidden,
@@ -11943,9 +11955,9 @@
                         captureCommitPhaseError(wasHidden, wasHidden.return, error);
                       }
                     }
-                  } else if (6 === root2.tag) {
+                  } else if (6 === root5.tag) {
                     if (null === current2) {
-                      wasHidden = root2;
+                      wasHidden = root5;
                       try {
                         maybeNodes = wasHidden.stateNode, existingHiddenCallbacks ? runWithFiberInDEV(
                           wasHidden,
@@ -11961,9 +11973,9 @@
                         captureCommitPhaseError(wasHidden, wasHidden.return, error);
                       }
                     }
-                  } else if (18 === root2.tag) {
+                  } else if (18 === root5.tag) {
                     if (null === current2) {
-                      wasHidden = root2;
+                      wasHidden = root5;
                       try {
                         i = wasHidden.stateNode, existingHiddenCallbacks ? runWithFiberInDEV(
                           wasHidden,
@@ -11978,26 +11990,26 @@
                         captureCommitPhaseError(wasHidden, wasHidden.return, error);
                       }
                     }
-                  } else if ((22 !== root2.tag && 23 !== root2.tag || null === root2.memoizedState || root2 === finishedWork) && null !== root2.child) {
-                    root2.child.return = root2;
-                    root2 = root2.child;
+                  } else if ((22 !== root5.tag && 23 !== root5.tag || null === root5.memoizedState || root5 === finishedWork) && null !== root5.child) {
+                    root5.child.return = root5;
+                    root5 = root5.child;
                     continue;
                   }
-                  if (root2 === finishedWork) break a;
-                  for (; null === root2.sibling; ) {
-                    if (null === root2.return || root2.return === finishedWork)
+                  if (root5 === finishedWork) break a;
+                  for (; null === root5.sibling; ) {
+                    if (null === root5.return || root5.return === finishedWork)
                       break a;
-                    current2 === root2 && (current2 = null);
-                    root2 = root2.return;
+                    current2 === root5 && (current2 = null);
+                    root5 = root5.return;
                   }
-                  current2 === root2 && (current2 = null);
-                  root2.sibling.return = root2.return;
-                  root2 = root2.sibling;
+                  current2 === root5 && (current2 = null);
+                  root5.sibling.return = root5.return;
+                  root5 = root5.sibling;
                 }
               flags & 4 && (flags = finishedWork.updateQueue, null !== flags && (current2 = flags.retryQueue, null !== current2 && (flags.retryQueue = null, attachSuspenseRetryListeners(finishedWork, current2))));
               break;
             case 19:
-              recursivelyTraverseMutationEffects(root2, finishedWork);
+              recursivelyTraverseMutationEffects(root5, finishedWork);
               commitReconciliationEffects(finishedWork);
               flags & 4 && (flags = finishedWork.updateQueue, null !== flags && (finishedWork.updateQueue = null, attachSuspenseRetryListeners(finishedWork, flags)));
               break;
@@ -12006,7 +12018,7 @@
             case 21:
               break;
             default:
-              recursivelyTraverseMutationEffects(root2, finishedWork), commitReconciliationEffects(finishedWork);
+              recursivelyTraverseMutationEffects(root5, finishedWork), commitReconciliationEffects(finishedWork);
           }
           (finishedWork.mode & ProfileMode) !== NoMode && 0 <= componentEffectStartTime && 0 <= componentEffectEndTime && ((componentEffectSpawnedUpdate || 0.05 < componentEffectDuration) && logComponentEffect(
             finishedWork,
@@ -12049,10 +12061,10 @@
               parentFiber = parentFiber.sibling;
             }
         }
-        function recursivelyTraverseLayoutEffects(root2, parentFiber) {
+        function recursivelyTraverseLayoutEffects(root5, parentFiber) {
           if (parentFiber.subtreeFlags & 8772)
             for (parentFiber = parentFiber.child; null !== parentFiber; )
-              commitLayoutEffectOnFiber(root2, parentFiber.alternate, parentFiber), parentFiber = parentFiber.sibling;
+              commitLayoutEffectOnFiber(root5, parentFiber.alternate, parentFiber), parentFiber = parentFiber.sibling;
         }
         function disappearLayoutEffects(finishedWork) {
           var prevEffectStart = pushComponentEffectStart(), prevEffectDuration = pushComponentEffectDuration(), prevEffectErrors = pushComponentEffectErrors(), prevEffectDidSpawnUpdate = pushComponentEffectDidSpawnUpdate();
@@ -12266,12 +12278,12 @@
           finishedWork = finishedWork.memoizedState.cache;
           finishedWork !== current2 && (retainCache(finishedWork), null != current2 && releaseCache(current2));
         }
-        function recursivelyTraversePassiveMountEffects(root2, parentFiber, committedLanes, committedTransitions, endTime) {
+        function recursivelyTraversePassiveMountEffects(root5, parentFiber, committedLanes, committedTransitions, endTime) {
           if (parentFiber.subtreeFlags & 10256 || 0 !== parentFiber.actualDuration && (null === parentFiber.alternate || parentFiber.alternate.child !== parentFiber.child))
             for (parentFiber = parentFiber.child; null !== parentFiber; ) {
               var nextSibling = parentFiber.sibling;
               commitPassiveMountOnFiber(
-                root2,
+                root5,
                 parentFiber,
                 committedLanes,
                 committedTransitions,
@@ -12928,29 +12940,29 @@
           null !== lane && (lane.flags |= 32);
           return workInProgressDeferredLane;
         }
-        function scheduleUpdateOnFiber(root2, fiber, lane) {
+        function scheduleUpdateOnFiber(root5, fiber, lane) {
           isRunningInsertionEffect && console.error("useInsertionEffect must not schedule updates.");
           isFlushingPassiveEffects && (didScheduleUpdateDuringPassiveEffects = true);
-          if (root2 === workInProgressRoot && (workInProgressSuspendedReason === SuspendedOnData || workInProgressSuspendedReason === SuspendedOnAction) || null !== root2.cancelPendingCommit)
-            prepareFreshStack(root2, 0), markRootSuspended(
-              root2,
+          if (root5 === workInProgressRoot && (workInProgressSuspendedReason === SuspendedOnData || workInProgressSuspendedReason === SuspendedOnAction) || null !== root5.cancelPendingCommit)
+            prepareFreshStack(root5, 0), markRootSuspended(
+              root5,
               workInProgressRootRenderLanes,
               workInProgressDeferredLane,
               false
             );
-          markRootUpdated$1(root2, lane);
-          if ((executionContext & RenderContext) !== NoContext && root2 === workInProgressRoot) {
+          markRootUpdated$1(root5, lane);
+          if ((executionContext & RenderContext) !== NoContext && root5 === workInProgressRoot) {
             if (isRendering)
               switch (fiber.tag) {
                 case 0:
                 case 11:
                 case 15:
-                  root2 = workInProgress && getComponentNameFromFiber(workInProgress) || "Unknown";
-                  didWarnAboutUpdateInRenderForAnotherComponent.has(root2) || (didWarnAboutUpdateInRenderForAnotherComponent.add(root2), fiber = getComponentNameFromFiber(fiber) || "Unknown", console.error(
+                  root5 = workInProgress && getComponentNameFromFiber(workInProgress) || "Unknown";
+                  didWarnAboutUpdateInRenderForAnotherComponent.has(root5) || (didWarnAboutUpdateInRenderForAnotherComponent.add(root5), fiber = getComponentNameFromFiber(fiber) || "Unknown", console.error(
                     "Cannot update a component (`%s`) while rendering a different component (`%s`). To locate the bad setState() call inside `%s`, follow the stack trace as described in https://react.dev/link/setstate-in-render",
                     fiber,
-                    root2,
-                    root2
+                    root5,
+                    root5
                   ));
                   break;
                 case 1:
@@ -12959,14 +12971,14 @@
                   ), didWarnAboutUpdateInRender = true);
               }
           } else
-            isDevToolsPresent && addFiberToLanesMap(root2, fiber, lane), warnIfUpdatesNotWrappedWithActDEV(fiber), root2 === workInProgressRoot && ((executionContext & RenderContext) === NoContext && (workInProgressRootInterleavedUpdatedLanes |= lane), workInProgressRootExitStatus === RootSuspendedWithDelay && markRootSuspended(
-              root2,
+            isDevToolsPresent && addFiberToLanesMap(root5, fiber, lane), warnIfUpdatesNotWrappedWithActDEV(fiber), root5 === workInProgressRoot && ((executionContext & RenderContext) === NoContext && (workInProgressRootInterleavedUpdatedLanes |= lane), workInProgressRootExitStatus === RootSuspendedWithDelay && markRootSuspended(
+              root5,
               workInProgressRootRenderLanes,
               workInProgressDeferredLane,
               false
-            )), ensureRootIsScheduled(root2);
+            )), ensureRootIsScheduled(root5);
         }
-        function performWorkOnRoot(root2, lanes, forceSync) {
+        function performWorkOnRoot(root5, lanes, forceSync) {
           if ((executionContext & (RenderContext | CommitContext)) !== NoContext)
             throw Error("Should not already be working.");
           if (0 !== workInProgressRootRenderLanes && null !== workInProgress) {
@@ -13026,18 +13038,18 @@
                 ));
             }
           }
-          startTime = (forceSync = !forceSync && 0 === (lanes & 127) && 0 === (lanes & root2.expiredLanes) || checkIfRootIsPrerendering(root2, lanes)) ? renderRootConcurrent(root2, lanes) : renderRootSync(root2, lanes, true);
+          startTime = (forceSync = !forceSync && 0 === (lanes & 127) && 0 === (lanes & root5.expiredLanes) || checkIfRootIsPrerendering(root5, lanes)) ? renderRootConcurrent(root5, lanes) : renderRootSync(root5, lanes, true);
           var renderWasConcurrent = forceSync;
           do {
             if (startTime === RootInProgress) {
-              workInProgressRootIsPrerendering && !forceSync && markRootSuspended(root2, lanes, 0, false);
+              workInProgressRootIsPrerendering && !forceSync && markRootSuspended(root5, lanes, 0, false);
               lanes = workInProgressSuspendedReason;
               yieldStartTime = now();
               yieldReason = lanes;
               break;
             } else {
               yieldedFiber = now$1();
-              yieldEndTime = root2.current.alternate;
+              yieldEndTime = root5.current.alternate;
               if (renderWasConcurrent && !isRenderConsistentWithExternalStores(yieldEndTime)) {
                 setCurrentTrackFromLanes(lanes);
                 yieldEndTime = renderStartTime;
@@ -13061,16 +13073,16 @@
                   "error"
                 ));
                 finalizeRender(lanes, yieldedFiber);
-                startTime = renderRootSync(root2, lanes, false);
+                startTime = renderRootSync(root5, lanes, false);
                 renderWasConcurrent = false;
                 continue;
               }
               if (startTime === RootErrored) {
                 renderWasConcurrent = lanes;
-                if (root2.errorRecoveryDisabledLanes & renderWasConcurrent)
+                if (root5.errorRecoveryDisabledLanes & renderWasConcurrent)
                   var errorRetryLanes = 0;
                 else
-                  errorRetryLanes = root2.pendingLanes & -536870913, errorRetryLanes = 0 !== errorRetryLanes ? errorRetryLanes : errorRetryLanes & 536870912 ? 536870912 : 0;
+                  errorRetryLanes = root5.pendingLanes & -536870913, errorRetryLanes = 0 !== errorRetryLanes ? errorRetryLanes : errorRetryLanes & 536870912 ? 536870912 : 0;
                 if (0 !== errorRetryLanes) {
                   setCurrentTrackFromLanes(lanes);
                   logErroredRenderPhase(
@@ -13082,7 +13094,7 @@
                   finalizeRender(lanes, yieldedFiber);
                   lanes = errorRetryLanes;
                   a: {
-                    yieldedFiber = root2;
+                    yieldedFiber = root5;
                     startTime = renderWasConcurrent;
                     renderWasConcurrent = workInProgressRootConcurrentErrors;
                     var wasRootDehydrated = yieldedFiber.current.memoizedState.isDehydrated;
@@ -13122,12 +13134,12 @@
                   workInProgressUpdateTask
                 );
                 finalizeRender(lanes, yieldedFiber);
-                prepareFreshStack(root2, 0);
-                markRootSuspended(root2, lanes, 0, true);
+                prepareFreshStack(root5, 0);
+                markRootSuspended(root5, lanes, 0, true);
                 break;
               }
               a: {
-                forceSync = root2;
+                forceSync = root5;
                 switch (startTime) {
                   case RootInProgress:
                   case RootFatalErrored:
@@ -13231,10 +13243,10 @@
             }
             break;
           } while (1);
-          ensureRootIsScheduled(root2);
+          ensureRootIsScheduled(root5);
         }
-        function commitRootWhenReady(root2, finishedWork, recoverableErrors, transitions, didIncludeRenderPhaseUpdate, lanes, spawnedLane, updatedLanes, suspendedRetryLanes, didSkipSuspendedSiblings, exitStatus, suspendedCommitReason, completedRenderStartTime, completedRenderEndTime) {
-          root2.timeoutHandle = noTimeout;
+        function commitRootWhenReady(root5, finishedWork, recoverableErrors, transitions, didIncludeRenderPhaseUpdate, lanes, spawnedLane, updatedLanes, suspendedRetryLanes, didSkipSuspendedSiblings, exitStatus, suspendedCommitReason, completedRenderStartTime, completedRenderEndTime) {
+          root5.timeoutHandle = noTimeout;
           var subtreeFlags = finishedWork.subtreeFlags, suspendedState = null;
           if (subtreeFlags & 8192 || 16785408 === (subtreeFlags & 16785408)) {
             if (suspendedState = {
@@ -13248,10 +13260,10 @@
               unsuspend: noop$1
             }, accumulateSuspenseyCommitOnFiber(finishedWork, lanes, suspendedState), subtreeFlags = (lanes & 62914560) === lanes ? globalMostRecentFallbackTime - now$1() : (lanes & 4194048) === lanes ? globalMostRecentTransitionTime - now$1() : 0, subtreeFlags = waitForCommitToBeReady(suspendedState, subtreeFlags), null !== subtreeFlags) {
               pendingEffectsLanes = lanes;
-              root2.cancelPendingCommit = subtreeFlags(
+              root5.cancelPendingCommit = subtreeFlags(
                 commitRoot.bind(
                   null,
-                  root2,
+                  root5,
                   finishedWork,
                   lanes,
                   recoverableErrors,
@@ -13268,7 +13280,7 @@
                 )
               );
               markRootSuspended(
-                root2,
+                root5,
                 lanes,
                 spawnedLane,
                 !didSkipSuspendedSiblings
@@ -13277,7 +13289,7 @@
             }
           }
           commitRoot(
-            root2,
+            root5,
             finishedWork,
             lanes,
             recoverableErrors,
@@ -13294,9 +13306,9 @@
           );
         }
         function isRenderConsistentWithExternalStores(finishedWork) {
-          for (var node = finishedWork; ; ) {
-            var tag = node.tag;
-            if ((0 === tag || 11 === tag || 15 === tag) && node.flags & 16384 && (tag = node.updateQueue, null !== tag && (tag = tag.stores, null !== tag)))
+          for (var node2 = finishedWork; ; ) {
+            var tag = node2.tag;
+            if ((0 === tag || 11 === tag || 15 === tag) && node2.flags & 16384 && (tag = node2.updateQueue, null !== tag && (tag = tag.stores, null !== tag)))
               for (var i = 0; i < tag.length; i++) {
                 var check = tag[i], getSnapshot = check.getSnapshot;
                 check = check.value;
@@ -13306,34 +13318,34 @@
                   return false;
                 }
               }
-            tag = node.child;
-            if (node.subtreeFlags & 16384 && null !== tag)
-              tag.return = node, node = tag;
+            tag = node2.child;
+            if (node2.subtreeFlags & 16384 && null !== tag)
+              tag.return = node2, node2 = tag;
             else {
-              if (node === finishedWork) break;
-              for (; null === node.sibling; ) {
-                if (null === node.return || node.return === finishedWork) return true;
-                node = node.return;
+              if (node2 === finishedWork) break;
+              for (; null === node2.sibling; ) {
+                if (null === node2.return || node2.return === finishedWork) return true;
+                node2 = node2.return;
               }
-              node.sibling.return = node.return;
-              node = node.sibling;
+              node2.sibling.return = node2.return;
+              node2 = node2.sibling;
             }
           }
           return true;
         }
-        function markRootSuspended(root2, suspendedLanes, spawnedLane, didAttemptEntireTree) {
+        function markRootSuspended(root5, suspendedLanes, spawnedLane, didAttemptEntireTree) {
           suspendedLanes &= ~workInProgressRootPingedLanes;
           suspendedLanes &= ~workInProgressRootInterleavedUpdatedLanes;
-          root2.suspendedLanes |= suspendedLanes;
-          root2.pingedLanes &= ~suspendedLanes;
-          didAttemptEntireTree && (root2.warmLanes |= suspendedLanes);
-          didAttemptEntireTree = root2.expirationTimes;
+          root5.suspendedLanes |= suspendedLanes;
+          root5.pingedLanes &= ~suspendedLanes;
+          didAttemptEntireTree && (root5.warmLanes |= suspendedLanes);
+          didAttemptEntireTree = root5.expirationTimes;
           for (var lanes = suspendedLanes; 0 < lanes; ) {
-            var index = 31 - clz32(lanes), lane = 1 << index;
-            didAttemptEntireTree[index] = -1;
+            var index2 = 31 - clz32(lanes), lane = 1 << index2;
+            didAttemptEntireTree[index2] = -1;
             lanes &= ~lane;
           }
-          0 !== spawnedLane && markSpawnedDeferredLane(root2, spawnedLane, suspendedLanes);
+          0 !== spawnedLane && markSpawnedDeferredLane(root5, spawnedLane, suspendedLanes);
         }
         function flushSyncWork$1() {
           return (executionContext & (RenderContext | CommitContext)) === NoContext ? (flushSyncWorkAcrossRoots_impl(0, false), false) : true;
@@ -13355,7 +13367,7 @@
           0 !== (lanes & 62914560) && (retryClampTime = finalizationTime);
           0 !== (lanes & 2080374784) && (idleClampTime = finalizationTime);
         }
-        function prepareFreshStack(root2, lanes) {
+        function prepareFreshStack(root5, lanes) {
           supportsUserTiming && (console.timeStamp(
             "Blocking Track",
             3e-3,
@@ -13399,7 +13411,7 @@
             else {
               var endTime = renderStartTime, debugTask = workInProgressUpdateTask;
               if (supportsUserTiming && !(endTime <= previousRenderStartTime)) {
-                var color = (lanes & 738197653) === lanes ? "tertiary-dark" : "primary-dark", label = (lanes & 536870912) === lanes ? "Prewarm" : (lanes & 201326741) === lanes ? "Interrupted Hydration" : "Interrupted Render";
+                var color2 = (lanes & 738197653) === lanes ? "tertiary-dark" : "primary-dark", label = (lanes & 536870912) === lanes ? "Prewarm" : (lanes & 201326741) === lanes ? "Interrupted Hydration" : "Interrupted Render";
                 debugTask ? debugTask.run(
                   console.timeStamp.bind(
                     console,
@@ -13408,7 +13420,7 @@
                     endTime,
                     currentTrack,
                     LANES_TRACK_GROUP,
-                    color
+                    color2
                   )
                 ) : console.timeStamp(
                   label,
@@ -13416,7 +13428,7 @@
                   endTime,
                   currentTrack,
                   LANES_TRACK_GROUP,
-                  color
+                  color2
                 );
               }
             }
@@ -13428,18 +13440,18 @@
             workInProgressUpdateTask = blockingUpdateTask;
             debugTask = 0 <= blockingUpdateTime && blockingUpdateTime < blockingClampTime ? blockingClampTime : blockingUpdateTime;
             endTime = 0 <= blockingEventTime && blockingEventTime < blockingClampTime ? blockingClampTime : blockingEventTime;
-            color = 0 <= endTime ? endTime : 0 <= debugTask ? debugTask : renderStartTime;
+            color2 = 0 <= endTime ? endTime : 0 <= debugTask ? debugTask : renderStartTime;
             0 <= blockingSuspendedTime ? (setCurrentTrackFromLanes(2), logSuspendedWithDelayPhase(
               blockingSuspendedTime,
-              color,
+              color2,
               lanes,
               previousRenderStartTime
-            )) : 0 !== (animatingLanes & 127) && (setCurrentTrackFromLanes(2), logAnimatingPhase(blockingClampTime, color, animatingTask));
+            )) : 0 !== (animatingLanes & 127) && (setCurrentTrackFromLanes(2), logAnimatingPhase(blockingClampTime, color2, animatingTask));
             previousRenderStartTime = debugTask;
             var eventTime = endTime, eventType = blockingEventType, eventIsRepeat = 0 < blockingEventRepeatTime, isSpawnedUpdate = blockingUpdateType === SPAWNED_UPDATE, isPingedUpdate = blockingUpdateType === PINGED_UPDATE;
             debugTask = renderStartTime;
             endTime = blockingUpdateTask;
-            color = blockingUpdateMethodName;
+            color2 = blockingUpdateMethodName;
             label = blockingUpdateComponentName;
             if (supportsUserTiming) {
               currentTrack = "Blocking";
@@ -13466,7 +13478,7 @@
                   color$jscomp$0
                 );
               }
-              debugTask > previousRenderStartTime && (eventTime = isSpawnedUpdate ? "error" : (lanes & 738197653) === lanes ? "tertiary-light" : "primary-light", isSpawnedUpdate = isPingedUpdate ? "Promise Resolved" : isSpawnedUpdate ? "Cascading Update" : 5 < debugTask - previousRenderStartTime ? "Update Blocked" : "Update", isPingedUpdate = [], null != label && isPingedUpdate.push(["Component name", label]), null != color && isPingedUpdate.push(["Method name", color]), previousRenderStartTime = {
+              debugTask > previousRenderStartTime && (eventTime = isSpawnedUpdate ? "error" : (lanes & 738197653) === lanes ? "tertiary-light" : "primary-light", isSpawnedUpdate = isPingedUpdate ? "Promise Resolved" : isSpawnedUpdate ? "Cascading Update" : 5 < debugTask - previousRenderStartTime ? "Update Blocked" : "Update", isPingedUpdate = [], null != label && isPingedUpdate.push(["Component name", label]), null != color2 && isPingedUpdate.push(["Method name", color2]), previousRenderStartTime = {
                 start: previousRenderStartTime,
                 end: debugTask,
                 detail: {
@@ -13493,12 +13505,12 @@
             blockingEventTime = -1.1;
             blockingClampTime = now();
           }
-          0 !== (lanes & 4194048) && (workInProgressUpdateTask = transitionUpdateTask, debugTask = 0 <= transitionStartTime && transitionStartTime < transitionClampTime ? transitionClampTime : transitionStartTime, previousRenderStartTime = 0 <= transitionUpdateTime && transitionUpdateTime < transitionClampTime ? transitionClampTime : transitionUpdateTime, endTime = 0 <= transitionEventTime && transitionEventTime < transitionClampTime ? transitionClampTime : transitionEventTime, color = 0 <= endTime ? endTime : 0 <= previousRenderStartTime ? previousRenderStartTime : renderStartTime, 0 <= transitionSuspendedTime ? (setCurrentTrackFromLanes(256), logSuspendedWithDelayPhase(
+          0 !== (lanes & 4194048) && (workInProgressUpdateTask = transitionUpdateTask, debugTask = 0 <= transitionStartTime && transitionStartTime < transitionClampTime ? transitionClampTime : transitionStartTime, previousRenderStartTime = 0 <= transitionUpdateTime && transitionUpdateTime < transitionClampTime ? transitionClampTime : transitionUpdateTime, endTime = 0 <= transitionEventTime && transitionEventTime < transitionClampTime ? transitionClampTime : transitionEventTime, color2 = 0 <= endTime ? endTime : 0 <= previousRenderStartTime ? previousRenderStartTime : renderStartTime, 0 <= transitionSuspendedTime ? (setCurrentTrackFromLanes(256), logSuspendedWithDelayPhase(
             transitionSuspendedTime,
-            color,
+            color2,
             lanes,
             workInProgressUpdateTask
-          )) : 0 !== (animatingLanes & 4194048) && (setCurrentTrackFromLanes(256), logAnimatingPhase(transitionClampTime, color, animatingTask)), isPingedUpdate = endTime, eventTime = transitionEventType, eventType = 0 < transitionEventRepeatTime, eventIsRepeat = transitionUpdateType === PINGED_UPDATE, color = renderStartTime, endTime = transitionUpdateTask, label = transitionUpdateMethodName, isSpawnedUpdate = transitionUpdateComponentName, supportsUserTiming && (currentTrack = "Transition", 0 < previousRenderStartTime ? previousRenderStartTime > color && (previousRenderStartTime = color) : previousRenderStartTime = color, 0 < debugTask ? debugTask > previousRenderStartTime && (debugTask = previousRenderStartTime) : debugTask = previousRenderStartTime, 0 < isPingedUpdate ? isPingedUpdate > debugTask && (isPingedUpdate = debugTask) : isPingedUpdate = debugTask, debugTask > isPingedUpdate && null !== eventTime && (color$jscomp$0 = eventType ? "secondary-light" : "warning", endTime ? endTime.run(
+          )) : 0 !== (animatingLanes & 4194048) && (setCurrentTrackFromLanes(256), logAnimatingPhase(transitionClampTime, color2, animatingTask)), isPingedUpdate = endTime, eventTime = transitionEventType, eventType = 0 < transitionEventRepeatTime, eventIsRepeat = transitionUpdateType === PINGED_UPDATE, color2 = renderStartTime, endTime = transitionUpdateTask, label = transitionUpdateMethodName, isSpawnedUpdate = transitionUpdateComponentName, supportsUserTiming && (currentTrack = "Transition", 0 < previousRenderStartTime ? previousRenderStartTime > color2 && (previousRenderStartTime = color2) : previousRenderStartTime = color2, 0 < debugTask ? debugTask > previousRenderStartTime && (debugTask = previousRenderStartTime) : debugTask = previousRenderStartTime, 0 < isPingedUpdate ? isPingedUpdate > debugTask && (isPingedUpdate = debugTask) : isPingedUpdate = debugTask, debugTask > isPingedUpdate && null !== eventTime && (color$jscomp$0 = eventType ? "secondary-light" : "warning", endTime ? endTime.run(
             console.timeStamp.bind(
               console,
               eventType ? "Consecutive" : "Event: " + eventTime,
@@ -13532,9 +13544,9 @@
             currentTrack,
             LANES_TRACK_GROUP,
             "primary-dark"
-          )), color > previousRenderStartTime && (debugTask = eventIsRepeat ? "Promise Resolved" : 5 < color - previousRenderStartTime ? "Update Blocked" : "Update", isPingedUpdate = [], null != isSpawnedUpdate && isPingedUpdate.push(["Component name", isSpawnedUpdate]), null != label && isPingedUpdate.push(["Method name", label]), previousRenderStartTime = {
+          )), color2 > previousRenderStartTime && (debugTask = eventIsRepeat ? "Promise Resolved" : 5 < color2 - previousRenderStartTime ? "Update Blocked" : "Update", isPingedUpdate = [], null != isSpawnedUpdate && isPingedUpdate.push(["Component name", isSpawnedUpdate]), null != label && isPingedUpdate.push(["Method name", label]), previousRenderStartTime = {
             start: previousRenderStartTime,
-            end: color,
+            end: color2,
             detail: {
               devtools: {
                 properties: isPingedUpdate,
@@ -13552,40 +13564,40 @@
           ) : performance.measure(debugTask, previousRenderStartTime))), transitionUpdateTime = transitionStartTime = -1.1, transitionUpdateType = 0, transitionSuspendedTime = -1.1, transitionEventRepeatTime = transitionEventTime, transitionEventTime = -1.1, transitionClampTime = now());
           0 !== (lanes & 62914560) && 0 !== (animatingLanes & 62914560) && (setCurrentTrackFromLanes(4194304), logAnimatingPhase(retryClampTime, renderStartTime, animatingTask));
           0 !== (lanes & 2080374784) && 0 !== (animatingLanes & 2080374784) && (setCurrentTrackFromLanes(268435456), logAnimatingPhase(idleClampTime, renderStartTime, animatingTask));
-          previousRenderStartTime = root2.timeoutHandle;
-          previousRenderStartTime !== noTimeout && (root2.timeoutHandle = noTimeout, cancelTimeout(previousRenderStartTime));
-          previousRenderStartTime = root2.cancelPendingCommit;
-          null !== previousRenderStartTime && (root2.cancelPendingCommit = null, previousRenderStartTime());
+          previousRenderStartTime = root5.timeoutHandle;
+          previousRenderStartTime !== noTimeout && (root5.timeoutHandle = noTimeout, cancelTimeout(previousRenderStartTime));
+          previousRenderStartTime = root5.cancelPendingCommit;
+          null !== previousRenderStartTime && (root5.cancelPendingCommit = null, previousRenderStartTime());
           pendingEffectsLanes = 0;
           resetWorkInProgressStack();
-          workInProgressRoot = root2;
+          workInProgressRoot = root5;
           workInProgress = previousRenderStartTime = createWorkInProgress(
-            root2.current,
+            root5.current,
             null
           );
           workInProgressRootRenderLanes = lanes;
           workInProgressSuspendedReason = NotSuspended;
           workInProgressThrownValue = null;
           workInProgressRootDidSkipSuspendedSiblings = false;
-          workInProgressRootIsPrerendering = checkIfRootIsPrerendering(root2, lanes);
+          workInProgressRootIsPrerendering = checkIfRootIsPrerendering(root5, lanes);
           workInProgressRootDidAttachPingListener = false;
           workInProgressRootExitStatus = RootInProgress;
           workInProgressSuspendedRetryLanes = workInProgressDeferredLane = workInProgressRootPingedLanes = workInProgressRootInterleavedUpdatedLanes = workInProgressRootSkippedLanes = 0;
           workInProgressRootRecoverableErrors = workInProgressRootConcurrentErrors = null;
           workInProgressRootDidIncludeRecursiveRenderUpdate = false;
           0 !== (lanes & 8) && (lanes |= lanes & 32);
-          endTime = root2.entangledLanes;
+          endTime = root5.entangledLanes;
           if (0 !== endTime)
-            for (root2 = root2.entanglements, endTime &= lanes; 0 < endTime; )
-              debugTask = 31 - clz32(endTime), color = 1 << debugTask, lanes |= root2[debugTask], endTime &= ~color;
+            for (root5 = root5.entanglements, endTime &= lanes; 0 < endTime; )
+              debugTask = 31 - clz32(endTime), color2 = 1 << debugTask, lanes |= root5[debugTask], endTime &= ~color2;
           entangledRenderLanes = lanes;
           finishQueueingConcurrentUpdates();
-          root2 = getCurrentTime();
-          1e3 < root2 - lastResetTime && (ReactSharedInternals.recentlyCreatedOwnerStacks = 0, lastResetTime = root2);
+          root5 = getCurrentTime();
+          1e3 < root5 - lastResetTime && (ReactSharedInternals.recentlyCreatedOwnerStacks = 0, lastResetTime = root5);
           ReactStrictModeWarnings.discardPendingWarnings();
           return previousRenderStartTime;
         }
-        function handleThrow(root2, thrownValue) {
+        function handleThrow(root5, thrownValue) {
           currentlyRenderingFiber = null;
           ReactSharedInternals.H = ContextOnlyDispatcher;
           ReactSharedInternals.getCurrentStack = null;
@@ -13595,8 +13607,8 @@
           workInProgressThrownValue = thrownValue;
           var erroredWork = workInProgress;
           null === erroredWork ? (workInProgressRootExitStatus = RootFatalErrored, logUncaughtError(
-            root2,
-            createCapturedValueAtFiber(thrownValue, root2.current)
+            root5,
+            createCapturedValueAtFiber(thrownValue, root5.current)
           )) : erroredWork.mode & ProfileMode && stopProfilerTimerIfRunningAndRecordDuration(erroredWork);
         }
         function shouldRemainOnPreviousScreen() {
@@ -13626,18 +13638,18 @@
             false
           );
         }
-        function renderRootSync(root2, lanes, shouldYieldForPrerendering) {
+        function renderRootSync(root5, lanes, shouldYieldForPrerendering) {
           var prevExecutionContext = executionContext;
           executionContext |= RenderContext;
           var prevDispatcher = pushDispatcher(), prevAsyncDispatcher = pushAsyncDispatcher();
-          if (workInProgressRoot !== root2 || workInProgressRootRenderLanes !== lanes) {
+          if (workInProgressRoot !== root5 || workInProgressRootRenderLanes !== lanes) {
             if (isDevToolsPresent) {
-              var memoizedUpdaters = root2.memoizedUpdaters;
-              0 < memoizedUpdaters.size && (restorePendingUpdaters(root2, workInProgressRootRenderLanes), memoizedUpdaters.clear());
-              movePendingFibersToMemoized(root2, lanes);
+              var memoizedUpdaters = root5.memoizedUpdaters;
+              0 < memoizedUpdaters.size && (restorePendingUpdaters(root5, workInProgressRootRenderLanes), memoizedUpdaters.clear());
+              movePendingFibersToMemoized(root5, lanes);
             }
             workInProgressTransitions = null;
-            prepareFreshStack(root2, lanes);
+            prepareFreshStack(root5, lanes);
           }
           lanes = false;
           memoizedUpdaters = workInProgressRootExitStatus;
@@ -13658,24 +13670,24 @@
                     var reason = workInProgressSuspendedReason;
                     workInProgressSuspendedReason = NotSuspended;
                     workInProgressThrownValue = null;
-                    throwAndUnwindWorkLoop(root2, unitOfWork, thrownValue, reason);
+                    throwAndUnwindWorkLoop(root5, unitOfWork, thrownValue, reason);
                     if (shouldYieldForPrerendering && workInProgressRootIsPrerendering) {
                       memoizedUpdaters = RootInProgress;
                       break a;
                     }
                     break;
                   default:
-                    reason = workInProgressSuspendedReason, workInProgressSuspendedReason = NotSuspended, workInProgressThrownValue = null, throwAndUnwindWorkLoop(root2, unitOfWork, thrownValue, reason);
+                    reason = workInProgressSuspendedReason, workInProgressSuspendedReason = NotSuspended, workInProgressThrownValue = null, throwAndUnwindWorkLoop(root5, unitOfWork, thrownValue, reason);
                 }
               }
               workLoopSync();
               memoizedUpdaters = workInProgressRootExitStatus;
               break;
             } catch (thrownValue$8) {
-              handleThrow(root2, thrownValue$8);
+              handleThrow(root5, thrownValue$8);
             }
           while (1);
-          lanes && root2.shellSuspendCounter++;
+          lanes && root5.shellSuspendCounter++;
           resetContextDependencies();
           executionContext = prevExecutionContext;
           ReactSharedInternals.H = prevDispatcher;
@@ -13686,22 +13698,22 @@
         function workLoopSync() {
           for (; null !== workInProgress; ) performUnitOfWork(workInProgress);
         }
-        function renderRootConcurrent(root2, lanes) {
+        function renderRootConcurrent(root5, lanes) {
           var prevExecutionContext = executionContext;
           executionContext |= RenderContext;
           var prevDispatcher = pushDispatcher(), prevAsyncDispatcher = pushAsyncDispatcher();
-          if (workInProgressRoot !== root2 || workInProgressRootRenderLanes !== lanes) {
+          if (workInProgressRoot !== root5 || workInProgressRootRenderLanes !== lanes) {
             if (isDevToolsPresent) {
-              var memoizedUpdaters = root2.memoizedUpdaters;
-              0 < memoizedUpdaters.size && (restorePendingUpdaters(root2, workInProgressRootRenderLanes), memoizedUpdaters.clear());
-              movePendingFibersToMemoized(root2, lanes);
+              var memoizedUpdaters = root5.memoizedUpdaters;
+              0 < memoizedUpdaters.size && (restorePendingUpdaters(root5, workInProgressRootRenderLanes), memoizedUpdaters.clear());
+              movePendingFibersToMemoized(root5, lanes);
             }
             workInProgressTransitions = null;
             workInProgressRootRenderTargetTime = now$1() + RENDER_TIMEOUT_MS;
-            prepareFreshStack(root2, lanes);
+            prepareFreshStack(root5, lanes);
           } else
             workInProgressRootIsPrerendering = checkIfRootIsPrerendering(
-              root2,
+              root5,
               lanes
             );
           a: do
@@ -13712,7 +13724,7 @@
                     workInProgressSuspendedReason = NotSuspended;
                     workInProgressThrownValue = null;
                     throwAndUnwindWorkLoop(
-                      root2,
+                      root5,
                       lanes,
                       memoizedUpdaters,
                       SuspendedOnError
@@ -13727,8 +13739,8 @@
                       break;
                     }
                     lanes = function() {
-                      workInProgressSuspendedReason !== SuspendedOnData && workInProgressSuspendedReason !== SuspendedOnAction || workInProgressRoot !== root2 || (workInProgressSuspendedReason = SuspendedAndReadyToContinue);
-                      ensureRootIsScheduled(root2);
+                      workInProgressSuspendedReason !== SuspendedOnData && workInProgressSuspendedReason !== SuspendedOnAction || workInProgressRoot !== root5 || (workInProgressSuspendedReason = SuspendedAndReadyToContinue);
+                      ensureRootIsScheduled(root5);
                     };
                     memoizedUpdaters.then(lanes, lanes);
                     break a;
@@ -13740,7 +13752,7 @@
                     break a;
                   case SuspendedAndReadyToContinue:
                     isThenableResolved(memoizedUpdaters) ? (workInProgressSuspendedReason = NotSuspended, workInProgressThrownValue = null, replaySuspendedUnitOfWork(lanes)) : (workInProgressSuspendedReason = NotSuspended, workInProgressThrownValue = null, throwAndUnwindWorkLoop(
-                      root2,
+                      root5,
                       lanes,
                       memoizedUpdaters,
                       SuspendedAndReadyToContinue
@@ -13774,7 +13786,7 @@
                     workInProgressSuspendedReason = NotSuspended;
                     workInProgressThrownValue = null;
                     throwAndUnwindWorkLoop(
-                      root2,
+                      root5,
                       lanes,
                       memoizedUpdaters,
                       SuspendedOnInstanceAndReadyToContinue
@@ -13784,7 +13796,7 @@
                     workInProgressSuspendedReason = NotSuspended;
                     workInProgressThrownValue = null;
                     throwAndUnwindWorkLoop(
-                      root2,
+                      root5,
                       lanes,
                       memoizedUpdaters,
                       SuspendedOnDeprecatedThrowPromise
@@ -13802,7 +13814,7 @@
               null !== ReactSharedInternals.actQueue ? workLoopSync() : workLoopConcurrentByScheduler();
               break;
             } catch (thrownValue$9) {
-              handleThrow(root2, thrownValue$9);
+              handleThrow(root5, thrownValue$9);
             }
           while (1);
           resetContextDependencies();
@@ -13875,7 +13887,7 @@
           isProfilingMode && stopProfilerTimerIfRunningAndRecordDuration(unitOfWork);
           return current2;
         }
-        function throwAndUnwindWorkLoop(root2, unitOfWork, thrownValue, suspendedReason) {
+        function throwAndUnwindWorkLoop(root5, unitOfWork, thrownValue, suspendedReason) {
           resetContextDependencies();
           resetHooksOnUnwind(unitOfWork);
           thenableState$1 = null;
@@ -13883,7 +13895,7 @@
           var returnFiber = unitOfWork.return;
           try {
             if (throwException(
-              root2,
+              root5,
               returnFiber,
               unitOfWork,
               thrownValue,
@@ -13891,8 +13903,8 @@
             )) {
               workInProgressRootExitStatus = RootFatalErrored;
               logUncaughtError(
-                root2,
-                createCapturedValueAtFiber(thrownValue, root2.current)
+                root5,
+                createCapturedValueAtFiber(thrownValue, root5.current)
               );
               workInProgress = null;
               return;
@@ -13901,19 +13913,19 @@
             if (null !== returnFiber) throw workInProgress = returnFiber, error;
             workInProgressRootExitStatus = RootFatalErrored;
             logUncaughtError(
-              root2,
-              createCapturedValueAtFiber(thrownValue, root2.current)
+              root5,
+              createCapturedValueAtFiber(thrownValue, root5.current)
             );
             workInProgress = null;
             return;
           }
           if (unitOfWork.flags & 32768) {
-            if (isHydrating || suspendedReason === SuspendedOnError) root2 = true;
+            if (isHydrating || suspendedReason === SuspendedOnError) root5 = true;
             else if (workInProgressRootIsPrerendering || 0 !== (workInProgressRootRenderLanes & 536870912))
-              root2 = false;
-            else if (workInProgressRootDidSkipSuspendedSiblings = root2 = true, suspendedReason === SuspendedOnData || suspendedReason === SuspendedOnAction || suspendedReason === SuspendedOnImmediate || suspendedReason === SuspendedOnDeprecatedThrowPromise)
+              root5 = false;
+            else if (workInProgressRootDidSkipSuspendedSiblings = root5 = true, suspendedReason === SuspendedOnData || suspendedReason === SuspendedOnAction || suspendedReason === SuspendedOnImmediate || suspendedReason === SuspendedOnDeprecatedThrowPromise)
               suspendedReason = suspenseHandlerStackCursor.current, null !== suspendedReason && 13 === suspendedReason.tag && (suspendedReason.flags |= 16384);
-            unwindUnitOfWork(unitOfWork, root2);
+            unwindUnitOfWork(unitOfWork, root5);
           } else completeUnitOfWork(unitOfWork);
         }
         function completeUnitOfWork(unitOfWork) {
@@ -13976,8 +13988,8 @@
           workInProgressRootExitStatus = RootSuspendedAtTheShell;
           workInProgress = null;
         }
-        function commitRoot(root2, finishedWork, lanes, recoverableErrors, transitions, didIncludeRenderPhaseUpdate, spawnedLane, updatedLanes, suspendedRetryLanes, exitStatus, suspendedState, suspendedCommitReason, completedRenderStartTime, completedRenderEndTime) {
-          root2.cancelPendingCommit = null;
+        function commitRoot(root5, finishedWork, lanes, recoverableErrors, transitions, didIncludeRenderPhaseUpdate, spawnedLane, updatedLanes, suspendedRetryLanes, exitStatus, suspendedState, suspendedCommitReason, completedRenderStartTime, completedRenderEndTime) {
+          root5.cancelPendingCommit = null;
           do
             flushPendingEffects();
           while (pendingEffectsStatus !== NO_PENDING_EFFECTS);
@@ -14008,23 +14020,23 @@
             0 === lanes && console.error(
               "finishedLanes should not be empty during a commit. This is a bug in React."
             );
-            if (finishedWork === root2.current)
+            if (finishedWork === root5.current)
               throw Error(
                 "Cannot commit the same tree as before. This error is likely caused by a bug in React. Please file an issue."
               );
             didIncludeRenderPhaseUpdate = finishedWork.lanes | finishedWork.childLanes;
             didIncludeRenderPhaseUpdate |= concurrentlyUpdatedLanes;
             markRootFinished(
-              root2,
+              root5,
               lanes,
               didIncludeRenderPhaseUpdate,
               spawnedLane,
               updatedLanes,
               suspendedRetryLanes
             );
-            root2 === workInProgressRoot && (workInProgress = workInProgressRoot = null, workInProgressRootRenderLanes = 0);
+            root5 === workInProgressRoot && (workInProgress = workInProgressRoot = null, workInProgressRootRenderLanes = 0);
             pendingFinishedWork = finishedWork;
-            pendingEffectsRoot = root2;
+            pendingEffectsRoot = root5;
             pendingEffectsLanes = lanes;
             pendingEffectsRemainingLanes = didIncludeRenderPhaseUpdate;
             pendingPassiveTransitions = transitions;
@@ -14033,12 +14045,12 @@
             pendingSuspendedCommitReason = suspendedCommitReason;
             pendingDelayedCommitReason = IMMEDIATE_COMMIT;
             pendingSuspendedViewTransitionReason = null;
-            0 !== finishedWork.actualDuration || 0 !== (finishedWork.subtreeFlags & 10256) || 0 !== (finishedWork.flags & 10256) ? (root2.callbackNode = null, root2.callbackPriority = 0, scheduleCallback$1(NormalPriority$1, function() {
+            0 !== finishedWork.actualDuration || 0 !== (finishedWork.subtreeFlags & 10256) || 0 !== (finishedWork.flags & 10256) ? (root5.callbackNode = null, root5.callbackPriority = 0, scheduleCallback$1(NormalPriority$1, function() {
               schedulerEvent = window.event;
               pendingDelayedCommitReason === IMMEDIATE_COMMIT && (pendingDelayedCommitReason = DELAYED_PASSIVE_COMMIT);
               flushPassiveEffects();
               return null;
-            })) : (root2.callbackNode = null, root2.callbackPriority = 0);
+            })) : (root5.callbackNode = null, root5.callbackPriority = 0);
             commitErrors = null;
             commitStartTime = now();
             null !== suspendedCommitReason && logSuspendedCommitPhase(
@@ -14056,7 +14068,7 @@
               spawnedLane = executionContext;
               executionContext |= CommitContext;
               try {
-                commitBeforeMutationEffects(root2, finishedWork, lanes);
+                commitBeforeMutationEffects(root5, finishedWork, lanes);
               } finally {
                 executionContext = spawnedLane, ReactDOMSharedInternals.p = transitions, ReactSharedInternals.T = recoverableErrors;
               }
@@ -14070,7 +14082,7 @@
         function flushMutationEffects() {
           if (pendingEffectsStatus === PENDING_MUTATION_PHASE) {
             pendingEffectsStatus = NO_PENDING_EFFECTS;
-            var root2 = pendingEffectsRoot, finishedWork = pendingFinishedWork, lanes = pendingEffectsLanes, rootMutationHasEffect = 0 !== (finishedWork.flags & 13878);
+            var root5 = pendingEffectsRoot, finishedWork = pendingFinishedWork, lanes = pendingEffectsLanes, rootMutationHasEffect = 0 !== (finishedWork.flags & 13878);
             if (0 !== (finishedWork.subtreeFlags & 13878) || rootMutationHasEffect) {
               rootMutationHasEffect = ReactSharedInternals.T;
               ReactSharedInternals.T = null;
@@ -14080,21 +14092,21 @@
               executionContext |= CommitContext;
               try {
                 inProgressLanes = lanes;
-                inProgressRoot = root2;
+                inProgressRoot = root5;
                 resetComponentEffectTimers();
-                commitMutationEffectsOnFiber(finishedWork, root2);
+                commitMutationEffectsOnFiber(finishedWork, root5);
                 inProgressRoot = inProgressLanes = null;
                 lanes = selectionInformation;
-                var curFocusedElem = getActiveElementDeep(root2.containerInfo), priorFocusedElem = lanes.focusedElem, priorSelectionRange = lanes.selectionRange;
+                var curFocusedElem = getActiveElementDeep(root5.containerInfo), priorFocusedElem = lanes.focusedElem, priorSelectionRange = lanes.selectionRange;
                 if (curFocusedElem !== priorFocusedElem && priorFocusedElem && priorFocusedElem.ownerDocument && containsNode(
                   priorFocusedElem.ownerDocument.documentElement,
                   priorFocusedElem
                 )) {
                   if (null !== priorSelectionRange && hasSelectionCapabilities(priorFocusedElem)) {
-                    var start = priorSelectionRange.start, end = priorSelectionRange.end;
-                    void 0 === end && (end = start);
+                    var start2 = priorSelectionRange.start, end = priorSelectionRange.end;
+                    void 0 === end && (end = start2);
                     if ("selectionStart" in priorFocusedElem)
-                      priorFocusedElem.selectionStart = start, priorFocusedElem.selectionEnd = Math.min(
+                      priorFocusedElem.selectionStart = start2, priorFocusedElem.selectionEnd = Math.min(
                         end,
                         priorFocusedElem.value.length
                       );
@@ -14142,7 +14154,7 @@
                 executionContext = prevExecutionContext, ReactDOMSharedInternals.p = previousPriority, ReactSharedInternals.T = rootMutationHasEffect;
               }
             }
-            root2.current = finishedWork;
+            root5.current = finishedWork;
             pendingEffectsStatus = PENDING_LAYOUT_PHASE;
           }
         }
@@ -14341,8 +14353,8 @@
           });
           return componentStack;
         }
-        function releaseRootPooledCache(root2, remainingLanes) {
-          0 === (root2.pooledCacheLanes &= remainingLanes) && (remainingLanes = root2.pooledCache, null != remainingLanes && (root2.pooledCache = null, releaseCache(remainingLanes)));
+        function releaseRootPooledCache(root5, remainingLanes) {
+          0 === (root5.pooledCacheLanes &= remainingLanes) && (remainingLanes = root5.pooledCache, null != remainingLanes && (root5.pooledCache = null, releaseCache(remainingLanes)));
         }
         function flushPendingEffects() {
           flushMutationEffects();
@@ -14352,7 +14364,7 @@
         }
         function flushPassiveEffects() {
           if (pendingEffectsStatus !== PENDING_PASSIVE_PHASE) return false;
-          var root2 = pendingEffectsRoot, remainingLanes = pendingEffectsRemainingLanes;
+          var root5 = pendingEffectsRoot, remainingLanes = pendingEffectsRemainingLanes;
           pendingEffectsRemainingLanes = 0;
           var renderPriority = lanesToEventPriority(pendingEffectsLanes), priority = 0 === DefaultEventPriority || DefaultEventPriority > renderPriority ? DefaultEventPriority : renderPriority;
           renderPriority = ReactSharedInternals.T;
@@ -14464,7 +14476,7 @@
             stateNode.passiveEffectDuration = 0;
             return true;
           } finally {
-            ReactDOMSharedInternals.p = previousPriority, ReactSharedInternals.T = renderPriority, releaseRootPooledCache(root2, remainingLanes);
+            ReactDOMSharedInternals.p = previousPriority, ReactSharedInternals.T = renderPriority, releaseRootPooledCache(root5, remainingLanes);
           }
         }
         function captureCommitPhaseErrorOnRoot(rootFiber, sourceFiber, error) {
@@ -14512,27 +14524,27 @@
             );
           }
         }
-        function attachPingListener(root2, wakeable, lanes) {
-          var pingCache = root2.pingCache;
+        function attachPingListener(root5, wakeable, lanes) {
+          var pingCache = root5.pingCache;
           if (null === pingCache) {
-            pingCache = root2.pingCache = new PossiblyWeakMap();
+            pingCache = root5.pingCache = new PossiblyWeakMap();
             var threadIDs = /* @__PURE__ */ new Set();
             pingCache.set(wakeable, threadIDs);
           } else
             threadIDs = pingCache.get(wakeable), void 0 === threadIDs && (threadIDs = /* @__PURE__ */ new Set(), pingCache.set(wakeable, threadIDs));
-          threadIDs.has(lanes) || (workInProgressRootDidAttachPingListener = true, threadIDs.add(lanes), pingCache = pingSuspendedRoot.bind(null, root2, wakeable, lanes), isDevToolsPresent && restorePendingUpdaters(root2, lanes), wakeable.then(pingCache, pingCache));
+          threadIDs.has(lanes) || (workInProgressRootDidAttachPingListener = true, threadIDs.add(lanes), pingCache = pingSuspendedRoot.bind(null, root5, wakeable, lanes), isDevToolsPresent && restorePendingUpdaters(root5, lanes), wakeable.then(pingCache, pingCache));
         }
-        function pingSuspendedRoot(root2, wakeable, pingedLanes) {
-          var pingCache = root2.pingCache;
+        function pingSuspendedRoot(root5, wakeable, pingedLanes) {
+          var pingCache = root5.pingCache;
           null !== pingCache && pingCache.delete(wakeable);
-          root2.pingedLanes |= root2.suspendedLanes & pingedLanes;
-          root2.warmLanes &= ~pingedLanes;
+          root5.pingedLanes |= root5.suspendedLanes & pingedLanes;
+          root5.warmLanes &= ~pingedLanes;
           0 !== (pingedLanes & 127) ? 0 > blockingUpdateTime && (blockingClampTime = blockingUpdateTime = now(), blockingUpdateTask = createTask("Promise Resolved"), blockingUpdateType = PINGED_UPDATE) : 0 !== (pingedLanes & 4194048) && 0 > transitionUpdateTime && (transitionClampTime = transitionUpdateTime = now(), transitionUpdateTask = createTask("Promise Resolved"), transitionUpdateType = PINGED_UPDATE);
           isConcurrentActEnvironment() && null === ReactSharedInternals.actQueue && console.error(
             "A suspended resource finished loading inside a test, but the event was not wrapped in act(...).\n\nWhen testing, code that resolves suspended data should be wrapped into act(...):\n\nact(() => {\n  /* finish loading suspended data */\n});\n/* assert on the output */\n\nThis ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act"
           );
-          workInProgressRoot === root2 && (workInProgressRootRenderLanes & pingedLanes) === pingedLanes && (workInProgressRootExitStatus === RootSuspendedWithDelay || workInProgressRootExitStatus === RootSuspended && (workInProgressRootRenderLanes & 62914560) === workInProgressRootRenderLanes && now$1() - globalMostRecentFallbackTime < FALLBACK_THROTTLE_MS ? (executionContext & RenderContext) === NoContext && prepareFreshStack(root2, 0) : workInProgressRootPingedLanes |= pingedLanes, workInProgressSuspendedRetryLanes === workInProgressRootRenderLanes && (workInProgressSuspendedRetryLanes = 0));
-          ensureRootIsScheduled(root2);
+          workInProgressRoot === root5 && (workInProgressRootRenderLanes & pingedLanes) === pingedLanes && (workInProgressRootExitStatus === RootSuspendedWithDelay || workInProgressRootExitStatus === RootSuspended && (workInProgressRootRenderLanes & 62914560) === workInProgressRootRenderLanes && now$1() - globalMostRecentFallbackTime < FALLBACK_THROTTLE_MS ? (executionContext & RenderContext) === NoContext && prepareFreshStack(root5, 0) : workInProgressRootPingedLanes |= pingedLanes, workInProgressSuspendedRetryLanes === workInProgressRootRenderLanes && (workInProgressSuspendedRetryLanes = 0));
+          ensureRootIsScheduled(root5);
         }
         function retryTimedOutBoundary(boundaryFiber, retryLane) {
           0 === retryLane && (retryLane = claimNextRetryLane());
@@ -14570,46 +14582,46 @@
         function recursivelyTraverseAndDoubleInvokeEffectsInDEV(root$jscomp$0, parentFiber, isInStrictMode) {
           if (0 !== (parentFiber.subtreeFlags & 67117056))
             for (parentFiber = parentFiber.child; null !== parentFiber; ) {
-              var root2 = root$jscomp$0, fiber = parentFiber, isStrictModeFiber = fiber.type === REACT_STRICT_MODE_TYPE;
+              var root5 = root$jscomp$0, fiber = parentFiber, isStrictModeFiber = fiber.type === REACT_STRICT_MODE_TYPE;
               isStrictModeFiber = isInStrictMode || isStrictModeFiber;
               22 !== fiber.tag ? fiber.flags & 67108864 ? isStrictModeFiber && runWithFiberInDEV(
                 fiber,
                 doubleInvokeEffectsOnFiber,
-                root2,
+                root5,
                 fiber
               ) : recursivelyTraverseAndDoubleInvokeEffectsInDEV(
-                root2,
+                root5,
                 fiber,
                 isStrictModeFiber
               ) : null === fiber.memoizedState && (isStrictModeFiber && fiber.flags & 8192 ? runWithFiberInDEV(
                 fiber,
                 doubleInvokeEffectsOnFiber,
-                root2,
+                root5,
                 fiber
               ) : fiber.subtreeFlags & 67108864 && runWithFiberInDEV(
                 fiber,
                 recursivelyTraverseAndDoubleInvokeEffectsInDEV,
-                root2,
+                root5,
                 fiber,
                 isStrictModeFiber
               ));
               parentFiber = parentFiber.sibling;
             }
         }
-        function doubleInvokeEffectsOnFiber(root2, fiber) {
+        function doubleInvokeEffectsOnFiber(root5, fiber) {
           setIsStrictModeForDevtools(true);
           try {
-            disappearLayoutEffects(fiber), disconnectPassiveEffect(fiber), reappearLayoutEffects(root2, fiber.alternate, fiber, false), reconnectPassiveEffects(root2, fiber, 0, null, false, 0);
+            disappearLayoutEffects(fiber), disconnectPassiveEffect(fiber), reappearLayoutEffects(root5, fiber.alternate, fiber, false), reconnectPassiveEffects(root5, fiber, 0, null, false, 0);
           } finally {
             setIsStrictModeForDevtools(false);
           }
         }
-        function commitDoubleInvokeEffectsInDEV(root2) {
+        function commitDoubleInvokeEffectsInDEV(root5) {
           var doubleInvokeEffects = true;
-          root2.current.mode & (StrictLegacyMode | StrictEffectsMode) || (doubleInvokeEffects = false);
+          root5.current.mode & (StrictLegacyMode | StrictEffectsMode) || (doubleInvokeEffects = false);
           recursivelyTraverseAndDoubleInvokeEffectsInDEV(
-            root2,
-            root2.current,
+            root5,
+            root5.current,
             doubleInvokeEffects
           );
         }
@@ -14630,9 +14642,9 @@
             }
           }
         }
-        function restorePendingUpdaters(root2, lanes) {
-          isDevToolsPresent && root2.memoizedUpdaters.forEach(function(schedulingFiber) {
-            addFiberToLanesMap(root2, schedulingFiber, lanes);
+        function restorePendingUpdaters(root5, lanes) {
+          isDevToolsPresent && root5.memoizedUpdaters.forEach(function(schedulingFiber) {
+            addFiberToLanesMap(root5, schedulingFiber, lanes);
           });
         }
         function scheduleCallback$1(priorityLevel, callback) {
@@ -14647,8 +14659,8 @@
             );
           });
         }
-        function ensureRootIsScheduled(root2) {
-          root2 !== lastScheduledRoot && null === root2.next && (null === lastScheduledRoot ? firstScheduledRoot = lastScheduledRoot = root2 : lastScheduledRoot = lastScheduledRoot.next = root2);
+        function ensureRootIsScheduled(root5) {
+          root5 !== lastScheduledRoot && null === root5.next && (null === lastScheduledRoot ? firstScheduledRoot = lastScheduledRoot = root5 : lastScheduledRoot = lastScheduledRoot.next = root5);
           mightHavePendingSyncWork = true;
           null !== ReactSharedInternals.actQueue ? didScheduleMicrotask_act || (didScheduleMicrotask_act = true, scheduleImmediateRootScheduleTask()) : didScheduleMicrotask || (didScheduleMicrotask = true, scheduleImmediateRootScheduleTask());
         }
@@ -14657,25 +14669,25 @@
             isFlushingWork = true;
             do {
               var didPerformSomeWork = false;
-              for (var root2 = firstScheduledRoot; null !== root2; ) {
+              for (var root5 = firstScheduledRoot; null !== root5; ) {
                 if (!onlyLegacy)
                   if (0 !== syncTransitionLanes) {
-                    var pendingLanes = root2.pendingLanes;
+                    var pendingLanes = root5.pendingLanes;
                     if (0 === pendingLanes) var nextLanes = 0;
                     else {
-                      var suspendedLanes = root2.suspendedLanes, pingedLanes = root2.pingedLanes;
+                      var suspendedLanes = root5.suspendedLanes, pingedLanes = root5.pingedLanes;
                       nextLanes = (1 << 31 - clz32(42 | syncTransitionLanes) + 1) - 1;
                       nextLanes &= pendingLanes & ~(suspendedLanes & ~pingedLanes);
                       nextLanes = nextLanes & 201326741 ? nextLanes & 201326741 | 1 : nextLanes ? nextLanes | 2 : 0;
                     }
-                    0 !== nextLanes && (didPerformSomeWork = true, performSyncWorkOnRoot(root2, nextLanes));
+                    0 !== nextLanes && (didPerformSomeWork = true, performSyncWorkOnRoot(root5, nextLanes));
                   } else
                     nextLanes = workInProgressRootRenderLanes, nextLanes = getNextLanes(
-                      root2,
-                      root2 === workInProgressRoot ? nextLanes : 0,
-                      null !== root2.cancelPendingCommit || root2.timeoutHandle !== noTimeout
-                    ), 0 === (nextLanes & 3) || checkIfRootIsPrerendering(root2, nextLanes) || (didPerformSomeWork = true, performSyncWorkOnRoot(root2, nextLanes));
-                root2 = root2.next;
+                      root5,
+                      root5 === workInProgressRoot ? nextLanes : 0,
+                      null !== root5.cancelPendingCommit || root5.timeoutHandle !== noTimeout
+                    ), 0 === (nextLanes & 3) || checkIfRootIsPrerendering(root5, nextLanes) || (didPerformSomeWork = true, performSyncWorkOnRoot(root5, nextLanes));
+                root5 = root5.next;
               }
             } while (didPerformSomeWork);
             isFlushingWork = false;
@@ -14689,39 +14701,39 @@
           mightHavePendingSyncWork = didScheduleMicrotask_act = didScheduleMicrotask = false;
           var syncTransitionLanes = 0;
           0 !== currentEventTransitionLane && shouldAttemptEagerTransition() && (syncTransitionLanes = currentEventTransitionLane);
-          for (var currentTime = now$1(), prev = null, root2 = firstScheduledRoot; null !== root2; ) {
-            var next = root2.next, nextLanes = scheduleTaskForRootDuringMicrotask(root2, currentTime);
+          for (var currentTime = now$1(), prev = null, root5 = firstScheduledRoot; null !== root5; ) {
+            var next = root5.next, nextLanes = scheduleTaskForRootDuringMicrotask(root5, currentTime);
             if (0 === nextLanes)
-              root2.next = null, null === prev ? firstScheduledRoot = next : prev.next = next, null === next && (lastScheduledRoot = prev);
-            else if (prev = root2, 0 !== syncTransitionLanes || 0 !== (nextLanes & 3))
+              root5.next = null, null === prev ? firstScheduledRoot = next : prev.next = next, null === next && (lastScheduledRoot = prev);
+            else if (prev = root5, 0 !== syncTransitionLanes || 0 !== (nextLanes & 3))
               mightHavePendingSyncWork = true;
-            root2 = next;
+            root5 = next;
           }
           pendingEffectsStatus !== NO_PENDING_EFFECTS && pendingEffectsStatus !== PENDING_PASSIVE_PHASE || flushSyncWorkAcrossRoots_impl(syncTransitionLanes, false);
           0 !== currentEventTransitionLane && (currentEventTransitionLane = 0);
         }
-        function scheduleTaskForRootDuringMicrotask(root2, currentTime) {
-          for (var suspendedLanes = root2.suspendedLanes, pingedLanes = root2.pingedLanes, expirationTimes = root2.expirationTimes, lanes = root2.pendingLanes & -62914561; 0 < lanes; ) {
-            var index = 31 - clz32(lanes), lane = 1 << index, expirationTime = expirationTimes[index];
+        function scheduleTaskForRootDuringMicrotask(root5, currentTime) {
+          for (var suspendedLanes = root5.suspendedLanes, pingedLanes = root5.pingedLanes, expirationTimes = root5.expirationTimes, lanes = root5.pendingLanes & -62914561; 0 < lanes; ) {
+            var index2 = 31 - clz32(lanes), lane = 1 << index2, expirationTime = expirationTimes[index2];
             if (-1 === expirationTime) {
               if (0 === (lane & suspendedLanes) || 0 !== (lane & pingedLanes))
-                expirationTimes[index] = computeExpirationTime(lane, currentTime);
-            } else expirationTime <= currentTime && (root2.expiredLanes |= lane);
+                expirationTimes[index2] = computeExpirationTime(lane, currentTime);
+            } else expirationTime <= currentTime && (root5.expiredLanes |= lane);
             lanes &= ~lane;
           }
           currentTime = workInProgressRoot;
           suspendedLanes = workInProgressRootRenderLanes;
           suspendedLanes = getNextLanes(
-            root2,
-            root2 === currentTime ? suspendedLanes : 0,
-            null !== root2.cancelPendingCommit || root2.timeoutHandle !== noTimeout
+            root5,
+            root5 === currentTime ? suspendedLanes : 0,
+            null !== root5.cancelPendingCommit || root5.timeoutHandle !== noTimeout
           );
-          pingedLanes = root2.callbackNode;
-          if (0 === suspendedLanes || root2 === currentTime && (workInProgressSuspendedReason === SuspendedOnData || workInProgressSuspendedReason === SuspendedOnAction) || null !== root2.cancelPendingCommit)
-            return null !== pingedLanes && cancelCallback(pingedLanes), root2.callbackNode = null, root2.callbackPriority = 0;
-          if (0 === (suspendedLanes & 3) || checkIfRootIsPrerendering(root2, suspendedLanes)) {
+          pingedLanes = root5.callbackNode;
+          if (0 === suspendedLanes || root5 === currentTime && (workInProgressSuspendedReason === SuspendedOnData || workInProgressSuspendedReason === SuspendedOnAction) || null !== root5.cancelPendingCommit)
+            return null !== pingedLanes && cancelCallback(pingedLanes), root5.callbackNode = null, root5.callbackPriority = 0;
+          if (0 === (suspendedLanes & 3) || checkIfRootIsPrerendering(root5, suspendedLanes)) {
             currentTime = suspendedLanes & -suspendedLanes;
-            if (currentTime !== root2.callbackPriority || null !== ReactSharedInternals.actQueue && pingedLanes !== fakeActCallbackNode)
+            if (currentTime !== root5.callbackPriority || null !== ReactSharedInternals.actQueue && pingedLanes !== fakeActCallbackNode)
               cancelCallback(pingedLanes);
             else return currentTime;
             switch (lanesToEventPriority(suspendedLanes)) {
@@ -14738,46 +14750,46 @@
               default:
                 suspendedLanes = NormalPriority$1;
             }
-            pingedLanes = performWorkOnRootViaSchedulerTask.bind(null, root2);
+            pingedLanes = performWorkOnRootViaSchedulerTask.bind(null, root5);
             null !== ReactSharedInternals.actQueue ? (ReactSharedInternals.actQueue.push(pingedLanes), suspendedLanes = fakeActCallbackNode) : suspendedLanes = scheduleCallback$3(suspendedLanes, pingedLanes);
-            root2.callbackPriority = currentTime;
-            root2.callbackNode = suspendedLanes;
+            root5.callbackPriority = currentTime;
+            root5.callbackNode = suspendedLanes;
             return currentTime;
           }
           null !== pingedLanes && cancelCallback(pingedLanes);
-          root2.callbackPriority = 2;
-          root2.callbackNode = null;
+          root5.callbackPriority = 2;
+          root5.callbackNode = null;
           return 2;
         }
-        function performWorkOnRootViaSchedulerTask(root2, didTimeout) {
+        function performWorkOnRootViaSchedulerTask(root5, didTimeout) {
           nestedUpdateScheduled = currentUpdateIsNested = false;
           schedulerEvent = window.event;
           if (pendingEffectsStatus !== NO_PENDING_EFFECTS && pendingEffectsStatus !== PENDING_PASSIVE_PHASE)
-            return root2.callbackNode = null, root2.callbackPriority = 0, null;
-          var originalCallbackNode = root2.callbackNode;
+            return root5.callbackNode = null, root5.callbackPriority = 0, null;
+          var originalCallbackNode = root5.callbackNode;
           pendingDelayedCommitReason === IMMEDIATE_COMMIT && (pendingDelayedCommitReason = DELAYED_PASSIVE_COMMIT);
-          if (flushPendingEffects() && root2.callbackNode !== originalCallbackNode)
+          if (flushPendingEffects() && root5.callbackNode !== originalCallbackNode)
             return null;
           var workInProgressRootRenderLanes$jscomp$0 = workInProgressRootRenderLanes;
           workInProgressRootRenderLanes$jscomp$0 = getNextLanes(
-            root2,
-            root2 === workInProgressRoot ? workInProgressRootRenderLanes$jscomp$0 : 0,
-            null !== root2.cancelPendingCommit || root2.timeoutHandle !== noTimeout
+            root5,
+            root5 === workInProgressRoot ? workInProgressRootRenderLanes$jscomp$0 : 0,
+            null !== root5.cancelPendingCommit || root5.timeoutHandle !== noTimeout
           );
           if (0 === workInProgressRootRenderLanes$jscomp$0) return null;
           performWorkOnRoot(
-            root2,
+            root5,
             workInProgressRootRenderLanes$jscomp$0,
             didTimeout
           );
-          scheduleTaskForRootDuringMicrotask(root2, now$1());
-          return null != root2.callbackNode && root2.callbackNode === originalCallbackNode ? performWorkOnRootViaSchedulerTask.bind(null, root2) : null;
+          scheduleTaskForRootDuringMicrotask(root5, now$1());
+          return null != root5.callbackNode && root5.callbackNode === originalCallbackNode ? performWorkOnRootViaSchedulerTask.bind(null, root5) : null;
         }
-        function performSyncWorkOnRoot(root2, lanes) {
+        function performSyncWorkOnRoot(root5, lanes) {
           if (flushPendingEffects()) return null;
           currentUpdateIsNested = nestedUpdateScheduled;
           nestedUpdateScheduled = false;
-          performWorkOnRoot(root2, lanes, true);
+          performWorkOnRoot(root5, lanes, true);
         }
         function cancelCallback(callbackNode) {
           callbackNode !== fakeActCallbackNode && null !== callbackNode && cancelCallback$1(callbackNode);
@@ -15296,7 +15308,7 @@
                 }
               else
                 isComposing ? isFallbackCompositionEnd(domEventName, nativeEvent) && (eventType = "onCompositionEnd") : "keydown" === domEventName && nativeEvent.keyCode === START_KEYCODE && (eventType = "onCompositionStart");
-              eventType && (useFallbackCompositionData && "ko" !== nativeEvent.locale && (isComposing || "onCompositionStart" !== eventType ? "onCompositionEnd" === eventType && isComposing && (fallbackData = getData()) : (root = nativeEventTarget, startText = "value" in root ? root.value : root.textContent, isComposing = true)), handleEventFunc = accumulateTwoPhaseListeners(
+              eventType && (useFallbackCompositionData && "ko" !== nativeEvent.locale && (isComposing || "onCompositionStart" !== eventType ? "onCompositionEnd" === eventType && isComposing && (fallbackData = getData()) : (root4 = nativeEventTarget, startText = "value" in root4 ? root4.value : root4.textContent, isComposing = true)), handleEventFunc = accumulateTwoPhaseListeners(
                 targetInst,
                 eventType
               ), 0 < handleEventFunc.length && (eventType = new SyntheticCompositionEvent(
@@ -15414,12 +15426,12 @@
             typeof listener
           );
         }
-        function normalizeHTML(parent, html) {
+        function normalizeHTML(parent, html5) {
           parent = parent.namespaceURI === MATH_NAMESPACE || parent.namespaceURI === SVG_NAMESPACE ? parent.ownerDocument.createElementNS(
             parent.namespaceURI,
             parent.tagName
           ) : parent.ownerDocument.createElement(parent.tagName);
-          parent.innerHTML = html;
+          parent.innerHTML = html5;
           return parent.innerHTML;
         }
         function normalizeMarkupForTextOrAttribute(markup) {
@@ -16059,7 +16071,7 @@
             case "li":
               break;
             case "input":
-              var name = null, type = null, value = null, defaultValue = null, lastDefaultValue = null, checked = null, defaultChecked = null;
+              var name2 = null, type = null, value = null, defaultValue = null, lastDefaultValue = null, checked = null, defaultChecked = null;
               for (propKey in lastProps) {
                 var lastProp = lastProps[propKey];
                 if (lastProps.hasOwnProperty(propKey) && null != lastProp)
@@ -16090,7 +16102,7 @@
                       type = propKey;
                       break;
                     case "name":
-                      name = propKey;
+                      name2 = propKey;
                       break;
                     case "checked":
                       checked = propKey;
@@ -16138,7 +16150,7 @@
                 checked,
                 defaultChecked,
                 type,
-                name
+                name2
               );
               return;
             case "select":
@@ -16160,9 +16172,9 @@
                         lastDefaultValue
                       );
                   }
-              for (name in nextProps)
-                if (type = nextProps[name], lastDefaultValue = lastProps[name], nextProps.hasOwnProperty(name) && (null != type || null != lastDefaultValue))
-                  switch (name) {
+              for (name2 in nextProps)
+                if (type = nextProps[name2], lastDefaultValue = lastProps[name2], nextProps.hasOwnProperty(name2) && (null != type || null != lastDefaultValue))
+                  switch (name2) {
                     case "value":
                       _propKey8 = type;
                       break;
@@ -16175,7 +16187,7 @@
                       type !== lastDefaultValue && setProp(
                         domElement,
                         tag,
-                        name,
+                        name2,
                         type,
                         nextProps,
                         lastDefaultValue
@@ -16189,34 +16201,34 @@
             case "textarea":
               propKey = _propKey8 = null;
               for (defaultValue in lastProps)
-                if (name = lastProps[defaultValue], lastProps.hasOwnProperty(defaultValue) && null != name && !nextProps.hasOwnProperty(defaultValue))
+                if (name2 = lastProps[defaultValue], lastProps.hasOwnProperty(defaultValue) && null != name2 && !nextProps.hasOwnProperty(defaultValue))
                   switch (defaultValue) {
                     case "value":
                       break;
                     case "children":
                       break;
                     default:
-                      setProp(domElement, tag, defaultValue, null, nextProps, name);
+                      setProp(domElement, tag, defaultValue, null, nextProps, name2);
                   }
               for (value in nextProps)
-                if (name = nextProps[value], type = lastProps[value], nextProps.hasOwnProperty(value) && (null != name || null != type))
+                if (name2 = nextProps[value], type = lastProps[value], nextProps.hasOwnProperty(value) && (null != name2 || null != type))
                   switch (value) {
                     case "value":
-                      _propKey8 = name;
+                      _propKey8 = name2;
                       break;
                     case "defaultValue":
-                      propKey = name;
+                      propKey = name2;
                       break;
                     case "children":
                       break;
                     case "dangerouslySetInnerHTML":
-                      if (null != name)
+                      if (null != name2)
                         throw Error(
                           "`dangerouslySetInnerHTML` does not make sense on <textarea>."
                         );
                       break;
                     default:
-                      name !== type && setProp(domElement, tag, value, name, nextProps, type);
+                      name2 !== type && setProp(domElement, tag, value, name2, nextProps, type);
                   }
               updateTextarea(domElement, _propKey8, propKey);
               return;
@@ -17033,16 +17045,16 @@
           0 < extraAttributes.size && true !== props.suppressHydrationWarning && warnForExtraAttributes(domElement, extraAttributes, serverDifferences);
           return 0 === Object.keys(serverDifferences).length ? null : serverDifferences;
         }
-        function propNamesListJoin(list, combinator) {
-          switch (list.length) {
+        function propNamesListJoin(list4, combinator) {
+          switch (list4.length) {
             case 0:
               return "";
             case 1:
-              return list[0];
+              return list4[0];
             case 2:
-              return list[0] + " " + combinator + " " + list[1];
+              return list4[0] + " " + combinator + " " + list4[1];
             default:
-              return list.slice(0, -1).join(", ") + ", " + combinator + " " + list[list.length - 1];
+              return list4.slice(0, -1).join(", ") + ", " + combinator + " " + list4[list4.length - 1];
           }
         }
         function isLikelyStaticResource(initiatorType) {
@@ -17184,52 +17196,52 @@
           (9 === container2.nodeType ? container2.body : "HTML" === container2.nodeName ? container2.ownerDocument.body : container2).removeChild(child);
         }
         function clearHydrationBoundary(parentInstance, hydrationInstance) {
-          var node = hydrationInstance, depth = 0;
+          var node2 = hydrationInstance, depth = 0;
           do {
-            var nextNode = node.nextSibling;
-            parentInstance.removeChild(node);
+            var nextNode = node2.nextSibling;
+            parentInstance.removeChild(node2);
             if (nextNode && 8 === nextNode.nodeType)
-              if (node = nextNode.data, node === SUSPENSE_END_DATA || node === ACTIVITY_END_DATA) {
+              if (node2 = nextNode.data, node2 === SUSPENSE_END_DATA || node2 === ACTIVITY_END_DATA) {
                 if (0 === depth) {
                   parentInstance.removeChild(nextNode);
                   retryIfBlockedOn(hydrationInstance);
                   return;
                 }
                 depth--;
-              } else if (node === SUSPENSE_START_DATA || node === SUSPENSE_PENDING_START_DATA || node === SUSPENSE_QUEUED_START_DATA || node === SUSPENSE_FALLBACK_START_DATA || node === ACTIVITY_START_DATA)
+              } else if (node2 === SUSPENSE_START_DATA || node2 === SUSPENSE_PENDING_START_DATA || node2 === SUSPENSE_QUEUED_START_DATA || node2 === SUSPENSE_FALLBACK_START_DATA || node2 === ACTIVITY_START_DATA)
                 depth++;
-              else if (node === PREAMBLE_CONTRIBUTION_HTML)
+              else if (node2 === PREAMBLE_CONTRIBUTION_HTML)
                 releaseSingletonInstance(
                   parentInstance.ownerDocument.documentElement
                 );
-              else if (node === PREAMBLE_CONTRIBUTION_HEAD) {
-                node = parentInstance.ownerDocument.head;
-                releaseSingletonInstance(node);
-                for (var node$jscomp$0 = node.firstChild; node$jscomp$0; ) {
+              else if (node2 === PREAMBLE_CONTRIBUTION_HEAD) {
+                node2 = parentInstance.ownerDocument.head;
+                releaseSingletonInstance(node2);
+                for (var node$jscomp$0 = node2.firstChild; node$jscomp$0; ) {
                   var nextNode$jscomp$0 = node$jscomp$0.nextSibling, nodeName = node$jscomp$0.nodeName;
-                  node$jscomp$0[internalHoistableMarker] || "SCRIPT" === nodeName || "STYLE" === nodeName || "LINK" === nodeName && "stylesheet" === node$jscomp$0.rel.toLowerCase() || node.removeChild(node$jscomp$0);
+                  node$jscomp$0[internalHoistableMarker] || "SCRIPT" === nodeName || "STYLE" === nodeName || "LINK" === nodeName && "stylesheet" === node$jscomp$0.rel.toLowerCase() || node2.removeChild(node$jscomp$0);
                   node$jscomp$0 = nextNode$jscomp$0;
                 }
               } else
-                node === PREAMBLE_CONTRIBUTION_BODY && releaseSingletonInstance(parentInstance.ownerDocument.body);
-            node = nextNode;
-          } while (node);
+                node2 === PREAMBLE_CONTRIBUTION_BODY && releaseSingletonInstance(parentInstance.ownerDocument.body);
+            node2 = nextNode;
+          } while (node2);
           retryIfBlockedOn(hydrationInstance);
         }
         function hideOrUnhideDehydratedBoundary(suspenseInstance, isHidden) {
-          var node = suspenseInstance;
+          var node2 = suspenseInstance;
           suspenseInstance = 0;
           do {
-            var nextNode = node.nextSibling;
-            1 === node.nodeType ? isHidden ? (node._stashedDisplay = node.style.display, node.style.display = "none") : (node.style.display = node._stashedDisplay || "", "" === node.getAttribute("style") && node.removeAttribute("style")) : 3 === node.nodeType && (isHidden ? (node._stashedText = node.nodeValue, node.nodeValue = "") : node.nodeValue = node._stashedText || "");
+            var nextNode = node2.nextSibling;
+            1 === node2.nodeType ? isHidden ? (node2._stashedDisplay = node2.style.display, node2.style.display = "none") : (node2.style.display = node2._stashedDisplay || "", "" === node2.getAttribute("style") && node2.removeAttribute("style")) : 3 === node2.nodeType && (isHidden ? (node2._stashedText = node2.nodeValue, node2.nodeValue = "") : node2.nodeValue = node2._stashedText || "");
             if (nextNode && 8 === nextNode.nodeType)
-              if (node = nextNode.data, node === SUSPENSE_END_DATA)
+              if (node2 = nextNode.data, node2 === SUSPENSE_END_DATA)
                 if (0 === suspenseInstance) break;
                 else suspenseInstance--;
               else
-                node !== SUSPENSE_START_DATA && node !== SUSPENSE_PENDING_START_DATA && node !== SUSPENSE_QUEUED_START_DATA && node !== SUSPENSE_FALLBACK_START_DATA || suspenseInstance++;
-            node = nextNode;
-          } while (node);
+                node2 !== SUSPENSE_START_DATA && node2 !== SUSPENSE_PENDING_START_DATA && node2 !== SUSPENSE_QUEUED_START_DATA && node2 !== SUSPENSE_FALLBACK_START_DATA || suspenseInstance++;
+            node2 = nextNode;
+          } while (node2);
         }
         function hideDehydratedBoundary(suspenseInstance) {
           hideOrUnhideDehydratedBoundary(suspenseInstance, true);
@@ -17249,29 +17261,29 @@
           props = void 0 !== props && null !== props && props.hasOwnProperty("display") ? props.display : null;
           instance.style.display = null == props || "boolean" === typeof props ? "" : ("" + props).trim();
         }
-        function unhideTextInstance(textInstance, text) {
-          textInstance.nodeValue = text;
+        function unhideTextInstance(textInstance, text7) {
+          textInstance.nodeValue = text7;
         }
         function clearContainerSparingly(container2) {
           var nextNode = container2.firstChild;
           nextNode && 10 === nextNode.nodeType && (nextNode = nextNode.nextSibling);
           for (; nextNode; ) {
-            var node = nextNode;
+            var node2 = nextNode;
             nextNode = nextNode.nextSibling;
-            switch (node.nodeName) {
+            switch (node2.nodeName) {
               case "HTML":
               case "HEAD":
               case "BODY":
-                clearContainerSparingly(node);
-                detachDeletedInstance(node);
+                clearContainerSparingly(node2);
+                detachDeletedInstance(node2);
                 continue;
               case "SCRIPT":
               case "STYLE":
                 continue;
               case "LINK":
-                if ("stylesheet" === node.rel.toLowerCase()) continue;
+                if ("stylesheet" === node2.rel.toLowerCase()) continue;
             }
-            container2.removeChild(node);
+            container2.removeChild(node2);
           }
         }
         function canHydrateInstance(instance, type, props, inRootOrSingleton) {
@@ -17283,8 +17295,8 @@
             } else if (!inRootOrSingleton)
               if ("input" === type && "hidden" === instance.type) {
                 checkAttributeStringCoercion(anyProps.name, "name");
-                var name = null == anyProps.name ? null : "" + anyProps.name;
-                if ("hidden" === anyProps.type && instance.getAttribute("name") === name)
+                var name2 = null == anyProps.name ? null : "" + anyProps.name;
+                if ("hidden" === anyProps.type && instance.getAttribute("name") === name2)
                   return instance;
               } else return instance;
             else if (!instance[internalHoistableMarker])
@@ -17293,18 +17305,18 @@
                   if (!instance.hasAttribute("itemprop")) break;
                   return instance;
                 case "link":
-                  name = instance.getAttribute("rel");
-                  if ("stylesheet" === name && instance.hasAttribute("data-precedence"))
+                  name2 = instance.getAttribute("rel");
+                  if ("stylesheet" === name2 && instance.hasAttribute("data-precedence"))
                     break;
-                  else if (name !== anyProps.rel || instance.getAttribute("href") !== (null == anyProps.href || "" === anyProps.href ? null : anyProps.href) || instance.getAttribute("crossorigin") !== (null == anyProps.crossOrigin ? null : anyProps.crossOrigin) || instance.getAttribute("title") !== (null == anyProps.title ? null : anyProps.title))
+                  else if (name2 !== anyProps.rel || instance.getAttribute("href") !== (null == anyProps.href || "" === anyProps.href ? null : anyProps.href) || instance.getAttribute("crossorigin") !== (null == anyProps.crossOrigin ? null : anyProps.crossOrigin) || instance.getAttribute("title") !== (null == anyProps.title ? null : anyProps.title))
                     break;
                   return instance;
                 case "style":
                   if (instance.hasAttribute("data-precedence")) break;
                   return instance;
                 case "script":
-                  name = instance.getAttribute("src");
-                  if ((name !== (null == anyProps.src ? null : anyProps.src) || instance.getAttribute("type") !== (null == anyProps.type ? null : anyProps.type) || instance.getAttribute("crossorigin") !== (null == anyProps.crossOrigin ? null : anyProps.crossOrigin)) && name && instance.hasAttribute("async") && !instance.hasAttribute("itemprop"))
+                  name2 = instance.getAttribute("src");
+                  if ((name2 !== (null == anyProps.src ? null : anyProps.src) || instance.getAttribute("type") !== (null == anyProps.type ? null : anyProps.type) || instance.getAttribute("crossorigin") !== (null == anyProps.crossOrigin ? null : anyProps.crossOrigin)) && name2 && instance.hasAttribute("async") && !instance.hasAttribute("itemprop"))
                     break;
                   return instance;
                 default:
@@ -17315,8 +17327,8 @@
           }
           return null;
         }
-        function canHydrateTextInstance(instance, text, inRootOrSingleton) {
-          if ("" === text) return null;
+        function canHydrateTextInstance(instance, text7, inRootOrSingleton) {
+          if ("" === text7) return null;
           for (; 3 !== instance.nodeType; ) {
             if ((1 !== instance.nodeType || "INPUT" !== instance.nodeName || "hidden" !== instance.type) && !inRootOrSingleton)
               return null;
@@ -17355,19 +17367,19 @@
             instance._reactRetry = listener;
           }
         }
-        function getNextHydratable(node) {
-          for (; null != node; node = node.nextSibling) {
-            var nodeType = node.nodeType;
+        function getNextHydratable(node2) {
+          for (; null != node2; node2 = node2.nextSibling) {
+            var nodeType = node2.nodeType;
             if (1 === nodeType || 3 === nodeType) break;
             if (8 === nodeType) {
-              nodeType = node.data;
+              nodeType = node2.data;
               if (nodeType === SUSPENSE_START_DATA || nodeType === SUSPENSE_FALLBACK_START_DATA || nodeType === SUSPENSE_PENDING_START_DATA || nodeType === SUSPENSE_QUEUED_START_DATA || nodeType === ACTIVITY_START_DATA || nodeType === FORM_STATE_IS_MATCHING || nodeType === FORM_STATE_IS_NOT_MATCHING)
                 break;
               if (nodeType === SUSPENSE_END_DATA || nodeType === ACTIVITY_END_DATA)
                 return null;
             }
           }
-          return node;
+          return node2;
         }
         function describeHydratableInstanceForDevWarnings(instance) {
           if (1 === instance.nodeType) {
@@ -17379,8 +17391,8 @@
           }
           return 8 === instance.nodeType ? instance.data === ACTIVITY_START_DATA ? { type: "Activity", props: {} } : { type: "Suspense", props: {} } : instance.nodeValue;
         }
-        function diffHydratedTextForDevWarnings(textInstance, text, parentProps) {
-          return null === parentProps || true !== parentProps[SUPPRESS_HYDRATION_WARNING] ? (textInstance.nodeValue === text ? textInstance = null : (text = normalizeMarkupForTextOrAttribute(text), textInstance = normalizeMarkupForTextOrAttribute(textInstance.nodeValue) === text ? null : textInstance.nodeValue), textInstance) : null;
+        function diffHydratedTextForDevWarnings(textInstance, text7, parentProps) {
+          return null === parentProps || true !== parentProps[SUPPRESS_HYDRATION_WARNING] ? (textInstance.nodeValue === text7 ? textInstance = null : (text7 = normalizeMarkupForTextOrAttribute(text7), textInstance = normalizeMarkupForTextOrAttribute(textInstance.nodeValue) === text7 ? null : textInstance.nodeValue), textInstance) : null;
         }
         function getNextHydratableInstanceAfterHydrationBoundary(hydrationInstance) {
           hydrationInstance = hydrationInstance.nextSibling;
@@ -17569,9 +17581,9 @@
         }
         function describeLinkForResourceErrorDEV(props) {
           var describedProps = 0, description = "<link";
-          "string" === typeof props.rel ? (describedProps++, description += ' rel="' + props.rel + '"') : hasOwnProperty.call(props, "rel") && (describedProps++, description += ' rel="' + (null === props.rel ? "null" : "invalid type " + typeof props.rel) + '"');
-          "string" === typeof props.href ? (describedProps++, description += ' href="' + props.href + '"') : hasOwnProperty.call(props, "href") && (describedProps++, description += ' href="' + (null === props.href ? "null" : "invalid type " + typeof props.href) + '"');
-          "string" === typeof props.precedence ? (describedProps++, description += ' precedence="' + props.precedence + '"') : hasOwnProperty.call(props, "precedence") && (describedProps++, description += " precedence={" + (null === props.precedence ? "null" : "invalid type " + typeof props.precedence) + "}");
+          "string" === typeof props.rel ? (describedProps++, description += ' rel="' + props.rel + '"') : hasOwnProperty2.call(props, "rel") && (describedProps++, description += ' rel="' + (null === props.rel ? "null" : "invalid type " + typeof props.rel) + '"');
+          "string" === typeof props.href ? (describedProps++, description += ' href="' + props.href + '"') : hasOwnProperty2.call(props, "href") && (describedProps++, description += ' href="' + (null === props.href ? "null" : "invalid type " + typeof props.href) + '"');
+          "string" === typeof props.precedence ? (describedProps++, description += ' precedence="' + props.precedence + '"') : hasOwnProperty2.call(props, "precedence") && (describedProps++, description += " precedence={" + (null === props.precedence ? "null" : "invalid type " + typeof props.precedence) + "}");
           Object.getOwnPropertyNames(props).length > describedProps && (description += " ...");
           return description + " />";
         }
@@ -17669,15 +17681,15 @@
             "stylesheet" === resource.type && (resource.state.loading & Inserted) === NotLoaded && (instance = resource.instance, resource.state.loading |= Inserted, insertStylesheet(instance, props.precedence, hoistableRoot));
           return resource.instance;
         }
-        function insertStylesheet(instance, precedence, root2) {
-          for (var nodes = root2.querySelectorAll(
+        function insertStylesheet(instance, precedence, root5) {
+          for (var nodes = root5.querySelectorAll(
             'link[rel="stylesheet"][data-precedence],style[data-precedence]'
           ), last = nodes.length ? nodes[nodes.length - 1] : null, prior = last, i = 0; i < nodes.length; i++) {
-            var node = nodes[i];
-            if (node.dataset.precedence === precedence) prior = node;
+            var node2 = nodes[i];
+            if (node2.dataset.precedence === precedence) prior = node2;
             else if (prior !== last) break;
           }
-          prior ? prior.parentNode.insertBefore(instance, prior.nextSibling) : (precedence = 9 === root2.nodeType ? root2.head : root2, precedence.insertBefore(instance, precedence.firstChild));
+          prior ? prior.parentNode.insertBefore(instance, prior.nextSibling) : (precedence = 9 === root5.nodeType ? root5.head : root5, precedence.insertBefore(instance, precedence.firstChild));
         }
         function adoptPreloadPropsForStylesheet(stylesheetProps, preloadProps) {
           null == stylesheetProps.crossOrigin && (stylesheetProps.crossOrigin = preloadProps.crossOrigin);
@@ -17700,12 +17712,12 @@
           cache.set(type, null);
           ownerDocument = ownerDocument.getElementsByTagName(type);
           for (caches = 0; caches < ownerDocument.length; caches++) {
-            var node = ownerDocument[caches];
-            if (!(node[internalHoistableMarker] || node[internalInstanceKey] || "link" === type && "stylesheet" === node.getAttribute("rel")) && node.namespaceURI !== SVG_NAMESPACE) {
-              var nodeKey = node.getAttribute(keyAttribute) || "";
+            var node2 = ownerDocument[caches];
+            if (!(node2[internalHoistableMarker] || node2[internalInstanceKey] || "link" === type && "stylesheet" === node2.getAttribute("rel")) && node2.namespaceURI !== SVG_NAMESPACE) {
+              var nodeKey = node2.getAttribute(keyAttribute) || "";
               nodeKey = type + nodeKey;
               var existing = cache.get(nodeKey);
-              existing ? existing.push(node) : cache.set(nodeKey, [node]);
+              existing ? existing.push(node2) : cache.set(nodeKey, [node2]);
             }
           }
           return cache;
@@ -17875,32 +17887,32 @@
           state.stylesheets = null;
           null !== state.unsuspend && (state.count++, precedencesByRoot = /* @__PURE__ */ new Map(), resources.forEach(insertStylesheetIntoRoot, state), precedencesByRoot = null, onUnsuspend.call(state));
         }
-        function insertStylesheetIntoRoot(root2, resource) {
+        function insertStylesheetIntoRoot(root5, resource) {
           if (!(resource.state.loading & Inserted)) {
-            var precedences = precedencesByRoot.get(root2);
+            var precedences = precedencesByRoot.get(root5);
             if (precedences) var last = precedences.get(LAST_PRECEDENCE);
             else {
               precedences = /* @__PURE__ */ new Map();
-              precedencesByRoot.set(root2, precedences);
-              for (var nodes = root2.querySelectorAll(
+              precedencesByRoot.set(root5, precedences);
+              for (var nodes = root5.querySelectorAll(
                 "link[data-precedence],style[data-precedence]"
               ), i = 0; i < nodes.length; i++) {
-                var node = nodes[i];
-                if ("LINK" === node.nodeName || "not all" !== node.getAttribute("media"))
-                  precedences.set(node.dataset.precedence, node), last = node;
+                var node2 = nodes[i];
+                if ("LINK" === node2.nodeName || "not all" !== node2.getAttribute("media"))
+                  precedences.set(node2.dataset.precedence, node2), last = node2;
               }
               last && precedences.set(LAST_PRECEDENCE, last);
             }
             nodes = resource.instance;
-            node = nodes.getAttribute("data-precedence");
-            i = precedences.get(node) || last;
+            node2 = nodes.getAttribute("data-precedence");
+            i = precedences.get(node2) || last;
             i === last && precedences.set(LAST_PRECEDENCE, nodes);
-            precedences.set(node, nodes);
+            precedences.set(node2, nodes);
             this.count++;
             last = onUnsuspend.bind(this);
             nodes.addEventListener("load", last);
             nodes.addEventListener("error", last);
-            i ? i.parentNode.insertBefore(nodes, i.nextSibling) : (root2 = 9 === root2.nodeType ? root2.head : root2, root2.insertBefore(nodes, root2.firstChild));
+            i ? i.parentNode.insertBefore(nodes, i.nextSibling) : (root5 = 9 === root5.nodeType ? root5.head : root5, root5.insertBefore(nodes, root5.firstChild));
             resource.state.loading |= Inserted;
           }
         }
@@ -17964,10 +17976,10 @@
           parentComponent = emptyContextObject;
           return parentComponent;
         }
-        function updateContainerImpl(rootFiber, lane, element, container2, parentComponent, callback) {
+        function updateContainerImpl(rootFiber, lane, element3, container2, parentComponent, callback) {
           if (injectedHook && "function" === typeof injectedHook.onScheduleFiberRoot)
             try {
-              injectedHook.onScheduleFiberRoot(rendererID, container2, element);
+              injectedHook.onScheduleFiberRoot(rendererID, container2, element3);
             } catch (err) {
               hasLoggedError || (hasLoggedError = true, console.error(
                 "React instrumentation encountered an error: %o",
@@ -17981,14 +17993,14 @@
             getComponentNameFromFiber(current) || "Unknown"
           ));
           container2 = createUpdate(lane);
-          container2.payload = { element };
+          container2.payload = { element: element3 };
           callback = void 0 === callback ? null : callback;
           null !== callback && ("function" !== typeof callback && console.error(
             "Expected the last optional `callback` argument to be a function. Instead received: %s.",
             callback
           ), container2.callback = callback);
-          element = enqueueUpdate(rootFiber, container2, lane);
-          null !== element && (startUpdateTimerByLane(lane, "root.render()", null), scheduleUpdateOnFiber(element, rootFiber, lane), entangleTransitions(element, rootFiber, lane));
+          element3 = enqueueUpdate(rootFiber, container2, lane);
+          null !== element3 && (startUpdateTimerByLane(lane, "root.render()", null), scheduleUpdateOnFiber(element3, rootFiber, lane), entangleTransitions(element3, rootFiber, lane));
         }
         function markRetryLaneImpl(fiber, retryLane) {
           fiber = fiber.memoizedState;
@@ -18003,8 +18015,8 @@
         }
         function attemptContinuousHydration(fiber) {
           if (13 === fiber.tag || 31 === fiber.tag) {
-            var root2 = enqueueConcurrentRenderForLane(fiber, 67108864);
-            null !== root2 && scheduleUpdateOnFiber(root2, fiber, 67108864);
+            var root5 = enqueueConcurrentRenderForLane(fiber, 67108864);
+            null !== root5 && scheduleUpdateOnFiber(root5, fiber, 67108864);
             markRetryLaneIfNotHydrated(fiber, 67108864);
           }
         }
@@ -18012,8 +18024,8 @@
           if (13 === fiber.tag || 31 === fiber.tag) {
             var lane = requestUpdateLane(fiber);
             lane = getBumpedLaneForHydrationByLane(lane);
-            var root2 = enqueueConcurrentRenderForLane(fiber, lane);
-            null !== root2 && scheduleUpdateOnFiber(root2, fiber, lane);
+            var root5 = enqueueConcurrentRenderForLane(fiber, lane);
+            null !== root5 && scheduleUpdateOnFiber(root5, fiber, lane);
             markRetryLaneIfNotHydrated(fiber, lane);
           }
         }
@@ -18069,11 +18081,11 @@
                       if (fiber.current.memoizedState.isDehydrated) {
                         var lanes = getHighestPriorityLanes(fiber.pendingLanes);
                         if (0 !== lanes) {
-                          var root2 = fiber;
-                          root2.pendingLanes |= 2;
-                          for (root2.entangledLanes |= 2; lanes; ) {
+                          var root5 = fiber;
+                          root5.pendingLanes |= 2;
+                          for (root5.entangledLanes |= 2; lanes; ) {
                             var lane = 1 << 31 - clz32(lanes);
-                            root2.entanglements[1] |= lane;
+                            root5.entanglements[1] |= lane;
                             lanes &= ~lane;
                           }
                           ensureRootIsScheduled(fiber);
@@ -18083,7 +18095,7 @@
                       break;
                     case 31:
                     case 13:
-                      root2 = enqueueConcurrentRenderForLane(fiber, 2), null !== root2 && scheduleUpdateOnFiber(root2, fiber, 2), flushSyncWork$1(), markRetryLaneIfNotHydrated(fiber, 2);
+                      root5 = enqueueConcurrentRenderForLane(fiber, 2), null !== root5 && scheduleUpdateOnFiber(root5, fiber, 2), flushSyncWork$1(), markRetryLaneIfNotHydrated(fiber, 2);
                   }
                 fiber = findInstanceBlockingEvent(nativeEvent);
                 null === fiber && dispatchEventForPluginEventSystem(
@@ -18379,8 +18391,8 @@
           }
           return true;
         }
-        function attemptReplayContinuousQueuedEventInMap(queuedEvent, key, map) {
-          attemptReplayContinuousQueuedEvent(queuedEvent) && map.delete(key);
+        function attemptReplayContinuousQueuedEventInMap(queuedEvent, key, map3) {
+          attemptReplayContinuousQueuedEvent(queuedEvent) && map3.delete(key);
         }
         function replayUnblockedEvents() {
           hasScheduledReplayAttempt = false;
@@ -18537,7 +18549,7 @@
         disabledLog.__reactDisabledLog = true;
         var prefix, suffix, reentry = false;
         var componentFrameCache = new ("function" === typeof WeakMap ? WeakMap : Map)();
-        var current = null, isRendering = false, hasOwnProperty = Object.prototype.hasOwnProperty, scheduleCallback$3 = Scheduler.unstable_scheduleCallback, cancelCallback$1 = Scheduler.unstable_cancelCallback, shouldYield = Scheduler.unstable_shouldYield, requestPaint = Scheduler.unstable_requestPaint, now$1 = Scheduler.unstable_now, getCurrentPriorityLevel = Scheduler.unstable_getCurrentPriorityLevel, ImmediatePriority = Scheduler.unstable_ImmediatePriority, UserBlockingPriority = Scheduler.unstable_UserBlockingPriority, NormalPriority$1 = Scheduler.unstable_NormalPriority, LowPriority = Scheduler.unstable_LowPriority, IdlePriority = Scheduler.unstable_IdlePriority, log$1 = Scheduler.log, unstable_setDisableYieldValue = Scheduler.unstable_setDisableYieldValue, rendererID = null, injectedHook = null, hasLoggedError = false, isDevToolsPresent = "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__, clz32 = Math.clz32 ? Math.clz32 : clz32Fallback, log = Math.log, LN2 = Math.LN2, nextTransitionUpdateLane = 256, nextTransitionDeferredLane = 262144, nextRetryLane = 4194304, DiscreteEventPriority = 2, ContinuousEventPriority = 8, DefaultEventPriority = 32, IdleEventPriority = 268435456, randomKey = Math.random().toString(36).slice(2), internalInstanceKey = "__reactFiber$" + randomKey, internalPropsKey = "__reactProps$" + randomKey, internalContainerInstanceKey = "__reactContainer$" + randomKey, internalEventHandlersKey = "__reactEvents$" + randomKey, internalEventHandlerListenersKey = "__reactListeners$" + randomKey, internalEventHandlesSetKey = "__reactHandles$" + randomKey, internalRootNodeResourcesKey = "__reactResources$" + randomKey, internalHoistableMarker = "__reactMarker$" + randomKey, allNativeEvents = /* @__PURE__ */ new Set(), registrationNameDependencies = {}, possibleRegistrationNames = {}, hasReadOnlyValue = {
+        var current = null, isRendering = false, hasOwnProperty2 = Object.prototype.hasOwnProperty, scheduleCallback$3 = Scheduler.unstable_scheduleCallback, cancelCallback$1 = Scheduler.unstable_cancelCallback, shouldYield = Scheduler.unstable_shouldYield, requestPaint = Scheduler.unstable_requestPaint, now$1 = Scheduler.unstable_now, getCurrentPriorityLevel = Scheduler.unstable_getCurrentPriorityLevel, ImmediatePriority = Scheduler.unstable_ImmediatePriority, UserBlockingPriority = Scheduler.unstable_UserBlockingPriority, NormalPriority$1 = Scheduler.unstable_NormalPriority, LowPriority = Scheduler.unstable_LowPriority, IdlePriority = Scheduler.unstable_IdlePriority, log$1 = Scheduler.log, unstable_setDisableYieldValue = Scheduler.unstable_setDisableYieldValue, rendererID = null, injectedHook = null, hasLoggedError = false, isDevToolsPresent = "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__, clz32 = Math.clz32 ? Math.clz32 : clz32Fallback, log = Math.log, LN2 = Math.LN2, nextTransitionUpdateLane = 256, nextTransitionDeferredLane = 262144, nextRetryLane = 4194304, DiscreteEventPriority = 2, ContinuousEventPriority = 8, DefaultEventPriority = 32, IdleEventPriority = 268435456, randomKey = Math.random().toString(36).slice(2), internalInstanceKey = "__reactFiber$" + randomKey, internalPropsKey = "__reactProps$" + randomKey, internalContainerInstanceKey = "__reactContainer$" + randomKey, internalEventHandlersKey = "__reactEvents$" + randomKey, internalEventHandlerListenersKey = "__reactListeners$" + randomKey, internalEventHandlesSetKey = "__reactHandles$" + randomKey, internalRootNodeResourcesKey = "__reactResources$" + randomKey, internalHoistableMarker = "__reactMarker$" + randomKey, allNativeEvents = /* @__PURE__ */ new Set(), registrationNameDependencies = {}, possibleRegistrationNames = {}, hasReadOnlyValue = {
           button: true,
           checkbox: true,
           image: true,
@@ -19346,7 +19358,7 @@
           } catch (e) {
             passiveBrowserEventsSupported = false;
           }
-        var root = null, startText = null, fallbackText = null, EventInterface = {
+        var root4 = null, startText = null, fallbackText = null, EventInterface = {
           eventPhase: 0,
           bubbles: 0,
           cancelable: 0,
@@ -19527,7 +19539,7 @@
           week: true
         }, activeElement$1 = null, activeElementInst$1 = null, isInputEventSupported = false;
         canUseDOM && (isInputEventSupported = isEventSupported("input") && (!document.documentMode || 9 < document.documentMode));
-        var objectIs = "function" === typeof Object.is ? Object.is : is, skipSelectionChangeEvent = canUseDOM && "documentMode" in document && 11 >= document.documentMode, activeElement = null, activeElementInst = null, lastSelection = null, mouseDown = false, vendorPrefixes = {
+        var objectIs = "function" === typeof Object.is ? Object.is : is3, skipSelectionChangeEvent = canUseDOM && "documentMode" in document && 11 >= document.documentMode, activeElement = null, activeElementInst = null, lastSelection = null, mouseDown = false, vendorPrefixes = {
           animationend: makePrefixMap("Animation", "AnimationEnd"),
           animationiteration: makePrefixMap("Animation", "AnimationIteration"),
           animationstart: makePrefixMap("Animation", "AnimationStart"),
@@ -19731,11 +19743,11 @@
         var pendingLegacyContextWarning = /* @__PURE__ */ new Map(), didWarnAboutLegacyContext = /* @__PURE__ */ new Set();
         ReactStrictModeWarnings.recordLegacyContextWarning = function(fiber, instance) {
           var strictRoot = null;
-          for (var node = fiber; null !== node; )
-            node.mode & StrictLegacyMode && (strictRoot = node), node = node.return;
+          for (var node2 = fiber; null !== node2; )
+            node2.mode & StrictLegacyMode && (strictRoot = node2), node2 = node2.return;
           null === strictRoot ? console.error(
             "Expected to find a StrictMode component in a strict mode tree. This error is likely caused by a bug in React. Please file an issue."
-          ) : !didWarnAboutLegacyContext.has(fiber.type) && (node = pendingLegacyContextWarning.get(strictRoot), null != fiber.type.contextTypes || null != fiber.type.childContextTypes || null !== instance && "function" === typeof instance.getChildContext) && (void 0 === node && (node = [], pendingLegacyContextWarning.set(strictRoot, node)), node.push(fiber));
+          ) : !didWarnAboutLegacyContext.has(fiber.type) && (node2 = pendingLegacyContextWarning.get(strictRoot), null != fiber.type.contextTypes || null != fiber.type.childContextTypes || null !== instance && "function" === typeof instance.getChildContext) && (void 0 === node2 && (node2 = [], pendingLegacyContextWarning.set(strictRoot, node2)), node2.push(fiber));
         };
         ReactStrictModeWarnings.flushLegacyContextWarning = function() {
           pendingLegacyContextWarning.forEach(function(fiberArray) {
@@ -19825,10 +19837,10 @@
           callComponentWillUnmount
         ), callCreate = {
           react_stack_bottom_frame: function(effect) {
-            var create = effect.create;
+            var create2 = effect.create;
             effect = effect.inst;
-            create = create();
-            return effect.destroy = create;
+            create2 = create2();
+            return effect.destroy = create2;
           }
         }, callCreateInDEV = callCreate.react_stack_bottom_frame.bind(callCreate), callDestroy = {
           react_stack_bottom_frame: function(current2, nearestMountedAncestor, destroy) {
@@ -19938,38 +19950,38 @@
             mountHookTypesDev();
             return readContext(context);
           },
-          useEffect: function(create, deps) {
+          useEffect: function(create2, deps) {
             currentHookNameInDev = "useEffect";
             mountHookTypesDev();
             checkDepsAreArrayDev(deps);
-            return mountEffect(create, deps);
+            return mountEffect(create2, deps);
           },
-          useImperativeHandle: function(ref, create, deps) {
+          useImperativeHandle: function(ref, create2, deps) {
             currentHookNameInDev = "useImperativeHandle";
             mountHookTypesDev();
             checkDepsAreArrayDev(deps);
-            return mountImperativeHandle(ref, create, deps);
+            return mountImperativeHandle(ref, create2, deps);
           },
-          useInsertionEffect: function(create, deps) {
+          useInsertionEffect: function(create2, deps) {
             currentHookNameInDev = "useInsertionEffect";
             mountHookTypesDev();
             checkDepsAreArrayDev(deps);
-            mountEffectImpl(4, Insertion, create, deps);
+            mountEffectImpl(4, Insertion, create2, deps);
           },
-          useLayoutEffect: function(create, deps) {
+          useLayoutEffect: function(create2, deps) {
             currentHookNameInDev = "useLayoutEffect";
             mountHookTypesDev();
             checkDepsAreArrayDev(deps);
-            return mountLayoutEffect(create, deps);
+            return mountLayoutEffect(create2, deps);
           },
-          useMemo: function(create, deps) {
+          useMemo: function(create2, deps) {
             currentHookNameInDev = "useMemo";
             mountHookTypesDev();
             checkDepsAreArrayDev(deps);
             var prevDispatcher = ReactSharedInternals.H;
             ReactSharedInternals.H = InvalidNestedHooksDispatcherOnMountInDEV;
             try {
-              return mountMemo(create, deps);
+              return mountMemo(create2, deps);
             } finally {
               ReactSharedInternals.H = prevDispatcher;
             }
@@ -20073,33 +20085,33 @@
             updateHookTypesDev();
             return readContext(context);
           },
-          useEffect: function(create, deps) {
+          useEffect: function(create2, deps) {
             currentHookNameInDev = "useEffect";
             updateHookTypesDev();
-            return mountEffect(create, deps);
+            return mountEffect(create2, deps);
           },
-          useImperativeHandle: function(ref, create, deps) {
+          useImperativeHandle: function(ref, create2, deps) {
             currentHookNameInDev = "useImperativeHandle";
             updateHookTypesDev();
-            return mountImperativeHandle(ref, create, deps);
+            return mountImperativeHandle(ref, create2, deps);
           },
-          useInsertionEffect: function(create, deps) {
+          useInsertionEffect: function(create2, deps) {
             currentHookNameInDev = "useInsertionEffect";
             updateHookTypesDev();
-            mountEffectImpl(4, Insertion, create, deps);
+            mountEffectImpl(4, Insertion, create2, deps);
           },
-          useLayoutEffect: function(create, deps) {
+          useLayoutEffect: function(create2, deps) {
             currentHookNameInDev = "useLayoutEffect";
             updateHookTypesDev();
-            return mountLayoutEffect(create, deps);
+            return mountLayoutEffect(create2, deps);
           },
-          useMemo: function(create, deps) {
+          useMemo: function(create2, deps) {
             currentHookNameInDev = "useMemo";
             updateHookTypesDev();
             var prevDispatcher = ReactSharedInternals.H;
             ReactSharedInternals.H = InvalidNestedHooksDispatcherOnMountInDEV;
             try {
-              return mountMemo(create, deps);
+              return mountMemo(create2, deps);
             } finally {
               ReactSharedInternals.H = prevDispatcher;
             }
@@ -20203,33 +20215,33 @@
             updateHookTypesDev();
             return readContext(context);
           },
-          useEffect: function(create, deps) {
+          useEffect: function(create2, deps) {
             currentHookNameInDev = "useEffect";
             updateHookTypesDev();
-            updateEffectImpl(2048, Passive, create, deps);
+            updateEffectImpl(2048, Passive, create2, deps);
           },
-          useImperativeHandle: function(ref, create, deps) {
+          useImperativeHandle: function(ref, create2, deps) {
             currentHookNameInDev = "useImperativeHandle";
             updateHookTypesDev();
-            return updateImperativeHandle(ref, create, deps);
+            return updateImperativeHandle(ref, create2, deps);
           },
-          useInsertionEffect: function(create, deps) {
+          useInsertionEffect: function(create2, deps) {
             currentHookNameInDev = "useInsertionEffect";
             updateHookTypesDev();
-            return updateEffectImpl(4, Insertion, create, deps);
+            return updateEffectImpl(4, Insertion, create2, deps);
           },
-          useLayoutEffect: function(create, deps) {
+          useLayoutEffect: function(create2, deps) {
             currentHookNameInDev = "useLayoutEffect";
             updateHookTypesDev();
-            return updateEffectImpl(4, Layout, create, deps);
+            return updateEffectImpl(4, Layout, create2, deps);
           },
-          useMemo: function(create, deps) {
+          useMemo: function(create2, deps) {
             currentHookNameInDev = "useMemo";
             updateHookTypesDev();
             var prevDispatcher = ReactSharedInternals.H;
             ReactSharedInternals.H = InvalidNestedHooksDispatcherOnUpdateInDEV;
             try {
-              return updateMemo(create, deps);
+              return updateMemo(create2, deps);
             } finally {
               ReactSharedInternals.H = prevDispatcher;
             }
@@ -20333,33 +20345,33 @@
             updateHookTypesDev();
             return readContext(context);
           },
-          useEffect: function(create, deps) {
+          useEffect: function(create2, deps) {
             currentHookNameInDev = "useEffect";
             updateHookTypesDev();
-            updateEffectImpl(2048, Passive, create, deps);
+            updateEffectImpl(2048, Passive, create2, deps);
           },
-          useImperativeHandle: function(ref, create, deps) {
+          useImperativeHandle: function(ref, create2, deps) {
             currentHookNameInDev = "useImperativeHandle";
             updateHookTypesDev();
-            return updateImperativeHandle(ref, create, deps);
+            return updateImperativeHandle(ref, create2, deps);
           },
-          useInsertionEffect: function(create, deps) {
+          useInsertionEffect: function(create2, deps) {
             currentHookNameInDev = "useInsertionEffect";
             updateHookTypesDev();
-            return updateEffectImpl(4, Insertion, create, deps);
+            return updateEffectImpl(4, Insertion, create2, deps);
           },
-          useLayoutEffect: function(create, deps) {
+          useLayoutEffect: function(create2, deps) {
             currentHookNameInDev = "useLayoutEffect";
             updateHookTypesDev();
-            return updateEffectImpl(4, Layout, create, deps);
+            return updateEffectImpl(4, Layout, create2, deps);
           },
-          useMemo: function(create, deps) {
+          useMemo: function(create2, deps) {
             currentHookNameInDev = "useMemo";
             updateHookTypesDev();
             var prevDispatcher = ReactSharedInternals.H;
             ReactSharedInternals.H = InvalidNestedHooksDispatcherOnRerenderInDEV;
             try {
-              return updateMemo(create, deps);
+              return updateMemo(create2, deps);
             } finally {
               ReactSharedInternals.H = prevDispatcher;
             }
@@ -20469,38 +20481,38 @@
             mountHookTypesDev();
             return readContext(context);
           },
-          useEffect: function(create, deps) {
+          useEffect: function(create2, deps) {
             currentHookNameInDev = "useEffect";
             warnInvalidHookAccess();
             mountHookTypesDev();
-            return mountEffect(create, deps);
+            return mountEffect(create2, deps);
           },
-          useImperativeHandle: function(ref, create, deps) {
+          useImperativeHandle: function(ref, create2, deps) {
             currentHookNameInDev = "useImperativeHandle";
             warnInvalidHookAccess();
             mountHookTypesDev();
-            return mountImperativeHandle(ref, create, deps);
+            return mountImperativeHandle(ref, create2, deps);
           },
-          useInsertionEffect: function(create, deps) {
+          useInsertionEffect: function(create2, deps) {
             currentHookNameInDev = "useInsertionEffect";
             warnInvalidHookAccess();
             mountHookTypesDev();
-            mountEffectImpl(4, Insertion, create, deps);
+            mountEffectImpl(4, Insertion, create2, deps);
           },
-          useLayoutEffect: function(create, deps) {
+          useLayoutEffect: function(create2, deps) {
             currentHookNameInDev = "useLayoutEffect";
             warnInvalidHookAccess();
             mountHookTypesDev();
-            return mountLayoutEffect(create, deps);
+            return mountLayoutEffect(create2, deps);
           },
-          useMemo: function(create, deps) {
+          useMemo: function(create2, deps) {
             currentHookNameInDev = "useMemo";
             warnInvalidHookAccess();
             mountHookTypesDev();
             var prevDispatcher = ReactSharedInternals.H;
             ReactSharedInternals.H = InvalidNestedHooksDispatcherOnMountInDEV;
             try {
-              return mountMemo(create, deps);
+              return mountMemo(create2, deps);
             } finally {
               ReactSharedInternals.H = prevDispatcher;
             }
@@ -20624,38 +20636,38 @@
             updateHookTypesDev();
             return readContext(context);
           },
-          useEffect: function(create, deps) {
+          useEffect: function(create2, deps) {
             currentHookNameInDev = "useEffect";
             warnInvalidHookAccess();
             updateHookTypesDev();
-            updateEffectImpl(2048, Passive, create, deps);
+            updateEffectImpl(2048, Passive, create2, deps);
           },
-          useImperativeHandle: function(ref, create, deps) {
+          useImperativeHandle: function(ref, create2, deps) {
             currentHookNameInDev = "useImperativeHandle";
             warnInvalidHookAccess();
             updateHookTypesDev();
-            return updateImperativeHandle(ref, create, deps);
+            return updateImperativeHandle(ref, create2, deps);
           },
-          useInsertionEffect: function(create, deps) {
+          useInsertionEffect: function(create2, deps) {
             currentHookNameInDev = "useInsertionEffect";
             warnInvalidHookAccess();
             updateHookTypesDev();
-            return updateEffectImpl(4, Insertion, create, deps);
+            return updateEffectImpl(4, Insertion, create2, deps);
           },
-          useLayoutEffect: function(create, deps) {
+          useLayoutEffect: function(create2, deps) {
             currentHookNameInDev = "useLayoutEffect";
             warnInvalidHookAccess();
             updateHookTypesDev();
-            return updateEffectImpl(4, Layout, create, deps);
+            return updateEffectImpl(4, Layout, create2, deps);
           },
-          useMemo: function(create, deps) {
+          useMemo: function(create2, deps) {
             currentHookNameInDev = "useMemo";
             warnInvalidHookAccess();
             updateHookTypesDev();
             var prevDispatcher = ReactSharedInternals.H;
             ReactSharedInternals.H = InvalidNestedHooksDispatcherOnUpdateInDEV;
             try {
-              return updateMemo(create, deps);
+              return updateMemo(create2, deps);
             } finally {
               ReactSharedInternals.H = prevDispatcher;
             }
@@ -20779,38 +20791,38 @@
             updateHookTypesDev();
             return readContext(context);
           },
-          useEffect: function(create, deps) {
+          useEffect: function(create2, deps) {
             currentHookNameInDev = "useEffect";
             warnInvalidHookAccess();
             updateHookTypesDev();
-            updateEffectImpl(2048, Passive, create, deps);
+            updateEffectImpl(2048, Passive, create2, deps);
           },
-          useImperativeHandle: function(ref, create, deps) {
+          useImperativeHandle: function(ref, create2, deps) {
             currentHookNameInDev = "useImperativeHandle";
             warnInvalidHookAccess();
             updateHookTypesDev();
-            return updateImperativeHandle(ref, create, deps);
+            return updateImperativeHandle(ref, create2, deps);
           },
-          useInsertionEffect: function(create, deps) {
+          useInsertionEffect: function(create2, deps) {
             currentHookNameInDev = "useInsertionEffect";
             warnInvalidHookAccess();
             updateHookTypesDev();
-            return updateEffectImpl(4, Insertion, create, deps);
+            return updateEffectImpl(4, Insertion, create2, deps);
           },
-          useLayoutEffect: function(create, deps) {
+          useLayoutEffect: function(create2, deps) {
             currentHookNameInDev = "useLayoutEffect";
             warnInvalidHookAccess();
             updateHookTypesDev();
-            return updateEffectImpl(4, Layout, create, deps);
+            return updateEffectImpl(4, Layout, create2, deps);
           },
-          useMemo: function(create, deps) {
+          useMemo: function(create2, deps) {
             currentHookNameInDev = "useMemo";
             warnInvalidHookAccess();
             updateHookTypesDev();
             var prevDispatcher = ReactSharedInternals.H;
             ReactSharedInternals.H = InvalidNestedHooksDispatcherOnUpdateInDEV;
             try {
-              return updateMemo(create, deps);
+              return updateMemo(create2, deps);
             } finally {
               ReactSharedInternals.H = prevDispatcher;
             }
@@ -21169,17 +21181,17 @@
                     options
                   );
                   (options = preloadPropsMap.get(key)) && adoptPreloadPropsForStylesheet(href, options);
-                  var link = resource = ownerDocument.createElement("link");
-                  markNodeAsHoistable(link);
-                  setInitialProperties(link, "link", href);
-                  link._p = new Promise(function(resolve, reject) {
-                    link.onload = resolve;
-                    link.onerror = reject;
+                  var link3 = resource = ownerDocument.createElement("link");
+                  markNodeAsHoistable(link3);
+                  setInitialProperties(link3, "link", href);
+                  link3._p = new Promise(function(resolve, reject) {
+                    link3.onload = resolve;
+                    link3.onerror = reject;
                   });
-                  link.addEventListener("load", function() {
+                  link3.addEventListener("load", function() {
                     state.loading |= Loaded;
                   });
-                  link.addEventListener("error", function() {
+                  link3.addEventListener("error", function() {
                     state.loading |= Errored;
                   });
                   state.loading |= Inserted;
@@ -21221,29 +21233,29 @@
         }, badgeFormat = "%c%s%c", badgeStyle = "background: #e6e6e6;background: light-dark(rgba(0,0,0,0.1), rgba(255,255,255,0.25));color: #000000;color: light-dark(#000000, #ffffff);border-radius: 2px", resetStyle = "", pad = " ", bind = Function.prototype.bind;
         var didWarnAboutNestedUpdates = false;
         var overrideHookState = null, overrideHookStateDeletePath = null, overrideHookStateRenamePath = null, overrideProps = null, overridePropsDeletePath = null, overridePropsRenamePath = null, scheduleUpdate = null, scheduleRetry = null, setErrorHandler = null, setSuspenseHandler = null;
-        overrideHookState = function(fiber, id, path, value) {
+        overrideHookState = function(fiber, id, path2, value) {
           id = findHook(fiber, id);
-          null !== id && (path = copyWithSetImpl(id.memoizedState, path, 0, value), id.memoizedState = path, id.baseState = path, fiber.memoizedProps = assign({}, fiber.memoizedProps), path = enqueueConcurrentRenderForLane(fiber, 2), null !== path && scheduleUpdateOnFiber(path, fiber, 2));
+          null !== id && (path2 = copyWithSetImpl(id.memoizedState, path2, 0, value), id.memoizedState = path2, id.baseState = path2, fiber.memoizedProps = assign({}, fiber.memoizedProps), path2 = enqueueConcurrentRenderForLane(fiber, 2), null !== path2 && scheduleUpdateOnFiber(path2, fiber, 2));
         };
-        overrideHookStateDeletePath = function(fiber, id, path) {
+        overrideHookStateDeletePath = function(fiber, id, path2) {
           id = findHook(fiber, id);
-          null !== id && (path = copyWithDeleteImpl(id.memoizedState, path, 0), id.memoizedState = path, id.baseState = path, fiber.memoizedProps = assign({}, fiber.memoizedProps), path = enqueueConcurrentRenderForLane(fiber, 2), null !== path && scheduleUpdateOnFiber(path, fiber, 2));
+          null !== id && (path2 = copyWithDeleteImpl(id.memoizedState, path2, 0), id.memoizedState = path2, id.baseState = path2, fiber.memoizedProps = assign({}, fiber.memoizedProps), path2 = enqueueConcurrentRenderForLane(fiber, 2), null !== path2 && scheduleUpdateOnFiber(path2, fiber, 2));
         };
         overrideHookStateRenamePath = function(fiber, id, oldPath, newPath) {
           id = findHook(fiber, id);
           null !== id && (oldPath = copyWithRename(id.memoizedState, oldPath, newPath), id.memoizedState = oldPath, id.baseState = oldPath, fiber.memoizedProps = assign({}, fiber.memoizedProps), oldPath = enqueueConcurrentRenderForLane(fiber, 2), null !== oldPath && scheduleUpdateOnFiber(oldPath, fiber, 2));
         };
-        overrideProps = function(fiber, path, value) {
-          fiber.pendingProps = copyWithSetImpl(fiber.memoizedProps, path, 0, value);
+        overrideProps = function(fiber, path2, value) {
+          fiber.pendingProps = copyWithSetImpl(fiber.memoizedProps, path2, 0, value);
           fiber.alternate && (fiber.alternate.pendingProps = fiber.pendingProps);
-          path = enqueueConcurrentRenderForLane(fiber, 2);
-          null !== path && scheduleUpdateOnFiber(path, fiber, 2);
+          path2 = enqueueConcurrentRenderForLane(fiber, 2);
+          null !== path2 && scheduleUpdateOnFiber(path2, fiber, 2);
         };
-        overridePropsDeletePath = function(fiber, path) {
-          fiber.pendingProps = copyWithDeleteImpl(fiber.memoizedProps, path, 0);
+        overridePropsDeletePath = function(fiber, path2) {
+          fiber.pendingProps = copyWithDeleteImpl(fiber.memoizedProps, path2, 0);
           fiber.alternate && (fiber.alternate.pendingProps = fiber.pendingProps);
-          path = enqueueConcurrentRenderForLane(fiber, 2);
-          null !== path && scheduleUpdateOnFiber(path, fiber, 2);
+          path2 = enqueueConcurrentRenderForLane(fiber, 2);
+          null !== path2 && scheduleUpdateOnFiber(path2, fiber, 2);
         };
         overridePropsRenamePath = function(fiber, oldPath, newPath) {
           fiber.pendingProps = copyWithRename(
@@ -21256,12 +21268,12 @@
           null !== oldPath && scheduleUpdateOnFiber(oldPath, fiber, 2);
         };
         scheduleUpdate = function(fiber) {
-          var root2 = enqueueConcurrentRenderForLane(fiber, 2);
-          null !== root2 && scheduleUpdateOnFiber(root2, fiber, 2);
+          var root5 = enqueueConcurrentRenderForLane(fiber, 2);
+          null !== root5 && scheduleUpdateOnFiber(root5, fiber, 2);
         };
         scheduleRetry = function(fiber) {
-          var lane = claimNextRetryLane(), root2 = enqueueConcurrentRenderForLane(fiber, lane);
-          null !== root2 && scheduleUpdateOnFiber(root2, fiber, lane);
+          var lane = claimNextRetryLane(), root5 = enqueueConcurrentRenderForLane(fiber, lane);
+          null !== root5 && scheduleUpdateOnFiber(root5, fiber, lane);
         };
         setErrorHandler = function(newShouldErrorImpl) {
           shouldErrorImpl = newShouldErrorImpl;
@@ -21273,8 +21285,8 @@
           " "
         ), lastScheduledReplayQueue = null;
         ReactDOMHydrationRoot.prototype.render = ReactDOMRoot.prototype.render = function(children) {
-          var root2 = this._internalRoot;
-          if (null === root2) throw Error("Cannot update an unmounted root.");
+          var root5 = this._internalRoot;
+          if (null === root5) throw Error("Cannot update an unmounted root.");
           var args = arguments;
           "function" === typeof args[1] ? console.error(
             "does not support the second callback argument. To execute a side effect after rendering, declare it in a component body with useEffect()."
@@ -21284,8 +21296,8 @@
             "You passed a second argument to root.render(...) but it only accepts one argument."
           );
           args = children;
-          var current2 = root2.current, lane = requestUpdateLane(current2);
-          updateContainerImpl(current2, lane, args, root2, null, null);
+          var current2 = root5.current, lane = requestUpdateLane(current2);
+          updateContainerImpl(current2, lane, args, root5, null, null);
         };
         ReactDOMHydrationRoot.prototype.unmount = ReactDOMRoot.prototype.unmount = function() {
           var args = arguments;
@@ -21532,8 +21544,8 @@
           if ("object" === typeof type && null !== type && type.$$typeof === REACT_LAZY_TYPE)
             return "<...>";
           try {
-            var name = getComponentNameFromType(type);
-            return name ? "<" + name + ">" : "<...>";
+            var name2 = getComponentNameFromType(type);
+            return name2 ? "<" + name2 + ">" : "<...>";
           } catch (x) {
             return "<...>";
           }
@@ -21546,7 +21558,7 @@
           return Error("react-stack-top-frame");
         }
         function hasValidKey(config) {
-          if (hasOwnProperty.call(config, "key")) {
+          if (hasOwnProperty2.call(config, "key")) {
             var getter = Object.getOwnPropertyDescriptor(config, "key").get;
             if (getter && getter.isReactWarning) return false;
           }
@@ -21627,17 +21639,17 @@
                   "React.jsx: Static children should always be an array. You are likely explicitly calling React.jsxs or React.jsxDEV. Use the Babel transform instead."
                 );
             else validateChildKeys(children);
-          if (hasOwnProperty.call(config, "key")) {
+          if (hasOwnProperty2.call(config, "key")) {
             children = getComponentNameFromType(type);
-            var keys = Object.keys(config).filter(function(k) {
+            var keys2 = Object.keys(config).filter(function(k) {
               return "key" !== k;
             });
-            isStaticChildren = 0 < keys.length ? "{key: someKey, " + keys.join(": ..., ") + ": ...}" : "{key: someKey}";
-            didWarnAboutKeySpread[children + isStaticChildren] || (keys = 0 < keys.length ? "{" + keys.join(": ..., ") + ": ...}" : "{}", console.error(
+            isStaticChildren = 0 < keys2.length ? "{key: someKey, " + keys2.join(": ..., ") + ": ...}" : "{key: someKey}";
+            didWarnAboutKeySpread[children + isStaticChildren] || (keys2 = 0 < keys2.length ? "{" + keys2.join(": ..., ") + ": ...}" : "{}", console.error(
               'A props object containing a "key" prop is being spread into JSX:\n  let props = %s;\n  <%s {...props} />\nReact keys must be passed directly to JSX without using spread:\n  let props = %s;\n  <%s key={someKey} {...props} />',
               isStaticChildren,
               children,
-              keys,
+              keys2,
               children
             ), didWarnAboutKeySpread[children + isStaticChildren] = true);
           }
@@ -21662,13 +21674,13 @@
             debugTask
           );
         }
-        function validateChildKeys(node) {
-          isValidElement(node) ? node._store && (node._store.validated = 1) : "object" === typeof node && null !== node && node.$$typeof === REACT_LAZY_TYPE && ("fulfilled" === node._payload.status ? isValidElement(node._payload.value) && node._payload.value._store && (node._payload.value._store.validated = 1) : node._store && (node._store.validated = 1));
+        function validateChildKeys(node2) {
+          isValidElement(node2) ? node2._store && (node2._store.validated = 1) : "object" === typeof node2 && null !== node2 && node2.$$typeof === REACT_LAZY_TYPE && ("fulfilled" === node2._payload.status ? isValidElement(node2._payload.value) && node2._payload.value._store && (node2._payload.value._store.validated = 1) : node2._store && (node2._store.validated = 1));
         }
         function isValidElement(object) {
           return "object" === typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
         }
-        var React = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
+        var React = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty2 = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
           return null;
         };
         React = {
@@ -21723,33 +21735,15087 @@
     }
   });
 
+  // node_modules/devlop/lib/default.js
+  function ok() {
+  }
+  function unreachable() {
+  }
+  var init_default = __esm({
+    "node_modules/devlop/lib/default.js"() {
+    }
+  });
+
+  // node_modules/comma-separated-tokens/index.js
+  function stringify(values, options) {
+    const settings = options || {};
+    const input = values[values.length - 1] === "" ? [...values, ""] : values;
+    return input.join(
+      (settings.padRight ? " " : "") + "," + (settings.padLeft === false ? "" : " ")
+    ).trim();
+  }
+  var init_comma_separated_tokens = __esm({
+    "node_modules/comma-separated-tokens/index.js"() {
+    }
+  });
+
+  // node_modules/estree-util-is-identifier-name/lib/index.js
+  function name(name2, options) {
+    const settings = options || emptyOptions;
+    const re2 = settings.jsx ? nameReJsx : nameRe;
+    return re2.test(name2);
+  }
+  var nameRe, nameReJsx, emptyOptions;
+  var init_lib = __esm({
+    "node_modules/estree-util-is-identifier-name/lib/index.js"() {
+      nameRe = /^[$_\p{ID_Start}][$_\u{200C}\u{200D}\p{ID_Continue}]*$/u;
+      nameReJsx = /^[$_\p{ID_Start}][-$_\u{200C}\u{200D}\p{ID_Continue}]*$/u;
+      emptyOptions = {};
+    }
+  });
+
+  // node_modules/estree-util-is-identifier-name/index.js
+  var init_estree_util_is_identifier_name = __esm({
+    "node_modules/estree-util-is-identifier-name/index.js"() {
+      init_lib();
+    }
+  });
+
+  // node_modules/hast-util-whitespace/lib/index.js
+  function whitespace(thing) {
+    return typeof thing === "object" ? thing.type === "text" ? empty(thing.value) : false : empty(thing);
+  }
+  function empty(value) {
+    return value.replace(re, "") === "";
+  }
+  var re;
+  var init_lib2 = __esm({
+    "node_modules/hast-util-whitespace/lib/index.js"() {
+      re = /[ \t\n\f\r]/g;
+    }
+  });
+
+  // node_modules/hast-util-whitespace/index.js
+  var init_hast_util_whitespace = __esm({
+    "node_modules/hast-util-whitespace/index.js"() {
+      init_lib2();
+    }
+  });
+
+  // node_modules/property-information/lib/util/schema.js
+  var Schema;
+  var init_schema = __esm({
+    "node_modules/property-information/lib/util/schema.js"() {
+      Schema = class {
+        /**
+         * @param {SchemaType['property']} property
+         *   Property.
+         * @param {SchemaType['normal']} normal
+         *   Normal.
+         * @param {Space | undefined} [space]
+         *   Space.
+         * @returns
+         *   Schema.
+         */
+        constructor(property, normal, space2) {
+          this.normal = normal;
+          this.property = property;
+          if (space2) {
+            this.space = space2;
+          }
+        }
+      };
+      Schema.prototype.normal = {};
+      Schema.prototype.property = {};
+      Schema.prototype.space = void 0;
+    }
+  });
+
+  // node_modules/property-information/lib/util/merge.js
+  function merge(definitions, space2) {
+    const property = {};
+    const normal = {};
+    for (const definition3 of definitions) {
+      Object.assign(property, definition3.property);
+      Object.assign(normal, definition3.normal);
+    }
+    return new Schema(property, normal, space2);
+  }
+  var init_merge = __esm({
+    "node_modules/property-information/lib/util/merge.js"() {
+      init_schema();
+    }
+  });
+
+  // node_modules/property-information/lib/normalize.js
+  function normalize(value) {
+    return value.toLowerCase();
+  }
+  var init_normalize = __esm({
+    "node_modules/property-information/lib/normalize.js"() {
+    }
+  });
+
+  // node_modules/property-information/lib/util/info.js
+  var Info;
+  var init_info = __esm({
+    "node_modules/property-information/lib/util/info.js"() {
+      Info = class {
+        /**
+         * @param {string} property
+         *   Property.
+         * @param {string} attribute
+         *   Attribute.
+         * @returns
+         *   Info.
+         */
+        constructor(property, attribute) {
+          this.attribute = attribute;
+          this.property = property;
+        }
+      };
+      Info.prototype.attribute = "";
+      Info.prototype.booleanish = false;
+      Info.prototype.boolean = false;
+      Info.prototype.commaOrSpaceSeparated = false;
+      Info.prototype.commaSeparated = false;
+      Info.prototype.defined = false;
+      Info.prototype.mustUseProperty = false;
+      Info.prototype.number = false;
+      Info.prototype.overloadedBoolean = false;
+      Info.prototype.property = "";
+      Info.prototype.spaceSeparated = false;
+      Info.prototype.space = void 0;
+    }
+  });
+
+  // node_modules/property-information/lib/util/types.js
+  var types_exports = {};
+  __export(types_exports, {
+    boolean: () => boolean,
+    booleanish: () => booleanish,
+    commaOrSpaceSeparated: () => commaOrSpaceSeparated,
+    commaSeparated: () => commaSeparated,
+    number: () => number,
+    overloadedBoolean: () => overloadedBoolean,
+    spaceSeparated: () => spaceSeparated
+  });
+  function increment() {
+    return 2 ** ++powers;
+  }
+  var powers, boolean, booleanish, overloadedBoolean, number, spaceSeparated, commaSeparated, commaOrSpaceSeparated;
+  var init_types = __esm({
+    "node_modules/property-information/lib/util/types.js"() {
+      powers = 0;
+      boolean = increment();
+      booleanish = increment();
+      overloadedBoolean = increment();
+      number = increment();
+      spaceSeparated = increment();
+      commaSeparated = increment();
+      commaOrSpaceSeparated = increment();
+    }
+  });
+
+  // node_modules/property-information/lib/util/defined-info.js
+  function mark(values, key, value) {
+    if (value) {
+      values[key] = value;
+    }
+  }
+  var checks, DefinedInfo;
+  var init_defined_info = __esm({
+    "node_modules/property-information/lib/util/defined-info.js"() {
+      init_info();
+      init_types();
+      checks = /** @type {ReadonlyArray<keyof typeof types>} */
+      Object.keys(types_exports);
+      DefinedInfo = class extends Info {
+        /**
+         * @constructor
+         * @param {string} property
+         *   Property.
+         * @param {string} attribute
+         *   Attribute.
+         * @param {number | null | undefined} [mask]
+         *   Mask.
+         * @param {Space | undefined} [space]
+         *   Space.
+         * @returns
+         *   Info.
+         */
+        constructor(property, attribute, mask, space2) {
+          let index2 = -1;
+          super(property, attribute);
+          mark(this, "space", space2);
+          if (typeof mask === "number") {
+            while (++index2 < checks.length) {
+              const check = checks[index2];
+              mark(this, checks[index2], (mask & types_exports[check]) === types_exports[check]);
+            }
+          }
+        }
+      };
+      DefinedInfo.prototype.defined = true;
+    }
+  });
+
+  // node_modules/property-information/lib/util/create.js
+  function create(definition3) {
+    const properties = {};
+    const normals = {};
+    for (const [property, value] of Object.entries(definition3.properties)) {
+      const info = new DefinedInfo(
+        property,
+        definition3.transform(definition3.attributes || {}, property),
+        value,
+        definition3.space
+      );
+      if (definition3.mustUseProperty && definition3.mustUseProperty.includes(property)) {
+        info.mustUseProperty = true;
+      }
+      properties[property] = info;
+      normals[normalize(property)] = property;
+      normals[normalize(info.attribute)] = property;
+    }
+    return new Schema(properties, normals, definition3.space);
+  }
+  var init_create = __esm({
+    "node_modules/property-information/lib/util/create.js"() {
+      init_normalize();
+      init_defined_info();
+      init_schema();
+    }
+  });
+
+  // node_modules/property-information/lib/aria.js
+  var aria;
+  var init_aria = __esm({
+    "node_modules/property-information/lib/aria.js"() {
+      init_create();
+      init_types();
+      aria = create({
+        properties: {
+          ariaActiveDescendant: null,
+          ariaAtomic: booleanish,
+          ariaAutoComplete: null,
+          ariaBusy: booleanish,
+          ariaChecked: booleanish,
+          ariaColCount: number,
+          ariaColIndex: number,
+          ariaColSpan: number,
+          ariaControls: spaceSeparated,
+          ariaCurrent: null,
+          ariaDescribedBy: spaceSeparated,
+          ariaDetails: null,
+          ariaDisabled: booleanish,
+          ariaDropEffect: spaceSeparated,
+          ariaErrorMessage: null,
+          ariaExpanded: booleanish,
+          ariaFlowTo: spaceSeparated,
+          ariaGrabbed: booleanish,
+          ariaHasPopup: null,
+          ariaHidden: booleanish,
+          ariaInvalid: null,
+          ariaKeyShortcuts: null,
+          ariaLabel: null,
+          ariaLabelledBy: spaceSeparated,
+          ariaLevel: number,
+          ariaLive: null,
+          ariaModal: booleanish,
+          ariaMultiLine: booleanish,
+          ariaMultiSelectable: booleanish,
+          ariaOrientation: null,
+          ariaOwns: spaceSeparated,
+          ariaPlaceholder: null,
+          ariaPosInSet: number,
+          ariaPressed: booleanish,
+          ariaReadOnly: booleanish,
+          ariaRelevant: null,
+          ariaRequired: booleanish,
+          ariaRoleDescription: spaceSeparated,
+          ariaRowCount: number,
+          ariaRowIndex: number,
+          ariaRowSpan: number,
+          ariaSelected: booleanish,
+          ariaSetSize: number,
+          ariaSort: null,
+          ariaValueMax: number,
+          ariaValueMin: number,
+          ariaValueNow: number,
+          ariaValueText: null,
+          role: null
+        },
+        transform(_, property) {
+          return property === "role" ? property : "aria-" + property.slice(4).toLowerCase();
+        }
+      });
+    }
+  });
+
+  // node_modules/property-information/lib/util/case-sensitive-transform.js
+  function caseSensitiveTransform(attributes, attribute) {
+    return attribute in attributes ? attributes[attribute] : attribute;
+  }
+  var init_case_sensitive_transform = __esm({
+    "node_modules/property-information/lib/util/case-sensitive-transform.js"() {
+    }
+  });
+
+  // node_modules/property-information/lib/util/case-insensitive-transform.js
+  function caseInsensitiveTransform(attributes, property) {
+    return caseSensitiveTransform(attributes, property.toLowerCase());
+  }
+  var init_case_insensitive_transform = __esm({
+    "node_modules/property-information/lib/util/case-insensitive-transform.js"() {
+      init_case_sensitive_transform();
+    }
+  });
+
+  // node_modules/property-information/lib/html.js
+  var html;
+  var init_html = __esm({
+    "node_modules/property-information/lib/html.js"() {
+      init_case_insensitive_transform();
+      init_create();
+      init_types();
+      html = create({
+        attributes: {
+          acceptcharset: "accept-charset",
+          classname: "class",
+          htmlfor: "for",
+          httpequiv: "http-equiv"
+        },
+        mustUseProperty: ["checked", "multiple", "muted", "selected"],
+        properties: {
+          // Standard Properties.
+          abbr: null,
+          accept: commaSeparated,
+          acceptCharset: spaceSeparated,
+          accessKey: spaceSeparated,
+          action: null,
+          allow: null,
+          allowFullScreen: boolean,
+          allowPaymentRequest: boolean,
+          allowUserMedia: boolean,
+          alpha: boolean,
+          alt: null,
+          as: null,
+          async: boolean,
+          autoCapitalize: null,
+          autoComplete: spaceSeparated,
+          autoFocus: boolean,
+          autoPlay: boolean,
+          blocking: spaceSeparated,
+          capture: null,
+          charSet: null,
+          checked: boolean,
+          cite: null,
+          className: spaceSeparated,
+          closedBy: null,
+          colorSpace: null,
+          cols: number,
+          colSpan: number,
+          command: null,
+          commandFor: null,
+          content: null,
+          contentEditable: booleanish,
+          controls: boolean,
+          controlsList: spaceSeparated,
+          coords: number | commaSeparated,
+          crossOrigin: null,
+          data: null,
+          dateTime: null,
+          decoding: null,
+          default: boolean,
+          defer: boolean,
+          dir: null,
+          dirName: null,
+          disabled: boolean,
+          download: overloadedBoolean,
+          draggable: booleanish,
+          encType: null,
+          enterKeyHint: null,
+          fetchPriority: null,
+          form: null,
+          formAction: null,
+          formEncType: null,
+          formMethod: null,
+          formNoValidate: boolean,
+          formTarget: null,
+          headers: spaceSeparated,
+          height: number,
+          hidden: overloadedBoolean,
+          high: number,
+          href: null,
+          hrefLang: null,
+          htmlFor: spaceSeparated,
+          httpEquiv: spaceSeparated,
+          id: null,
+          imageSizes: null,
+          imageSrcSet: null,
+          inert: boolean,
+          inputMode: null,
+          integrity: null,
+          is: null,
+          isMap: boolean,
+          itemId: null,
+          itemProp: spaceSeparated,
+          itemRef: spaceSeparated,
+          itemScope: boolean,
+          itemType: spaceSeparated,
+          kind: null,
+          label: null,
+          lang: null,
+          language: null,
+          list: null,
+          loading: null,
+          loop: boolean,
+          low: number,
+          manifest: null,
+          max: null,
+          maxLength: number,
+          media: null,
+          method: null,
+          min: null,
+          minLength: number,
+          multiple: boolean,
+          muted: boolean,
+          name: null,
+          nonce: null,
+          noModule: boolean,
+          noValidate: boolean,
+          onAbort: null,
+          onAfterPrint: null,
+          onAuxClick: null,
+          onBeforeMatch: null,
+          onBeforePrint: null,
+          onBeforeToggle: null,
+          onBeforeUnload: null,
+          onBlur: null,
+          onCancel: null,
+          onCanPlay: null,
+          onCanPlayThrough: null,
+          onChange: null,
+          onClick: null,
+          onClose: null,
+          onContextLost: null,
+          onContextMenu: null,
+          onContextRestored: null,
+          onCopy: null,
+          onCueChange: null,
+          onCut: null,
+          onDblClick: null,
+          onDrag: null,
+          onDragEnd: null,
+          onDragEnter: null,
+          onDragExit: null,
+          onDragLeave: null,
+          onDragOver: null,
+          onDragStart: null,
+          onDrop: null,
+          onDurationChange: null,
+          onEmptied: null,
+          onEnded: null,
+          onError: null,
+          onFocus: null,
+          onFormData: null,
+          onHashChange: null,
+          onInput: null,
+          onInvalid: null,
+          onKeyDown: null,
+          onKeyPress: null,
+          onKeyUp: null,
+          onLanguageChange: null,
+          onLoad: null,
+          onLoadedData: null,
+          onLoadedMetadata: null,
+          onLoadEnd: null,
+          onLoadStart: null,
+          onMessage: null,
+          onMessageError: null,
+          onMouseDown: null,
+          onMouseEnter: null,
+          onMouseLeave: null,
+          onMouseMove: null,
+          onMouseOut: null,
+          onMouseOver: null,
+          onMouseUp: null,
+          onOffline: null,
+          onOnline: null,
+          onPageHide: null,
+          onPageShow: null,
+          onPaste: null,
+          onPause: null,
+          onPlay: null,
+          onPlaying: null,
+          onPopState: null,
+          onProgress: null,
+          onRateChange: null,
+          onRejectionHandled: null,
+          onReset: null,
+          onResize: null,
+          onScroll: null,
+          onScrollEnd: null,
+          onSecurityPolicyViolation: null,
+          onSeeked: null,
+          onSeeking: null,
+          onSelect: null,
+          onSlotChange: null,
+          onStalled: null,
+          onStorage: null,
+          onSubmit: null,
+          onSuspend: null,
+          onTimeUpdate: null,
+          onToggle: null,
+          onUnhandledRejection: null,
+          onUnload: null,
+          onVolumeChange: null,
+          onWaiting: null,
+          onWheel: null,
+          open: boolean,
+          optimum: number,
+          pattern: null,
+          ping: spaceSeparated,
+          placeholder: null,
+          playsInline: boolean,
+          popover: null,
+          popoverTarget: null,
+          popoverTargetAction: null,
+          poster: null,
+          preload: null,
+          readOnly: boolean,
+          referrerPolicy: null,
+          rel: spaceSeparated,
+          required: boolean,
+          reversed: boolean,
+          rows: number,
+          rowSpan: number,
+          sandbox: spaceSeparated,
+          scope: null,
+          scoped: boolean,
+          seamless: boolean,
+          selected: boolean,
+          shadowRootClonable: boolean,
+          shadowRootCustomElementRegistry: boolean,
+          shadowRootDelegatesFocus: boolean,
+          shadowRootMode: null,
+          shadowRootSerializable: boolean,
+          shape: null,
+          size: number,
+          sizes: null,
+          slot: null,
+          span: number,
+          spellCheck: booleanish,
+          src: null,
+          srcDoc: null,
+          srcLang: null,
+          srcSet: null,
+          start: number,
+          step: null,
+          style: null,
+          tabIndex: number,
+          target: null,
+          title: null,
+          translate: null,
+          type: null,
+          typeMustMatch: boolean,
+          useMap: null,
+          value: booleanish,
+          width: number,
+          wrap: null,
+          writingSuggestions: null,
+          // Legacy.
+          // See: https://html.spec.whatwg.org/#other-elements,-attributes-and-apis
+          align: null,
+          // Several. Use CSS `text-align` instead,
+          aLink: null,
+          // `<body>`. Use CSS `a:active {color}` instead
+          archive: spaceSeparated,
+          // `<object>`. List of URIs to archives
+          axis: null,
+          // `<td>` and `<th>`. Use `scope` on `<th>`
+          background: null,
+          // `<body>`. Use CSS `background-image` instead
+          bgColor: null,
+          // `<body>` and table elements. Use CSS `background-color` instead
+          border: number,
+          // `<table>`. Use CSS `border-width` instead,
+          borderColor: null,
+          // `<table>`. Use CSS `border-color` instead,
+          bottomMargin: number,
+          // `<body>`
+          cellPadding: null,
+          // `<table>`
+          cellSpacing: null,
+          // `<table>`
+          char: null,
+          // Several table elements. When `align=char`, sets the character to align on
+          charOff: null,
+          // Several table elements. When `char`, offsets the alignment
+          classId: null,
+          // `<object>`
+          clear: null,
+          // `<br>`. Use CSS `clear` instead
+          code: null,
+          // `<object>`
+          codeBase: null,
+          // `<object>`
+          codeType: null,
+          // `<object>`
+          color: null,
+          // `<font>` and `<hr>`. Use CSS instead
+          compact: boolean,
+          // Lists. Use CSS to reduce space between items instead
+          declare: boolean,
+          // `<object>`
+          event: null,
+          // `<script>`
+          face: null,
+          // `<font>`. Use CSS instead
+          frame: null,
+          // `<table>`
+          frameBorder: null,
+          // `<iframe>`. Use CSS `border` instead
+          hSpace: number,
+          // `<img>` and `<object>`
+          leftMargin: number,
+          // `<body>`
+          link: null,
+          // `<body>`. Use CSS `a:link {color: *}` instead
+          longDesc: null,
+          // `<frame>`, `<iframe>`, and `<img>`. Use an `<a>`
+          lowSrc: null,
+          // `<img>`. Use a `<picture>`
+          marginHeight: number,
+          // `<body>`
+          marginWidth: number,
+          // `<body>`
+          noResize: boolean,
+          // `<frame>`
+          noHref: boolean,
+          // `<area>`. Use no href instead of an explicit `nohref`
+          noShade: boolean,
+          // `<hr>`. Use background-color and height instead of borders
+          noWrap: boolean,
+          // `<td>` and `<th>`
+          object: null,
+          // `<applet>`
+          profile: null,
+          // `<head>`
+          prompt: null,
+          // `<isindex>`
+          rev: null,
+          // `<link>`
+          rightMargin: number,
+          // `<body>`
+          rules: null,
+          // `<table>`
+          scheme: null,
+          // `<meta>`
+          scrolling: booleanish,
+          // `<frame>`. Use overflow in the child context
+          standby: null,
+          // `<object>`
+          summary: null,
+          // `<table>`
+          text: null,
+          // `<body>`. Use CSS `color` instead
+          topMargin: number,
+          // `<body>`
+          valueType: null,
+          // `<param>`
+          version: null,
+          // `<html>`. Use a doctype.
+          vAlign: null,
+          // Several. Use CSS `vertical-align` instead
+          vLink: null,
+          // `<body>`. Use CSS `a:visited {color}` instead
+          vSpace: number,
+          // `<img>` and `<object>`
+          // Non-standard Properties.
+          allowTransparency: null,
+          autoCorrect: null,
+          autoSave: null,
+          credentialless: boolean,
+          disablePictureInPicture: boolean,
+          disableRemotePlayback: boolean,
+          exportParts: commaSeparated,
+          part: spaceSeparated,
+          prefix: null,
+          property: null,
+          results: number,
+          security: null,
+          unselectable: null
+        },
+        space: "html",
+        transform: caseInsensitiveTransform
+      });
+    }
+  });
+
+  // node_modules/property-information/lib/svg.js
+  var svg;
+  var init_svg = __esm({
+    "node_modules/property-information/lib/svg.js"() {
+      init_case_sensitive_transform();
+      init_create();
+      init_types();
+      svg = create({
+        attributes: {
+          accentHeight: "accent-height",
+          alignmentBaseline: "alignment-baseline",
+          arabicForm: "arabic-form",
+          baselineShift: "baseline-shift",
+          capHeight: "cap-height",
+          className: "class",
+          clipPath: "clip-path",
+          clipRule: "clip-rule",
+          colorInterpolation: "color-interpolation",
+          colorInterpolationFilters: "color-interpolation-filters",
+          colorProfile: "color-profile",
+          colorRendering: "color-rendering",
+          crossOrigin: "crossorigin",
+          dataType: "datatype",
+          dominantBaseline: "dominant-baseline",
+          enableBackground: "enable-background",
+          fillOpacity: "fill-opacity",
+          fillRule: "fill-rule",
+          floodColor: "flood-color",
+          floodOpacity: "flood-opacity",
+          fontFamily: "font-family",
+          fontSize: "font-size",
+          fontSizeAdjust: "font-size-adjust",
+          fontStretch: "font-stretch",
+          fontStyle: "font-style",
+          fontVariant: "font-variant",
+          fontWeight: "font-weight",
+          glyphName: "glyph-name",
+          glyphOrientationHorizontal: "glyph-orientation-horizontal",
+          glyphOrientationVertical: "glyph-orientation-vertical",
+          hrefLang: "hreflang",
+          horizAdvX: "horiz-adv-x",
+          horizOriginX: "horiz-origin-x",
+          horizOriginY: "horiz-origin-y",
+          imageRendering: "image-rendering",
+          letterSpacing: "letter-spacing",
+          lightingColor: "lighting-color",
+          markerEnd: "marker-end",
+          markerMid: "marker-mid",
+          markerStart: "marker-start",
+          maskType: "mask-type",
+          navDown: "nav-down",
+          navDownLeft: "nav-down-left",
+          navDownRight: "nav-down-right",
+          navLeft: "nav-left",
+          navNext: "nav-next",
+          navPrev: "nav-prev",
+          navRight: "nav-right",
+          navUp: "nav-up",
+          navUpLeft: "nav-up-left",
+          navUpRight: "nav-up-right",
+          onAbort: "onabort",
+          onActivate: "onactivate",
+          onAfterPrint: "onafterprint",
+          onBeforePrint: "onbeforeprint",
+          onBegin: "onbegin",
+          onCancel: "oncancel",
+          onCanPlay: "oncanplay",
+          onCanPlayThrough: "oncanplaythrough",
+          onChange: "onchange",
+          onClick: "onclick",
+          onClose: "onclose",
+          onCopy: "oncopy",
+          onCueChange: "oncuechange",
+          onCut: "oncut",
+          onDblClick: "ondblclick",
+          onDrag: "ondrag",
+          onDragEnd: "ondragend",
+          onDragEnter: "ondragenter",
+          onDragExit: "ondragexit",
+          onDragLeave: "ondragleave",
+          onDragOver: "ondragover",
+          onDragStart: "ondragstart",
+          onDrop: "ondrop",
+          onDurationChange: "ondurationchange",
+          onEmptied: "onemptied",
+          onEnd: "onend",
+          onEnded: "onended",
+          onError: "onerror",
+          onFocus: "onfocus",
+          onFocusIn: "onfocusin",
+          onFocusOut: "onfocusout",
+          onHashChange: "onhashchange",
+          onInput: "oninput",
+          onInvalid: "oninvalid",
+          onKeyDown: "onkeydown",
+          onKeyPress: "onkeypress",
+          onKeyUp: "onkeyup",
+          onLoad: "onload",
+          onLoadedData: "onloadeddata",
+          onLoadedMetadata: "onloadedmetadata",
+          onLoadStart: "onloadstart",
+          onMessage: "onmessage",
+          onMouseDown: "onmousedown",
+          onMouseEnter: "onmouseenter",
+          onMouseLeave: "onmouseleave",
+          onMouseMove: "onmousemove",
+          onMouseOut: "onmouseout",
+          onMouseOver: "onmouseover",
+          onMouseUp: "onmouseup",
+          onMouseWheel: "onmousewheel",
+          onOffline: "onoffline",
+          onOnline: "ononline",
+          onPageHide: "onpagehide",
+          onPageShow: "onpageshow",
+          onPaste: "onpaste",
+          onPause: "onpause",
+          onPlay: "onplay",
+          onPlaying: "onplaying",
+          onPopState: "onpopstate",
+          onProgress: "onprogress",
+          onRateChange: "onratechange",
+          onRepeat: "onrepeat",
+          onReset: "onreset",
+          onResize: "onresize",
+          onScroll: "onscroll",
+          onSeeked: "onseeked",
+          onSeeking: "onseeking",
+          onSelect: "onselect",
+          onShow: "onshow",
+          onStalled: "onstalled",
+          onStorage: "onstorage",
+          onSubmit: "onsubmit",
+          onSuspend: "onsuspend",
+          onTimeUpdate: "ontimeupdate",
+          onToggle: "ontoggle",
+          onUnload: "onunload",
+          onVolumeChange: "onvolumechange",
+          onWaiting: "onwaiting",
+          onZoom: "onzoom",
+          overlinePosition: "overline-position",
+          overlineThickness: "overline-thickness",
+          paintOrder: "paint-order",
+          panose1: "panose-1",
+          pointerEvents: "pointer-events",
+          referrerPolicy: "referrerpolicy",
+          renderingIntent: "rendering-intent",
+          shapeRendering: "shape-rendering",
+          stopColor: "stop-color",
+          stopOpacity: "stop-opacity",
+          strikethroughPosition: "strikethrough-position",
+          strikethroughThickness: "strikethrough-thickness",
+          strokeDashArray: "stroke-dasharray",
+          strokeDashOffset: "stroke-dashoffset",
+          strokeLineCap: "stroke-linecap",
+          strokeLineJoin: "stroke-linejoin",
+          strokeMiterLimit: "stroke-miterlimit",
+          strokeOpacity: "stroke-opacity",
+          strokeWidth: "stroke-width",
+          tabIndex: "tabindex",
+          textAnchor: "text-anchor",
+          textDecoration: "text-decoration",
+          textRendering: "text-rendering",
+          transformOrigin: "transform-origin",
+          typeOf: "typeof",
+          underlinePosition: "underline-position",
+          underlineThickness: "underline-thickness",
+          unicodeBidi: "unicode-bidi",
+          unicodeRange: "unicode-range",
+          unitsPerEm: "units-per-em",
+          vAlphabetic: "v-alphabetic",
+          vHanging: "v-hanging",
+          vIdeographic: "v-ideographic",
+          vMathematical: "v-mathematical",
+          vectorEffect: "vector-effect",
+          vertAdvY: "vert-adv-y",
+          vertOriginX: "vert-origin-x",
+          vertOriginY: "vert-origin-y",
+          wordSpacing: "word-spacing",
+          writingMode: "writing-mode",
+          xHeight: "x-height",
+          // These were camelcased in Tiny. Now lowercased in SVG 2
+          playbackOrder: "playbackorder",
+          timelineBegin: "timelinebegin"
+        },
+        properties: {
+          about: commaOrSpaceSeparated,
+          accentHeight: number,
+          accumulate: null,
+          additive: null,
+          alignmentBaseline: null,
+          alphabetic: number,
+          amplitude: number,
+          arabicForm: null,
+          ascent: number,
+          attributeName: null,
+          attributeType: null,
+          azimuth: number,
+          bandwidth: null,
+          baselineShift: null,
+          baseFrequency: null,
+          baseProfile: null,
+          bbox: null,
+          begin: null,
+          bias: number,
+          by: null,
+          calcMode: null,
+          capHeight: number,
+          className: spaceSeparated,
+          clip: null,
+          clipPath: null,
+          clipPathUnits: null,
+          clipRule: null,
+          color: null,
+          colorInterpolation: null,
+          colorInterpolationFilters: null,
+          colorProfile: null,
+          colorRendering: null,
+          content: null,
+          contentScriptType: null,
+          contentStyleType: null,
+          crossOrigin: null,
+          cursor: null,
+          cx: null,
+          cy: null,
+          d: null,
+          dataType: null,
+          defaultAction: null,
+          descent: number,
+          diffuseConstant: number,
+          direction: null,
+          display: null,
+          dur: null,
+          divisor: number,
+          dominantBaseline: null,
+          download: boolean,
+          dx: null,
+          dy: null,
+          edgeMode: null,
+          editable: null,
+          elevation: number,
+          enableBackground: null,
+          end: null,
+          event: null,
+          exponent: number,
+          externalResourcesRequired: null,
+          fill: null,
+          fillOpacity: number,
+          fillRule: null,
+          filter: null,
+          filterRes: null,
+          filterUnits: null,
+          floodColor: null,
+          floodOpacity: null,
+          focusable: null,
+          focusHighlight: null,
+          fontFamily: null,
+          fontSize: null,
+          fontSizeAdjust: null,
+          fontStretch: null,
+          fontStyle: null,
+          fontVariant: null,
+          fontWeight: null,
+          format: null,
+          fr: null,
+          from: null,
+          fx: null,
+          fy: null,
+          g1: commaSeparated,
+          g2: commaSeparated,
+          glyphName: commaSeparated,
+          glyphOrientationHorizontal: null,
+          glyphOrientationVertical: null,
+          glyphRef: null,
+          gradientTransform: null,
+          gradientUnits: null,
+          handler: null,
+          hanging: number,
+          hatchContentUnits: null,
+          hatchUnits: null,
+          height: null,
+          href: null,
+          hrefLang: null,
+          horizAdvX: number,
+          horizOriginX: number,
+          horizOriginY: number,
+          id: null,
+          ideographic: number,
+          imageRendering: null,
+          initialVisibility: null,
+          in: null,
+          in2: null,
+          intercept: number,
+          k: number,
+          k1: number,
+          k2: number,
+          k3: number,
+          k4: number,
+          kernelMatrix: commaOrSpaceSeparated,
+          kernelUnitLength: null,
+          keyPoints: null,
+          // SEMI_COLON_SEPARATED
+          keySplines: null,
+          // SEMI_COLON_SEPARATED
+          keyTimes: null,
+          // SEMI_COLON_SEPARATED
+          kerning: null,
+          lang: null,
+          lengthAdjust: null,
+          letterSpacing: null,
+          lightingColor: null,
+          limitingConeAngle: number,
+          local: null,
+          markerEnd: null,
+          markerMid: null,
+          markerStart: null,
+          markerHeight: null,
+          markerUnits: null,
+          markerWidth: null,
+          mask: null,
+          maskContentUnits: null,
+          maskType: null,
+          maskUnits: null,
+          mathematical: null,
+          max: null,
+          media: null,
+          mediaCharacterEncoding: null,
+          mediaContentEncodings: null,
+          mediaSize: number,
+          mediaTime: null,
+          method: null,
+          min: null,
+          mode: null,
+          name: null,
+          navDown: null,
+          navDownLeft: null,
+          navDownRight: null,
+          navLeft: null,
+          navNext: null,
+          navPrev: null,
+          navRight: null,
+          navUp: null,
+          navUpLeft: null,
+          navUpRight: null,
+          numOctaves: null,
+          observer: null,
+          offset: null,
+          onAbort: null,
+          onActivate: null,
+          onAfterPrint: null,
+          onBeforePrint: null,
+          onBegin: null,
+          onCancel: null,
+          onCanPlay: null,
+          onCanPlayThrough: null,
+          onChange: null,
+          onClick: null,
+          onClose: null,
+          onCopy: null,
+          onCueChange: null,
+          onCut: null,
+          onDblClick: null,
+          onDrag: null,
+          onDragEnd: null,
+          onDragEnter: null,
+          onDragExit: null,
+          onDragLeave: null,
+          onDragOver: null,
+          onDragStart: null,
+          onDrop: null,
+          onDurationChange: null,
+          onEmptied: null,
+          onEnd: null,
+          onEnded: null,
+          onError: null,
+          onFocus: null,
+          onFocusIn: null,
+          onFocusOut: null,
+          onHashChange: null,
+          onInput: null,
+          onInvalid: null,
+          onKeyDown: null,
+          onKeyPress: null,
+          onKeyUp: null,
+          onLoad: null,
+          onLoadedData: null,
+          onLoadedMetadata: null,
+          onLoadStart: null,
+          onMessage: null,
+          onMouseDown: null,
+          onMouseEnter: null,
+          onMouseLeave: null,
+          onMouseMove: null,
+          onMouseOut: null,
+          onMouseOver: null,
+          onMouseUp: null,
+          onMouseWheel: null,
+          onOffline: null,
+          onOnline: null,
+          onPageHide: null,
+          onPageShow: null,
+          onPaste: null,
+          onPause: null,
+          onPlay: null,
+          onPlaying: null,
+          onPopState: null,
+          onProgress: null,
+          onRateChange: null,
+          onRepeat: null,
+          onReset: null,
+          onResize: null,
+          onScroll: null,
+          onSeeked: null,
+          onSeeking: null,
+          onSelect: null,
+          onShow: null,
+          onStalled: null,
+          onStorage: null,
+          onSubmit: null,
+          onSuspend: null,
+          onTimeUpdate: null,
+          onToggle: null,
+          onUnload: null,
+          onVolumeChange: null,
+          onWaiting: null,
+          onZoom: null,
+          opacity: null,
+          operator: null,
+          order: null,
+          orient: null,
+          orientation: null,
+          origin: null,
+          overflow: null,
+          overlay: null,
+          overlinePosition: number,
+          overlineThickness: number,
+          paintOrder: null,
+          panose1: null,
+          path: null,
+          pathLength: number,
+          patternContentUnits: null,
+          patternTransform: null,
+          patternUnits: null,
+          phase: null,
+          ping: spaceSeparated,
+          pitch: null,
+          playbackOrder: null,
+          pointerEvents: null,
+          points: null,
+          pointsAtX: number,
+          pointsAtY: number,
+          pointsAtZ: number,
+          preserveAlpha: null,
+          preserveAspectRatio: null,
+          primitiveUnits: null,
+          propagate: null,
+          property: commaOrSpaceSeparated,
+          r: null,
+          radius: null,
+          referrerPolicy: null,
+          refX: null,
+          refY: null,
+          rel: commaOrSpaceSeparated,
+          rev: commaOrSpaceSeparated,
+          renderingIntent: null,
+          repeatCount: null,
+          repeatDur: null,
+          requiredExtensions: commaOrSpaceSeparated,
+          requiredFeatures: commaOrSpaceSeparated,
+          requiredFonts: commaOrSpaceSeparated,
+          requiredFormats: commaOrSpaceSeparated,
+          resource: null,
+          restart: null,
+          result: null,
+          rotate: null,
+          rx: null,
+          ry: null,
+          scale: null,
+          seed: null,
+          shapeRendering: null,
+          side: null,
+          slope: null,
+          snapshotTime: null,
+          specularConstant: number,
+          specularExponent: number,
+          spreadMethod: null,
+          spacing: null,
+          startOffset: null,
+          stdDeviation: null,
+          stemh: null,
+          stemv: null,
+          stitchTiles: null,
+          stopColor: null,
+          stopOpacity: null,
+          strikethroughPosition: number,
+          strikethroughThickness: number,
+          string: null,
+          stroke: null,
+          strokeDashArray: commaOrSpaceSeparated,
+          strokeDashOffset: null,
+          strokeLineCap: null,
+          strokeLineJoin: null,
+          strokeMiterLimit: number,
+          strokeOpacity: number,
+          strokeWidth: null,
+          style: null,
+          surfaceScale: number,
+          syncBehavior: null,
+          syncBehaviorDefault: null,
+          syncMaster: null,
+          syncTolerance: null,
+          syncToleranceDefault: null,
+          systemLanguage: commaOrSpaceSeparated,
+          tabIndex: number,
+          tableValues: null,
+          target: null,
+          targetX: number,
+          targetY: number,
+          textAnchor: null,
+          textDecoration: null,
+          textRendering: null,
+          textLength: null,
+          timelineBegin: null,
+          title: null,
+          transformBehavior: null,
+          type: null,
+          typeOf: commaOrSpaceSeparated,
+          to: null,
+          transform: null,
+          transformOrigin: null,
+          u1: null,
+          u2: null,
+          underlinePosition: number,
+          underlineThickness: number,
+          unicode: null,
+          unicodeBidi: null,
+          unicodeRange: null,
+          unitsPerEm: number,
+          values: null,
+          vAlphabetic: number,
+          vMathematical: number,
+          vectorEffect: null,
+          vHanging: number,
+          vIdeographic: number,
+          version: null,
+          vertAdvY: number,
+          vertOriginX: number,
+          vertOriginY: number,
+          viewBox: null,
+          viewTarget: null,
+          visibility: null,
+          width: null,
+          widths: null,
+          wordSpacing: null,
+          writingMode: null,
+          x: null,
+          x1: null,
+          x2: null,
+          xChannelSelector: null,
+          xHeight: number,
+          y: null,
+          y1: null,
+          y2: null,
+          yChannelSelector: null,
+          z: null,
+          zoomAndPan: null
+        },
+        space: "svg",
+        transform: caseSensitiveTransform
+      });
+    }
+  });
+
+  // node_modules/property-information/lib/xlink.js
+  var xlink;
+  var init_xlink = __esm({
+    "node_modules/property-information/lib/xlink.js"() {
+      init_create();
+      xlink = create({
+        properties: {
+          xLinkActuate: null,
+          xLinkArcRole: null,
+          xLinkHref: null,
+          xLinkRole: null,
+          xLinkShow: null,
+          xLinkTitle: null,
+          xLinkType: null
+        },
+        space: "xlink",
+        transform(_, property) {
+          return "xlink:" + property.slice(5).toLowerCase();
+        }
+      });
+    }
+  });
+
+  // node_modules/property-information/lib/xmlns.js
+  var xmlns;
+  var init_xmlns = __esm({
+    "node_modules/property-information/lib/xmlns.js"() {
+      init_create();
+      init_case_insensitive_transform();
+      xmlns = create({
+        attributes: { xmlnsxlink: "xmlns:xlink" },
+        properties: { xmlnsXLink: null, xmlns: null },
+        space: "xmlns",
+        transform: caseInsensitiveTransform
+      });
+    }
+  });
+
+  // node_modules/property-information/lib/xml.js
+  var xml;
+  var init_xml = __esm({
+    "node_modules/property-information/lib/xml.js"() {
+      init_create();
+      xml = create({
+        properties: { xmlBase: null, xmlLang: null, xmlSpace: null },
+        space: "xml",
+        transform(_, property) {
+          return "xml:" + property.slice(3).toLowerCase();
+        }
+      });
+    }
+  });
+
+  // node_modules/property-information/lib/hast-to-react.js
+  var hastToReact;
+  var init_hast_to_react = __esm({
+    "node_modules/property-information/lib/hast-to-react.js"() {
+      hastToReact = {
+        classId: "classID",
+        dataType: "datatype",
+        itemId: "itemID",
+        strokeDashArray: "strokeDasharray",
+        strokeDashOffset: "strokeDashoffset",
+        strokeLineCap: "strokeLinecap",
+        strokeLineJoin: "strokeLinejoin",
+        strokeMiterLimit: "strokeMiterlimit",
+        typeOf: "typeof",
+        xLinkActuate: "xlinkActuate",
+        xLinkArcRole: "xlinkArcrole",
+        xLinkHref: "xlinkHref",
+        xLinkRole: "xlinkRole",
+        xLinkShow: "xlinkShow",
+        xLinkTitle: "xlinkTitle",
+        xLinkType: "xlinkType",
+        xmlnsXLink: "xmlnsXlink"
+      };
+    }
+  });
+
+  // node_modules/property-information/lib/find.js
+  function find(schema, value) {
+    const normal = normalize(value);
+    let property = value;
+    let Type = Info;
+    if (normal in schema.normal) {
+      return schema.property[schema.normal[normal]];
+    }
+    if (normal.length > 4 && normal.slice(0, 4) === "data" && valid.test(value)) {
+      if (value.charAt(4) === "-") {
+        const rest = value.slice(5).replace(dash, camelcase);
+        property = "data" + rest.charAt(0).toUpperCase() + rest.slice(1);
+      } else {
+        const rest = value.slice(4);
+        if (!dash.test(rest)) {
+          let dashes = rest.replace(cap, kebab);
+          if (dashes.charAt(0) !== "-") {
+            dashes = "-" + dashes;
+          }
+          value = "data" + dashes;
+        }
+      }
+      Type = DefinedInfo;
+    }
+    return new Type(property, value);
+  }
+  function kebab($0) {
+    return "-" + $0.toLowerCase();
+  }
+  function camelcase($0) {
+    return $0.charAt(1).toUpperCase();
+  }
+  var cap, dash, valid;
+  var init_find = __esm({
+    "node_modules/property-information/lib/find.js"() {
+      init_defined_info();
+      init_info();
+      init_normalize();
+      cap = /[A-Z]/g;
+      dash = /-[a-z]/g;
+      valid = /^data[-\w.:]+$/i;
+    }
+  });
+
+  // node_modules/property-information/index.js
+  var html2, svg2;
+  var init_property_information = __esm({
+    "node_modules/property-information/index.js"() {
+      init_merge();
+      init_aria();
+      init_html();
+      init_svg();
+      init_xlink();
+      init_xmlns();
+      init_xml();
+      init_hast_to_react();
+      init_find();
+      html2 = merge([aria, html, xlink, xmlns, xml], "html");
+      svg2 = merge([aria, svg, xlink, xmlns, xml], "svg");
+    }
+  });
+
+  // node_modules/space-separated-tokens/index.js
+  function stringify2(values) {
+    return values.join(" ").trim();
+  }
+  var init_space_separated_tokens = __esm({
+    "node_modules/space-separated-tokens/index.js"() {
+    }
+  });
+
+  // node_modules/inline-style-parser/cjs/index.js
+  var require_cjs = __commonJS({
+    "node_modules/inline-style-parser/cjs/index.js"(exports, module) {
+      "use strict";
+      var COMMENT_REGEX = /\/\*[^*]*\*+([^/*][^*]*\*+)*\//g;
+      var NEWLINE_REGEX = /\n/g;
+      var WHITESPACE_REGEX = /^\s*/;
+      var PROPERTY_REGEX = /^(\*?[-#/*\\\w]+(\[[0-9a-z_-]+\])?)\s*/;
+      var COLON_REGEX = /^:\s*/;
+      var VALUE_REGEX = /^((?:'(?:\\'|.)*?'|"(?:\\"|.)*?"|\([^)]*?\)|[^};])+)/;
+      var SEMICOLON_REGEX = /^[;\s]*/;
+      var TRIM_REGEX = /^\s+|\s+$/g;
+      var NEWLINE = "\n";
+      var FORWARD_SLASH = "/";
+      var ASTERISK = "*";
+      var EMPTY_STRING = "";
+      var TYPE_COMMENT = "comment";
+      var TYPE_DECLARATION = "declaration";
+      function index2(style, options) {
+        if (typeof style !== "string") {
+          throw new TypeError("First argument must be a string");
+        }
+        if (!style) return [];
+        options = options || {};
+        var lineno = 1;
+        var column = 1;
+        function updatePosition(str) {
+          var lines = str.match(NEWLINE_REGEX);
+          if (lines) lineno += lines.length;
+          var i = str.lastIndexOf(NEWLINE);
+          column = ~i ? str.length - i : column + str.length;
+        }
+        function position3() {
+          var start2 = { line: lineno, column };
+          return function(node2) {
+            node2.position = new Position(start2);
+            whitespace2();
+            return node2;
+          };
+        }
+        function Position(start2) {
+          this.start = start2;
+          this.end = { line: lineno, column };
+          this.source = options.source;
+        }
+        Position.prototype.content = style;
+        function error(msg) {
+          var err = new Error(
+            options.source + ":" + lineno + ":" + column + ": " + msg
+          );
+          err.reason = msg;
+          err.filename = options.source;
+          err.line = lineno;
+          err.column = column;
+          err.source = style;
+          if (options.silent) ;
+          else {
+            throw err;
+          }
+        }
+        function match(re2) {
+          var m = re2.exec(style);
+          if (!m) return;
+          var str = m[0];
+          updatePosition(str);
+          style = style.slice(str.length);
+          return m;
+        }
+        function whitespace2() {
+          match(WHITESPACE_REGEX);
+        }
+        function comments(rules) {
+          var c;
+          rules = rules || [];
+          while (c = comment()) {
+            if (c !== false) {
+              rules.push(c);
+            }
+          }
+          return rules;
+        }
+        function comment() {
+          var pos = position3();
+          if (FORWARD_SLASH != style.charAt(0) || ASTERISK != style.charAt(1)) return;
+          var i = 2;
+          while (EMPTY_STRING != style.charAt(i) && (ASTERISK != style.charAt(i) || FORWARD_SLASH != style.charAt(i + 1))) {
+            ++i;
+          }
+          i += 2;
+          if (EMPTY_STRING === style.charAt(i - 1)) {
+            return error("End of comment missing");
+          }
+          var str = style.slice(2, i - 2);
+          column += 2;
+          updatePosition(str);
+          style = style.slice(i);
+          column += 2;
+          return pos({
+            type: TYPE_COMMENT,
+            comment: str
+          });
+        }
+        function declaration() {
+          var pos = position3();
+          var prop = match(PROPERTY_REGEX);
+          if (!prop) return;
+          comment();
+          if (!match(COLON_REGEX)) return error("property missing ':'");
+          var val = match(VALUE_REGEX);
+          var ret = pos({
+            type: TYPE_DECLARATION,
+            property: trim(prop[0].replace(COMMENT_REGEX, EMPTY_STRING)),
+            value: val ? trim(val[0].replace(COMMENT_REGEX, EMPTY_STRING)) : EMPTY_STRING
+          });
+          match(SEMICOLON_REGEX);
+          return ret;
+        }
+        function declarations() {
+          var decls = [];
+          comments(decls);
+          var decl;
+          while (decl = declaration()) {
+            if (decl !== false) {
+              decls.push(decl);
+              comments(decls);
+            }
+          }
+          return decls;
+        }
+        whitespace2();
+        return declarations();
+      }
+      function trim(str) {
+        return str ? str.replace(TRIM_REGEX, EMPTY_STRING) : EMPTY_STRING;
+      }
+      module.exports = index2;
+    }
+  });
+
+  // node_modules/style-to-object/cjs/index.js
+  var require_cjs2 = __commonJS({
+    "node_modules/style-to-object/cjs/index.js"(exports) {
+      "use strict";
+      var __importDefault = exports && exports.__importDefault || function(mod) {
+        return mod && mod.__esModule ? mod : { "default": mod };
+      };
+      Object.defineProperty(exports, "__esModule", { value: true });
+      exports.default = StyleToObject;
+      var inline_style_parser_1 = __importDefault(require_cjs());
+      function StyleToObject(style, iterator) {
+        let styleObject = null;
+        if (!style || typeof style !== "string") {
+          return styleObject;
+        }
+        const declarations = (0, inline_style_parser_1.default)(style);
+        const hasIterator = typeof iterator === "function";
+        declarations.forEach((declaration) => {
+          if (declaration.type !== "declaration") {
+            return;
+          }
+          const { property, value } = declaration;
+          if (hasIterator) {
+            iterator(property, value, declaration);
+          } else if (value) {
+            styleObject = styleObject || {};
+            styleObject[property] = value;
+          }
+        });
+        return styleObject;
+      }
+    }
+  });
+
+  // node_modules/style-to-js/cjs/utilities.js
+  var require_utilities = __commonJS({
+    "node_modules/style-to-js/cjs/utilities.js"(exports) {
+      "use strict";
+      Object.defineProperty(exports, "__esModule", { value: true });
+      exports.camelCase = void 0;
+      var CUSTOM_PROPERTY_REGEX = /^--[a-zA-Z0-9_-]+$/;
+      var HYPHEN_REGEX = /-([a-z])/g;
+      var NO_HYPHEN_REGEX = /^[^-]+$/;
+      var VENDOR_PREFIX_REGEX = /^-(webkit|moz|ms|o|khtml)-/;
+      var MS_VENDOR_PREFIX_REGEX = /^-(ms)-/;
+      var skipCamelCase = function(property) {
+        return !property || NO_HYPHEN_REGEX.test(property) || CUSTOM_PROPERTY_REGEX.test(property);
+      };
+      var capitalize = function(match, character) {
+        return character.toUpperCase();
+      };
+      var trimHyphen = function(match, prefix) {
+        return "".concat(prefix, "-");
+      };
+      var camelCase = function(property, options) {
+        if (options === void 0) {
+          options = {};
+        }
+        if (skipCamelCase(property)) {
+          return property;
+        }
+        property = property.toLowerCase();
+        if (options.reactCompat) {
+          property = property.replace(MS_VENDOR_PREFIX_REGEX, trimHyphen);
+        } else {
+          property = property.replace(VENDOR_PREFIX_REGEX, trimHyphen);
+        }
+        return property.replace(HYPHEN_REGEX, capitalize);
+      };
+      exports.camelCase = camelCase;
+    }
+  });
+
+  // node_modules/style-to-js/cjs/index.js
+  var require_cjs3 = __commonJS({
+    "node_modules/style-to-js/cjs/index.js"(exports, module) {
+      "use strict";
+      var __importDefault = exports && exports.__importDefault || function(mod) {
+        return mod && mod.__esModule ? mod : { "default": mod };
+      };
+      var style_to_object_1 = __importDefault(require_cjs2());
+      var utilities_1 = require_utilities();
+      function StyleToJS(style, options) {
+        var output = {};
+        if (!style || typeof style !== "string") {
+          return output;
+        }
+        (0, style_to_object_1.default)(style, function(property, value) {
+          if (property && value) {
+            output[(0, utilities_1.camelCase)(property, options)] = value;
+          }
+        });
+        return output;
+      }
+      StyleToJS.default = StyleToJS;
+      module.exports = StyleToJS;
+    }
+  });
+
+  // node_modules/unist-util-position/lib/index.js
+  function point(type) {
+    return point4;
+    function point4(node2) {
+      const point5 = node2 && node2.position && node2.position[type] || {};
+      if (typeof point5.line === "number" && point5.line > 0 && typeof point5.column === "number" && point5.column > 0) {
+        return {
+          line: point5.line,
+          column: point5.column,
+          offset: typeof point5.offset === "number" && point5.offset > -1 ? point5.offset : void 0
+        };
+      }
+    }
+  }
+  function position(node2) {
+    const start2 = pointStart(node2);
+    const end = pointEnd(node2);
+    if (start2 && end) {
+      return { start: start2, end };
+    }
+  }
+  var pointEnd, pointStart;
+  var init_lib3 = __esm({
+    "node_modules/unist-util-position/lib/index.js"() {
+      pointEnd = point("end");
+      pointStart = point("start");
+    }
+  });
+
+  // node_modules/unist-util-position/index.js
+  var init_unist_util_position = __esm({
+    "node_modules/unist-util-position/index.js"() {
+      init_lib3();
+    }
+  });
+
+  // node_modules/unist-util-stringify-position/lib/index.js
+  function stringifyPosition(value) {
+    if (!value || typeof value !== "object") {
+      return "";
+    }
+    if ("position" in value || "type" in value) {
+      return position2(value.position);
+    }
+    if ("start" in value || "end" in value) {
+      return position2(value);
+    }
+    if ("line" in value || "column" in value) {
+      return point2(value);
+    }
+    return "";
+  }
+  function point2(point4) {
+    return index(point4 && point4.line) + ":" + index(point4 && point4.column);
+  }
+  function position2(pos) {
+    return point2(pos && pos.start) + "-" + point2(pos && pos.end);
+  }
+  function index(value) {
+    return value && typeof value === "number" ? value : 1;
+  }
+  var init_lib4 = __esm({
+    "node_modules/unist-util-stringify-position/lib/index.js"() {
+    }
+  });
+
+  // node_modules/unist-util-stringify-position/index.js
+  var init_unist_util_stringify_position = __esm({
+    "node_modules/unist-util-stringify-position/index.js"() {
+      init_lib4();
+    }
+  });
+
+  // node_modules/vfile-message/lib/index.js
+  var VFileMessage;
+  var init_lib5 = __esm({
+    "node_modules/vfile-message/lib/index.js"() {
+      init_unist_util_stringify_position();
+      VFileMessage = class extends Error {
+        /**
+         * Create a message for `reason`.
+         *
+         * > 🪦 **Note**: also has obsolete signatures.
+         *
+         * @overload
+         * @param {string} reason
+         * @param {Options | null | undefined} [options]
+         * @returns
+         *
+         * @overload
+         * @param {string} reason
+         * @param {Node | NodeLike | null | undefined} parent
+         * @param {string | null | undefined} [origin]
+         * @returns
+         *
+         * @overload
+         * @param {string} reason
+         * @param {Point | Position | null | undefined} place
+         * @param {string | null | undefined} [origin]
+         * @returns
+         *
+         * @overload
+         * @param {string} reason
+         * @param {string | null | undefined} [origin]
+         * @returns
+         *
+         * @overload
+         * @param {Error | VFileMessage} cause
+         * @param {Node | NodeLike | null | undefined} parent
+         * @param {string | null | undefined} [origin]
+         * @returns
+         *
+         * @overload
+         * @param {Error | VFileMessage} cause
+         * @param {Point | Position | null | undefined} place
+         * @param {string | null | undefined} [origin]
+         * @returns
+         *
+         * @overload
+         * @param {Error | VFileMessage} cause
+         * @param {string | null | undefined} [origin]
+         * @returns
+         *
+         * @param {Error | VFileMessage | string} causeOrReason
+         *   Reason for message, should use markdown.
+         * @param {Node | NodeLike | Options | Point | Position | string | null | undefined} [optionsOrParentOrPlace]
+         *   Configuration (optional).
+         * @param {string | null | undefined} [origin]
+         *   Place in code where the message originates (example:
+         *   `'my-package:my-rule'` or `'my-rule'`).
+         * @returns
+         *   Instance of `VFileMessage`.
+         */
+        // eslint-disable-next-line complexity
+        constructor(causeOrReason, optionsOrParentOrPlace, origin) {
+          super();
+          if (typeof optionsOrParentOrPlace === "string") {
+            origin = optionsOrParentOrPlace;
+            optionsOrParentOrPlace = void 0;
+          }
+          let reason = "";
+          let options = {};
+          let legacyCause = false;
+          if (optionsOrParentOrPlace) {
+            if ("line" in optionsOrParentOrPlace && "column" in optionsOrParentOrPlace) {
+              options = { place: optionsOrParentOrPlace };
+            } else if ("start" in optionsOrParentOrPlace && "end" in optionsOrParentOrPlace) {
+              options = { place: optionsOrParentOrPlace };
+            } else if ("type" in optionsOrParentOrPlace) {
+              options = {
+                ancestors: [optionsOrParentOrPlace],
+                place: optionsOrParentOrPlace.position
+              };
+            } else {
+              options = { ...optionsOrParentOrPlace };
+            }
+          }
+          if (typeof causeOrReason === "string") {
+            reason = causeOrReason;
+          } else if (!options.cause && causeOrReason) {
+            legacyCause = true;
+            reason = causeOrReason.message;
+            options.cause = causeOrReason;
+          }
+          if (!options.ruleId && !options.source && typeof origin === "string") {
+            const index2 = origin.indexOf(":");
+            if (index2 === -1) {
+              options.ruleId = origin;
+            } else {
+              options.source = origin.slice(0, index2);
+              options.ruleId = origin.slice(index2 + 1);
+            }
+          }
+          if (!options.place && options.ancestors && options.ancestors) {
+            const parent = options.ancestors[options.ancestors.length - 1];
+            if (parent) {
+              options.place = parent.position;
+            }
+          }
+          const start2 = options.place && "start" in options.place ? options.place.start : options.place;
+          this.ancestors = options.ancestors || void 0;
+          this.cause = options.cause || void 0;
+          this.column = start2 ? start2.column : void 0;
+          this.fatal = void 0;
+          this.file = "";
+          this.message = reason;
+          this.line = start2 ? start2.line : void 0;
+          this.name = stringifyPosition(options.place) || "1:1";
+          this.place = options.place || void 0;
+          this.reason = this.message;
+          this.ruleId = options.ruleId || void 0;
+          this.source = options.source || void 0;
+          this.stack = legacyCause && options.cause && typeof options.cause.stack === "string" ? options.cause.stack : "";
+          this.actual = void 0;
+          this.expected = void 0;
+          this.note = void 0;
+          this.url = void 0;
+        }
+      };
+      VFileMessage.prototype.file = "";
+      VFileMessage.prototype.name = "";
+      VFileMessage.prototype.reason = "";
+      VFileMessage.prototype.message = "";
+      VFileMessage.prototype.stack = "";
+      VFileMessage.prototype.column = void 0;
+      VFileMessage.prototype.line = void 0;
+      VFileMessage.prototype.ancestors = void 0;
+      VFileMessage.prototype.cause = void 0;
+      VFileMessage.prototype.fatal = void 0;
+      VFileMessage.prototype.place = void 0;
+      VFileMessage.prototype.ruleId = void 0;
+      VFileMessage.prototype.source = void 0;
+    }
+  });
+
+  // node_modules/vfile-message/index.js
+  var init_vfile_message = __esm({
+    "node_modules/vfile-message/index.js"() {
+      init_lib5();
+    }
+  });
+
+  // node_modules/hast-util-to-jsx-runtime/lib/index.js
+  function toJsxRuntime(tree, options) {
+    if (!options || options.Fragment === void 0) {
+      throw new TypeError("Expected `Fragment` in options");
+    }
+    const filePath = options.filePath || void 0;
+    let create2;
+    if (options.development) {
+      if (typeof options.jsxDEV !== "function") {
+        throw new TypeError(
+          "Expected `jsxDEV` in options when `development: true`"
+        );
+      }
+      create2 = developmentCreate(filePath, options.jsxDEV);
+    } else {
+      if (typeof options.jsx !== "function") {
+        throw new TypeError("Expected `jsx` in production options");
+      }
+      if (typeof options.jsxs !== "function") {
+        throw new TypeError("Expected `jsxs` in production options");
+      }
+      create2 = productionCreate(filePath, options.jsx, options.jsxs);
+    }
+    const state = {
+      Fragment: options.Fragment,
+      ancestors: [],
+      components: options.components || {},
+      create: create2,
+      elementAttributeNameCase: options.elementAttributeNameCase || "react",
+      evaluater: options.createEvaluater ? options.createEvaluater() : void 0,
+      filePath,
+      ignoreInvalidStyle: options.ignoreInvalidStyle || false,
+      passKeys: options.passKeys !== false,
+      passNode: options.passNode || false,
+      schema: options.space === "svg" ? svg2 : html2,
+      stylePropertyNameCase: options.stylePropertyNameCase || "dom",
+      tableCellAlignToStyle: options.tableCellAlignToStyle !== false
+    };
+    const result = one(state, tree, void 0);
+    if (result && typeof result !== "string") {
+      return result;
+    }
+    return state.create(
+      tree,
+      state.Fragment,
+      { children: result || void 0 },
+      void 0
+    );
+  }
+  function one(state, node2, key) {
+    if (node2.type === "element") {
+      return element(state, node2, key);
+    }
+    if (node2.type === "mdxFlowExpression" || node2.type === "mdxTextExpression") {
+      return mdxExpression(state, node2);
+    }
+    if (node2.type === "mdxJsxFlowElement" || node2.type === "mdxJsxTextElement") {
+      return mdxJsxElement(state, node2, key);
+    }
+    if (node2.type === "mdxjsEsm") {
+      return mdxEsm(state, node2);
+    }
+    if (node2.type === "root") {
+      return root(state, node2, key);
+    }
+    if (node2.type === "text") {
+      return text(state, node2);
+    }
+  }
+  function element(state, node2, key) {
+    const parentSchema = state.schema;
+    let schema = parentSchema;
+    if (node2.tagName.toLowerCase() === "svg" && parentSchema.space === "html") {
+      schema = svg2;
+      state.schema = schema;
+    }
+    state.ancestors.push(node2);
+    const type = findComponentFromName(state, node2.tagName, false);
+    const props = createElementProps(state, node2);
+    let children = createChildren(state, node2);
+    if (tableElements.has(node2.tagName)) {
+      children = children.filter(function(child) {
+        return typeof child === "string" ? !whitespace(child) : true;
+      });
+    }
+    addNode(state, props, type, node2);
+    addChildren(props, children);
+    state.ancestors.pop();
+    state.schema = parentSchema;
+    return state.create(node2, type, props, key);
+  }
+  function mdxExpression(state, node2) {
+    if (node2.data && node2.data.estree && state.evaluater) {
+      const program = node2.data.estree;
+      const expression = program.body[0];
+      ok(expression.type === "ExpressionStatement");
+      return (
+        /** @type {Child | undefined} */
+        state.evaluater.evaluateExpression(expression.expression)
+      );
+    }
+    crashEstree(state, node2.position);
+  }
+  function mdxEsm(state, node2) {
+    if (node2.data && node2.data.estree && state.evaluater) {
+      return (
+        /** @type {Child | undefined} */
+        state.evaluater.evaluateProgram(node2.data.estree)
+      );
+    }
+    crashEstree(state, node2.position);
+  }
+  function mdxJsxElement(state, node2, key) {
+    const parentSchema = state.schema;
+    let schema = parentSchema;
+    if (node2.name === "svg" && parentSchema.space === "html") {
+      schema = svg2;
+      state.schema = schema;
+    }
+    state.ancestors.push(node2);
+    const type = node2.name === null ? state.Fragment : findComponentFromName(state, node2.name, true);
+    const props = createJsxElementProps(state, node2);
+    const children = createChildren(state, node2);
+    addNode(state, props, type, node2);
+    addChildren(props, children);
+    state.ancestors.pop();
+    state.schema = parentSchema;
+    return state.create(node2, type, props, key);
+  }
+  function root(state, node2, key) {
+    const props = {};
+    addChildren(props, createChildren(state, node2));
+    return state.create(node2, state.Fragment, props, key);
+  }
+  function text(_, node2) {
+    return node2.value;
+  }
+  function addNode(state, props, type, node2) {
+    if (typeof type !== "string" && type !== state.Fragment && state.passNode) {
+      props.node = node2;
+    }
+  }
+  function addChildren(props, children) {
+    if (children.length > 0) {
+      const value = children.length > 1 ? children : children[0];
+      if (value) {
+        props.children = value;
+      }
+    }
+  }
+  function productionCreate(_, jsx10, jsxs8) {
+    return create2;
+    function create2(_2, type, props, key) {
+      const isStaticChildren = Array.isArray(props.children);
+      const fn = isStaticChildren ? jsxs8 : jsx10;
+      return key ? fn(type, props, key) : fn(type, props);
+    }
+  }
+  function developmentCreate(filePath, jsxDEV) {
+    return create2;
+    function create2(node2, type, props, key) {
+      const isStaticChildren = Array.isArray(props.children);
+      const point4 = pointStart(node2);
+      return jsxDEV(
+        type,
+        props,
+        key,
+        isStaticChildren,
+        {
+          columnNumber: point4 ? point4.column - 1 : void 0,
+          fileName: filePath,
+          lineNumber: point4 ? point4.line : void 0
+        },
+        void 0
+      );
+    }
+  }
+  function createElementProps(state, node2) {
+    const props = {};
+    let alignValue;
+    let prop;
+    for (prop in node2.properties) {
+      if (prop !== "children" && own.call(node2.properties, prop)) {
+        const result = createProperty(state, prop, node2.properties[prop]);
+        if (result) {
+          const [key, value] = result;
+          if (state.tableCellAlignToStyle && key === "align" && typeof value === "string" && tableCellElement.has(node2.tagName)) {
+            alignValue = value;
+          } else {
+            props[key] = value;
+          }
+        }
+      }
+    }
+    if (alignValue) {
+      const style = (
+        /** @type {Style} */
+        props.style || (props.style = {})
+      );
+      style[state.stylePropertyNameCase === "css" ? "text-align" : "textAlign"] = alignValue;
+    }
+    return props;
+  }
+  function createJsxElementProps(state, node2) {
+    const props = {};
+    for (const attribute of node2.attributes) {
+      if (attribute.type === "mdxJsxExpressionAttribute") {
+        if (attribute.data && attribute.data.estree && state.evaluater) {
+          const program = attribute.data.estree;
+          const expression = program.body[0];
+          ok(expression.type === "ExpressionStatement");
+          const objectExpression = expression.expression;
+          ok(objectExpression.type === "ObjectExpression");
+          const property = objectExpression.properties[0];
+          ok(property.type === "SpreadElement");
+          Object.assign(
+            props,
+            state.evaluater.evaluateExpression(property.argument)
+          );
+        } else {
+          crashEstree(state, node2.position);
+        }
+      } else {
+        const name2 = attribute.name;
+        let value;
+        if (attribute.value && typeof attribute.value === "object") {
+          if (attribute.value.data && attribute.value.data.estree && state.evaluater) {
+            const program = attribute.value.data.estree;
+            const expression = program.body[0];
+            ok(expression.type === "ExpressionStatement");
+            value = state.evaluater.evaluateExpression(expression.expression);
+          } else {
+            crashEstree(state, node2.position);
+          }
+        } else {
+          value = attribute.value === null ? true : attribute.value;
+        }
+        props[name2] = /** @type {Props[keyof Props]} */
+        value;
+      }
+    }
+    return props;
+  }
+  function createChildren(state, node2) {
+    const children = [];
+    let index2 = -1;
+    const countsByName = state.passKeys ? /* @__PURE__ */ new Map() : emptyMap;
+    while (++index2 < node2.children.length) {
+      const child = node2.children[index2];
+      let key;
+      if (state.passKeys) {
+        const name2 = child.type === "element" ? child.tagName : child.type === "mdxJsxFlowElement" || child.type === "mdxJsxTextElement" ? child.name : void 0;
+        if (name2) {
+          const count = countsByName.get(name2) || 0;
+          key = name2 + "-" + count;
+          countsByName.set(name2, count + 1);
+        }
+      }
+      const result = one(state, child, key);
+      if (result !== void 0) children.push(result);
+    }
+    return children;
+  }
+  function createProperty(state, prop, value) {
+    const info = find(state.schema, prop);
+    if (value === null || value === void 0 || typeof value === "number" && Number.isNaN(value)) {
+      return;
+    }
+    if (Array.isArray(value)) {
+      value = info.commaSeparated ? stringify(value) : stringify2(value);
+    }
+    if (info.property === "style") {
+      let styleObject = typeof value === "object" ? value : parseStyle(state, String(value));
+      if (state.stylePropertyNameCase === "css") {
+        styleObject = transformStylesToCssCasing(styleObject);
+      }
+      return ["style", styleObject];
+    }
+    return [
+      state.elementAttributeNameCase === "react" && info.space ? hastToReact[info.property] || info.property : info.attribute,
+      value
+    ];
+  }
+  function parseStyle(state, value) {
+    try {
+      return (0, import_style_to_js.default)(value, { reactCompat: true });
+    } catch (error) {
+      if (state.ignoreInvalidStyle) {
+        return {};
+      }
+      const cause = (
+        /** @type {Error} */
+        error
+      );
+      const message = new VFileMessage("Cannot parse `style` attribute", {
+        ancestors: state.ancestors,
+        cause,
+        ruleId: "style",
+        source: "hast-util-to-jsx-runtime"
+      });
+      message.file = state.filePath || void 0;
+      message.url = docs + "#cannot-parse-style-attribute";
+      throw message;
+    }
+  }
+  function findComponentFromName(state, name2, allowExpression) {
+    let result;
+    if (!allowExpression) {
+      result = { type: "Literal", value: name2 };
+    } else if (name2.includes(".")) {
+      const identifiers = name2.split(".");
+      let index2 = -1;
+      let node2;
+      while (++index2 < identifiers.length) {
+        const prop = name(identifiers[index2]) ? { type: "Identifier", name: identifiers[index2] } : { type: "Literal", value: identifiers[index2] };
+        node2 = node2 ? {
+          type: "MemberExpression",
+          object: node2,
+          property: prop,
+          computed: Boolean(index2 && prop.type === "Literal"),
+          optional: false
+        } : prop;
+      }
+      ok(node2, "always a result");
+      result = node2;
+    } else {
+      result = name(name2) && !/^[a-z]/.test(name2) ? { type: "Identifier", name: name2 } : { type: "Literal", value: name2 };
+    }
+    if (result.type === "Literal") {
+      const name3 = (
+        /** @type {string | number} */
+        result.value
+      );
+      return own.call(state.components, name3) ? state.components[name3] : name3;
+    }
+    if (state.evaluater) {
+      return state.evaluater.evaluateExpression(result);
+    }
+    crashEstree(state);
+  }
+  function crashEstree(state, place) {
+    const message = new VFileMessage(
+      "Cannot handle MDX estrees without `createEvaluater`",
+      {
+        ancestors: state.ancestors,
+        place,
+        ruleId: "mdx-estree",
+        source: "hast-util-to-jsx-runtime"
+      }
+    );
+    message.file = state.filePath || void 0;
+    message.url = docs + "#cannot-handle-mdx-estrees-without-createevaluater";
+    throw message;
+  }
+  function transformStylesToCssCasing(domCasing) {
+    const cssCasing = {};
+    let from;
+    for (from in domCasing) {
+      if (own.call(domCasing, from)) {
+        cssCasing[transformStyleToCssCasing(from)] = domCasing[from];
+      }
+    }
+    return cssCasing;
+  }
+  function transformStyleToCssCasing(from) {
+    let to = from.replace(cap2, toDash);
+    if (to.slice(0, 3) === "ms-") to = "-" + to;
+    return to;
+  }
+  function toDash($0) {
+    return "-" + $0.toLowerCase();
+  }
+  var import_style_to_js, own, emptyMap, cap2, tableElements, tableCellElement, docs;
+  var init_lib6 = __esm({
+    "node_modules/hast-util-to-jsx-runtime/lib/index.js"() {
+      init_comma_separated_tokens();
+      init_default();
+      init_estree_util_is_identifier_name();
+      init_hast_util_whitespace();
+      init_property_information();
+      init_space_separated_tokens();
+      import_style_to_js = __toESM(require_cjs3(), 1);
+      init_unist_util_position();
+      init_vfile_message();
+      own = {}.hasOwnProperty;
+      emptyMap = /* @__PURE__ */ new Map();
+      cap2 = /[A-Z]/g;
+      tableElements = /* @__PURE__ */ new Set(["table", "tbody", "thead", "tfoot", "tr"]);
+      tableCellElement = /* @__PURE__ */ new Set(["td", "th"]);
+      docs = "https://github.com/syntax-tree/hast-util-to-jsx-runtime";
+    }
+  });
+
+  // node_modules/hast-util-to-jsx-runtime/index.js
+  var init_hast_util_to_jsx_runtime = __esm({
+    "node_modules/hast-util-to-jsx-runtime/index.js"() {
+      init_lib6();
+    }
+  });
+
+  // node_modules/html-url-attributes/lib/index.js
+  var urlAttributes;
+  var init_lib7 = __esm({
+    "node_modules/html-url-attributes/lib/index.js"() {
+      urlAttributes = {
+        action: ["form"],
+        cite: ["blockquote", "del", "ins", "q"],
+        data: ["object"],
+        formAction: ["button", "input"],
+        href: ["a", "area", "base", "link"],
+        icon: ["menuitem"],
+        itemId: null,
+        manifest: ["html"],
+        ping: ["a", "area"],
+        poster: ["video"],
+        src: [
+          "audio",
+          "embed",
+          "iframe",
+          "img",
+          "input",
+          "script",
+          "source",
+          "track",
+          "video"
+        ]
+      };
+    }
+  });
+
+  // node_modules/html-url-attributes/index.js
+  var init_html_url_attributes = __esm({
+    "node_modules/html-url-attributes/index.js"() {
+      init_lib7();
+    }
+  });
+
+  // node_modules/mdast-util-to-string/lib/index.js
+  function toString(value, options) {
+    const settings = options || emptyOptions2;
+    const includeImageAlt = typeof settings.includeImageAlt === "boolean" ? settings.includeImageAlt : true;
+    const includeHtml = typeof settings.includeHtml === "boolean" ? settings.includeHtml : true;
+    return one2(value, includeImageAlt, includeHtml);
+  }
+  function one2(value, includeImageAlt, includeHtml) {
+    if (node(value)) {
+      if ("value" in value) {
+        return value.type === "html" && !includeHtml ? "" : value.value;
+      }
+      if (includeImageAlt && "alt" in value && value.alt) {
+        return value.alt;
+      }
+      if ("children" in value) {
+        return all(value.children, includeImageAlt, includeHtml);
+      }
+    }
+    if (Array.isArray(value)) {
+      return all(value, includeImageAlt, includeHtml);
+    }
+    return "";
+  }
+  function all(values, includeImageAlt, includeHtml) {
+    const result = [];
+    let index2 = -1;
+    while (++index2 < values.length) {
+      result[index2] = one2(values[index2], includeImageAlt, includeHtml);
+    }
+    return result.join("");
+  }
+  function node(value) {
+    return Boolean(value && typeof value === "object");
+  }
+  var emptyOptions2;
+  var init_lib8 = __esm({
+    "node_modules/mdast-util-to-string/lib/index.js"() {
+      emptyOptions2 = {};
+    }
+  });
+
+  // node_modules/mdast-util-to-string/index.js
+  var init_mdast_util_to_string = __esm({
+    "node_modules/mdast-util-to-string/index.js"() {
+      init_lib8();
+    }
+  });
+
+  // node_modules/decode-named-character-reference/index.dom.js
+  function decodeNamedCharacterReference(value) {
+    const characterReference2 = "&" + value + ";";
+    element2.innerHTML = characterReference2;
+    const character = element2.textContent;
+    if (character.charCodeAt(character.length - 1) === 59 && value !== "semi") {
+      return false;
+    }
+    return character === characterReference2 ? false : character;
+  }
+  var element2;
+  var init_index_dom = __esm({
+    "node_modules/decode-named-character-reference/index.dom.js"() {
+      element2 = document.createElement("i");
+    }
+  });
+
+  // node_modules/micromark-util-chunked/index.js
+  function splice(list4, start2, remove, items) {
+    const end = list4.length;
+    let chunkStart = 0;
+    let parameters;
+    if (start2 < 0) {
+      start2 = -start2 > end ? 0 : end + start2;
+    } else {
+      start2 = start2 > end ? end : start2;
+    }
+    remove = remove > 0 ? remove : 0;
+    if (items.length < 1e4) {
+      parameters = Array.from(items);
+      parameters.unshift(start2, remove);
+      list4.splice(...parameters);
+    } else {
+      if (remove) list4.splice(start2, remove);
+      while (chunkStart < items.length) {
+        parameters = items.slice(chunkStart, chunkStart + 1e4);
+        parameters.unshift(start2, 0);
+        list4.splice(...parameters);
+        chunkStart += 1e4;
+        start2 += 1e4;
+      }
+    }
+  }
+  function push(list4, items) {
+    if (list4.length > 0) {
+      splice(list4, list4.length, 0, items);
+      return list4;
+    }
+    return items;
+  }
+  var init_micromark_util_chunked = __esm({
+    "node_modules/micromark-util-chunked/index.js"() {
+    }
+  });
+
+  // node_modules/micromark-util-combine-extensions/index.js
+  function combineExtensions(extensions) {
+    const all2 = {};
+    let index2 = -1;
+    while (++index2 < extensions.length) {
+      syntaxExtension(all2, extensions[index2]);
+    }
+    return all2;
+  }
+  function syntaxExtension(all2, extension2) {
+    let hook;
+    for (hook in extension2) {
+      const maybe = hasOwnProperty.call(all2, hook) ? all2[hook] : void 0;
+      const left = maybe || (all2[hook] = {});
+      const right = extension2[hook];
+      let code4;
+      if (right) {
+        for (code4 in right) {
+          if (!hasOwnProperty.call(left, code4)) left[code4] = [];
+          const value = right[code4];
+          constructs(
+            // @ts-expect-error Looks like a list.
+            left[code4],
+            Array.isArray(value) ? value : value ? [value] : []
+          );
+        }
+      }
+    }
+  }
+  function constructs(existing, list4) {
+    let index2 = -1;
+    const before = [];
+    while (++index2 < list4.length) {
+      ;
+      (list4[index2].add === "after" ? existing : before).push(list4[index2]);
+    }
+    splice(existing, 0, 0, before);
+  }
+  var hasOwnProperty;
+  var init_micromark_util_combine_extensions = __esm({
+    "node_modules/micromark-util-combine-extensions/index.js"() {
+      init_micromark_util_chunked();
+      hasOwnProperty = {}.hasOwnProperty;
+    }
+  });
+
+  // node_modules/micromark-util-decode-numeric-character-reference/index.js
+  function decodeNumericCharacterReference(value, base) {
+    const code4 = Number.parseInt(value, base);
+    if (
+      // C0 except for HT, LF, FF, CR, space.
+      code4 < 9 || code4 === 11 || code4 > 13 && code4 < 32 || // Control character (DEL) of C0, and C1 controls.
+      code4 > 126 && code4 < 160 || // Lone high surrogates and low surrogates.
+      code4 > 55295 && code4 < 57344 || // Noncharacters.
+      code4 > 64975 && code4 < 65008 || /* eslint-disable no-bitwise */
+      (code4 & 65535) === 65535 || (code4 & 65535) === 65534 || /* eslint-enable no-bitwise */
+      // Out of range
+      code4 > 1114111
+    ) {
+      return "\uFFFD";
+    }
+    return String.fromCodePoint(code4);
+  }
+  var init_micromark_util_decode_numeric_character_reference = __esm({
+    "node_modules/micromark-util-decode-numeric-character-reference/index.js"() {
+    }
+  });
+
+  // node_modules/micromark-util-normalize-identifier/index.js
+  function normalizeIdentifier(value) {
+    return value.replace(/[\t\n\r ]+/g, " ").replace(/^ | $/g, "").toLowerCase().toUpperCase();
+  }
+  var init_micromark_util_normalize_identifier = __esm({
+    "node_modules/micromark-util-normalize-identifier/index.js"() {
+    }
+  });
+
+  // node_modules/micromark-util-character/index.js
+  function asciiControl(code4) {
+    return (
+      // Special whitespace codes (which have negative values), C0 and Control
+      // character DEL
+      code4 !== null && (code4 < 32 || code4 === 127)
+    );
+  }
+  function markdownLineEnding(code4) {
+    return code4 !== null && code4 < -2;
+  }
+  function markdownLineEndingOrSpace(code4) {
+    return code4 !== null && (code4 < 0 || code4 === 32);
+  }
+  function markdownSpace(code4) {
+    return code4 === -2 || code4 === -1 || code4 === 32;
+  }
+  function regexCheck(regex) {
+    return check;
+    function check(code4) {
+      return code4 !== null && code4 > -1 && regex.test(String.fromCharCode(code4));
+    }
+  }
+  var asciiAlpha, asciiAlphanumeric, asciiAtext, asciiDigit, asciiHexDigit, asciiPunctuation, unicodePunctuation, unicodeWhitespace;
+  var init_micromark_util_character = __esm({
+    "node_modules/micromark-util-character/index.js"() {
+      asciiAlpha = regexCheck(/[A-Za-z]/);
+      asciiAlphanumeric = regexCheck(/[\dA-Za-z]/);
+      asciiAtext = regexCheck(/[#-'*+\--9=?A-Z^-~]/);
+      asciiDigit = regexCheck(/\d/);
+      asciiHexDigit = regexCheck(/[\dA-Fa-f]/);
+      asciiPunctuation = regexCheck(/[!-/:-@[-`{-~]/);
+      unicodePunctuation = regexCheck(/\p{P}|\p{S}/u);
+      unicodeWhitespace = regexCheck(/\s/);
+    }
+  });
+
+  // node_modules/micromark-util-sanitize-uri/index.js
+  function normalizeUri(value) {
+    const result = [];
+    let index2 = -1;
+    let start2 = 0;
+    let skip = 0;
+    while (++index2 < value.length) {
+      const code4 = value.charCodeAt(index2);
+      let replace2 = "";
+      if (code4 === 37 && asciiAlphanumeric(value.charCodeAt(index2 + 1)) && asciiAlphanumeric(value.charCodeAt(index2 + 2))) {
+        skip = 2;
+      } else if (code4 < 128) {
+        if (!/[!#$&-;=?-Z_a-z~]/.test(String.fromCharCode(code4))) {
+          replace2 = String.fromCharCode(code4);
+        }
+      } else if (code4 > 55295 && code4 < 57344) {
+        const next = value.charCodeAt(index2 + 1);
+        if (code4 < 56320 && next > 56319 && next < 57344) {
+          replace2 = String.fromCharCode(code4, next);
+          skip = 1;
+        } else {
+          replace2 = "\uFFFD";
+        }
+      } else {
+        replace2 = String.fromCharCode(code4);
+      }
+      if (replace2) {
+        result.push(value.slice(start2, index2), encodeURIComponent(replace2));
+        start2 = index2 + skip + 1;
+        replace2 = "";
+      }
+      if (skip) {
+        index2 += skip;
+        skip = 0;
+      }
+    }
+    return result.join("") + value.slice(start2);
+  }
+  var init_micromark_util_sanitize_uri = __esm({
+    "node_modules/micromark-util-sanitize-uri/index.js"() {
+      init_micromark_util_character();
+    }
+  });
+
+  // node_modules/micromark-factory-space/index.js
+  function factorySpace(effects, ok3, type, max) {
+    const limit = max ? max - 1 : Number.POSITIVE_INFINITY;
+    let size = 0;
+    return start2;
+    function start2(code4) {
+      if (markdownSpace(code4)) {
+        effects.enter(type);
+        return prefix(code4);
+      }
+      return ok3(code4);
+    }
+    function prefix(code4) {
+      if (markdownSpace(code4) && size++ < limit) {
+        effects.consume(code4);
+        return prefix;
+      }
+      effects.exit(type);
+      return ok3(code4);
+    }
+  }
+  var init_micromark_factory_space = __esm({
+    "node_modules/micromark-factory-space/index.js"() {
+      init_micromark_util_character();
+    }
+  });
+
+  // node_modules/micromark/lib/initialize/content.js
+  function initializeContent(effects) {
+    const contentStart = effects.attempt(this.parser.constructs.contentInitial, afterContentStartConstruct, paragraphInitial);
+    let previous3;
+    return contentStart;
+    function afterContentStartConstruct(code4) {
+      if (code4 === null) {
+        effects.consume(code4);
+        return;
+      }
+      effects.enter("lineEnding");
+      effects.consume(code4);
+      effects.exit("lineEnding");
+      return factorySpace(effects, contentStart, "linePrefix");
+    }
+    function paragraphInitial(code4) {
+      effects.enter("paragraph");
+      return lineStart(code4);
+    }
+    function lineStart(code4) {
+      const token = effects.enter("chunkText", {
+        contentType: "text",
+        previous: previous3
+      });
+      if (previous3) {
+        previous3.next = token;
+      }
+      previous3 = token;
+      return data(code4);
+    }
+    function data(code4) {
+      if (code4 === null) {
+        effects.exit("chunkText");
+        effects.exit("paragraph");
+        effects.consume(code4);
+        return;
+      }
+      if (markdownLineEnding(code4)) {
+        effects.consume(code4);
+        effects.exit("chunkText");
+        return lineStart;
+      }
+      effects.consume(code4);
+      return data;
+    }
+  }
+  var content;
+  var init_content = __esm({
+    "node_modules/micromark/lib/initialize/content.js"() {
+      init_micromark_factory_space();
+      init_micromark_util_character();
+      content = {
+        tokenize: initializeContent
+      };
+    }
+  });
+
+  // node_modules/micromark/lib/initialize/document.js
+  function initializeDocument(effects) {
+    const self2 = this;
+    const stack = [];
+    let continued = 0;
+    let childFlow;
+    let childToken;
+    let lineStartOffset;
+    return start2;
+    function start2(code4) {
+      if (continued < stack.length) {
+        const item = stack[continued];
+        self2.containerState = item[1];
+        return effects.attempt(item[0].continuation, documentContinue, checkNewContainers)(code4);
+      }
+      return checkNewContainers(code4);
+    }
+    function documentContinue(code4) {
+      continued++;
+      if (self2.containerState._closeFlow) {
+        self2.containerState._closeFlow = void 0;
+        if (childFlow) {
+          closeFlow();
+        }
+        const indexBeforeExits = self2.events.length;
+        let indexBeforeFlow = indexBeforeExits;
+        let point4;
+        while (indexBeforeFlow--) {
+          if (self2.events[indexBeforeFlow][0] === "exit" && self2.events[indexBeforeFlow][1].type === "chunkFlow") {
+            point4 = self2.events[indexBeforeFlow][1].end;
+            break;
+          }
+        }
+        exitContainers(continued);
+        let index2 = indexBeforeExits;
+        while (index2 < self2.events.length) {
+          self2.events[index2][1].end = {
+            ...point4
+          };
+          index2++;
+        }
+        splice(self2.events, indexBeforeFlow + 1, 0, self2.events.slice(indexBeforeExits));
+        self2.events.length = index2;
+        return checkNewContainers(code4);
+      }
+      return start2(code4);
+    }
+    function checkNewContainers(code4) {
+      if (continued === stack.length) {
+        if (!childFlow) {
+          return documentContinued(code4);
+        }
+        if (childFlow.currentConstruct && childFlow.currentConstruct.concrete) {
+          return flowStart(code4);
+        }
+        self2.interrupt = Boolean(childFlow.currentConstruct && !childFlow._gfmTableDynamicInterruptHack);
+      }
+      self2.containerState = {};
+      return effects.check(containerConstruct, thereIsANewContainer, thereIsNoNewContainer)(code4);
+    }
+    function thereIsANewContainer(code4) {
+      if (childFlow) closeFlow();
+      exitContainers(continued);
+      return documentContinued(code4);
+    }
+    function thereIsNoNewContainer(code4) {
+      self2.parser.lazy[self2.now().line] = continued !== stack.length;
+      lineStartOffset = self2.now().offset;
+      return flowStart(code4);
+    }
+    function documentContinued(code4) {
+      self2.containerState = {};
+      return effects.attempt(containerConstruct, containerContinue, flowStart)(code4);
+    }
+    function containerContinue(code4) {
+      continued++;
+      stack.push([self2.currentConstruct, self2.containerState]);
+      return documentContinued(code4);
+    }
+    function flowStart(code4) {
+      if (code4 === null) {
+        if (childFlow) closeFlow();
+        exitContainers(0);
+        effects.consume(code4);
+        return;
+      }
+      childFlow = childFlow || self2.parser.flow(self2.now());
+      effects.enter("chunkFlow", {
+        _tokenizer: childFlow,
+        contentType: "flow",
+        previous: childToken
+      });
+      return flowContinue(code4);
+    }
+    function flowContinue(code4) {
+      if (code4 === null) {
+        writeToChild(effects.exit("chunkFlow"), true);
+        exitContainers(0);
+        effects.consume(code4);
+        return;
+      }
+      if (markdownLineEnding(code4)) {
+        effects.consume(code4);
+        writeToChild(effects.exit("chunkFlow"));
+        continued = 0;
+        self2.interrupt = void 0;
+        return start2;
+      }
+      effects.consume(code4);
+      return flowContinue;
+    }
+    function writeToChild(token, endOfFile) {
+      const stream = self2.sliceStream(token);
+      if (endOfFile) stream.push(null);
+      token.previous = childToken;
+      if (childToken) childToken.next = token;
+      childToken = token;
+      childFlow.defineSkip(token.start);
+      childFlow.write(stream);
+      if (self2.parser.lazy[token.start.line]) {
+        let index2 = childFlow.events.length;
+        while (index2--) {
+          if (
+            // The token starts before the line ending…
+            childFlow.events[index2][1].start.offset < lineStartOffset && // …and either is not ended yet…
+            (!childFlow.events[index2][1].end || // …or ends after it.
+            childFlow.events[index2][1].end.offset > lineStartOffset)
+          ) {
+            return;
+          }
+        }
+        const indexBeforeExits = self2.events.length;
+        let indexBeforeFlow = indexBeforeExits;
+        let seen;
+        let point4;
+        while (indexBeforeFlow--) {
+          if (self2.events[indexBeforeFlow][0] === "exit" && self2.events[indexBeforeFlow][1].type === "chunkFlow") {
+            if (seen) {
+              point4 = self2.events[indexBeforeFlow][1].end;
+              break;
+            }
+            seen = true;
+          }
+        }
+        exitContainers(continued);
+        index2 = indexBeforeExits;
+        while (index2 < self2.events.length) {
+          self2.events[index2][1].end = {
+            ...point4
+          };
+          index2++;
+        }
+        splice(self2.events, indexBeforeFlow + 1, 0, self2.events.slice(indexBeforeExits));
+        self2.events.length = index2;
+      }
+    }
+    function exitContainers(size) {
+      let index2 = stack.length;
+      while (index2-- > size) {
+        const entry = stack[index2];
+        self2.containerState = entry[1];
+        entry[0].exit.call(self2, effects);
+      }
+      stack.length = size;
+    }
+    function closeFlow() {
+      childFlow.write([null]);
+      childToken = void 0;
+      childFlow = void 0;
+      self2.containerState._closeFlow = void 0;
+    }
+  }
+  function tokenizeContainer(effects, ok3, nok) {
+    return factorySpace(effects, effects.attempt(this.parser.constructs.document, ok3, nok), "linePrefix", this.parser.constructs.disable.null.includes("codeIndented") ? void 0 : 4);
+  }
+  var document2, containerConstruct;
+  var init_document = __esm({
+    "node_modules/micromark/lib/initialize/document.js"() {
+      init_micromark_factory_space();
+      init_micromark_util_character();
+      init_micromark_util_chunked();
+      document2 = {
+        tokenize: initializeDocument
+      };
+      containerConstruct = {
+        tokenize: tokenizeContainer
+      };
+    }
+  });
+
+  // node_modules/micromark-util-classify-character/index.js
+  function classifyCharacter(code4) {
+    if (code4 === null || markdownLineEndingOrSpace(code4) || unicodeWhitespace(code4)) {
+      return 1;
+    }
+    if (unicodePunctuation(code4)) {
+      return 2;
+    }
+  }
+  var init_micromark_util_classify_character = __esm({
+    "node_modules/micromark-util-classify-character/index.js"() {
+      init_micromark_util_character();
+    }
+  });
+
+  // node_modules/micromark-util-resolve-all/index.js
+  function resolveAll(constructs2, events, context) {
+    const called = [];
+    let index2 = -1;
+    while (++index2 < constructs2.length) {
+      const resolve = constructs2[index2].resolveAll;
+      if (resolve && !called.includes(resolve)) {
+        events = resolve(events, context);
+        called.push(resolve);
+      }
+    }
+    return events;
+  }
+  var init_micromark_util_resolve_all = __esm({
+    "node_modules/micromark-util-resolve-all/index.js"() {
+    }
+  });
+
+  // node_modules/micromark-core-commonmark/lib/attention.js
+  function resolveAllAttention(events, context) {
+    let index2 = -1;
+    let open;
+    let group;
+    let text7;
+    let openingSequence;
+    let closingSequence;
+    let use;
+    let nextEvents;
+    let offset;
+    while (++index2 < events.length) {
+      if (events[index2][0] === "enter" && events[index2][1].type === "attentionSequence" && events[index2][1]._close) {
+        open = index2;
+        while (open--) {
+          if (events[open][0] === "exit" && events[open][1].type === "attentionSequence" && events[open][1]._open && // If the markers are the same:
+          context.sliceSerialize(events[open][1]).charCodeAt(0) === context.sliceSerialize(events[index2][1]).charCodeAt(0)) {
+            if ((events[open][1]._close || events[index2][1]._open) && (events[index2][1].end.offset - events[index2][1].start.offset) % 3 && !((events[open][1].end.offset - events[open][1].start.offset + events[index2][1].end.offset - events[index2][1].start.offset) % 3)) {
+              continue;
+            }
+            use = events[open][1].end.offset - events[open][1].start.offset > 1 && events[index2][1].end.offset - events[index2][1].start.offset > 1 ? 2 : 1;
+            const start2 = {
+              ...events[open][1].end
+            };
+            const end = {
+              ...events[index2][1].start
+            };
+            movePoint(start2, -use);
+            movePoint(end, use);
+            openingSequence = {
+              type: use > 1 ? "strongSequence" : "emphasisSequence",
+              start: start2,
+              end: {
+                ...events[open][1].end
+              }
+            };
+            closingSequence = {
+              type: use > 1 ? "strongSequence" : "emphasisSequence",
+              start: {
+                ...events[index2][1].start
+              },
+              end
+            };
+            text7 = {
+              type: use > 1 ? "strongText" : "emphasisText",
+              start: {
+                ...events[open][1].end
+              },
+              end: {
+                ...events[index2][1].start
+              }
+            };
+            group = {
+              type: use > 1 ? "strong" : "emphasis",
+              start: {
+                ...openingSequence.start
+              },
+              end: {
+                ...closingSequence.end
+              }
+            };
+            events[open][1].end = {
+              ...openingSequence.start
+            };
+            events[index2][1].start = {
+              ...closingSequence.end
+            };
+            nextEvents = [];
+            if (events[open][1].end.offset - events[open][1].start.offset) {
+              nextEvents = push(nextEvents, [["enter", events[open][1], context], ["exit", events[open][1], context]]);
+            }
+            nextEvents = push(nextEvents, [["enter", group, context], ["enter", openingSequence, context], ["exit", openingSequence, context], ["enter", text7, context]]);
+            nextEvents = push(nextEvents, resolveAll(context.parser.constructs.insideSpan.null, events.slice(open + 1, index2), context));
+            nextEvents = push(nextEvents, [["exit", text7, context], ["enter", closingSequence, context], ["exit", closingSequence, context], ["exit", group, context]]);
+            if (events[index2][1].end.offset - events[index2][1].start.offset) {
+              offset = 2;
+              nextEvents = push(nextEvents, [["enter", events[index2][1], context], ["exit", events[index2][1], context]]);
+            } else {
+              offset = 0;
+            }
+            splice(events, open - 1, index2 - open + 3, nextEvents);
+            index2 = open + nextEvents.length - offset - 2;
+            break;
+          }
+        }
+      }
+    }
+    index2 = -1;
+    while (++index2 < events.length) {
+      if (events[index2][1].type === "attentionSequence") {
+        events[index2][1].type = "data";
+      }
+    }
+    return events;
+  }
+  function tokenizeAttention(effects, ok3) {
+    const attentionMarkers2 = this.parser.constructs.attentionMarkers.null;
+    const previous3 = this.previous;
+    const before = classifyCharacter(previous3);
+    let marker;
+    return start2;
+    function start2(code4) {
+      marker = code4;
+      effects.enter("attentionSequence");
+      return inside(code4);
+    }
+    function inside(code4) {
+      if (code4 === marker) {
+        effects.consume(code4);
+        return inside;
+      }
+      const token = effects.exit("attentionSequence");
+      const after = classifyCharacter(code4);
+      const open = !after || after === 2 && before || attentionMarkers2.includes(code4);
+      const close = !before || before === 2 && after || attentionMarkers2.includes(previous3);
+      token._open = Boolean(marker === 42 ? open : open && (before || !close));
+      token._close = Boolean(marker === 42 ? close : close && (after || !open));
+      return ok3(code4);
+    }
+  }
+  function movePoint(point4, offset) {
+    point4.column += offset;
+    point4.offset += offset;
+    point4._bufferIndex += offset;
+  }
+  var attention;
+  var init_attention = __esm({
+    "node_modules/micromark-core-commonmark/lib/attention.js"() {
+      init_micromark_util_chunked();
+      init_micromark_util_classify_character();
+      init_micromark_util_resolve_all();
+      attention = {
+        name: "attention",
+        resolveAll: resolveAllAttention,
+        tokenize: tokenizeAttention
+      };
+    }
+  });
+
+  // node_modules/micromark-core-commonmark/lib/autolink.js
+  function tokenizeAutolink(effects, ok3, nok) {
+    let size = 0;
+    return start2;
+    function start2(code4) {
+      effects.enter("autolink");
+      effects.enter("autolinkMarker");
+      effects.consume(code4);
+      effects.exit("autolinkMarker");
+      effects.enter("autolinkProtocol");
+      return open;
+    }
+    function open(code4) {
+      if (asciiAlpha(code4)) {
+        effects.consume(code4);
+        return schemeOrEmailAtext;
+      }
+      if (code4 === 64) {
+        return nok(code4);
+      }
+      return emailAtext(code4);
+    }
+    function schemeOrEmailAtext(code4) {
+      if (code4 === 43 || code4 === 45 || code4 === 46 || asciiAlphanumeric(code4)) {
+        size = 1;
+        return schemeInsideOrEmailAtext(code4);
+      }
+      return emailAtext(code4);
+    }
+    function schemeInsideOrEmailAtext(code4) {
+      if (code4 === 58) {
+        effects.consume(code4);
+        size = 0;
+        return urlInside;
+      }
+      if ((code4 === 43 || code4 === 45 || code4 === 46 || asciiAlphanumeric(code4)) && size++ < 32) {
+        effects.consume(code4);
+        return schemeInsideOrEmailAtext;
+      }
+      size = 0;
+      return emailAtext(code4);
+    }
+    function urlInside(code4) {
+      if (code4 === 62) {
+        effects.exit("autolinkProtocol");
+        effects.enter("autolinkMarker");
+        effects.consume(code4);
+        effects.exit("autolinkMarker");
+        effects.exit("autolink");
+        return ok3;
+      }
+      if (code4 === null || code4 === 32 || code4 === 60 || asciiControl(code4)) {
+        return nok(code4);
+      }
+      effects.consume(code4);
+      return urlInside;
+    }
+    function emailAtext(code4) {
+      if (code4 === 64) {
+        effects.consume(code4);
+        return emailAtSignOrDot;
+      }
+      if (asciiAtext(code4)) {
+        effects.consume(code4);
+        return emailAtext;
+      }
+      return nok(code4);
+    }
+    function emailAtSignOrDot(code4) {
+      return asciiAlphanumeric(code4) ? emailLabel(code4) : nok(code4);
+    }
+    function emailLabel(code4) {
+      if (code4 === 46) {
+        effects.consume(code4);
+        size = 0;
+        return emailAtSignOrDot;
+      }
+      if (code4 === 62) {
+        effects.exit("autolinkProtocol").type = "autolinkEmail";
+        effects.enter("autolinkMarker");
+        effects.consume(code4);
+        effects.exit("autolinkMarker");
+        effects.exit("autolink");
+        return ok3;
+      }
+      return emailValue(code4);
+    }
+    function emailValue(code4) {
+      if ((code4 === 45 || asciiAlphanumeric(code4)) && size++ < 63) {
+        const next = code4 === 45 ? emailValue : emailLabel;
+        effects.consume(code4);
+        return next;
+      }
+      return nok(code4);
+    }
+  }
+  var autolink;
+  var init_autolink = __esm({
+    "node_modules/micromark-core-commonmark/lib/autolink.js"() {
+      init_micromark_util_character();
+      autolink = {
+        name: "autolink",
+        tokenize: tokenizeAutolink
+      };
+    }
+  });
+
+  // node_modules/micromark-core-commonmark/lib/blank-line.js
+  function tokenizeBlankLine(effects, ok3, nok) {
+    return start2;
+    function start2(code4) {
+      return markdownSpace(code4) ? factorySpace(effects, after, "linePrefix")(code4) : after(code4);
+    }
+    function after(code4) {
+      return code4 === null || markdownLineEnding(code4) ? ok3(code4) : nok(code4);
+    }
+  }
+  var blankLine;
+  var init_blank_line = __esm({
+    "node_modules/micromark-core-commonmark/lib/blank-line.js"() {
+      init_micromark_factory_space();
+      init_micromark_util_character();
+      blankLine = {
+        partial: true,
+        tokenize: tokenizeBlankLine
+      };
+    }
+  });
+
+  // node_modules/micromark-core-commonmark/lib/block-quote.js
+  function tokenizeBlockQuoteStart(effects, ok3, nok) {
+    const self2 = this;
+    return start2;
+    function start2(code4) {
+      if (code4 === 62) {
+        const state = self2.containerState;
+        if (!state.open) {
+          effects.enter("blockQuote", {
+            _container: true
+          });
+          state.open = true;
+        }
+        effects.enter("blockQuotePrefix");
+        effects.enter("blockQuoteMarker");
+        effects.consume(code4);
+        effects.exit("blockQuoteMarker");
+        return after;
+      }
+      return nok(code4);
+    }
+    function after(code4) {
+      if (markdownSpace(code4)) {
+        effects.enter("blockQuotePrefixWhitespace");
+        effects.consume(code4);
+        effects.exit("blockQuotePrefixWhitespace");
+        effects.exit("blockQuotePrefix");
+        return ok3;
+      }
+      effects.exit("blockQuotePrefix");
+      return ok3(code4);
+    }
+  }
+  function tokenizeBlockQuoteContinuation(effects, ok3, nok) {
+    const self2 = this;
+    return contStart;
+    function contStart(code4) {
+      if (markdownSpace(code4)) {
+        return factorySpace(effects, contBefore, "linePrefix", self2.parser.constructs.disable.null.includes("codeIndented") ? void 0 : 4)(code4);
+      }
+      return contBefore(code4);
+    }
+    function contBefore(code4) {
+      return effects.attempt(blockQuote, ok3, nok)(code4);
+    }
+  }
+  function exit(effects) {
+    effects.exit("blockQuote");
+  }
+  var blockQuote;
+  var init_block_quote = __esm({
+    "node_modules/micromark-core-commonmark/lib/block-quote.js"() {
+      init_micromark_factory_space();
+      init_micromark_util_character();
+      blockQuote = {
+        continuation: {
+          tokenize: tokenizeBlockQuoteContinuation
+        },
+        exit,
+        name: "blockQuote",
+        tokenize: tokenizeBlockQuoteStart
+      };
+    }
+  });
+
+  // node_modules/micromark-core-commonmark/lib/character-escape.js
+  function tokenizeCharacterEscape(effects, ok3, nok) {
+    return start2;
+    function start2(code4) {
+      effects.enter("characterEscape");
+      effects.enter("escapeMarker");
+      effects.consume(code4);
+      effects.exit("escapeMarker");
+      return inside;
+    }
+    function inside(code4) {
+      if (asciiPunctuation(code4)) {
+        effects.enter("characterEscapeValue");
+        effects.consume(code4);
+        effects.exit("characterEscapeValue");
+        effects.exit("characterEscape");
+        return ok3;
+      }
+      return nok(code4);
+    }
+  }
+  var characterEscape;
+  var init_character_escape = __esm({
+    "node_modules/micromark-core-commonmark/lib/character-escape.js"() {
+      init_micromark_util_character();
+      characterEscape = {
+        name: "characterEscape",
+        tokenize: tokenizeCharacterEscape
+      };
+    }
+  });
+
+  // node_modules/micromark-core-commonmark/lib/character-reference.js
+  function tokenizeCharacterReference(effects, ok3, nok) {
+    const self2 = this;
+    let size = 0;
+    let max;
+    let test;
+    return start2;
+    function start2(code4) {
+      effects.enter("characterReference");
+      effects.enter("characterReferenceMarker");
+      effects.consume(code4);
+      effects.exit("characterReferenceMarker");
+      return open;
+    }
+    function open(code4) {
+      if (code4 === 35) {
+        effects.enter("characterReferenceMarkerNumeric");
+        effects.consume(code4);
+        effects.exit("characterReferenceMarkerNumeric");
+        return numeric;
+      }
+      effects.enter("characterReferenceValue");
+      max = 31;
+      test = asciiAlphanumeric;
+      return value(code4);
+    }
+    function numeric(code4) {
+      if (code4 === 88 || code4 === 120) {
+        effects.enter("characterReferenceMarkerHexadecimal");
+        effects.consume(code4);
+        effects.exit("characterReferenceMarkerHexadecimal");
+        effects.enter("characterReferenceValue");
+        max = 6;
+        test = asciiHexDigit;
+        return value;
+      }
+      effects.enter("characterReferenceValue");
+      max = 7;
+      test = asciiDigit;
+      return value(code4);
+    }
+    function value(code4) {
+      if (code4 === 59 && size) {
+        const token = effects.exit("characterReferenceValue");
+        if (test === asciiAlphanumeric && !decodeNamedCharacterReference(self2.sliceSerialize(token))) {
+          return nok(code4);
+        }
+        effects.enter("characterReferenceMarker");
+        effects.consume(code4);
+        effects.exit("characterReferenceMarker");
+        effects.exit("characterReference");
+        return ok3;
+      }
+      if (test(code4) && size++ < max) {
+        effects.consume(code4);
+        return value;
+      }
+      return nok(code4);
+    }
+  }
+  var characterReference;
+  var init_character_reference = __esm({
+    "node_modules/micromark-core-commonmark/lib/character-reference.js"() {
+      init_index_dom();
+      init_micromark_util_character();
+      characterReference = {
+        name: "characterReference",
+        tokenize: tokenizeCharacterReference
+      };
+    }
+  });
+
+  // node_modules/micromark-core-commonmark/lib/code-fenced.js
+  function tokenizeCodeFenced(effects, ok3, nok) {
+    const self2 = this;
+    const closeStart = {
+      partial: true,
+      tokenize: tokenizeCloseStart
+    };
+    let initialPrefix = 0;
+    let sizeOpen = 0;
+    let marker;
+    return start2;
+    function start2(code4) {
+      return beforeSequenceOpen(code4);
+    }
+    function beforeSequenceOpen(code4) {
+      const tail = self2.events[self2.events.length - 1];
+      initialPrefix = tail && tail[1].type === "linePrefix" ? tail[2].sliceSerialize(tail[1], true).length : 0;
+      marker = code4;
+      effects.enter("codeFenced");
+      effects.enter("codeFencedFence");
+      effects.enter("codeFencedFenceSequence");
+      return sequenceOpen(code4);
+    }
+    function sequenceOpen(code4) {
+      if (code4 === marker) {
+        sizeOpen++;
+        effects.consume(code4);
+        return sequenceOpen;
+      }
+      if (sizeOpen < 3) {
+        return nok(code4);
+      }
+      effects.exit("codeFencedFenceSequence");
+      return markdownSpace(code4) ? factorySpace(effects, infoBefore, "whitespace")(code4) : infoBefore(code4);
+    }
+    function infoBefore(code4) {
+      if (code4 === null || markdownLineEnding(code4)) {
+        effects.exit("codeFencedFence");
+        return self2.interrupt ? ok3(code4) : effects.check(nonLazyContinuation, atNonLazyBreak, after)(code4);
+      }
+      effects.enter("codeFencedFenceInfo");
+      effects.enter("chunkString", {
+        contentType: "string"
+      });
+      return info(code4);
+    }
+    function info(code4) {
+      if (code4 === null || markdownLineEnding(code4)) {
+        effects.exit("chunkString");
+        effects.exit("codeFencedFenceInfo");
+        return infoBefore(code4);
+      }
+      if (markdownSpace(code4)) {
+        effects.exit("chunkString");
+        effects.exit("codeFencedFenceInfo");
+        return factorySpace(effects, metaBefore, "whitespace")(code4);
+      }
+      if (code4 === 96 && code4 === marker) {
+        return nok(code4);
+      }
+      effects.consume(code4);
+      return info;
+    }
+    function metaBefore(code4) {
+      if (code4 === null || markdownLineEnding(code4)) {
+        return infoBefore(code4);
+      }
+      effects.enter("codeFencedFenceMeta");
+      effects.enter("chunkString", {
+        contentType: "string"
+      });
+      return meta(code4);
+    }
+    function meta(code4) {
+      if (code4 === null || markdownLineEnding(code4)) {
+        effects.exit("chunkString");
+        effects.exit("codeFencedFenceMeta");
+        return infoBefore(code4);
+      }
+      if (code4 === 96 && code4 === marker) {
+        return nok(code4);
+      }
+      effects.consume(code4);
+      return meta;
+    }
+    function atNonLazyBreak(code4) {
+      return effects.attempt(closeStart, after, contentBefore)(code4);
+    }
+    function contentBefore(code4) {
+      effects.enter("lineEnding");
+      effects.consume(code4);
+      effects.exit("lineEnding");
+      return contentStart;
+    }
+    function contentStart(code4) {
+      return initialPrefix > 0 && markdownSpace(code4) ? factorySpace(effects, beforeContentChunk, "linePrefix", initialPrefix + 1)(code4) : beforeContentChunk(code4);
+    }
+    function beforeContentChunk(code4) {
+      if (code4 === null || markdownLineEnding(code4)) {
+        return effects.check(nonLazyContinuation, atNonLazyBreak, after)(code4);
+      }
+      effects.enter("codeFlowValue");
+      return contentChunk(code4);
+    }
+    function contentChunk(code4) {
+      if (code4 === null || markdownLineEnding(code4)) {
+        effects.exit("codeFlowValue");
+        return beforeContentChunk(code4);
+      }
+      effects.consume(code4);
+      return contentChunk;
+    }
+    function after(code4) {
+      effects.exit("codeFenced");
+      return ok3(code4);
+    }
+    function tokenizeCloseStart(effects2, ok4, nok2) {
+      let size = 0;
+      return startBefore;
+      function startBefore(code4) {
+        effects2.enter("lineEnding");
+        effects2.consume(code4);
+        effects2.exit("lineEnding");
+        return start3;
+      }
+      function start3(code4) {
+        effects2.enter("codeFencedFence");
+        return markdownSpace(code4) ? factorySpace(effects2, beforeSequenceClose, "linePrefix", self2.parser.constructs.disable.null.includes("codeIndented") ? void 0 : 4)(code4) : beforeSequenceClose(code4);
+      }
+      function beforeSequenceClose(code4) {
+        if (code4 === marker) {
+          effects2.enter("codeFencedFenceSequence");
+          return sequenceClose(code4);
+        }
+        return nok2(code4);
+      }
+      function sequenceClose(code4) {
+        if (code4 === marker) {
+          size++;
+          effects2.consume(code4);
+          return sequenceClose;
+        }
+        if (size >= sizeOpen) {
+          effects2.exit("codeFencedFenceSequence");
+          return markdownSpace(code4) ? factorySpace(effects2, sequenceCloseAfter, "whitespace")(code4) : sequenceCloseAfter(code4);
+        }
+        return nok2(code4);
+      }
+      function sequenceCloseAfter(code4) {
+        if (code4 === null || markdownLineEnding(code4)) {
+          effects2.exit("codeFencedFence");
+          return ok4(code4);
+        }
+        return nok2(code4);
+      }
+    }
+  }
+  function tokenizeNonLazyContinuation(effects, ok3, nok) {
+    const self2 = this;
+    return start2;
+    function start2(code4) {
+      if (code4 === null) {
+        return nok(code4);
+      }
+      effects.enter("lineEnding");
+      effects.consume(code4);
+      effects.exit("lineEnding");
+      return lineStart;
+    }
+    function lineStart(code4) {
+      return self2.parser.lazy[self2.now().line] ? nok(code4) : ok3(code4);
+    }
+  }
+  var nonLazyContinuation, codeFenced;
+  var init_code_fenced = __esm({
+    "node_modules/micromark-core-commonmark/lib/code-fenced.js"() {
+      init_micromark_factory_space();
+      init_micromark_util_character();
+      nonLazyContinuation = {
+        partial: true,
+        tokenize: tokenizeNonLazyContinuation
+      };
+      codeFenced = {
+        concrete: true,
+        name: "codeFenced",
+        tokenize: tokenizeCodeFenced
+      };
+    }
+  });
+
+  // node_modules/micromark-core-commonmark/lib/code-indented.js
+  function tokenizeCodeIndented(effects, ok3, nok) {
+    const self2 = this;
+    return start2;
+    function start2(code4) {
+      effects.enter("codeIndented");
+      return factorySpace(effects, afterPrefix, "linePrefix", 4 + 1)(code4);
+    }
+    function afterPrefix(code4) {
+      const tail = self2.events[self2.events.length - 1];
+      return tail && tail[1].type === "linePrefix" && tail[2].sliceSerialize(tail[1], true).length >= 4 ? atBreak(code4) : nok(code4);
+    }
+    function atBreak(code4) {
+      if (code4 === null) {
+        return after(code4);
+      }
+      if (markdownLineEnding(code4)) {
+        return effects.attempt(furtherStart, atBreak, after)(code4);
+      }
+      effects.enter("codeFlowValue");
+      return inside(code4);
+    }
+    function inside(code4) {
+      if (code4 === null || markdownLineEnding(code4)) {
+        effects.exit("codeFlowValue");
+        return atBreak(code4);
+      }
+      effects.consume(code4);
+      return inside;
+    }
+    function after(code4) {
+      effects.exit("codeIndented");
+      return ok3(code4);
+    }
+  }
+  function tokenizeFurtherStart(effects, ok3, nok) {
+    const self2 = this;
+    return furtherStart2;
+    function furtherStart2(code4) {
+      if (self2.parser.lazy[self2.now().line]) {
+        return nok(code4);
+      }
+      if (markdownLineEnding(code4)) {
+        effects.enter("lineEnding");
+        effects.consume(code4);
+        effects.exit("lineEnding");
+        return furtherStart2;
+      }
+      return factorySpace(effects, afterPrefix, "linePrefix", 4 + 1)(code4);
+    }
+    function afterPrefix(code4) {
+      const tail = self2.events[self2.events.length - 1];
+      return tail && tail[1].type === "linePrefix" && tail[2].sliceSerialize(tail[1], true).length >= 4 ? ok3(code4) : markdownLineEnding(code4) ? furtherStart2(code4) : nok(code4);
+    }
+  }
+  var codeIndented, furtherStart;
+  var init_code_indented = __esm({
+    "node_modules/micromark-core-commonmark/lib/code-indented.js"() {
+      init_micromark_factory_space();
+      init_micromark_util_character();
+      codeIndented = {
+        name: "codeIndented",
+        tokenize: tokenizeCodeIndented
+      };
+      furtherStart = {
+        partial: true,
+        tokenize: tokenizeFurtherStart
+      };
+    }
+  });
+
+  // node_modules/micromark-core-commonmark/lib/code-text.js
+  function resolveCodeText(events) {
+    let tailExitIndex = events.length - 4;
+    let headEnterIndex = 3;
+    let index2;
+    let enter;
+    if ((events[headEnterIndex][1].type === "lineEnding" || events[headEnterIndex][1].type === "space") && (events[tailExitIndex][1].type === "lineEnding" || events[tailExitIndex][1].type === "space")) {
+      index2 = headEnterIndex;
+      while (++index2 < tailExitIndex) {
+        if (events[index2][1].type === "codeTextData") {
+          events[headEnterIndex][1].type = "codeTextPadding";
+          events[tailExitIndex][1].type = "codeTextPadding";
+          headEnterIndex += 2;
+          tailExitIndex -= 2;
+          break;
+        }
+      }
+    }
+    index2 = headEnterIndex - 1;
+    tailExitIndex++;
+    while (++index2 <= tailExitIndex) {
+      if (enter === void 0) {
+        if (index2 !== tailExitIndex && events[index2][1].type !== "lineEnding") {
+          enter = index2;
+        }
+      } else if (index2 === tailExitIndex || events[index2][1].type === "lineEnding") {
+        events[enter][1].type = "codeTextData";
+        if (index2 !== enter + 2) {
+          events[enter][1].end = events[index2 - 1][1].end;
+          events.splice(enter + 2, index2 - enter - 2);
+          tailExitIndex -= index2 - enter - 2;
+          index2 = enter + 2;
+        }
+        enter = void 0;
+      }
+    }
+    return events;
+  }
+  function previous(code4) {
+    return code4 !== 96 || this.events[this.events.length - 1][1].type === "characterEscape";
+  }
+  function tokenizeCodeText(effects, ok3, nok) {
+    const self2 = this;
+    let sizeOpen = 0;
+    let size;
+    let token;
+    return start2;
+    function start2(code4) {
+      effects.enter("codeText");
+      effects.enter("codeTextSequence");
+      return sequenceOpen(code4);
+    }
+    function sequenceOpen(code4) {
+      if (code4 === 96) {
+        effects.consume(code4);
+        sizeOpen++;
+        return sequenceOpen;
+      }
+      effects.exit("codeTextSequence");
+      return between(code4);
+    }
+    function between(code4) {
+      if (code4 === null) {
+        return nok(code4);
+      }
+      if (code4 === 32) {
+        effects.enter("space");
+        effects.consume(code4);
+        effects.exit("space");
+        return between;
+      }
+      if (code4 === 96) {
+        token = effects.enter("codeTextSequence");
+        size = 0;
+        return sequenceClose(code4);
+      }
+      if (markdownLineEnding(code4)) {
+        effects.enter("lineEnding");
+        effects.consume(code4);
+        effects.exit("lineEnding");
+        return between;
+      }
+      effects.enter("codeTextData");
+      return data(code4);
+    }
+    function data(code4) {
+      if (code4 === null || code4 === 32 || code4 === 96 || markdownLineEnding(code4)) {
+        effects.exit("codeTextData");
+        return between(code4);
+      }
+      effects.consume(code4);
+      return data;
+    }
+    function sequenceClose(code4) {
+      if (code4 === 96) {
+        effects.consume(code4);
+        size++;
+        return sequenceClose;
+      }
+      if (size === sizeOpen) {
+        effects.exit("codeTextSequence");
+        effects.exit("codeText");
+        return ok3(code4);
+      }
+      token.type = "codeTextData";
+      return data(code4);
+    }
+  }
+  var codeText;
+  var init_code_text = __esm({
+    "node_modules/micromark-core-commonmark/lib/code-text.js"() {
+      init_micromark_util_character();
+      codeText = {
+        name: "codeText",
+        previous,
+        resolve: resolveCodeText,
+        tokenize: tokenizeCodeText
+      };
+    }
+  });
+
+  // node_modules/micromark-util-subtokenize/lib/splice-buffer.js
+  function chunkedPush(list4, right) {
+    let chunkStart = 0;
+    if (right.length < 1e4) {
+      list4.push(...right);
+    } else {
+      while (chunkStart < right.length) {
+        list4.push(...right.slice(chunkStart, chunkStart + 1e4));
+        chunkStart += 1e4;
+      }
+    }
+  }
+  var SpliceBuffer;
+  var init_splice_buffer = __esm({
+    "node_modules/micromark-util-subtokenize/lib/splice-buffer.js"() {
+      SpliceBuffer = class {
+        /**
+         * @param {ReadonlyArray<T> | null | undefined} [initial]
+         *   Initial items (optional).
+         * @returns
+         *   Splice buffer.
+         */
+        constructor(initial) {
+          this.left = initial ? [...initial] : [];
+          this.right = [];
+        }
+        /**
+         * Array access;
+         * does not move the cursor.
+         *
+         * @param {number} index
+         *   Index.
+         * @return {T}
+         *   Item.
+         */
+        get(index2) {
+          if (index2 < 0 || index2 >= this.left.length + this.right.length) {
+            throw new RangeError("Cannot access index `" + index2 + "` in a splice buffer of size `" + (this.left.length + this.right.length) + "`");
+          }
+          if (index2 < this.left.length) return this.left[index2];
+          return this.right[this.right.length - index2 + this.left.length - 1];
+        }
+        /**
+         * The length of the splice buffer, one greater than the largest index in the
+         * array.
+         */
+        get length() {
+          return this.left.length + this.right.length;
+        }
+        /**
+         * Remove and return `list[0]`;
+         * moves the cursor to `0`.
+         *
+         * @returns {T | undefined}
+         *   Item, optional.
+         */
+        shift() {
+          this.setCursor(0);
+          return this.right.pop();
+        }
+        /**
+         * Slice the buffer to get an array;
+         * does not move the cursor.
+         *
+         * @param {number} start
+         *   Start.
+         * @param {number | null | undefined} [end]
+         *   End (optional).
+         * @returns {Array<T>}
+         *   Array of items.
+         */
+        slice(start2, end) {
+          const stop = end === null || end === void 0 ? Number.POSITIVE_INFINITY : end;
+          if (stop < this.left.length) {
+            return this.left.slice(start2, stop);
+          }
+          if (start2 > this.left.length) {
+            return this.right.slice(this.right.length - stop + this.left.length, this.right.length - start2 + this.left.length).reverse();
+          }
+          return this.left.slice(start2).concat(this.right.slice(this.right.length - stop + this.left.length).reverse());
+        }
+        /**
+         * Mimics the behavior of Array.prototype.splice() except for the change of
+         * interface necessary to avoid segfaults when patching in very large arrays.
+         *
+         * This operation moves cursor is moved to `start` and results in the cursor
+         * placed after any inserted items.
+         *
+         * @param {number} start
+         *   Start;
+         *   zero-based index at which to start changing the array;
+         *   negative numbers count backwards from the end of the array and values
+         *   that are out-of bounds are clamped to the appropriate end of the array.
+         * @param {number | null | undefined} [deleteCount=0]
+         *   Delete count (default: `0`);
+         *   maximum number of elements to delete, starting from start.
+         * @param {Array<T> | null | undefined} [items=[]]
+         *   Items to include in place of the deleted items (default: `[]`).
+         * @return {Array<T>}
+         *   Any removed items.
+         */
+        splice(start2, deleteCount, items) {
+          const count = deleteCount || 0;
+          this.setCursor(Math.trunc(start2));
+          const removed = this.right.splice(this.right.length - count, Number.POSITIVE_INFINITY);
+          if (items) chunkedPush(this.left, items);
+          return removed.reverse();
+        }
+        /**
+         * Remove and return the highest-numbered item in the array, so
+         * `list[list.length - 1]`;
+         * Moves the cursor to `length`.
+         *
+         * @returns {T | undefined}
+         *   Item, optional.
+         */
+        pop() {
+          this.setCursor(Number.POSITIVE_INFINITY);
+          return this.left.pop();
+        }
+        /**
+         * Inserts a single item to the high-numbered side of the array;
+         * moves the cursor to `length`.
+         *
+         * @param {T} item
+         *   Item.
+         * @returns {undefined}
+         *   Nothing.
+         */
+        push(item) {
+          this.setCursor(Number.POSITIVE_INFINITY);
+          this.left.push(item);
+        }
+        /**
+         * Inserts many items to the high-numbered side of the array.
+         * Moves the cursor to `length`.
+         *
+         * @param {Array<T>} items
+         *   Items.
+         * @returns {undefined}
+         *   Nothing.
+         */
+        pushMany(items) {
+          this.setCursor(Number.POSITIVE_INFINITY);
+          chunkedPush(this.left, items);
+        }
+        /**
+         * Inserts a single item to the low-numbered side of the array;
+         * Moves the cursor to `0`.
+         *
+         * @param {T} item
+         *   Item.
+         * @returns {undefined}
+         *   Nothing.
+         */
+        unshift(item) {
+          this.setCursor(0);
+          this.right.push(item);
+        }
+        /**
+         * Inserts many items to the low-numbered side of the array;
+         * moves the cursor to `0`.
+         *
+         * @param {Array<T>} items
+         *   Items.
+         * @returns {undefined}
+         *   Nothing.
+         */
+        unshiftMany(items) {
+          this.setCursor(0);
+          chunkedPush(this.right, items.reverse());
+        }
+        /**
+         * Move the cursor to a specific position in the array. Requires
+         * time proportional to the distance moved.
+         *
+         * If `n < 0`, the cursor will end up at the beginning.
+         * If `n > length`, the cursor will end up at the end.
+         *
+         * @param {number} n
+         *   Position.
+         * @return {undefined}
+         *   Nothing.
+         */
+        setCursor(n) {
+          if (n === this.left.length || n > this.left.length && this.right.length === 0 || n < 0 && this.left.length === 0) return;
+          if (n < this.left.length) {
+            const removed = this.left.splice(n, Number.POSITIVE_INFINITY);
+            chunkedPush(this.right, removed.reverse());
+          } else {
+            const removed = this.right.splice(this.left.length + this.right.length - n, Number.POSITIVE_INFINITY);
+            chunkedPush(this.left, removed.reverse());
+          }
+        }
+      };
+    }
+  });
+
+  // node_modules/micromark-util-subtokenize/index.js
+  function subtokenize(eventsArray) {
+    const jumps = {};
+    let index2 = -1;
+    let event;
+    let lineIndex;
+    let otherIndex;
+    let otherEvent;
+    let parameters;
+    let subevents;
+    let more;
+    const events = new SpliceBuffer(eventsArray);
+    while (++index2 < events.length) {
+      while (index2 in jumps) {
+        index2 = jumps[index2];
+      }
+      event = events.get(index2);
+      if (index2 && event[1].type === "chunkFlow" && events.get(index2 - 1)[1].type === "listItemPrefix") {
+        subevents = event[1]._tokenizer.events;
+        otherIndex = 0;
+        if (otherIndex < subevents.length && subevents[otherIndex][1].type === "lineEndingBlank") {
+          otherIndex += 2;
+        }
+        if (otherIndex < subevents.length && subevents[otherIndex][1].type === "content") {
+          while (++otherIndex < subevents.length) {
+            if (subevents[otherIndex][1].type === "content") {
+              break;
+            }
+            if (subevents[otherIndex][1].type === "chunkText") {
+              subevents[otherIndex][1]._isInFirstContentOfListItem = true;
+              otherIndex++;
+            }
+          }
+        }
+      }
+      if (event[0] === "enter") {
+        if (event[1].contentType) {
+          Object.assign(jumps, subcontent(events, index2));
+          index2 = jumps[index2];
+          more = true;
+        }
+      } else if (event[1]._container) {
+        otherIndex = index2;
+        lineIndex = void 0;
+        while (otherIndex--) {
+          otherEvent = events.get(otherIndex);
+          if (otherEvent[1].type === "lineEnding" || otherEvent[1].type === "lineEndingBlank") {
+            if (otherEvent[0] === "enter") {
+              if (lineIndex) {
+                events.get(lineIndex)[1].type = "lineEndingBlank";
+              }
+              otherEvent[1].type = "lineEnding";
+              lineIndex = otherIndex;
+            }
+          } else if (otherEvent[1].type === "linePrefix" || otherEvent[1].type === "listItemIndent") {
+          } else {
+            break;
+          }
+        }
+        if (lineIndex) {
+          event[1].end = {
+            ...events.get(lineIndex)[1].start
+          };
+          parameters = events.slice(lineIndex, index2);
+          parameters.unshift(event);
+          events.splice(lineIndex, index2 - lineIndex + 1, parameters);
+        }
+      }
+    }
+    splice(eventsArray, 0, Number.POSITIVE_INFINITY, events.slice(0));
+    return !more;
+  }
+  function subcontent(events, eventIndex) {
+    const token = events.get(eventIndex)[1];
+    const context = events.get(eventIndex)[2];
+    let startPosition = eventIndex - 1;
+    const startPositions = [];
+    let tokenizer = token._tokenizer;
+    if (!tokenizer) {
+      tokenizer = context.parser[token.contentType](token.start);
+      if (token._contentTypeTextTrailing) {
+        tokenizer._contentTypeTextTrailing = true;
+      }
+    }
+    const childEvents = tokenizer.events;
+    const jumps = [];
+    const gaps = {};
+    let stream;
+    let previous3;
+    let index2 = -1;
+    let current = token;
+    let adjust = 0;
+    let start2 = 0;
+    const breaks = [start2];
+    while (current) {
+      while (events.get(++startPosition)[1] !== current) {
+      }
+      startPositions.push(startPosition);
+      if (!current._tokenizer) {
+        stream = context.sliceStream(current);
+        if (!current.next) {
+          stream.push(null);
+        }
+        if (previous3) {
+          tokenizer.defineSkip(current.start);
+        }
+        if (current._isInFirstContentOfListItem) {
+          tokenizer._gfmTasklistFirstContentOfListItem = true;
+        }
+        tokenizer.write(stream);
+        if (current._isInFirstContentOfListItem) {
+          tokenizer._gfmTasklistFirstContentOfListItem = void 0;
+        }
+      }
+      previous3 = current;
+      current = current.next;
+    }
+    current = token;
+    while (++index2 < childEvents.length) {
+      if (
+        // Find a void token that includes a break.
+        childEvents[index2][0] === "exit" && childEvents[index2 - 1][0] === "enter" && childEvents[index2][1].type === childEvents[index2 - 1][1].type && childEvents[index2][1].start.line !== childEvents[index2][1].end.line
+      ) {
+        start2 = index2 + 1;
+        breaks.push(start2);
+        current._tokenizer = void 0;
+        current.previous = void 0;
+        current = current.next;
+      }
+    }
+    tokenizer.events = [];
+    if (current) {
+      current._tokenizer = void 0;
+      current.previous = void 0;
+    } else {
+      breaks.pop();
+    }
+    index2 = breaks.length;
+    while (index2--) {
+      const slice = childEvents.slice(breaks[index2], breaks[index2 + 1]);
+      const start3 = startPositions.pop();
+      jumps.push([start3, start3 + slice.length - 1]);
+      events.splice(start3, 2, slice);
+    }
+    jumps.reverse();
+    index2 = -1;
+    while (++index2 < jumps.length) {
+      gaps[adjust + jumps[index2][0]] = adjust + jumps[index2][1];
+      adjust += jumps[index2][1] - jumps[index2][0] - 1;
+    }
+    return gaps;
+  }
+  var init_micromark_util_subtokenize = __esm({
+    "node_modules/micromark-util-subtokenize/index.js"() {
+      init_micromark_util_chunked();
+      init_splice_buffer();
+    }
+  });
+
+  // node_modules/micromark-core-commonmark/lib/content.js
+  function resolveContent(events) {
+    subtokenize(events);
+    return events;
+  }
+  function tokenizeContent(effects, ok3) {
+    let previous3;
+    return chunkStart;
+    function chunkStart(code4) {
+      effects.enter("content");
+      previous3 = effects.enter("chunkContent", {
+        contentType: "content"
+      });
+      return chunkInside(code4);
+    }
+    function chunkInside(code4) {
+      if (code4 === null) {
+        return contentEnd(code4);
+      }
+      if (markdownLineEnding(code4)) {
+        return effects.check(continuationConstruct, contentContinue, contentEnd)(code4);
+      }
+      effects.consume(code4);
+      return chunkInside;
+    }
+    function contentEnd(code4) {
+      effects.exit("chunkContent");
+      effects.exit("content");
+      return ok3(code4);
+    }
+    function contentContinue(code4) {
+      effects.consume(code4);
+      effects.exit("chunkContent");
+      previous3.next = effects.enter("chunkContent", {
+        contentType: "content",
+        previous: previous3
+      });
+      previous3 = previous3.next;
+      return chunkInside;
+    }
+  }
+  function tokenizeContinuation(effects, ok3, nok) {
+    const self2 = this;
+    return startLookahead;
+    function startLookahead(code4) {
+      effects.exit("chunkContent");
+      effects.enter("lineEnding");
+      effects.consume(code4);
+      effects.exit("lineEnding");
+      return factorySpace(effects, prefixed, "linePrefix");
+    }
+    function prefixed(code4) {
+      if (code4 === null || markdownLineEnding(code4)) {
+        return nok(code4);
+      }
+      const tail = self2.events[self2.events.length - 1];
+      if (!self2.parser.constructs.disable.null.includes("codeIndented") && tail && tail[1].type === "linePrefix" && tail[2].sliceSerialize(tail[1], true).length >= 4) {
+        return ok3(code4);
+      }
+      return effects.interrupt(self2.parser.constructs.flow, nok, ok3)(code4);
+    }
+  }
+  var content2, continuationConstruct;
+  var init_content2 = __esm({
+    "node_modules/micromark-core-commonmark/lib/content.js"() {
+      init_micromark_factory_space();
+      init_micromark_util_character();
+      init_micromark_util_subtokenize();
+      content2 = {
+        resolve: resolveContent,
+        tokenize: tokenizeContent
+      };
+      continuationConstruct = {
+        partial: true,
+        tokenize: tokenizeContinuation
+      };
+    }
+  });
+
+  // node_modules/micromark-factory-destination/index.js
+  function factoryDestination(effects, ok3, nok, type, literalType, literalMarkerType, rawType, stringType, max) {
+    const limit = max || Number.POSITIVE_INFINITY;
+    let balance = 0;
+    return start2;
+    function start2(code4) {
+      if (code4 === 60) {
+        effects.enter(type);
+        effects.enter(literalType);
+        effects.enter(literalMarkerType);
+        effects.consume(code4);
+        effects.exit(literalMarkerType);
+        return enclosedBefore;
+      }
+      if (code4 === null || code4 === 32 || code4 === 41 || asciiControl(code4)) {
+        return nok(code4);
+      }
+      effects.enter(type);
+      effects.enter(rawType);
+      effects.enter(stringType);
+      effects.enter("chunkString", {
+        contentType: "string"
+      });
+      return raw(code4);
+    }
+    function enclosedBefore(code4) {
+      if (code4 === 62) {
+        effects.enter(literalMarkerType);
+        effects.consume(code4);
+        effects.exit(literalMarkerType);
+        effects.exit(literalType);
+        effects.exit(type);
+        return ok3;
+      }
+      effects.enter(stringType);
+      effects.enter("chunkString", {
+        contentType: "string"
+      });
+      return enclosed(code4);
+    }
+    function enclosed(code4) {
+      if (code4 === 62) {
+        effects.exit("chunkString");
+        effects.exit(stringType);
+        return enclosedBefore(code4);
+      }
+      if (code4 === null || code4 === 60 || markdownLineEnding(code4)) {
+        return nok(code4);
+      }
+      effects.consume(code4);
+      return code4 === 92 ? enclosedEscape : enclosed;
+    }
+    function enclosedEscape(code4) {
+      if (code4 === 60 || code4 === 62 || code4 === 92) {
+        effects.consume(code4);
+        return enclosed;
+      }
+      return enclosed(code4);
+    }
+    function raw(code4) {
+      if (!balance && (code4 === null || code4 === 41 || markdownLineEndingOrSpace(code4))) {
+        effects.exit("chunkString");
+        effects.exit(stringType);
+        effects.exit(rawType);
+        effects.exit(type);
+        return ok3(code4);
+      }
+      if (balance < limit && code4 === 40) {
+        effects.consume(code4);
+        balance++;
+        return raw;
+      }
+      if (code4 === 41) {
+        effects.consume(code4);
+        balance--;
+        return raw;
+      }
+      if (code4 === null || code4 === 32 || code4 === 40 || asciiControl(code4)) {
+        return nok(code4);
+      }
+      effects.consume(code4);
+      return code4 === 92 ? rawEscape : raw;
+    }
+    function rawEscape(code4) {
+      if (code4 === 40 || code4 === 41 || code4 === 92) {
+        effects.consume(code4);
+        return raw;
+      }
+      return raw(code4);
+    }
+  }
+  var init_micromark_factory_destination = __esm({
+    "node_modules/micromark-factory-destination/index.js"() {
+      init_micromark_util_character();
+    }
+  });
+
+  // node_modules/micromark-factory-label/index.js
+  function factoryLabel(effects, ok3, nok, type, markerType, stringType) {
+    const self2 = this;
+    let size = 0;
+    let seen;
+    return start2;
+    function start2(code4) {
+      effects.enter(type);
+      effects.enter(markerType);
+      effects.consume(code4);
+      effects.exit(markerType);
+      effects.enter(stringType);
+      return atBreak;
+    }
+    function atBreak(code4) {
+      if (size > 999 || code4 === null || code4 === 91 || code4 === 93 && !seen || // To do: remove in the future once we’ve switched from
+      // `micromark-extension-footnote` to `micromark-extension-gfm-footnote`,
+      // which doesn’t need this.
+      // Hidden footnotes hook.
+      /* c8 ignore next 3 */
+      code4 === 94 && !size && "_hiddenFootnoteSupport" in self2.parser.constructs) {
+        return nok(code4);
+      }
+      if (code4 === 93) {
+        effects.exit(stringType);
+        effects.enter(markerType);
+        effects.consume(code4);
+        effects.exit(markerType);
+        effects.exit(type);
+        return ok3;
+      }
+      if (markdownLineEnding(code4)) {
+        effects.enter("lineEnding");
+        effects.consume(code4);
+        effects.exit("lineEnding");
+        return atBreak;
+      }
+      effects.enter("chunkString", {
+        contentType: "string"
+      });
+      return labelInside(code4);
+    }
+    function labelInside(code4) {
+      if (code4 === null || code4 === 91 || code4 === 93 || markdownLineEnding(code4) || size++ > 999) {
+        effects.exit("chunkString");
+        return atBreak(code4);
+      }
+      effects.consume(code4);
+      if (!seen) seen = !markdownSpace(code4);
+      return code4 === 92 ? labelEscape : labelInside;
+    }
+    function labelEscape(code4) {
+      if (code4 === 91 || code4 === 92 || code4 === 93) {
+        effects.consume(code4);
+        size++;
+        return labelInside;
+      }
+      return labelInside(code4);
+    }
+  }
+  var init_micromark_factory_label = __esm({
+    "node_modules/micromark-factory-label/index.js"() {
+      init_micromark_util_character();
+    }
+  });
+
+  // node_modules/micromark-factory-title/index.js
+  function factoryTitle(effects, ok3, nok, type, markerType, stringType) {
+    let marker;
+    return start2;
+    function start2(code4) {
+      if (code4 === 34 || code4 === 39 || code4 === 40) {
+        effects.enter(type);
+        effects.enter(markerType);
+        effects.consume(code4);
+        effects.exit(markerType);
+        marker = code4 === 40 ? 41 : code4;
+        return begin;
+      }
+      return nok(code4);
+    }
+    function begin(code4) {
+      if (code4 === marker) {
+        effects.enter(markerType);
+        effects.consume(code4);
+        effects.exit(markerType);
+        effects.exit(type);
+        return ok3;
+      }
+      effects.enter(stringType);
+      return atBreak(code4);
+    }
+    function atBreak(code4) {
+      if (code4 === marker) {
+        effects.exit(stringType);
+        return begin(marker);
+      }
+      if (code4 === null) {
+        return nok(code4);
+      }
+      if (markdownLineEnding(code4)) {
+        effects.enter("lineEnding");
+        effects.consume(code4);
+        effects.exit("lineEnding");
+        return factorySpace(effects, atBreak, "linePrefix");
+      }
+      effects.enter("chunkString", {
+        contentType: "string"
+      });
+      return inside(code4);
+    }
+    function inside(code4) {
+      if (code4 === marker || code4 === null || markdownLineEnding(code4)) {
+        effects.exit("chunkString");
+        return atBreak(code4);
+      }
+      effects.consume(code4);
+      return code4 === 92 ? escape : inside;
+    }
+    function escape(code4) {
+      if (code4 === marker || code4 === 92) {
+        effects.consume(code4);
+        return inside;
+      }
+      return inside(code4);
+    }
+  }
+  var init_micromark_factory_title = __esm({
+    "node_modules/micromark-factory-title/index.js"() {
+      init_micromark_factory_space();
+      init_micromark_util_character();
+    }
+  });
+
+  // node_modules/micromark-factory-whitespace/index.js
+  function factoryWhitespace(effects, ok3) {
+    let seen;
+    return start2;
+    function start2(code4) {
+      if (markdownLineEnding(code4)) {
+        effects.enter("lineEnding");
+        effects.consume(code4);
+        effects.exit("lineEnding");
+        seen = true;
+        return start2;
+      }
+      if (markdownSpace(code4)) {
+        return factorySpace(effects, start2, seen ? "linePrefix" : "lineSuffix")(code4);
+      }
+      return ok3(code4);
+    }
+  }
+  var init_micromark_factory_whitespace = __esm({
+    "node_modules/micromark-factory-whitespace/index.js"() {
+      init_micromark_factory_space();
+      init_micromark_util_character();
+    }
+  });
+
+  // node_modules/micromark-core-commonmark/lib/definition.js
+  function tokenizeDefinition(effects, ok3, nok) {
+    const self2 = this;
+    let identifier;
+    return start2;
+    function start2(code4) {
+      effects.enter("definition");
+      return before(code4);
+    }
+    function before(code4) {
+      return factoryLabel.call(
+        self2,
+        effects,
+        labelAfter,
+        // Note: we don’t need to reset the way `markdown-rs` does.
+        nok,
+        "definitionLabel",
+        "definitionLabelMarker",
+        "definitionLabelString"
+      )(code4);
+    }
+    function labelAfter(code4) {
+      identifier = normalizeIdentifier(self2.sliceSerialize(self2.events[self2.events.length - 1][1]).slice(1, -1));
+      if (code4 === 58) {
+        effects.enter("definitionMarker");
+        effects.consume(code4);
+        effects.exit("definitionMarker");
+        return markerAfter;
+      }
+      return nok(code4);
+    }
+    function markerAfter(code4) {
+      return markdownLineEndingOrSpace(code4) ? factoryWhitespace(effects, destinationBefore)(code4) : destinationBefore(code4);
+    }
+    function destinationBefore(code4) {
+      return factoryDestination(
+        effects,
+        destinationAfter,
+        // Note: we don’t need to reset the way `markdown-rs` does.
+        nok,
+        "definitionDestination",
+        "definitionDestinationLiteral",
+        "definitionDestinationLiteralMarker",
+        "definitionDestinationRaw",
+        "definitionDestinationString"
+      )(code4);
+    }
+    function destinationAfter(code4) {
+      return effects.attempt(titleBefore, after, after)(code4);
+    }
+    function after(code4) {
+      return markdownSpace(code4) ? factorySpace(effects, afterWhitespace, "whitespace")(code4) : afterWhitespace(code4);
+    }
+    function afterWhitespace(code4) {
+      if (code4 === null || markdownLineEnding(code4)) {
+        effects.exit("definition");
+        self2.parser.defined.push(identifier);
+        return ok3(code4);
+      }
+      return nok(code4);
+    }
+  }
+  function tokenizeTitleBefore(effects, ok3, nok) {
+    return titleBefore2;
+    function titleBefore2(code4) {
+      return markdownLineEndingOrSpace(code4) ? factoryWhitespace(effects, beforeMarker)(code4) : nok(code4);
+    }
+    function beforeMarker(code4) {
+      return factoryTitle(effects, titleAfter, nok, "definitionTitle", "definitionTitleMarker", "definitionTitleString")(code4);
+    }
+    function titleAfter(code4) {
+      return markdownSpace(code4) ? factorySpace(effects, titleAfterOptionalWhitespace, "whitespace")(code4) : titleAfterOptionalWhitespace(code4);
+    }
+    function titleAfterOptionalWhitespace(code4) {
+      return code4 === null || markdownLineEnding(code4) ? ok3(code4) : nok(code4);
+    }
+  }
+  var definition, titleBefore;
+  var init_definition = __esm({
+    "node_modules/micromark-core-commonmark/lib/definition.js"() {
+      init_micromark_factory_destination();
+      init_micromark_factory_label();
+      init_micromark_factory_space();
+      init_micromark_factory_title();
+      init_micromark_factory_whitespace();
+      init_micromark_util_character();
+      init_micromark_util_normalize_identifier();
+      definition = {
+        name: "definition",
+        tokenize: tokenizeDefinition
+      };
+      titleBefore = {
+        partial: true,
+        tokenize: tokenizeTitleBefore
+      };
+    }
+  });
+
+  // node_modules/micromark-core-commonmark/lib/hard-break-escape.js
+  function tokenizeHardBreakEscape(effects, ok3, nok) {
+    return start2;
+    function start2(code4) {
+      effects.enter("hardBreakEscape");
+      effects.consume(code4);
+      return after;
+    }
+    function after(code4) {
+      if (markdownLineEnding(code4)) {
+        effects.exit("hardBreakEscape");
+        return ok3(code4);
+      }
+      return nok(code4);
+    }
+  }
+  var hardBreakEscape;
+  var init_hard_break_escape = __esm({
+    "node_modules/micromark-core-commonmark/lib/hard-break-escape.js"() {
+      init_micromark_util_character();
+      hardBreakEscape = {
+        name: "hardBreakEscape",
+        tokenize: tokenizeHardBreakEscape
+      };
+    }
+  });
+
+  // node_modules/micromark-core-commonmark/lib/heading-atx.js
+  function resolveHeadingAtx(events, context) {
+    let contentEnd = events.length - 2;
+    let contentStart = 3;
+    let content3;
+    let text7;
+    if (events[contentStart][1].type === "whitespace") {
+      contentStart += 2;
+    }
+    if (contentEnd - 2 > contentStart && events[contentEnd][1].type === "whitespace") {
+      contentEnd -= 2;
+    }
+    if (events[contentEnd][1].type === "atxHeadingSequence" && (contentStart === contentEnd - 1 || contentEnd - 4 > contentStart && events[contentEnd - 2][1].type === "whitespace")) {
+      contentEnd -= contentStart + 1 === contentEnd ? 2 : 4;
+    }
+    if (contentEnd > contentStart) {
+      content3 = {
+        type: "atxHeadingText",
+        start: events[contentStart][1].start,
+        end: events[contentEnd][1].end
+      };
+      text7 = {
+        type: "chunkText",
+        start: events[contentStart][1].start,
+        end: events[contentEnd][1].end,
+        contentType: "text"
+      };
+      splice(events, contentStart, contentEnd - contentStart + 1, [["enter", content3, context], ["enter", text7, context], ["exit", text7, context], ["exit", content3, context]]);
+    }
+    return events;
+  }
+  function tokenizeHeadingAtx(effects, ok3, nok) {
+    let size = 0;
+    return start2;
+    function start2(code4) {
+      effects.enter("atxHeading");
+      return before(code4);
+    }
+    function before(code4) {
+      effects.enter("atxHeadingSequence");
+      return sequenceOpen(code4);
+    }
+    function sequenceOpen(code4) {
+      if (code4 === 35 && size++ < 6) {
+        effects.consume(code4);
+        return sequenceOpen;
+      }
+      if (code4 === null || markdownLineEndingOrSpace(code4)) {
+        effects.exit("atxHeadingSequence");
+        return atBreak(code4);
+      }
+      return nok(code4);
+    }
+    function atBreak(code4) {
+      if (code4 === 35) {
+        effects.enter("atxHeadingSequence");
+        return sequenceFurther(code4);
+      }
+      if (code4 === null || markdownLineEnding(code4)) {
+        effects.exit("atxHeading");
+        return ok3(code4);
+      }
+      if (markdownSpace(code4)) {
+        return factorySpace(effects, atBreak, "whitespace")(code4);
+      }
+      effects.enter("atxHeadingText");
+      return data(code4);
+    }
+    function sequenceFurther(code4) {
+      if (code4 === 35) {
+        effects.consume(code4);
+        return sequenceFurther;
+      }
+      effects.exit("atxHeadingSequence");
+      return atBreak(code4);
+    }
+    function data(code4) {
+      if (code4 === null || code4 === 35 || markdownLineEndingOrSpace(code4)) {
+        effects.exit("atxHeadingText");
+        return atBreak(code4);
+      }
+      effects.consume(code4);
+      return data;
+    }
+  }
+  var headingAtx;
+  var init_heading_atx = __esm({
+    "node_modules/micromark-core-commonmark/lib/heading-atx.js"() {
+      init_micromark_factory_space();
+      init_micromark_util_character();
+      init_micromark_util_chunked();
+      headingAtx = {
+        name: "headingAtx",
+        resolve: resolveHeadingAtx,
+        tokenize: tokenizeHeadingAtx
+      };
+    }
+  });
+
+  // node_modules/micromark-util-html-tag-name/index.js
+  var htmlBlockNames, htmlRawNames;
+  var init_micromark_util_html_tag_name = __esm({
+    "node_modules/micromark-util-html-tag-name/index.js"() {
+      htmlBlockNames = [
+        "address",
+        "article",
+        "aside",
+        "base",
+        "basefont",
+        "blockquote",
+        "body",
+        "caption",
+        "center",
+        "col",
+        "colgroup",
+        "dd",
+        "details",
+        "dialog",
+        "dir",
+        "div",
+        "dl",
+        "dt",
+        "fieldset",
+        "figcaption",
+        "figure",
+        "footer",
+        "form",
+        "frame",
+        "frameset",
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "h6",
+        "head",
+        "header",
+        "hr",
+        "html",
+        "iframe",
+        "legend",
+        "li",
+        "link",
+        "main",
+        "menu",
+        "menuitem",
+        "nav",
+        "noframes",
+        "ol",
+        "optgroup",
+        "option",
+        "p",
+        "param",
+        "search",
+        "section",
+        "summary",
+        "table",
+        "tbody",
+        "td",
+        "tfoot",
+        "th",
+        "thead",
+        "title",
+        "tr",
+        "track",
+        "ul"
+      ];
+      htmlRawNames = ["pre", "script", "style", "textarea"];
+    }
+  });
+
+  // node_modules/micromark-core-commonmark/lib/html-flow.js
+  function resolveToHtmlFlow(events) {
+    let index2 = events.length;
+    while (index2--) {
+      if (events[index2][0] === "enter" && events[index2][1].type === "htmlFlow") {
+        break;
+      }
+    }
+    if (index2 > 1 && events[index2 - 2][1].type === "linePrefix") {
+      events[index2][1].start = events[index2 - 2][1].start;
+      events[index2 + 1][1].start = events[index2 - 2][1].start;
+      events.splice(index2 - 2, 2);
+    }
+    return events;
+  }
+  function tokenizeHtmlFlow(effects, ok3, nok) {
+    const self2 = this;
+    let marker;
+    let closingTag;
+    let buffer;
+    let index2;
+    let markerB;
+    return start2;
+    function start2(code4) {
+      return before(code4);
+    }
+    function before(code4) {
+      effects.enter("htmlFlow");
+      effects.enter("htmlFlowData");
+      effects.consume(code4);
+      return open;
+    }
+    function open(code4) {
+      if (code4 === 33) {
+        effects.consume(code4);
+        return declarationOpen;
+      }
+      if (code4 === 47) {
+        effects.consume(code4);
+        closingTag = true;
+        return tagCloseStart;
+      }
+      if (code4 === 63) {
+        effects.consume(code4);
+        marker = 3;
+        return self2.interrupt ? ok3 : continuationDeclarationInside;
+      }
+      if (asciiAlpha(code4)) {
+        effects.consume(code4);
+        buffer = String.fromCharCode(code4);
+        return tagName;
+      }
+      return nok(code4);
+    }
+    function declarationOpen(code4) {
+      if (code4 === 45) {
+        effects.consume(code4);
+        marker = 2;
+        return commentOpenInside;
+      }
+      if (code4 === 91) {
+        effects.consume(code4);
+        marker = 5;
+        index2 = 0;
+        return cdataOpenInside;
+      }
+      if (asciiAlpha(code4)) {
+        effects.consume(code4);
+        marker = 4;
+        return self2.interrupt ? ok3 : continuationDeclarationInside;
+      }
+      return nok(code4);
+    }
+    function commentOpenInside(code4) {
+      if (code4 === 45) {
+        effects.consume(code4);
+        return self2.interrupt ? ok3 : continuationDeclarationInside;
+      }
+      return nok(code4);
+    }
+    function cdataOpenInside(code4) {
+      const value = "CDATA[";
+      if (code4 === value.charCodeAt(index2++)) {
+        effects.consume(code4);
+        if (index2 === value.length) {
+          return self2.interrupt ? ok3 : continuation;
+        }
+        return cdataOpenInside;
+      }
+      return nok(code4);
+    }
+    function tagCloseStart(code4) {
+      if (asciiAlpha(code4)) {
+        effects.consume(code4);
+        buffer = String.fromCharCode(code4);
+        return tagName;
+      }
+      return nok(code4);
+    }
+    function tagName(code4) {
+      if (code4 === null || code4 === 47 || code4 === 62 || markdownLineEndingOrSpace(code4)) {
+        const slash = code4 === 47;
+        const name2 = buffer.toLowerCase();
+        if (!slash && !closingTag && htmlRawNames.includes(name2)) {
+          marker = 1;
+          return self2.interrupt ? ok3(code4) : continuation(code4);
+        }
+        if (htmlBlockNames.includes(buffer.toLowerCase())) {
+          marker = 6;
+          if (slash) {
+            effects.consume(code4);
+            return basicSelfClosing;
+          }
+          return self2.interrupt ? ok3(code4) : continuation(code4);
+        }
+        marker = 7;
+        return self2.interrupt && !self2.parser.lazy[self2.now().line] ? nok(code4) : closingTag ? completeClosingTagAfter(code4) : completeAttributeNameBefore(code4);
+      }
+      if (code4 === 45 || asciiAlphanumeric(code4)) {
+        effects.consume(code4);
+        buffer += String.fromCharCode(code4);
+        return tagName;
+      }
+      return nok(code4);
+    }
+    function basicSelfClosing(code4) {
+      if (code4 === 62) {
+        effects.consume(code4);
+        return self2.interrupt ? ok3 : continuation;
+      }
+      return nok(code4);
+    }
+    function completeClosingTagAfter(code4) {
+      if (markdownSpace(code4)) {
+        effects.consume(code4);
+        return completeClosingTagAfter;
+      }
+      return completeEnd(code4);
+    }
+    function completeAttributeNameBefore(code4) {
+      if (code4 === 47) {
+        effects.consume(code4);
+        return completeEnd;
+      }
+      if (code4 === 58 || code4 === 95 || asciiAlpha(code4)) {
+        effects.consume(code4);
+        return completeAttributeName;
+      }
+      if (markdownSpace(code4)) {
+        effects.consume(code4);
+        return completeAttributeNameBefore;
+      }
+      return completeEnd(code4);
+    }
+    function completeAttributeName(code4) {
+      if (code4 === 45 || code4 === 46 || code4 === 58 || code4 === 95 || asciiAlphanumeric(code4)) {
+        effects.consume(code4);
+        return completeAttributeName;
+      }
+      return completeAttributeNameAfter(code4);
+    }
+    function completeAttributeNameAfter(code4) {
+      if (code4 === 61) {
+        effects.consume(code4);
+        return completeAttributeValueBefore;
+      }
+      if (markdownSpace(code4)) {
+        effects.consume(code4);
+        return completeAttributeNameAfter;
+      }
+      return completeAttributeNameBefore(code4);
+    }
+    function completeAttributeValueBefore(code4) {
+      if (code4 === null || code4 === 60 || code4 === 61 || code4 === 62 || code4 === 96) {
+        return nok(code4);
+      }
+      if (code4 === 34 || code4 === 39) {
+        effects.consume(code4);
+        markerB = code4;
+        return completeAttributeValueQuoted;
+      }
+      if (markdownSpace(code4)) {
+        effects.consume(code4);
+        return completeAttributeValueBefore;
+      }
+      return completeAttributeValueUnquoted(code4);
+    }
+    function completeAttributeValueQuoted(code4) {
+      if (code4 === markerB) {
+        effects.consume(code4);
+        markerB = null;
+        return completeAttributeValueQuotedAfter;
+      }
+      if (code4 === null || markdownLineEnding(code4)) {
+        return nok(code4);
+      }
+      effects.consume(code4);
+      return completeAttributeValueQuoted;
+    }
+    function completeAttributeValueUnquoted(code4) {
+      if (code4 === null || code4 === 34 || code4 === 39 || code4 === 47 || code4 === 60 || code4 === 61 || code4 === 62 || code4 === 96 || markdownLineEndingOrSpace(code4)) {
+        return completeAttributeNameAfter(code4);
+      }
+      effects.consume(code4);
+      return completeAttributeValueUnquoted;
+    }
+    function completeAttributeValueQuotedAfter(code4) {
+      if (code4 === 47 || code4 === 62 || markdownSpace(code4)) {
+        return completeAttributeNameBefore(code4);
+      }
+      return nok(code4);
+    }
+    function completeEnd(code4) {
+      if (code4 === 62) {
+        effects.consume(code4);
+        return completeAfter;
+      }
+      return nok(code4);
+    }
+    function completeAfter(code4) {
+      if (code4 === null || markdownLineEnding(code4)) {
+        return continuation(code4);
+      }
+      if (markdownSpace(code4)) {
+        effects.consume(code4);
+        return completeAfter;
+      }
+      return nok(code4);
+    }
+    function continuation(code4) {
+      if (code4 === 45 && marker === 2) {
+        effects.consume(code4);
+        return continuationCommentInside;
+      }
+      if (code4 === 60 && marker === 1) {
+        effects.consume(code4);
+        return continuationRawTagOpen;
+      }
+      if (code4 === 62 && marker === 4) {
+        effects.consume(code4);
+        return continuationClose;
+      }
+      if (code4 === 63 && marker === 3) {
+        effects.consume(code4);
+        return continuationDeclarationInside;
+      }
+      if (code4 === 93 && marker === 5) {
+        effects.consume(code4);
+        return continuationCdataInside;
+      }
+      if (markdownLineEnding(code4) && (marker === 6 || marker === 7)) {
+        effects.exit("htmlFlowData");
+        return effects.check(blankLineBefore, continuationAfter, continuationStart)(code4);
+      }
+      if (code4 === null || markdownLineEnding(code4)) {
+        effects.exit("htmlFlowData");
+        return continuationStart(code4);
+      }
+      effects.consume(code4);
+      return continuation;
+    }
+    function continuationStart(code4) {
+      return effects.check(nonLazyContinuationStart, continuationStartNonLazy, continuationAfter)(code4);
+    }
+    function continuationStartNonLazy(code4) {
+      effects.enter("lineEnding");
+      effects.consume(code4);
+      effects.exit("lineEnding");
+      return continuationBefore;
+    }
+    function continuationBefore(code4) {
+      if (code4 === null || markdownLineEnding(code4)) {
+        return continuationStart(code4);
+      }
+      effects.enter("htmlFlowData");
+      return continuation(code4);
+    }
+    function continuationCommentInside(code4) {
+      if (code4 === 45) {
+        effects.consume(code4);
+        return continuationDeclarationInside;
+      }
+      return continuation(code4);
+    }
+    function continuationRawTagOpen(code4) {
+      if (code4 === 47) {
+        effects.consume(code4);
+        buffer = "";
+        return continuationRawEndTag;
+      }
+      return continuation(code4);
+    }
+    function continuationRawEndTag(code4) {
+      if (code4 === 62) {
+        const name2 = buffer.toLowerCase();
+        if (htmlRawNames.includes(name2)) {
+          effects.consume(code4);
+          return continuationClose;
+        }
+        return continuation(code4);
+      }
+      if (asciiAlpha(code4) && buffer.length < 8) {
+        effects.consume(code4);
+        buffer += String.fromCharCode(code4);
+        return continuationRawEndTag;
+      }
+      return continuation(code4);
+    }
+    function continuationCdataInside(code4) {
+      if (code4 === 93) {
+        effects.consume(code4);
+        return continuationDeclarationInside;
+      }
+      return continuation(code4);
+    }
+    function continuationDeclarationInside(code4) {
+      if (code4 === 62) {
+        effects.consume(code4);
+        return continuationClose;
+      }
+      if (code4 === 45 && marker === 2) {
+        effects.consume(code4);
+        return continuationDeclarationInside;
+      }
+      return continuation(code4);
+    }
+    function continuationClose(code4) {
+      if (code4 === null || markdownLineEnding(code4)) {
+        effects.exit("htmlFlowData");
+        return continuationAfter(code4);
+      }
+      effects.consume(code4);
+      return continuationClose;
+    }
+    function continuationAfter(code4) {
+      effects.exit("htmlFlow");
+      return ok3(code4);
+    }
+  }
+  function tokenizeNonLazyContinuationStart(effects, ok3, nok) {
+    const self2 = this;
+    return start2;
+    function start2(code4) {
+      if (markdownLineEnding(code4)) {
+        effects.enter("lineEnding");
+        effects.consume(code4);
+        effects.exit("lineEnding");
+        return after;
+      }
+      return nok(code4);
+    }
+    function after(code4) {
+      return self2.parser.lazy[self2.now().line] ? nok(code4) : ok3(code4);
+    }
+  }
+  function tokenizeBlankLineBefore(effects, ok3, nok) {
+    return start2;
+    function start2(code4) {
+      effects.enter("lineEnding");
+      effects.consume(code4);
+      effects.exit("lineEnding");
+      return effects.attempt(blankLine, ok3, nok);
+    }
+  }
+  var htmlFlow, blankLineBefore, nonLazyContinuationStart;
+  var init_html_flow = __esm({
+    "node_modules/micromark-core-commonmark/lib/html-flow.js"() {
+      init_micromark_util_character();
+      init_micromark_util_html_tag_name();
+      init_blank_line();
+      htmlFlow = {
+        concrete: true,
+        name: "htmlFlow",
+        resolveTo: resolveToHtmlFlow,
+        tokenize: tokenizeHtmlFlow
+      };
+      blankLineBefore = {
+        partial: true,
+        tokenize: tokenizeBlankLineBefore
+      };
+      nonLazyContinuationStart = {
+        partial: true,
+        tokenize: tokenizeNonLazyContinuationStart
+      };
+    }
+  });
+
+  // node_modules/micromark-core-commonmark/lib/html-text.js
+  function tokenizeHtmlText(effects, ok3, nok) {
+    const self2 = this;
+    let marker;
+    let index2;
+    let returnState;
+    return start2;
+    function start2(code4) {
+      effects.enter("htmlText");
+      effects.enter("htmlTextData");
+      effects.consume(code4);
+      return open;
+    }
+    function open(code4) {
+      if (code4 === 33) {
+        effects.consume(code4);
+        return declarationOpen;
+      }
+      if (code4 === 47) {
+        effects.consume(code4);
+        return tagCloseStart;
+      }
+      if (code4 === 63) {
+        effects.consume(code4);
+        return instruction;
+      }
+      if (asciiAlpha(code4)) {
+        effects.consume(code4);
+        return tagOpen;
+      }
+      return nok(code4);
+    }
+    function declarationOpen(code4) {
+      if (code4 === 45) {
+        effects.consume(code4);
+        return commentOpenInside;
+      }
+      if (code4 === 91) {
+        effects.consume(code4);
+        index2 = 0;
+        return cdataOpenInside;
+      }
+      if (asciiAlpha(code4)) {
+        effects.consume(code4);
+        return declaration;
+      }
+      return nok(code4);
+    }
+    function commentOpenInside(code4) {
+      if (code4 === 45) {
+        effects.consume(code4);
+        return commentEnd;
+      }
+      return nok(code4);
+    }
+    function comment(code4) {
+      if (code4 === null) {
+        return nok(code4);
+      }
+      if (code4 === 45) {
+        effects.consume(code4);
+        return commentClose;
+      }
+      if (markdownLineEnding(code4)) {
+        returnState = comment;
+        return lineEndingBefore(code4);
+      }
+      effects.consume(code4);
+      return comment;
+    }
+    function commentClose(code4) {
+      if (code4 === 45) {
+        effects.consume(code4);
+        return commentEnd;
+      }
+      return comment(code4);
+    }
+    function commentEnd(code4) {
+      return code4 === 62 ? end(code4) : code4 === 45 ? commentClose(code4) : comment(code4);
+    }
+    function cdataOpenInside(code4) {
+      const value = "CDATA[";
+      if (code4 === value.charCodeAt(index2++)) {
+        effects.consume(code4);
+        return index2 === value.length ? cdata : cdataOpenInside;
+      }
+      return nok(code4);
+    }
+    function cdata(code4) {
+      if (code4 === null) {
+        return nok(code4);
+      }
+      if (code4 === 93) {
+        effects.consume(code4);
+        return cdataClose;
+      }
+      if (markdownLineEnding(code4)) {
+        returnState = cdata;
+        return lineEndingBefore(code4);
+      }
+      effects.consume(code4);
+      return cdata;
+    }
+    function cdataClose(code4) {
+      if (code4 === 93) {
+        effects.consume(code4);
+        return cdataEnd;
+      }
+      return cdata(code4);
+    }
+    function cdataEnd(code4) {
+      if (code4 === 62) {
+        return end(code4);
+      }
+      if (code4 === 93) {
+        effects.consume(code4);
+        return cdataEnd;
+      }
+      return cdata(code4);
+    }
+    function declaration(code4) {
+      if (code4 === null || code4 === 62) {
+        return end(code4);
+      }
+      if (markdownLineEnding(code4)) {
+        returnState = declaration;
+        return lineEndingBefore(code4);
+      }
+      effects.consume(code4);
+      return declaration;
+    }
+    function instruction(code4) {
+      if (code4 === null) {
+        return nok(code4);
+      }
+      if (code4 === 63) {
+        effects.consume(code4);
+        return instructionClose;
+      }
+      if (markdownLineEnding(code4)) {
+        returnState = instruction;
+        return lineEndingBefore(code4);
+      }
+      effects.consume(code4);
+      return instruction;
+    }
+    function instructionClose(code4) {
+      return code4 === 62 ? end(code4) : instruction(code4);
+    }
+    function tagCloseStart(code4) {
+      if (asciiAlpha(code4)) {
+        effects.consume(code4);
+        return tagClose;
+      }
+      return nok(code4);
+    }
+    function tagClose(code4) {
+      if (code4 === 45 || asciiAlphanumeric(code4)) {
+        effects.consume(code4);
+        return tagClose;
+      }
+      return tagCloseBetween(code4);
+    }
+    function tagCloseBetween(code4) {
+      if (markdownLineEnding(code4)) {
+        returnState = tagCloseBetween;
+        return lineEndingBefore(code4);
+      }
+      if (markdownSpace(code4)) {
+        effects.consume(code4);
+        return tagCloseBetween;
+      }
+      return end(code4);
+    }
+    function tagOpen(code4) {
+      if (code4 === 45 || asciiAlphanumeric(code4)) {
+        effects.consume(code4);
+        return tagOpen;
+      }
+      if (code4 === 47 || code4 === 62 || markdownLineEndingOrSpace(code4)) {
+        return tagOpenBetween(code4);
+      }
+      return nok(code4);
+    }
+    function tagOpenBetween(code4) {
+      if (code4 === 47) {
+        effects.consume(code4);
+        return end;
+      }
+      if (code4 === 58 || code4 === 95 || asciiAlpha(code4)) {
+        effects.consume(code4);
+        return tagOpenAttributeName;
+      }
+      if (markdownLineEnding(code4)) {
+        returnState = tagOpenBetween;
+        return lineEndingBefore(code4);
+      }
+      if (markdownSpace(code4)) {
+        effects.consume(code4);
+        return tagOpenBetween;
+      }
+      return end(code4);
+    }
+    function tagOpenAttributeName(code4) {
+      if (code4 === 45 || code4 === 46 || code4 === 58 || code4 === 95 || asciiAlphanumeric(code4)) {
+        effects.consume(code4);
+        return tagOpenAttributeName;
+      }
+      return tagOpenAttributeNameAfter(code4);
+    }
+    function tagOpenAttributeNameAfter(code4) {
+      if (code4 === 61) {
+        effects.consume(code4);
+        return tagOpenAttributeValueBefore;
+      }
+      if (markdownLineEnding(code4)) {
+        returnState = tagOpenAttributeNameAfter;
+        return lineEndingBefore(code4);
+      }
+      if (markdownSpace(code4)) {
+        effects.consume(code4);
+        return tagOpenAttributeNameAfter;
+      }
+      return tagOpenBetween(code4);
+    }
+    function tagOpenAttributeValueBefore(code4) {
+      if (code4 === null || code4 === 60 || code4 === 61 || code4 === 62 || code4 === 96) {
+        return nok(code4);
+      }
+      if (code4 === 34 || code4 === 39) {
+        effects.consume(code4);
+        marker = code4;
+        return tagOpenAttributeValueQuoted;
+      }
+      if (markdownLineEnding(code4)) {
+        returnState = tagOpenAttributeValueBefore;
+        return lineEndingBefore(code4);
+      }
+      if (markdownSpace(code4)) {
+        effects.consume(code4);
+        return tagOpenAttributeValueBefore;
+      }
+      effects.consume(code4);
+      return tagOpenAttributeValueUnquoted;
+    }
+    function tagOpenAttributeValueQuoted(code4) {
+      if (code4 === marker) {
+        effects.consume(code4);
+        marker = void 0;
+        return tagOpenAttributeValueQuotedAfter;
+      }
+      if (code4 === null) {
+        return nok(code4);
+      }
+      if (markdownLineEnding(code4)) {
+        returnState = tagOpenAttributeValueQuoted;
+        return lineEndingBefore(code4);
+      }
+      effects.consume(code4);
+      return tagOpenAttributeValueQuoted;
+    }
+    function tagOpenAttributeValueUnquoted(code4) {
+      if (code4 === null || code4 === 34 || code4 === 39 || code4 === 60 || code4 === 61 || code4 === 96) {
+        return nok(code4);
+      }
+      if (code4 === 47 || code4 === 62 || markdownLineEndingOrSpace(code4)) {
+        return tagOpenBetween(code4);
+      }
+      effects.consume(code4);
+      return tagOpenAttributeValueUnquoted;
+    }
+    function tagOpenAttributeValueQuotedAfter(code4) {
+      if (code4 === 47 || code4 === 62 || markdownLineEndingOrSpace(code4)) {
+        return tagOpenBetween(code4);
+      }
+      return nok(code4);
+    }
+    function end(code4) {
+      if (code4 === 62) {
+        effects.consume(code4);
+        effects.exit("htmlTextData");
+        effects.exit("htmlText");
+        return ok3;
+      }
+      return nok(code4);
+    }
+    function lineEndingBefore(code4) {
+      effects.exit("htmlTextData");
+      effects.enter("lineEnding");
+      effects.consume(code4);
+      effects.exit("lineEnding");
+      return lineEndingAfter;
+    }
+    function lineEndingAfter(code4) {
+      return markdownSpace(code4) ? factorySpace(effects, lineEndingAfterPrefix, "linePrefix", self2.parser.constructs.disable.null.includes("codeIndented") ? void 0 : 4)(code4) : lineEndingAfterPrefix(code4);
+    }
+    function lineEndingAfterPrefix(code4) {
+      effects.enter("htmlTextData");
+      return returnState(code4);
+    }
+  }
+  var htmlText;
+  var init_html_text = __esm({
+    "node_modules/micromark-core-commonmark/lib/html-text.js"() {
+      init_micromark_factory_space();
+      init_micromark_util_character();
+      htmlText = {
+        name: "htmlText",
+        tokenize: tokenizeHtmlText
+      };
+    }
+  });
+
+  // node_modules/micromark-core-commonmark/lib/label-end.js
+  function resolveAllLabelEnd(events) {
+    let index2 = -1;
+    const newEvents = [];
+    while (++index2 < events.length) {
+      const token = events[index2][1];
+      newEvents.push(events[index2]);
+      if (token.type === "labelImage" || token.type === "labelLink" || token.type === "labelEnd") {
+        const offset = token.type === "labelImage" ? 4 : 2;
+        token.type = "data";
+        index2 += offset;
+      }
+    }
+    if (events.length !== newEvents.length) {
+      splice(events, 0, events.length, newEvents);
+    }
+    return events;
+  }
+  function resolveToLabelEnd(events, context) {
+    let index2 = events.length;
+    let offset = 0;
+    let token;
+    let open;
+    let close;
+    let media;
+    while (index2--) {
+      token = events[index2][1];
+      if (open) {
+        if (token.type === "link" || token.type === "labelLink" && token._inactive) {
+          break;
+        }
+        if (events[index2][0] === "enter" && token.type === "labelLink") {
+          token._inactive = true;
+        }
+      } else if (close) {
+        if (events[index2][0] === "enter" && (token.type === "labelImage" || token.type === "labelLink") && !token._balanced) {
+          open = index2;
+          if (token.type !== "labelLink") {
+            offset = 2;
+            break;
+          }
+        }
+      } else if (token.type === "labelEnd") {
+        close = index2;
+      }
+    }
+    const group = {
+      type: events[open][1].type === "labelLink" ? "link" : "image",
+      start: {
+        ...events[open][1].start
+      },
+      end: {
+        ...events[events.length - 1][1].end
+      }
+    };
+    const label = {
+      type: "label",
+      start: {
+        ...events[open][1].start
+      },
+      end: {
+        ...events[close][1].end
+      }
+    };
+    const text7 = {
+      type: "labelText",
+      start: {
+        ...events[open + offset + 2][1].end
+      },
+      end: {
+        ...events[close - 2][1].start
+      }
+    };
+    media = [["enter", group, context], ["enter", label, context]];
+    media = push(media, events.slice(open + 1, open + offset + 3));
+    media = push(media, [["enter", text7, context]]);
+    media = push(media, resolveAll(context.parser.constructs.insideSpan.null, events.slice(open + offset + 4, close - 3), context));
+    media = push(media, [["exit", text7, context], events[close - 2], events[close - 1], ["exit", label, context]]);
+    media = push(media, events.slice(close + 1));
+    media = push(media, [["exit", group, context]]);
+    splice(events, open, events.length, media);
+    return events;
+  }
+  function tokenizeLabelEnd(effects, ok3, nok) {
+    const self2 = this;
+    let index2 = self2.events.length;
+    let labelStart;
+    let defined;
+    while (index2--) {
+      if ((self2.events[index2][1].type === "labelImage" || self2.events[index2][1].type === "labelLink") && !self2.events[index2][1]._balanced) {
+        labelStart = self2.events[index2][1];
+        break;
+      }
+    }
+    return start2;
+    function start2(code4) {
+      if (!labelStart) {
+        return nok(code4);
+      }
+      if (labelStart._inactive) {
+        return labelEndNok(code4);
+      }
+      defined = self2.parser.defined.includes(normalizeIdentifier(self2.sliceSerialize({
+        start: labelStart.end,
+        end: self2.now()
+      })));
+      effects.enter("labelEnd");
+      effects.enter("labelMarker");
+      effects.consume(code4);
+      effects.exit("labelMarker");
+      effects.exit("labelEnd");
+      return after;
+    }
+    function after(code4) {
+      if (code4 === 40) {
+        return effects.attempt(resourceConstruct, labelEndOk, defined ? labelEndOk : labelEndNok)(code4);
+      }
+      if (code4 === 91) {
+        return effects.attempt(referenceFullConstruct, labelEndOk, defined ? referenceNotFull : labelEndNok)(code4);
+      }
+      return defined ? labelEndOk(code4) : labelEndNok(code4);
+    }
+    function referenceNotFull(code4) {
+      return effects.attempt(referenceCollapsedConstruct, labelEndOk, labelEndNok)(code4);
+    }
+    function labelEndOk(code4) {
+      return ok3(code4);
+    }
+    function labelEndNok(code4) {
+      labelStart._balanced = true;
+      return nok(code4);
+    }
+  }
+  function tokenizeResource(effects, ok3, nok) {
+    return resourceStart;
+    function resourceStart(code4) {
+      effects.enter("resource");
+      effects.enter("resourceMarker");
+      effects.consume(code4);
+      effects.exit("resourceMarker");
+      return resourceBefore;
+    }
+    function resourceBefore(code4) {
+      return markdownLineEndingOrSpace(code4) ? factoryWhitespace(effects, resourceOpen)(code4) : resourceOpen(code4);
+    }
+    function resourceOpen(code4) {
+      if (code4 === 41) {
+        return resourceEnd(code4);
+      }
+      return factoryDestination(effects, resourceDestinationAfter, resourceDestinationMissing, "resourceDestination", "resourceDestinationLiteral", "resourceDestinationLiteralMarker", "resourceDestinationRaw", "resourceDestinationString", 32)(code4);
+    }
+    function resourceDestinationAfter(code4) {
+      return markdownLineEndingOrSpace(code4) ? factoryWhitespace(effects, resourceBetween)(code4) : resourceEnd(code4);
+    }
+    function resourceDestinationMissing(code4) {
+      return nok(code4);
+    }
+    function resourceBetween(code4) {
+      if (code4 === 34 || code4 === 39 || code4 === 40) {
+        return factoryTitle(effects, resourceTitleAfter, nok, "resourceTitle", "resourceTitleMarker", "resourceTitleString")(code4);
+      }
+      return resourceEnd(code4);
+    }
+    function resourceTitleAfter(code4) {
+      return markdownLineEndingOrSpace(code4) ? factoryWhitespace(effects, resourceEnd)(code4) : resourceEnd(code4);
+    }
+    function resourceEnd(code4) {
+      if (code4 === 41) {
+        effects.enter("resourceMarker");
+        effects.consume(code4);
+        effects.exit("resourceMarker");
+        effects.exit("resource");
+        return ok3;
+      }
+      return nok(code4);
+    }
+  }
+  function tokenizeReferenceFull(effects, ok3, nok) {
+    const self2 = this;
+    return referenceFull;
+    function referenceFull(code4) {
+      return factoryLabel.call(self2, effects, referenceFullAfter, referenceFullMissing, "reference", "referenceMarker", "referenceString")(code4);
+    }
+    function referenceFullAfter(code4) {
+      return self2.parser.defined.includes(normalizeIdentifier(self2.sliceSerialize(self2.events[self2.events.length - 1][1]).slice(1, -1))) ? ok3(code4) : nok(code4);
+    }
+    function referenceFullMissing(code4) {
+      return nok(code4);
+    }
+  }
+  function tokenizeReferenceCollapsed(effects, ok3, nok) {
+    return referenceCollapsedStart;
+    function referenceCollapsedStart(code4) {
+      effects.enter("reference");
+      effects.enter("referenceMarker");
+      effects.consume(code4);
+      effects.exit("referenceMarker");
+      return referenceCollapsedOpen;
+    }
+    function referenceCollapsedOpen(code4) {
+      if (code4 === 93) {
+        effects.enter("referenceMarker");
+        effects.consume(code4);
+        effects.exit("referenceMarker");
+        effects.exit("reference");
+        return ok3;
+      }
+      return nok(code4);
+    }
+  }
+  var labelEnd, resourceConstruct, referenceFullConstruct, referenceCollapsedConstruct;
+  var init_label_end = __esm({
+    "node_modules/micromark-core-commonmark/lib/label-end.js"() {
+      init_micromark_factory_destination();
+      init_micromark_factory_label();
+      init_micromark_factory_title();
+      init_micromark_factory_whitespace();
+      init_micromark_util_character();
+      init_micromark_util_chunked();
+      init_micromark_util_normalize_identifier();
+      init_micromark_util_resolve_all();
+      labelEnd = {
+        name: "labelEnd",
+        resolveAll: resolveAllLabelEnd,
+        resolveTo: resolveToLabelEnd,
+        tokenize: tokenizeLabelEnd
+      };
+      resourceConstruct = {
+        tokenize: tokenizeResource
+      };
+      referenceFullConstruct = {
+        tokenize: tokenizeReferenceFull
+      };
+      referenceCollapsedConstruct = {
+        tokenize: tokenizeReferenceCollapsed
+      };
+    }
+  });
+
+  // node_modules/micromark-core-commonmark/lib/label-start-image.js
+  function tokenizeLabelStartImage(effects, ok3, nok) {
+    const self2 = this;
+    return start2;
+    function start2(code4) {
+      effects.enter("labelImage");
+      effects.enter("labelImageMarker");
+      effects.consume(code4);
+      effects.exit("labelImageMarker");
+      return open;
+    }
+    function open(code4) {
+      if (code4 === 91) {
+        effects.enter("labelMarker");
+        effects.consume(code4);
+        effects.exit("labelMarker");
+        effects.exit("labelImage");
+        return after;
+      }
+      return nok(code4);
+    }
+    function after(code4) {
+      return code4 === 94 && "_hiddenFootnoteSupport" in self2.parser.constructs ? nok(code4) : ok3(code4);
+    }
+  }
+  var labelStartImage;
+  var init_label_start_image = __esm({
+    "node_modules/micromark-core-commonmark/lib/label-start-image.js"() {
+      init_label_end();
+      labelStartImage = {
+        name: "labelStartImage",
+        resolveAll: labelEnd.resolveAll,
+        tokenize: tokenizeLabelStartImage
+      };
+    }
+  });
+
+  // node_modules/micromark-core-commonmark/lib/label-start-link.js
+  function tokenizeLabelStartLink(effects, ok3, nok) {
+    const self2 = this;
+    return start2;
+    function start2(code4) {
+      effects.enter("labelLink");
+      effects.enter("labelMarker");
+      effects.consume(code4);
+      effects.exit("labelMarker");
+      effects.exit("labelLink");
+      return after;
+    }
+    function after(code4) {
+      return code4 === 94 && "_hiddenFootnoteSupport" in self2.parser.constructs ? nok(code4) : ok3(code4);
+    }
+  }
+  var labelStartLink;
+  var init_label_start_link = __esm({
+    "node_modules/micromark-core-commonmark/lib/label-start-link.js"() {
+      init_label_end();
+      labelStartLink = {
+        name: "labelStartLink",
+        resolveAll: labelEnd.resolveAll,
+        tokenize: tokenizeLabelStartLink
+      };
+    }
+  });
+
+  // node_modules/micromark-core-commonmark/lib/line-ending.js
+  function tokenizeLineEnding(effects, ok3) {
+    return start2;
+    function start2(code4) {
+      effects.enter("lineEnding");
+      effects.consume(code4);
+      effects.exit("lineEnding");
+      return factorySpace(effects, ok3, "linePrefix");
+    }
+  }
+  var lineEnding;
+  var init_line_ending = __esm({
+    "node_modules/micromark-core-commonmark/lib/line-ending.js"() {
+      init_micromark_factory_space();
+      lineEnding = {
+        name: "lineEnding",
+        tokenize: tokenizeLineEnding
+      };
+    }
+  });
+
+  // node_modules/micromark-core-commonmark/lib/thematic-break.js
+  function tokenizeThematicBreak(effects, ok3, nok) {
+    let size = 0;
+    let marker;
+    return start2;
+    function start2(code4) {
+      effects.enter("thematicBreak");
+      return before(code4);
+    }
+    function before(code4) {
+      marker = code4;
+      return atBreak(code4);
+    }
+    function atBreak(code4) {
+      if (code4 === marker) {
+        effects.enter("thematicBreakSequence");
+        return sequence(code4);
+      }
+      if (size >= 3 && (code4 === null || markdownLineEnding(code4))) {
+        effects.exit("thematicBreak");
+        return ok3(code4);
+      }
+      return nok(code4);
+    }
+    function sequence(code4) {
+      if (code4 === marker) {
+        effects.consume(code4);
+        size++;
+        return sequence;
+      }
+      effects.exit("thematicBreakSequence");
+      return markdownSpace(code4) ? factorySpace(effects, atBreak, "whitespace")(code4) : atBreak(code4);
+    }
+  }
+  var thematicBreak;
+  var init_thematic_break = __esm({
+    "node_modules/micromark-core-commonmark/lib/thematic-break.js"() {
+      init_micromark_factory_space();
+      init_micromark_util_character();
+      thematicBreak = {
+        name: "thematicBreak",
+        tokenize: tokenizeThematicBreak
+      };
+    }
+  });
+
+  // node_modules/micromark-core-commonmark/lib/list.js
+  function tokenizeListStart(effects, ok3, nok) {
+    const self2 = this;
+    const tail = self2.events[self2.events.length - 1];
+    let initialSize = tail && tail[1].type === "linePrefix" ? tail[2].sliceSerialize(tail[1], true).length : 0;
+    let size = 0;
+    return start2;
+    function start2(code4) {
+      const kind = self2.containerState.type || (code4 === 42 || code4 === 43 || code4 === 45 ? "listUnordered" : "listOrdered");
+      if (kind === "listUnordered" ? !self2.containerState.marker || code4 === self2.containerState.marker : asciiDigit(code4)) {
+        if (!self2.containerState.type) {
+          self2.containerState.type = kind;
+          effects.enter(kind, {
+            _container: true
+          });
+        }
+        if (kind === "listUnordered") {
+          effects.enter("listItemPrefix");
+          return code4 === 42 || code4 === 45 ? effects.check(thematicBreak, nok, atMarker)(code4) : atMarker(code4);
+        }
+        if (!self2.interrupt || code4 === 49) {
+          effects.enter("listItemPrefix");
+          effects.enter("listItemValue");
+          return inside(code4);
+        }
+      }
+      return nok(code4);
+    }
+    function inside(code4) {
+      if (asciiDigit(code4) && ++size < 10) {
+        effects.consume(code4);
+        return inside;
+      }
+      if ((!self2.interrupt || size < 2) && (self2.containerState.marker ? code4 === self2.containerState.marker : code4 === 41 || code4 === 46)) {
+        effects.exit("listItemValue");
+        return atMarker(code4);
+      }
+      return nok(code4);
+    }
+    function atMarker(code4) {
+      effects.enter("listItemMarker");
+      effects.consume(code4);
+      effects.exit("listItemMarker");
+      self2.containerState.marker = self2.containerState.marker || code4;
+      return effects.check(
+        blankLine,
+        // Can’t be empty when interrupting.
+        self2.interrupt ? nok : onBlank,
+        effects.attempt(listItemPrefixWhitespaceConstruct, endOfPrefix, otherPrefix)
+      );
+    }
+    function onBlank(code4) {
+      self2.containerState.initialBlankLine = true;
+      initialSize++;
+      return endOfPrefix(code4);
+    }
+    function otherPrefix(code4) {
+      if (markdownSpace(code4)) {
+        effects.enter("listItemPrefixWhitespace");
+        effects.consume(code4);
+        effects.exit("listItemPrefixWhitespace");
+        return endOfPrefix;
+      }
+      return nok(code4);
+    }
+    function endOfPrefix(code4) {
+      self2.containerState.size = initialSize + self2.sliceSerialize(effects.exit("listItemPrefix"), true).length;
+      return ok3(code4);
+    }
+  }
+  function tokenizeListContinuation(effects, ok3, nok) {
+    const self2 = this;
+    self2.containerState._closeFlow = void 0;
+    return effects.check(blankLine, onBlank, notBlank);
+    function onBlank(code4) {
+      self2.containerState.furtherBlankLines = self2.containerState.furtherBlankLines || self2.containerState.initialBlankLine;
+      return factorySpace(effects, ok3, "listItemIndent", self2.containerState.size + 1)(code4);
+    }
+    function notBlank(code4) {
+      if (self2.containerState.furtherBlankLines || !markdownSpace(code4)) {
+        self2.containerState.furtherBlankLines = void 0;
+        self2.containerState.initialBlankLine = void 0;
+        return notInCurrentItem(code4);
+      }
+      self2.containerState.furtherBlankLines = void 0;
+      self2.containerState.initialBlankLine = void 0;
+      return effects.attempt(indentConstruct, ok3, notInCurrentItem)(code4);
+    }
+    function notInCurrentItem(code4) {
+      self2.containerState._closeFlow = true;
+      self2.interrupt = void 0;
+      return factorySpace(effects, effects.attempt(list, ok3, nok), "linePrefix", self2.parser.constructs.disable.null.includes("codeIndented") ? void 0 : 4)(code4);
+    }
+  }
+  function tokenizeIndent(effects, ok3, nok) {
+    const self2 = this;
+    return factorySpace(effects, afterPrefix, "listItemIndent", self2.containerState.size + 1);
+    function afterPrefix(code4) {
+      const tail = self2.events[self2.events.length - 1];
+      return tail && tail[1].type === "listItemIndent" && tail[2].sliceSerialize(tail[1], true).length === self2.containerState.size ? ok3(code4) : nok(code4);
+    }
+  }
+  function tokenizeListEnd(effects) {
+    effects.exit(this.containerState.type);
+  }
+  function tokenizeListItemPrefixWhitespace(effects, ok3, nok) {
+    const self2 = this;
+    return factorySpace(effects, afterPrefix, "listItemPrefixWhitespace", self2.parser.constructs.disable.null.includes("codeIndented") ? void 0 : 4 + 1);
+    function afterPrefix(code4) {
+      const tail = self2.events[self2.events.length - 1];
+      return !markdownSpace(code4) && tail && tail[1].type === "listItemPrefixWhitespace" ? ok3(code4) : nok(code4);
+    }
+  }
+  var list, listItemPrefixWhitespaceConstruct, indentConstruct;
+  var init_list = __esm({
+    "node_modules/micromark-core-commonmark/lib/list.js"() {
+      init_micromark_factory_space();
+      init_micromark_util_character();
+      init_blank_line();
+      init_thematic_break();
+      list = {
+        continuation: {
+          tokenize: tokenizeListContinuation
+        },
+        exit: tokenizeListEnd,
+        name: "list",
+        tokenize: tokenizeListStart
+      };
+      listItemPrefixWhitespaceConstruct = {
+        partial: true,
+        tokenize: tokenizeListItemPrefixWhitespace
+      };
+      indentConstruct = {
+        partial: true,
+        tokenize: tokenizeIndent
+      };
+    }
+  });
+
+  // node_modules/micromark-core-commonmark/lib/setext-underline.js
+  function resolveToSetextUnderline(events, context) {
+    let index2 = events.length;
+    let content3;
+    let text7;
+    let definition3;
+    while (index2--) {
+      if (events[index2][0] === "enter") {
+        if (events[index2][1].type === "content") {
+          content3 = index2;
+          break;
+        }
+        if (events[index2][1].type === "paragraph") {
+          text7 = index2;
+        }
+      } else {
+        if (events[index2][1].type === "content") {
+          events.splice(index2, 1);
+        }
+        if (!definition3 && events[index2][1].type === "definition") {
+          definition3 = index2;
+        }
+      }
+    }
+    const heading3 = {
+      type: "setextHeading",
+      start: {
+        ...events[content3][1].start
+      },
+      end: {
+        ...events[events.length - 1][1].end
+      }
+    };
+    events[text7][1].type = "setextHeadingText";
+    if (definition3) {
+      events.splice(text7, 0, ["enter", heading3, context]);
+      events.splice(definition3 + 1, 0, ["exit", events[content3][1], context]);
+      events[content3][1].end = {
+        ...events[definition3][1].end
+      };
+    } else {
+      events[content3][1] = heading3;
+    }
+    events.push(["exit", heading3, context]);
+    return events;
+  }
+  function tokenizeSetextUnderline(effects, ok3, nok) {
+    const self2 = this;
+    let marker;
+    return start2;
+    function start2(code4) {
+      let index2 = self2.events.length;
+      let paragraph3;
+      while (index2--) {
+        if (self2.events[index2][1].type !== "lineEnding" && self2.events[index2][1].type !== "linePrefix" && self2.events[index2][1].type !== "content") {
+          paragraph3 = self2.events[index2][1].type === "paragraph";
+          break;
+        }
+      }
+      if (!self2.parser.lazy[self2.now().line] && (self2.interrupt || paragraph3)) {
+        effects.enter("setextHeadingLine");
+        marker = code4;
+        return before(code4);
+      }
+      return nok(code4);
+    }
+    function before(code4) {
+      effects.enter("setextHeadingLineSequence");
+      return inside(code4);
+    }
+    function inside(code4) {
+      if (code4 === marker) {
+        effects.consume(code4);
+        return inside;
+      }
+      effects.exit("setextHeadingLineSequence");
+      return markdownSpace(code4) ? factorySpace(effects, after, "lineSuffix")(code4) : after(code4);
+    }
+    function after(code4) {
+      if (code4 === null || markdownLineEnding(code4)) {
+        effects.exit("setextHeadingLine");
+        return ok3(code4);
+      }
+      return nok(code4);
+    }
+  }
+  var setextUnderline;
+  var init_setext_underline = __esm({
+    "node_modules/micromark-core-commonmark/lib/setext-underline.js"() {
+      init_micromark_factory_space();
+      init_micromark_util_character();
+      setextUnderline = {
+        name: "setextUnderline",
+        resolveTo: resolveToSetextUnderline,
+        tokenize: tokenizeSetextUnderline
+      };
+    }
+  });
+
+  // node_modules/micromark-core-commonmark/index.js
+  var init_micromark_core_commonmark = __esm({
+    "node_modules/micromark-core-commonmark/index.js"() {
+      init_attention();
+      init_autolink();
+      init_blank_line();
+      init_block_quote();
+      init_character_escape();
+      init_character_reference();
+      init_code_fenced();
+      init_code_indented();
+      init_code_text();
+      init_content2();
+      init_definition();
+      init_hard_break_escape();
+      init_heading_atx();
+      init_html_flow();
+      init_html_text();
+      init_label_end();
+      init_label_start_image();
+      init_label_start_link();
+      init_line_ending();
+      init_list();
+      init_setext_underline();
+      init_thematic_break();
+    }
+  });
+
+  // node_modules/micromark/lib/initialize/flow.js
+  function initializeFlow(effects) {
+    const self2 = this;
+    const initial = effects.attempt(
+      // Try to parse a blank line.
+      blankLine,
+      atBlankEnding,
+      // Try to parse initial flow (essentially, only code).
+      effects.attempt(this.parser.constructs.flowInitial, afterConstruct, factorySpace(effects, effects.attempt(this.parser.constructs.flow, afterConstruct, effects.attempt(content2, afterConstruct)), "linePrefix"))
+    );
+    return initial;
+    function atBlankEnding(code4) {
+      if (code4 === null) {
+        effects.consume(code4);
+        return;
+      }
+      effects.enter("lineEndingBlank");
+      effects.consume(code4);
+      effects.exit("lineEndingBlank");
+      self2.currentConstruct = void 0;
+      return initial;
+    }
+    function afterConstruct(code4) {
+      if (code4 === null) {
+        effects.consume(code4);
+        return;
+      }
+      effects.enter("lineEnding");
+      effects.consume(code4);
+      effects.exit("lineEnding");
+      self2.currentConstruct = void 0;
+      return initial;
+    }
+  }
+  var flow;
+  var init_flow = __esm({
+    "node_modules/micromark/lib/initialize/flow.js"() {
+      init_micromark_core_commonmark();
+      init_micromark_factory_space();
+      flow = {
+        tokenize: initializeFlow
+      };
+    }
+  });
+
+  // node_modules/micromark/lib/initialize/text.js
+  function initializeFactory(field) {
+    return {
+      resolveAll: createResolver(field === "text" ? resolveAllLineSuffixes : void 0),
+      tokenize: initializeText
+    };
+    function initializeText(effects) {
+      const self2 = this;
+      const constructs2 = this.parser.constructs[field];
+      const text7 = effects.attempt(constructs2, start2, notText);
+      return start2;
+      function start2(code4) {
+        return atBreak(code4) ? text7(code4) : notText(code4);
+      }
+      function notText(code4) {
+        if (code4 === null) {
+          effects.consume(code4);
+          return;
+        }
+        effects.enter("data");
+        effects.consume(code4);
+        return data;
+      }
+      function data(code4) {
+        if (atBreak(code4)) {
+          effects.exit("data");
+          return text7(code4);
+        }
+        effects.consume(code4);
+        return data;
+      }
+      function atBreak(code4) {
+        if (code4 === null) {
+          return true;
+        }
+        const list4 = constructs2[code4];
+        let index2 = -1;
+        if (list4) {
+          while (++index2 < list4.length) {
+            const item = list4[index2];
+            if (!item.previous || item.previous.call(self2, self2.previous)) {
+              return true;
+            }
+          }
+        }
+        return false;
+      }
+    }
+  }
+  function createResolver(extraResolver) {
+    return resolveAllText;
+    function resolveAllText(events, context) {
+      let index2 = -1;
+      let enter;
+      while (++index2 <= events.length) {
+        if (enter === void 0) {
+          if (events[index2] && events[index2][1].type === "data") {
+            enter = index2;
+            index2++;
+          }
+        } else if (!events[index2] || events[index2][1].type !== "data") {
+          if (index2 !== enter + 2) {
+            events[enter][1].end = events[index2 - 1][1].end;
+            events.splice(enter + 2, index2 - enter - 2);
+            index2 = enter + 2;
+          }
+          enter = void 0;
+        }
+      }
+      return extraResolver ? extraResolver(events, context) : events;
+    }
+  }
+  function resolveAllLineSuffixes(events, context) {
+    let eventIndex = 0;
+    while (++eventIndex <= events.length) {
+      if ((eventIndex === events.length || events[eventIndex][1].type === "lineEnding") && events[eventIndex - 1][1].type === "data") {
+        const data = events[eventIndex - 1][1];
+        const chunks = context.sliceStream(data);
+        let index2 = chunks.length;
+        let bufferIndex = -1;
+        let size = 0;
+        let tabs;
+        while (index2--) {
+          const chunk = chunks[index2];
+          if (typeof chunk === "string") {
+            bufferIndex = chunk.length;
+            while (chunk.charCodeAt(bufferIndex - 1) === 32) {
+              size++;
+              bufferIndex--;
+            }
+            if (bufferIndex) break;
+            bufferIndex = -1;
+          } else if (chunk === -2) {
+            tabs = true;
+            size++;
+          } else if (chunk === -1) {
+          } else {
+            index2++;
+            break;
+          }
+        }
+        if (context._contentTypeTextTrailing && eventIndex === events.length) {
+          size = 0;
+        }
+        if (size) {
+          const token = {
+            type: eventIndex === events.length || tabs || size < 2 ? "lineSuffix" : "hardBreakTrailing",
+            start: {
+              _bufferIndex: index2 ? bufferIndex : data.start._bufferIndex + bufferIndex,
+              _index: data.start._index + index2,
+              line: data.end.line,
+              column: data.end.column - size,
+              offset: data.end.offset - size
+            },
+            end: {
+              ...data.end
+            }
+          };
+          data.end = {
+            ...token.start
+          };
+          if (data.start.offset === data.end.offset) {
+            Object.assign(data, token);
+          } else {
+            events.splice(eventIndex, 0, ["enter", token, context], ["exit", token, context]);
+            eventIndex += 2;
+          }
+        }
+        eventIndex++;
+      }
+    }
+    return events;
+  }
+  var resolver, string, text2;
+  var init_text = __esm({
+    "node_modules/micromark/lib/initialize/text.js"() {
+      resolver = {
+        resolveAll: createResolver()
+      };
+      string = initializeFactory("string");
+      text2 = initializeFactory("text");
+    }
+  });
+
+  // node_modules/micromark/lib/constructs.js
+  var constructs_exports = {};
+  __export(constructs_exports, {
+    attentionMarkers: () => attentionMarkers,
+    contentInitial: () => contentInitial,
+    disable: () => disable,
+    document: () => document3,
+    flow: () => flow2,
+    flowInitial: () => flowInitial,
+    insideSpan: () => insideSpan,
+    string: () => string2,
+    text: () => text3
+  });
+  var document3, contentInitial, flowInitial, flow2, string2, text3, insideSpan, attentionMarkers, disable;
+  var init_constructs = __esm({
+    "node_modules/micromark/lib/constructs.js"() {
+      init_micromark_core_commonmark();
+      init_text();
+      document3 = {
+        [42]: list,
+        [43]: list,
+        [45]: list,
+        [48]: list,
+        [49]: list,
+        [50]: list,
+        [51]: list,
+        [52]: list,
+        [53]: list,
+        [54]: list,
+        [55]: list,
+        [56]: list,
+        [57]: list,
+        [62]: blockQuote
+      };
+      contentInitial = {
+        [91]: definition
+      };
+      flowInitial = {
+        [-2]: codeIndented,
+        [-1]: codeIndented,
+        [32]: codeIndented
+      };
+      flow2 = {
+        [35]: headingAtx,
+        [42]: thematicBreak,
+        [45]: [setextUnderline, thematicBreak],
+        [60]: htmlFlow,
+        [61]: setextUnderline,
+        [95]: thematicBreak,
+        [96]: codeFenced,
+        [126]: codeFenced
+      };
+      string2 = {
+        [38]: characterReference,
+        [92]: characterEscape
+      };
+      text3 = {
+        [-5]: lineEnding,
+        [-4]: lineEnding,
+        [-3]: lineEnding,
+        [33]: labelStartImage,
+        [38]: characterReference,
+        [42]: attention,
+        [60]: [autolink, htmlText],
+        [91]: labelStartLink,
+        [92]: [hardBreakEscape, characterEscape],
+        [93]: labelEnd,
+        [95]: attention,
+        [96]: codeText
+      };
+      insideSpan = {
+        null: [attention, resolver]
+      };
+      attentionMarkers = {
+        null: [42, 95]
+      };
+      disable = {
+        null: []
+      };
+    }
+  });
+
+  // node_modules/micromark/lib/create-tokenizer.js
+  function createTokenizer(parser, initialize, from) {
+    let point4 = {
+      _bufferIndex: -1,
+      _index: 0,
+      line: from && from.line || 1,
+      column: from && from.column || 1,
+      offset: from && from.offset || 0
+    };
+    const columnStart = {};
+    const resolveAllConstructs = [];
+    let chunks = [];
+    let stack = [];
+    let consumed = true;
+    const effects = {
+      attempt: constructFactory(onsuccessfulconstruct),
+      check: constructFactory(onsuccessfulcheck),
+      consume,
+      enter,
+      exit: exit3,
+      interrupt: constructFactory(onsuccessfulcheck, {
+        interrupt: true
+      })
+    };
+    const context = {
+      code: null,
+      containerState: {},
+      defineSkip,
+      events: [],
+      now,
+      parser,
+      previous: null,
+      sliceSerialize,
+      sliceStream,
+      write
+    };
+    let state = initialize.tokenize.call(context, effects);
+    let expectedCode;
+    if (initialize.resolveAll) {
+      resolveAllConstructs.push(initialize);
+    }
+    return context;
+    function write(slice) {
+      chunks = push(chunks, slice);
+      main();
+      if (chunks[chunks.length - 1] !== null) {
+        return [];
+      }
+      addResult(initialize, 0);
+      context.events = resolveAll(resolveAllConstructs, context.events, context);
+      return context.events;
+    }
+    function sliceSerialize(token, expandTabs) {
+      return serializeChunks(sliceStream(token), expandTabs);
+    }
+    function sliceStream(token) {
+      return sliceChunks(chunks, token);
+    }
+    function now() {
+      const {
+        _bufferIndex,
+        _index,
+        line,
+        column,
+        offset
+      } = point4;
+      return {
+        _bufferIndex,
+        _index,
+        line,
+        column,
+        offset
+      };
+    }
+    function defineSkip(value) {
+      columnStart[value.line] = value.column;
+      accountForPotentialSkip();
+    }
+    function main() {
+      let chunkIndex;
+      while (point4._index < chunks.length) {
+        const chunk = chunks[point4._index];
+        if (typeof chunk === "string") {
+          chunkIndex = point4._index;
+          if (point4._bufferIndex < 0) {
+            point4._bufferIndex = 0;
+          }
+          while (point4._index === chunkIndex && point4._bufferIndex < chunk.length) {
+            go(chunk.charCodeAt(point4._bufferIndex));
+          }
+        } else {
+          go(chunk);
+        }
+      }
+    }
+    function go(code4) {
+      consumed = void 0;
+      expectedCode = code4;
+      state = state(code4);
+    }
+    function consume(code4) {
+      if (markdownLineEnding(code4)) {
+        point4.line++;
+        point4.column = 1;
+        point4.offset += code4 === -3 ? 2 : 1;
+        accountForPotentialSkip();
+      } else if (code4 !== -1) {
+        point4.column++;
+        point4.offset++;
+      }
+      if (point4._bufferIndex < 0) {
+        point4._index++;
+      } else {
+        point4._bufferIndex++;
+        if (point4._bufferIndex === // Points w/ non-negative `_bufferIndex` reference
+        // strings.
+        /** @type {string} */
+        chunks[point4._index].length) {
+          point4._bufferIndex = -1;
+          point4._index++;
+        }
+      }
+      context.previous = code4;
+      consumed = true;
+    }
+    function enter(type, fields) {
+      const token = fields || {};
+      token.type = type;
+      token.start = now();
+      context.events.push(["enter", token, context]);
+      stack.push(token);
+      return token;
+    }
+    function exit3(type) {
+      const token = stack.pop();
+      token.end = now();
+      context.events.push(["exit", token, context]);
+      return token;
+    }
+    function onsuccessfulconstruct(construct, info) {
+      addResult(construct, info.from);
+    }
+    function onsuccessfulcheck(_, info) {
+      info.restore();
+    }
+    function constructFactory(onreturn, fields) {
+      return hook;
+      function hook(constructs2, returnState, bogusState) {
+        let listOfConstructs;
+        let constructIndex;
+        let currentConstruct;
+        let info;
+        return Array.isArray(constructs2) ? (
+          /* c8 ignore next 1 */
+          handleListOfConstructs(constructs2)
+        ) : "tokenize" in constructs2 ? (
+          // Looks like a construct.
+          handleListOfConstructs([
+            /** @type {Construct} */
+            constructs2
+          ])
+        ) : handleMapOfConstructs(constructs2);
+        function handleMapOfConstructs(map3) {
+          return start2;
+          function start2(code4) {
+            const left = code4 !== null && map3[code4];
+            const all2 = code4 !== null && map3.null;
+            const list4 = [
+              // To do: add more extension tests.
+              /* c8 ignore next 2 */
+              ...Array.isArray(left) ? left : left ? [left] : [],
+              ...Array.isArray(all2) ? all2 : all2 ? [all2] : []
+            ];
+            return handleListOfConstructs(list4)(code4);
+          }
+        }
+        function handleListOfConstructs(list4) {
+          listOfConstructs = list4;
+          constructIndex = 0;
+          if (list4.length === 0) {
+            return bogusState;
+          }
+          return handleConstruct(list4[constructIndex]);
+        }
+        function handleConstruct(construct) {
+          return start2;
+          function start2(code4) {
+            info = store();
+            currentConstruct = construct;
+            if (!construct.partial) {
+              context.currentConstruct = construct;
+            }
+            if (construct.name && context.parser.constructs.disable.null.includes(construct.name)) {
+              return nok(code4);
+            }
+            return construct.tokenize.call(
+              // If we do have fields, create an object w/ `context` as its
+              // prototype.
+              // This allows a “live binding”, which is needed for `interrupt`.
+              fields ? Object.assign(Object.create(context), fields) : context,
+              effects,
+              ok3,
+              nok
+            )(code4);
+          }
+        }
+        function ok3(code4) {
+          consumed = true;
+          onreturn(currentConstruct, info);
+          return returnState;
+        }
+        function nok(code4) {
+          consumed = true;
+          info.restore();
+          if (++constructIndex < listOfConstructs.length) {
+            return handleConstruct(listOfConstructs[constructIndex]);
+          }
+          return bogusState;
+        }
+      }
+    }
+    function addResult(construct, from2) {
+      if (construct.resolveAll && !resolveAllConstructs.includes(construct)) {
+        resolveAllConstructs.push(construct);
+      }
+      if (construct.resolve) {
+        splice(context.events, from2, context.events.length - from2, construct.resolve(context.events.slice(from2), context));
+      }
+      if (construct.resolveTo) {
+        context.events = construct.resolveTo(context.events, context);
+      }
+    }
+    function store() {
+      const startPoint = now();
+      const startPrevious = context.previous;
+      const startCurrentConstruct = context.currentConstruct;
+      const startEventsIndex = context.events.length;
+      const startStack = Array.from(stack);
+      return {
+        from: startEventsIndex,
+        restore
+      };
+      function restore() {
+        point4 = startPoint;
+        context.previous = startPrevious;
+        context.currentConstruct = startCurrentConstruct;
+        context.events.length = startEventsIndex;
+        stack = startStack;
+        accountForPotentialSkip();
+      }
+    }
+    function accountForPotentialSkip() {
+      if (point4.line in columnStart && point4.column < 2) {
+        point4.column = columnStart[point4.line];
+        point4.offset += columnStart[point4.line] - 1;
+      }
+    }
+  }
+  function sliceChunks(chunks, token) {
+    const startIndex = token.start._index;
+    const startBufferIndex = token.start._bufferIndex;
+    const endIndex = token.end._index;
+    const endBufferIndex = token.end._bufferIndex;
+    let view;
+    if (startIndex === endIndex) {
+      view = [chunks[startIndex].slice(startBufferIndex, endBufferIndex)];
+    } else {
+      view = chunks.slice(startIndex, endIndex);
+      if (startBufferIndex > -1) {
+        const head = view[0];
+        if (typeof head === "string") {
+          view[0] = head.slice(startBufferIndex);
+        } else {
+          view.shift();
+        }
+      }
+      if (endBufferIndex > 0) {
+        view.push(chunks[endIndex].slice(0, endBufferIndex));
+      }
+    }
+    return view;
+  }
+  function serializeChunks(chunks, expandTabs) {
+    let index2 = -1;
+    const result = [];
+    let atTab;
+    while (++index2 < chunks.length) {
+      const chunk = chunks[index2];
+      let value;
+      if (typeof chunk === "string") {
+        value = chunk;
+      } else switch (chunk) {
+        case -5: {
+          value = "\r";
+          break;
+        }
+        case -4: {
+          value = "\n";
+          break;
+        }
+        case -3: {
+          value = "\r\n";
+          break;
+        }
+        case -2: {
+          value = expandTabs ? " " : "	";
+          break;
+        }
+        case -1: {
+          if (!expandTabs && atTab) continue;
+          value = " ";
+          break;
+        }
+        default: {
+          value = String.fromCharCode(chunk);
+        }
+      }
+      atTab = chunk === -2;
+      result.push(value);
+    }
+    return result.join("");
+  }
+  var init_create_tokenizer = __esm({
+    "node_modules/micromark/lib/create-tokenizer.js"() {
+      init_micromark_util_character();
+      init_micromark_util_chunked();
+      init_micromark_util_resolve_all();
+    }
+  });
+
+  // node_modules/micromark/lib/parse.js
+  function parse(options) {
+    const settings = options || {};
+    const constructs2 = (
+      /** @type {FullNormalizedExtension} */
+      combineExtensions([constructs_exports, ...settings.extensions || []])
+    );
+    const parser = {
+      constructs: constructs2,
+      content: create2(content),
+      defined: [],
+      document: create2(document2),
+      flow: create2(flow),
+      lazy: {},
+      string: create2(string),
+      text: create2(text2)
+    };
+    return parser;
+    function create2(initial) {
+      return creator;
+      function creator(from) {
+        return createTokenizer(parser, initial, from);
+      }
+    }
+  }
+  var init_parse = __esm({
+    "node_modules/micromark/lib/parse.js"() {
+      init_micromark_util_combine_extensions();
+      init_content();
+      init_document();
+      init_flow();
+      init_text();
+      init_constructs();
+      init_create_tokenizer();
+    }
+  });
+
+  // node_modules/micromark/lib/postprocess.js
+  function postprocess(events) {
+    while (!subtokenize(events)) {
+    }
+    return events;
+  }
+  var init_postprocess = __esm({
+    "node_modules/micromark/lib/postprocess.js"() {
+      init_micromark_util_subtokenize();
+    }
+  });
+
+  // node_modules/micromark/lib/preprocess.js
+  function preprocess() {
+    let column = 1;
+    let buffer = "";
+    let start2 = true;
+    let atCarriageReturn;
+    return preprocessor;
+    function preprocessor(value, encoding, end) {
+      const chunks = [];
+      let match;
+      let next;
+      let startPosition;
+      let endPosition;
+      let code4;
+      value = buffer + (typeof value === "string" ? value.toString() : new TextDecoder(encoding || void 0).decode(value));
+      startPosition = 0;
+      buffer = "";
+      if (start2) {
+        if (value.charCodeAt(0) === 65279) {
+          startPosition++;
+        }
+        start2 = void 0;
+      }
+      while (startPosition < value.length) {
+        search.lastIndex = startPosition;
+        match = search.exec(value);
+        endPosition = match && match.index !== void 0 ? match.index : value.length;
+        code4 = value.charCodeAt(endPosition);
+        if (!match) {
+          buffer = value.slice(startPosition);
+          break;
+        }
+        if (code4 === 10 && startPosition === endPosition && atCarriageReturn) {
+          chunks.push(-3);
+          atCarriageReturn = void 0;
+        } else {
+          if (atCarriageReturn) {
+            chunks.push(-5);
+            atCarriageReturn = void 0;
+          }
+          if (startPosition < endPosition) {
+            chunks.push(value.slice(startPosition, endPosition));
+            column += endPosition - startPosition;
+          }
+          switch (code4) {
+            case 0: {
+              chunks.push(65533);
+              column++;
+              break;
+            }
+            case 9: {
+              next = Math.ceil(column / 4) * 4;
+              chunks.push(-2);
+              while (column++ < next) chunks.push(-1);
+              break;
+            }
+            case 10: {
+              chunks.push(-4);
+              column = 1;
+              break;
+            }
+            default: {
+              atCarriageReturn = true;
+              column = 1;
+            }
+          }
+        }
+        startPosition = endPosition + 1;
+      }
+      if (end) {
+        if (atCarriageReturn) chunks.push(-5);
+        if (buffer) chunks.push(buffer);
+        chunks.push(null);
+      }
+      return chunks;
+    }
+  }
+  var search;
+  var init_preprocess = __esm({
+    "node_modules/micromark/lib/preprocess.js"() {
+      search = /[\0\t\n\r]/g;
+    }
+  });
+
+  // node_modules/micromark/index.js
+  var init_micromark = __esm({
+    "node_modules/micromark/index.js"() {
+      init_parse();
+      init_postprocess();
+      init_preprocess();
+    }
+  });
+
+  // node_modules/micromark-util-decode-string/index.js
+  function decodeString(value) {
+    return value.replace(characterEscapeOrReference, decode);
+  }
+  function decode($0, $1, $2) {
+    if ($1) {
+      return $1;
+    }
+    const head = $2.charCodeAt(0);
+    if (head === 35) {
+      const head2 = $2.charCodeAt(1);
+      const hex = head2 === 120 || head2 === 88;
+      return decodeNumericCharacterReference($2.slice(hex ? 2 : 1), hex ? 16 : 10);
+    }
+    return decodeNamedCharacterReference($2) || $0;
+  }
+  var characterEscapeOrReference;
+  var init_micromark_util_decode_string = __esm({
+    "node_modules/micromark-util-decode-string/index.js"() {
+      init_index_dom();
+      init_micromark_util_decode_numeric_character_reference();
+      characterEscapeOrReference = /\\([!-/:-@[-`{-~])|&(#(?:\d{1,7}|x[\da-f]{1,6})|[\da-z]{1,31});/gi;
+    }
+  });
+
+  // node_modules/mdast-util-from-markdown/lib/index.js
+  function fromMarkdown(value, encoding, options) {
+    if (encoding && typeof encoding === "object") {
+      options = encoding;
+      encoding = void 0;
+    }
+    return compiler(options)(postprocess(parse(options).document().write(preprocess()(value, encoding, true))));
+  }
+  function compiler(options) {
+    const config = {
+      transforms: [],
+      canContainEols: ["emphasis", "fragment", "heading", "paragraph", "strong"],
+      enter: {
+        autolink: opener(link3),
+        autolinkProtocol: onenterdata,
+        autolinkEmail: onenterdata,
+        atxHeading: opener(heading3),
+        blockQuote: opener(blockQuote2),
+        characterEscape: onenterdata,
+        characterReference: onenterdata,
+        codeFenced: opener(codeFlow),
+        codeFencedFenceInfo: buffer,
+        codeFencedFenceMeta: buffer,
+        codeIndented: opener(codeFlow, buffer),
+        codeText: opener(codeText2, buffer),
+        codeTextData: onenterdata,
+        data: onenterdata,
+        codeFlowValue: onenterdata,
+        definition: opener(definition3),
+        definitionDestinationString: buffer,
+        definitionLabelString: buffer,
+        definitionTitleString: buffer,
+        emphasis: opener(emphasis3),
+        hardBreakEscape: opener(hardBreak3),
+        hardBreakTrailing: opener(hardBreak3),
+        htmlFlow: opener(html5, buffer),
+        htmlFlowData: onenterdata,
+        htmlText: opener(html5, buffer),
+        htmlTextData: onenterdata,
+        image: opener(image3),
+        label: buffer,
+        link: opener(link3),
+        listItem: opener(listItem3),
+        listItemValue: onenterlistitemvalue,
+        listOrdered: opener(list4, onenterlistordered),
+        listUnordered: opener(list4),
+        paragraph: opener(paragraph3),
+        reference: onenterreference,
+        referenceString: buffer,
+        resourceDestinationString: buffer,
+        resourceTitleString: buffer,
+        setextHeading: opener(heading3),
+        strong: opener(strong3),
+        thematicBreak: opener(thematicBreak4)
+      },
+      exit: {
+        atxHeading: closer(),
+        atxHeadingSequence: onexitatxheadingsequence,
+        autolink: closer(),
+        autolinkEmail: onexitautolinkemail,
+        autolinkProtocol: onexitautolinkprotocol,
+        blockQuote: closer(),
+        characterEscapeValue: onexitdata,
+        characterReferenceMarkerHexadecimal: onexitcharacterreferencemarker,
+        characterReferenceMarkerNumeric: onexitcharacterreferencemarker,
+        characterReferenceValue: onexitcharacterreferencevalue,
+        characterReference: onexitcharacterreference,
+        codeFenced: closer(onexitcodefenced),
+        codeFencedFence: onexitcodefencedfence,
+        codeFencedFenceInfo: onexitcodefencedfenceinfo,
+        codeFencedFenceMeta: onexitcodefencedfencemeta,
+        codeFlowValue: onexitdata,
+        codeIndented: closer(onexitcodeindented),
+        codeText: closer(onexitcodetext),
+        codeTextData: onexitdata,
+        data: onexitdata,
+        definition: closer(),
+        definitionDestinationString: onexitdefinitiondestinationstring,
+        definitionLabelString: onexitdefinitionlabelstring,
+        definitionTitleString: onexitdefinitiontitlestring,
+        emphasis: closer(),
+        hardBreakEscape: closer(onexithardbreak),
+        hardBreakTrailing: closer(onexithardbreak),
+        htmlFlow: closer(onexithtmlflow),
+        htmlFlowData: onexitdata,
+        htmlText: closer(onexithtmltext),
+        htmlTextData: onexitdata,
+        image: closer(onexitimage),
+        label: onexitlabel,
+        labelText: onexitlabeltext,
+        lineEnding: onexitlineending,
+        link: closer(onexitlink),
+        listItem: closer(),
+        listOrdered: closer(),
+        listUnordered: closer(),
+        paragraph: closer(),
+        referenceString: onexitreferencestring,
+        resourceDestinationString: onexitresourcedestinationstring,
+        resourceTitleString: onexitresourcetitlestring,
+        resource: onexitresource,
+        setextHeading: closer(onexitsetextheading),
+        setextHeadingLineSequence: onexitsetextheadinglinesequence,
+        setextHeadingText: onexitsetextheadingtext,
+        strong: closer(),
+        thematicBreak: closer()
+      }
+    };
+    configure(config, (options || {}).mdastExtensions || []);
+    const data = {};
+    return compile;
+    function compile(events) {
+      let tree = {
+        type: "root",
+        children: []
+      };
+      const context = {
+        stack: [tree],
+        tokenStack: [],
+        config,
+        enter,
+        exit: exit3,
+        buffer,
+        resume,
+        data
+      };
+      const listStack = [];
+      let index2 = -1;
+      while (++index2 < events.length) {
+        if (events[index2][1].type === "listOrdered" || events[index2][1].type === "listUnordered") {
+          if (events[index2][0] === "enter") {
+            listStack.push(index2);
+          } else {
+            const tail = listStack.pop();
+            index2 = prepareList(events, tail, index2);
+          }
+        }
+      }
+      index2 = -1;
+      while (++index2 < events.length) {
+        const handler = config[events[index2][0]];
+        if (own2.call(handler, events[index2][1].type)) {
+          handler[events[index2][1].type].call(Object.assign({
+            sliceSerialize: events[index2][2].sliceSerialize
+          }, context), events[index2][1]);
+        }
+      }
+      if (context.tokenStack.length > 0) {
+        const tail = context.tokenStack[context.tokenStack.length - 1];
+        const handler = tail[1] || defaultOnError;
+        handler.call(context, void 0, tail[0]);
+      }
+      tree.position = {
+        start: point3(events.length > 0 ? events[0][1].start : {
+          line: 1,
+          column: 1,
+          offset: 0
+        }),
+        end: point3(events.length > 0 ? events[events.length - 2][1].end : {
+          line: 1,
+          column: 1,
+          offset: 0
+        })
+      };
+      index2 = -1;
+      while (++index2 < config.transforms.length) {
+        tree = config.transforms[index2](tree) || tree;
+      }
+      return tree;
+    }
+    function prepareList(events, start2, length) {
+      let index2 = start2 - 1;
+      let containerBalance = -1;
+      let listSpread = false;
+      let listItem4;
+      let lineIndex;
+      let firstBlankLineIndex;
+      let atMarker;
+      while (++index2 <= length) {
+        const event = events[index2];
+        switch (event[1].type) {
+          case "listUnordered":
+          case "listOrdered":
+          case "blockQuote": {
+            if (event[0] === "enter") {
+              containerBalance++;
+            } else {
+              containerBalance--;
+            }
+            atMarker = void 0;
+            break;
+          }
+          case "lineEndingBlank": {
+            if (event[0] === "enter") {
+              if (listItem4 && !atMarker && !containerBalance && !firstBlankLineIndex) {
+                firstBlankLineIndex = index2;
+              }
+              atMarker = void 0;
+            }
+            break;
+          }
+          case "linePrefix":
+          case "listItemValue":
+          case "listItemMarker":
+          case "listItemPrefix":
+          case "listItemPrefixWhitespace": {
+            break;
+          }
+          default: {
+            atMarker = void 0;
+          }
+        }
+        if (!containerBalance && event[0] === "enter" && event[1].type === "listItemPrefix" || containerBalance === -1 && event[0] === "exit" && (event[1].type === "listUnordered" || event[1].type === "listOrdered")) {
+          if (listItem4) {
+            let tailIndex = index2;
+            lineIndex = void 0;
+            while (tailIndex--) {
+              const tailEvent = events[tailIndex];
+              if (tailEvent[1].type === "lineEnding" || tailEvent[1].type === "lineEndingBlank") {
+                if (tailEvent[0] === "exit") continue;
+                if (lineIndex) {
+                  events[lineIndex][1].type = "lineEndingBlank";
+                  listSpread = true;
+                }
+                tailEvent[1].type = "lineEnding";
+                lineIndex = tailIndex;
+              } else if (tailEvent[1].type === "linePrefix" || tailEvent[1].type === "blockQuotePrefix" || tailEvent[1].type === "blockQuotePrefixWhitespace" || tailEvent[1].type === "blockQuoteMarker" || tailEvent[1].type === "listItemIndent") {
+              } else {
+                break;
+              }
+            }
+            if (firstBlankLineIndex && (!lineIndex || firstBlankLineIndex < lineIndex)) {
+              listItem4._spread = true;
+            }
+            listItem4.end = Object.assign({}, lineIndex ? events[lineIndex][1].start : event[1].end);
+            events.splice(lineIndex || index2, 0, ["exit", listItem4, event[2]]);
+            index2++;
+            length++;
+          }
+          if (event[1].type === "listItemPrefix") {
+            const item = {
+              type: "listItem",
+              _spread: false,
+              start: Object.assign({}, event[1].start),
+              // @ts-expect-error: we’ll add `end` in a second.
+              end: void 0
+            };
+            listItem4 = item;
+            events.splice(index2, 0, ["enter", item, event[2]]);
+            index2++;
+            length++;
+            firstBlankLineIndex = void 0;
+            atMarker = true;
+          }
+        }
+      }
+      events[start2][1]._spread = listSpread;
+      return length;
+    }
+    function opener(create2, and) {
+      return open;
+      function open(token) {
+        enter.call(this, create2(token), token);
+        if (and) and.call(this, token);
+      }
+    }
+    function buffer() {
+      this.stack.push({
+        type: "fragment",
+        children: []
+      });
+    }
+    function enter(node2, token, errorHandler) {
+      const parent = this.stack[this.stack.length - 1];
+      const siblings = parent.children;
+      siblings.push(node2);
+      this.stack.push(node2);
+      this.tokenStack.push([token, errorHandler || void 0]);
+      node2.position = {
+        start: point3(token.start),
+        // @ts-expect-error: `end` will be patched later.
+        end: void 0
+      };
+    }
+    function closer(and) {
+      return close;
+      function close(token) {
+        if (and) and.call(this, token);
+        exit3.call(this, token);
+      }
+    }
+    function exit3(token, onExitError) {
+      const node2 = this.stack.pop();
+      const open = this.tokenStack.pop();
+      if (!open) {
+        throw new Error("Cannot close `" + token.type + "` (" + stringifyPosition({
+          start: token.start,
+          end: token.end
+        }) + "): it\u2019s not open");
+      } else if (open[0].type !== token.type) {
+        if (onExitError) {
+          onExitError.call(this, token, open[0]);
+        } else {
+          const handler = open[1] || defaultOnError;
+          handler.call(this, token, open[0]);
+        }
+      }
+      node2.position.end = point3(token.end);
+    }
+    function resume() {
+      return toString(this.stack.pop());
+    }
+    function onenterlistordered() {
+      this.data.expectingFirstListItemValue = true;
+    }
+    function onenterlistitemvalue(token) {
+      if (this.data.expectingFirstListItemValue) {
+        const ancestor = this.stack[this.stack.length - 2];
+        ancestor.start = Number.parseInt(this.sliceSerialize(token), 10);
+        this.data.expectingFirstListItemValue = void 0;
+      }
+    }
+    function onexitcodefencedfenceinfo() {
+      const data2 = this.resume();
+      const node2 = this.stack[this.stack.length - 1];
+      node2.lang = data2;
+    }
+    function onexitcodefencedfencemeta() {
+      const data2 = this.resume();
+      const node2 = this.stack[this.stack.length - 1];
+      node2.meta = data2;
+    }
+    function onexitcodefencedfence() {
+      if (this.data.flowCodeInside) return;
+      this.buffer();
+      this.data.flowCodeInside = true;
+    }
+    function onexitcodefenced() {
+      const data2 = this.resume();
+      const node2 = this.stack[this.stack.length - 1];
+      node2.value = data2.replace(/^(\r?\n|\r)|(\r?\n|\r)$/g, "");
+      this.data.flowCodeInside = void 0;
+    }
+    function onexitcodeindented() {
+      const data2 = this.resume();
+      const node2 = this.stack[this.stack.length - 1];
+      node2.value = data2.replace(/(\r?\n|\r)$/g, "");
+    }
+    function onexitdefinitionlabelstring(token) {
+      const label = this.resume();
+      const node2 = this.stack[this.stack.length - 1];
+      node2.label = label;
+      node2.identifier = normalizeIdentifier(this.sliceSerialize(token)).toLowerCase();
+    }
+    function onexitdefinitiontitlestring() {
+      const data2 = this.resume();
+      const node2 = this.stack[this.stack.length - 1];
+      node2.title = data2;
+    }
+    function onexitdefinitiondestinationstring() {
+      const data2 = this.resume();
+      const node2 = this.stack[this.stack.length - 1];
+      node2.url = data2;
+    }
+    function onexitatxheadingsequence(token) {
+      const node2 = this.stack[this.stack.length - 1];
+      if (!node2.depth) {
+        const depth = this.sliceSerialize(token).length;
+        node2.depth = depth;
+      }
+    }
+    function onexitsetextheadingtext() {
+      this.data.setextHeadingSlurpLineEnding = true;
+    }
+    function onexitsetextheadinglinesequence(token) {
+      const node2 = this.stack[this.stack.length - 1];
+      node2.depth = this.sliceSerialize(token).codePointAt(0) === 61 ? 1 : 2;
+    }
+    function onexitsetextheading() {
+      this.data.setextHeadingSlurpLineEnding = void 0;
+    }
+    function onenterdata(token) {
+      const node2 = this.stack[this.stack.length - 1];
+      const siblings = node2.children;
+      let tail = siblings[siblings.length - 1];
+      if (!tail || tail.type !== "text") {
+        tail = text7();
+        tail.position = {
+          start: point3(token.start),
+          // @ts-expect-error: we’ll add `end` later.
+          end: void 0
+        };
+        siblings.push(tail);
+      }
+      this.stack.push(tail);
+    }
+    function onexitdata(token) {
+      const tail = this.stack.pop();
+      tail.value += this.sliceSerialize(token);
+      tail.position.end = point3(token.end);
+    }
+    function onexitlineending(token) {
+      const context = this.stack[this.stack.length - 1];
+      if (this.data.atHardBreak) {
+        const tail = context.children[context.children.length - 1];
+        tail.position.end = point3(token.end);
+        this.data.atHardBreak = void 0;
+        return;
+      }
+      if (!this.data.setextHeadingSlurpLineEnding && config.canContainEols.includes(context.type)) {
+        onenterdata.call(this, token);
+        onexitdata.call(this, token);
+      }
+    }
+    function onexithardbreak() {
+      this.data.atHardBreak = true;
+    }
+    function onexithtmlflow() {
+      const data2 = this.resume();
+      const node2 = this.stack[this.stack.length - 1];
+      node2.value = data2;
+    }
+    function onexithtmltext() {
+      const data2 = this.resume();
+      const node2 = this.stack[this.stack.length - 1];
+      node2.value = data2;
+    }
+    function onexitcodetext() {
+      const data2 = this.resume();
+      const node2 = this.stack[this.stack.length - 1];
+      node2.value = data2;
+    }
+    function onexitlink() {
+      const node2 = this.stack[this.stack.length - 1];
+      if (this.data.inReference) {
+        const referenceType = this.data.referenceType || "shortcut";
+        node2.type += "Reference";
+        node2.referenceType = referenceType;
+        delete node2.url;
+        delete node2.title;
+      } else {
+        delete node2.identifier;
+        delete node2.label;
+      }
+      this.data.referenceType = void 0;
+    }
+    function onexitimage() {
+      const node2 = this.stack[this.stack.length - 1];
+      if (this.data.inReference) {
+        const referenceType = this.data.referenceType || "shortcut";
+        node2.type += "Reference";
+        node2.referenceType = referenceType;
+        delete node2.url;
+        delete node2.title;
+      } else {
+        delete node2.identifier;
+        delete node2.label;
+      }
+      this.data.referenceType = void 0;
+    }
+    function onexitlabeltext(token) {
+      const string3 = this.sliceSerialize(token);
+      const ancestor = this.stack[this.stack.length - 2];
+      ancestor.label = decodeString(string3);
+      ancestor.identifier = normalizeIdentifier(string3).toLowerCase();
+    }
+    function onexitlabel() {
+      const fragment = this.stack[this.stack.length - 1];
+      const value = this.resume();
+      const node2 = this.stack[this.stack.length - 1];
+      this.data.inReference = true;
+      if (node2.type === "link") {
+        const children = fragment.children;
+        node2.children = children;
+      } else {
+        node2.alt = value;
+      }
+    }
+    function onexitresourcedestinationstring() {
+      const data2 = this.resume();
+      const node2 = this.stack[this.stack.length - 1];
+      node2.url = data2;
+    }
+    function onexitresourcetitlestring() {
+      const data2 = this.resume();
+      const node2 = this.stack[this.stack.length - 1];
+      node2.title = data2;
+    }
+    function onexitresource() {
+      this.data.inReference = void 0;
+    }
+    function onenterreference() {
+      this.data.referenceType = "collapsed";
+    }
+    function onexitreferencestring(token) {
+      const label = this.resume();
+      const node2 = this.stack[this.stack.length - 1];
+      node2.label = label;
+      node2.identifier = normalizeIdentifier(this.sliceSerialize(token)).toLowerCase();
+      this.data.referenceType = "full";
+    }
+    function onexitcharacterreferencemarker(token) {
+      this.data.characterReferenceType = token.type;
+    }
+    function onexitcharacterreferencevalue(token) {
+      const data2 = this.sliceSerialize(token);
+      const type = this.data.characterReferenceType;
+      let value;
+      if (type) {
+        value = decodeNumericCharacterReference(data2, type === "characterReferenceMarkerNumeric" ? 10 : 16);
+        this.data.characterReferenceType = void 0;
+      } else {
+        const result = decodeNamedCharacterReference(data2);
+        value = result;
+      }
+      const tail = this.stack[this.stack.length - 1];
+      tail.value += value;
+    }
+    function onexitcharacterreference(token) {
+      const tail = this.stack.pop();
+      tail.position.end = point3(token.end);
+    }
+    function onexitautolinkprotocol(token) {
+      onexitdata.call(this, token);
+      const node2 = this.stack[this.stack.length - 1];
+      node2.url = this.sliceSerialize(token);
+    }
+    function onexitautolinkemail(token) {
+      onexitdata.call(this, token);
+      const node2 = this.stack[this.stack.length - 1];
+      node2.url = "mailto:" + this.sliceSerialize(token);
+    }
+    function blockQuote2() {
+      return {
+        type: "blockquote",
+        children: []
+      };
+    }
+    function codeFlow() {
+      return {
+        type: "code",
+        lang: null,
+        meta: null,
+        value: ""
+      };
+    }
+    function codeText2() {
+      return {
+        type: "inlineCode",
+        value: ""
+      };
+    }
+    function definition3() {
+      return {
+        type: "definition",
+        identifier: "",
+        label: null,
+        title: null,
+        url: ""
+      };
+    }
+    function emphasis3() {
+      return {
+        type: "emphasis",
+        children: []
+      };
+    }
+    function heading3() {
+      return {
+        type: "heading",
+        // @ts-expect-error `depth` will be set later.
+        depth: 0,
+        children: []
+      };
+    }
+    function hardBreak3() {
+      return {
+        type: "break"
+      };
+    }
+    function html5() {
+      return {
+        type: "html",
+        value: ""
+      };
+    }
+    function image3() {
+      return {
+        type: "image",
+        title: null,
+        url: "",
+        alt: null
+      };
+    }
+    function link3() {
+      return {
+        type: "link",
+        title: null,
+        url: "",
+        children: []
+      };
+    }
+    function list4(token) {
+      return {
+        type: "list",
+        ordered: token.type === "listOrdered",
+        start: null,
+        spread: token._spread,
+        children: []
+      };
+    }
+    function listItem3(token) {
+      return {
+        type: "listItem",
+        spread: token._spread,
+        checked: null,
+        children: []
+      };
+    }
+    function paragraph3() {
+      return {
+        type: "paragraph",
+        children: []
+      };
+    }
+    function strong3() {
+      return {
+        type: "strong",
+        children: []
+      };
+    }
+    function text7() {
+      return {
+        type: "text",
+        value: ""
+      };
+    }
+    function thematicBreak4() {
+      return {
+        type: "thematicBreak"
+      };
+    }
+  }
+  function point3(d) {
+    return {
+      line: d.line,
+      column: d.column,
+      offset: d.offset
+    };
+  }
+  function configure(combined, extensions) {
+    let index2 = -1;
+    while (++index2 < extensions.length) {
+      const value = extensions[index2];
+      if (Array.isArray(value)) {
+        configure(combined, value);
+      } else {
+        extension(combined, value);
+      }
+    }
+  }
+  function extension(combined, extension2) {
+    let key;
+    for (key in extension2) {
+      if (own2.call(extension2, key)) {
+        switch (key) {
+          case "canContainEols": {
+            const right = extension2[key];
+            if (right) {
+              combined[key].push(...right);
+            }
+            break;
+          }
+          case "transforms": {
+            const right = extension2[key];
+            if (right) {
+              combined[key].push(...right);
+            }
+            break;
+          }
+          case "enter":
+          case "exit": {
+            const right = extension2[key];
+            if (right) {
+              Object.assign(combined[key], right);
+            }
+            break;
+          }
+        }
+      }
+    }
+  }
+  function defaultOnError(left, right) {
+    if (left) {
+      throw new Error("Cannot close `" + left.type + "` (" + stringifyPosition({
+        start: left.start,
+        end: left.end
+      }) + "): a different token (`" + right.type + "`, " + stringifyPosition({
+        start: right.start,
+        end: right.end
+      }) + ") is open");
+    } else {
+      throw new Error("Cannot close document, a token (`" + right.type + "`, " + stringifyPosition({
+        start: right.start,
+        end: right.end
+      }) + ") is still open");
+    }
+  }
+  var own2;
+  var init_lib9 = __esm({
+    "node_modules/mdast-util-from-markdown/lib/index.js"() {
+      init_mdast_util_to_string();
+      init_micromark();
+      init_micromark_util_decode_numeric_character_reference();
+      init_micromark_util_decode_string();
+      init_micromark_util_normalize_identifier();
+      init_index_dom();
+      init_unist_util_stringify_position();
+      own2 = {}.hasOwnProperty;
+    }
+  });
+
+  // node_modules/mdast-util-from-markdown/index.js
+  var init_mdast_util_from_markdown = __esm({
+    "node_modules/mdast-util-from-markdown/index.js"() {
+      init_lib9();
+    }
+  });
+
+  // node_modules/remark-parse/lib/index.js
+  function remarkParse(options) {
+    const self2 = this;
+    self2.parser = parser;
+    function parser(doc) {
+      return fromMarkdown(doc, {
+        ...self2.data("settings"),
+        ...options,
+        // Note: these options are not in the readme.
+        // The goal is for them to be set by plugins on `data` instead of being
+        // passed by users.
+        extensions: self2.data("micromarkExtensions") || [],
+        mdastExtensions: self2.data("fromMarkdownExtensions") || []
+      });
+    }
+  }
+  var init_lib10 = __esm({
+    "node_modules/remark-parse/lib/index.js"() {
+      init_mdast_util_from_markdown();
+    }
+  });
+
+  // node_modules/remark-parse/index.js
+  var init_remark_parse = __esm({
+    "node_modules/remark-parse/index.js"() {
+      init_lib10();
+    }
+  });
+
+  // node_modules/mdast-util-to-hast/lib/handlers/blockquote.js
+  function blockquote(state, node2) {
+    const result = {
+      type: "element",
+      tagName: "blockquote",
+      properties: {},
+      children: state.wrap(state.all(node2), true)
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+  var init_blockquote = __esm({
+    "node_modules/mdast-util-to-hast/lib/handlers/blockquote.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-hast/lib/handlers/break.js
+  function hardBreak(state, node2) {
+    const result = { type: "element", tagName: "br", properties: {}, children: [] };
+    state.patch(node2, result);
+    return [state.applyData(node2, result), { type: "text", value: "\n" }];
+  }
+  var init_break = __esm({
+    "node_modules/mdast-util-to-hast/lib/handlers/break.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-hast/lib/handlers/code.js
+  function code(state, node2) {
+    const value = node2.value ? node2.value + "\n" : "";
+    const properties = {};
+    const language = node2.lang ? node2.lang.split(/\s+/) : [];
+    if (language.length > 0) {
+      properties.className = ["language-" + language[0]];
+    }
+    let result = {
+      type: "element",
+      tagName: "code",
+      properties,
+      children: [{ type: "text", value }]
+    };
+    if (node2.meta) {
+      result.data = { meta: node2.meta };
+    }
+    state.patch(node2, result);
+    result = state.applyData(node2, result);
+    result = { type: "element", tagName: "pre", properties: {}, children: [result] };
+    state.patch(node2, result);
+    return result;
+  }
+  var init_code = __esm({
+    "node_modules/mdast-util-to-hast/lib/handlers/code.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-hast/lib/handlers/delete.js
+  function strikethrough(state, node2) {
+    const result = {
+      type: "element",
+      tagName: "del",
+      properties: {},
+      children: state.all(node2)
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+  var init_delete = __esm({
+    "node_modules/mdast-util-to-hast/lib/handlers/delete.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-hast/lib/handlers/emphasis.js
+  function emphasis(state, node2) {
+    const result = {
+      type: "element",
+      tagName: "em",
+      properties: {},
+      children: state.all(node2)
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+  var init_emphasis = __esm({
+    "node_modules/mdast-util-to-hast/lib/handlers/emphasis.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-hast/lib/handlers/footnote-reference.js
+  function footnoteReference(state, node2) {
+    const clobberPrefix = typeof state.options.clobberPrefix === "string" ? state.options.clobberPrefix : "user-content-";
+    const id = String(node2.identifier).toUpperCase();
+    const safeId = normalizeUri(id.toLowerCase());
+    const index2 = state.footnoteOrder.indexOf(id);
+    let counter;
+    let reuseCounter = state.footnoteCounts.get(id);
+    if (reuseCounter === void 0) {
+      reuseCounter = 0;
+      state.footnoteOrder.push(id);
+      counter = state.footnoteOrder.length;
+    } else {
+      counter = index2 + 1;
+    }
+    reuseCounter += 1;
+    state.footnoteCounts.set(id, reuseCounter);
+    const link3 = {
+      type: "element",
+      tagName: "a",
+      properties: {
+        href: "#" + clobberPrefix + "fn-" + safeId,
+        id: clobberPrefix + "fnref-" + safeId + (reuseCounter > 1 ? "-" + reuseCounter : ""),
+        dataFootnoteRef: true,
+        ariaDescribedBy: ["footnote-label"]
+      },
+      children: [{ type: "text", value: String(counter) }]
+    };
+    state.patch(node2, link3);
+    const sup = {
+      type: "element",
+      tagName: "sup",
+      properties: {},
+      children: [link3]
+    };
+    state.patch(node2, sup);
+    return state.applyData(node2, sup);
+  }
+  var init_footnote_reference = __esm({
+    "node_modules/mdast-util-to-hast/lib/handlers/footnote-reference.js"() {
+      init_micromark_util_sanitize_uri();
+    }
+  });
+
+  // node_modules/mdast-util-to-hast/lib/handlers/heading.js
+  function heading(state, node2) {
+    const result = {
+      type: "element",
+      tagName: "h" + node2.depth,
+      properties: {},
+      children: state.all(node2)
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+  var init_heading = __esm({
+    "node_modules/mdast-util-to-hast/lib/handlers/heading.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-hast/lib/handlers/html.js
+  function html3(state, node2) {
+    if (state.options.allowDangerousHtml) {
+      const result = { type: "raw", value: node2.value };
+      state.patch(node2, result);
+      return state.applyData(node2, result);
+    }
+    return void 0;
+  }
+  var init_html2 = __esm({
+    "node_modules/mdast-util-to-hast/lib/handlers/html.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-hast/lib/revert.js
+  function revert(state, node2) {
+    const subtype = node2.referenceType;
+    let suffix = "]";
+    if (subtype === "collapsed") {
+      suffix += "[]";
+    } else if (subtype === "full") {
+      suffix += "[" + (node2.label || node2.identifier) + "]";
+    }
+    if (node2.type === "imageReference") {
+      return [{ type: "text", value: "![" + node2.alt + suffix }];
+    }
+    const contents = state.all(node2);
+    const head = contents[0];
+    if (head && head.type === "text") {
+      head.value = "[" + head.value;
+    } else {
+      contents.unshift({ type: "text", value: "[" });
+    }
+    const tail = contents[contents.length - 1];
+    if (tail && tail.type === "text") {
+      tail.value += suffix;
+    } else {
+      contents.push({ type: "text", value: suffix });
+    }
+    return contents;
+  }
+  var init_revert = __esm({
+    "node_modules/mdast-util-to-hast/lib/revert.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-hast/lib/handlers/image-reference.js
+  function imageReference(state, node2) {
+    const id = String(node2.identifier).toUpperCase();
+    const definition3 = state.definitionById.get(id);
+    if (!definition3) {
+      return revert(state, node2);
+    }
+    const properties = { src: normalizeUri(definition3.url || ""), alt: node2.alt };
+    if (definition3.title !== null && definition3.title !== void 0) {
+      properties.title = definition3.title;
+    }
+    const result = { type: "element", tagName: "img", properties, children: [] };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+  var init_image_reference = __esm({
+    "node_modules/mdast-util-to-hast/lib/handlers/image-reference.js"() {
+      init_micromark_util_sanitize_uri();
+      init_revert();
+    }
+  });
+
+  // node_modules/mdast-util-to-hast/lib/handlers/image.js
+  function image(state, node2) {
+    const properties = { src: normalizeUri(node2.url) };
+    if (node2.alt !== null && node2.alt !== void 0) {
+      properties.alt = node2.alt;
+    }
+    if (node2.title !== null && node2.title !== void 0) {
+      properties.title = node2.title;
+    }
+    const result = { type: "element", tagName: "img", properties, children: [] };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+  var init_image = __esm({
+    "node_modules/mdast-util-to-hast/lib/handlers/image.js"() {
+      init_micromark_util_sanitize_uri();
+    }
+  });
+
+  // node_modules/mdast-util-to-hast/lib/handlers/inline-code.js
+  function inlineCode(state, node2) {
+    const text7 = { type: "text", value: node2.value.replace(/\r?\n|\r/g, " ") };
+    state.patch(node2, text7);
+    const result = {
+      type: "element",
+      tagName: "code",
+      properties: {},
+      children: [text7]
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+  var init_inline_code = __esm({
+    "node_modules/mdast-util-to-hast/lib/handlers/inline-code.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-hast/lib/handlers/link-reference.js
+  function linkReference(state, node2) {
+    const id = String(node2.identifier).toUpperCase();
+    const definition3 = state.definitionById.get(id);
+    if (!definition3) {
+      return revert(state, node2);
+    }
+    const properties = { href: normalizeUri(definition3.url || "") };
+    if (definition3.title !== null && definition3.title !== void 0) {
+      properties.title = definition3.title;
+    }
+    const result = {
+      type: "element",
+      tagName: "a",
+      properties,
+      children: state.all(node2)
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+  var init_link_reference = __esm({
+    "node_modules/mdast-util-to-hast/lib/handlers/link-reference.js"() {
+      init_micromark_util_sanitize_uri();
+      init_revert();
+    }
+  });
+
+  // node_modules/mdast-util-to-hast/lib/handlers/link.js
+  function link(state, node2) {
+    const properties = { href: normalizeUri(node2.url) };
+    if (node2.title !== null && node2.title !== void 0) {
+      properties.title = node2.title;
+    }
+    const result = {
+      type: "element",
+      tagName: "a",
+      properties,
+      children: state.all(node2)
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+  var init_link = __esm({
+    "node_modules/mdast-util-to-hast/lib/handlers/link.js"() {
+      init_micromark_util_sanitize_uri();
+    }
+  });
+
+  // node_modules/mdast-util-to-hast/lib/handlers/list-item.js
+  function listItem(state, node2, parent) {
+    const results = state.all(node2);
+    const loose = parent ? listLoose(parent) : listItemLoose(node2);
+    const properties = {};
+    const children = [];
+    if (typeof node2.checked === "boolean") {
+      const head = results[0];
+      let paragraph3;
+      if (head && head.type === "element" && head.tagName === "p") {
+        paragraph3 = head;
+      } else {
+        paragraph3 = { type: "element", tagName: "p", properties: {}, children: [] };
+        results.unshift(paragraph3);
+      }
+      if (paragraph3.children.length > 0) {
+        paragraph3.children.unshift({ type: "text", value: " " });
+      }
+      paragraph3.children.unshift({
+        type: "element",
+        tagName: "input",
+        properties: { type: "checkbox", checked: node2.checked, disabled: true },
+        children: []
+      });
+      properties.className = ["task-list-item"];
+    }
+    let index2 = -1;
+    while (++index2 < results.length) {
+      const child = results[index2];
+      if (loose || index2 !== 0 || child.type !== "element" || child.tagName !== "p") {
+        children.push({ type: "text", value: "\n" });
+      }
+      if (child.type === "element" && child.tagName === "p" && !loose) {
+        children.push(...child.children);
+      } else {
+        children.push(child);
+      }
+    }
+    const tail = results[results.length - 1];
+    if (tail && (loose || tail.type !== "element" || tail.tagName !== "p")) {
+      children.push({ type: "text", value: "\n" });
+    }
+    const result = { type: "element", tagName: "li", properties, children };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+  function listLoose(node2) {
+    let loose = false;
+    if (node2.type === "list") {
+      loose = node2.spread || false;
+      const children = node2.children;
+      let index2 = -1;
+      while (!loose && ++index2 < children.length) {
+        loose = listItemLoose(children[index2]);
+      }
+    }
+    return loose;
+  }
+  function listItemLoose(node2) {
+    const spread = node2.spread;
+    return spread === null || spread === void 0 ? node2.children.length > 1 : spread;
+  }
+  var init_list_item = __esm({
+    "node_modules/mdast-util-to-hast/lib/handlers/list-item.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-hast/lib/handlers/list.js
+  function list2(state, node2) {
+    const properties = {};
+    const results = state.all(node2);
+    let index2 = -1;
+    if (typeof node2.start === "number" && node2.start !== 1) {
+      properties.start = node2.start;
+    }
+    while (++index2 < results.length) {
+      const child = results[index2];
+      if (child.type === "element" && child.tagName === "li" && child.properties && Array.isArray(child.properties.className) && child.properties.className.includes("task-list-item")) {
+        properties.className = ["contains-task-list"];
+        break;
+      }
+    }
+    const result = {
+      type: "element",
+      tagName: node2.ordered ? "ol" : "ul",
+      properties,
+      children: state.wrap(results, true)
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+  var init_list2 = __esm({
+    "node_modules/mdast-util-to-hast/lib/handlers/list.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-hast/lib/handlers/paragraph.js
+  function paragraph(state, node2) {
+    const result = {
+      type: "element",
+      tagName: "p",
+      properties: {},
+      children: state.all(node2)
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+  var init_paragraph = __esm({
+    "node_modules/mdast-util-to-hast/lib/handlers/paragraph.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-hast/lib/handlers/root.js
+  function root2(state, node2) {
+    const result = { type: "root", children: state.wrap(state.all(node2)) };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+  var init_root = __esm({
+    "node_modules/mdast-util-to-hast/lib/handlers/root.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-hast/lib/handlers/strong.js
+  function strong(state, node2) {
+    const result = {
+      type: "element",
+      tagName: "strong",
+      properties: {},
+      children: state.all(node2)
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+  var init_strong = __esm({
+    "node_modules/mdast-util-to-hast/lib/handlers/strong.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-hast/lib/handlers/table.js
+  function table(state, node2) {
+    const rows = state.all(node2);
+    const firstRow = rows.shift();
+    const tableContent = [];
+    if (firstRow) {
+      const head = {
+        type: "element",
+        tagName: "thead",
+        properties: {},
+        children: state.wrap([firstRow], true)
+      };
+      state.patch(node2.children[0], head);
+      tableContent.push(head);
+    }
+    if (rows.length > 0) {
+      const body = {
+        type: "element",
+        tagName: "tbody",
+        properties: {},
+        children: state.wrap(rows, true)
+      };
+      const start2 = pointStart(node2.children[1]);
+      const end = pointEnd(node2.children[node2.children.length - 1]);
+      if (start2 && end) body.position = { start: start2, end };
+      tableContent.push(body);
+    }
+    const result = {
+      type: "element",
+      tagName: "table",
+      properties: {},
+      children: state.wrap(tableContent, true)
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+  var init_table = __esm({
+    "node_modules/mdast-util-to-hast/lib/handlers/table.js"() {
+      init_unist_util_position();
+    }
+  });
+
+  // node_modules/mdast-util-to-hast/lib/handlers/table-row.js
+  function tableRow(state, node2, parent) {
+    const siblings = parent ? parent.children : void 0;
+    const rowIndex = siblings ? siblings.indexOf(node2) : 1;
+    const tagName = rowIndex === 0 ? "th" : "td";
+    const align = parent && parent.type === "table" ? parent.align : void 0;
+    const length = align ? align.length : node2.children.length;
+    let cellIndex = -1;
+    const cells = [];
+    while (++cellIndex < length) {
+      const cell = node2.children[cellIndex];
+      const properties = {};
+      const alignValue = align ? align[cellIndex] : void 0;
+      if (alignValue) {
+        properties.align = alignValue;
+      }
+      let result2 = { type: "element", tagName, properties, children: [] };
+      if (cell) {
+        result2.children = state.all(cell);
+        state.patch(cell, result2);
+        result2 = state.applyData(cell, result2);
+      }
+      cells.push(result2);
+    }
+    const result = {
+      type: "element",
+      tagName: "tr",
+      properties: {},
+      children: state.wrap(cells, true)
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+  var init_table_row = __esm({
+    "node_modules/mdast-util-to-hast/lib/handlers/table-row.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-hast/lib/handlers/table-cell.js
+  function tableCell(state, node2) {
+    const result = {
+      type: "element",
+      tagName: "td",
+      // Assume body cell.
+      properties: {},
+      children: state.all(node2)
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+  var init_table_cell = __esm({
+    "node_modules/mdast-util-to-hast/lib/handlers/table-cell.js"() {
+    }
+  });
+
+  // node_modules/trim-lines/index.js
+  function trimLines(value) {
+    const source = String(value);
+    const search2 = /\r?\n|\r/g;
+    let match = search2.exec(source);
+    let last = 0;
+    const lines = [];
+    while (match) {
+      lines.push(
+        trimLine(source.slice(last, match.index), last > 0, true),
+        match[0]
+      );
+      last = match.index + match[0].length;
+      match = search2.exec(source);
+    }
+    lines.push(trimLine(source.slice(last), last > 0, false));
+    return lines.join("");
+  }
+  function trimLine(value, start2, end) {
+    let startIndex = 0;
+    let endIndex = value.length;
+    if (start2) {
+      let code4 = value.codePointAt(startIndex);
+      while (code4 === tab || code4 === space) {
+        startIndex++;
+        code4 = value.codePointAt(startIndex);
+      }
+    }
+    if (end) {
+      let code4 = value.codePointAt(endIndex - 1);
+      while (code4 === tab || code4 === space) {
+        endIndex--;
+        code4 = value.codePointAt(endIndex - 1);
+      }
+    }
+    return endIndex > startIndex ? value.slice(startIndex, endIndex) : "";
+  }
+  var tab, space;
+  var init_trim_lines = __esm({
+    "node_modules/trim-lines/index.js"() {
+      tab = 9;
+      space = 32;
+    }
+  });
+
+  // node_modules/mdast-util-to-hast/lib/handlers/text.js
+  function text4(state, node2) {
+    const result = { type: "text", value: trimLines(String(node2.value)) };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+  var init_text2 = __esm({
+    "node_modules/mdast-util-to-hast/lib/handlers/text.js"() {
+      init_trim_lines();
+    }
+  });
+
+  // node_modules/mdast-util-to-hast/lib/handlers/thematic-break.js
+  function thematicBreak2(state, node2) {
+    const result = {
+      type: "element",
+      tagName: "hr",
+      properties: {},
+      children: []
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+  var init_thematic_break2 = __esm({
+    "node_modules/mdast-util-to-hast/lib/handlers/thematic-break.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-hast/lib/handlers/index.js
+  function ignore() {
+    return void 0;
+  }
+  var handlers;
+  var init_handlers = __esm({
+    "node_modules/mdast-util-to-hast/lib/handlers/index.js"() {
+      init_blockquote();
+      init_break();
+      init_code();
+      init_delete();
+      init_emphasis();
+      init_footnote_reference();
+      init_heading();
+      init_html2();
+      init_image_reference();
+      init_image();
+      init_inline_code();
+      init_link_reference();
+      init_link();
+      init_list_item();
+      init_list2();
+      init_paragraph();
+      init_root();
+      init_strong();
+      init_table();
+      init_table_row();
+      init_table_cell();
+      init_text2();
+      init_thematic_break2();
+      handlers = {
+        blockquote,
+        break: hardBreak,
+        code,
+        delete: strikethrough,
+        emphasis,
+        footnoteReference,
+        heading,
+        html: html3,
+        imageReference,
+        image,
+        inlineCode,
+        linkReference,
+        link,
+        listItem,
+        list: list2,
+        paragraph,
+        // @ts-expect-error: root is different, but hard to type.
+        root: root2,
+        strong,
+        table,
+        tableCell,
+        tableRow,
+        text: text4,
+        thematicBreak: thematicBreak2,
+        toml: ignore,
+        yaml: ignore,
+        definition: ignore,
+        footnoteDefinition: ignore
+      };
+    }
+  });
+
+  // node_modules/@ungap/structured-clone/esm/types.js
+  var VOID, PRIMITIVE, ARRAY, OBJECT, DATE, REGEXP, MAP, SET, ERROR, BIGINT;
+  var init_types2 = __esm({
+    "node_modules/@ungap/structured-clone/esm/types.js"() {
+      VOID = -1;
+      PRIMITIVE = 0;
+      ARRAY = 1;
+      OBJECT = 2;
+      DATE = 3;
+      REGEXP = 4;
+      MAP = 5;
+      SET = 6;
+      ERROR = 7;
+      BIGINT = 8;
+    }
+  });
+
+  // node_modules/@ungap/structured-clone/esm/deserialize.js
+  var defineProperty, env, guard, deserializer, deserialize;
+  var init_deserialize = __esm({
+    "node_modules/@ungap/structured-clone/esm/deserialize.js"() {
+      init_types2();
+      ({ defineProperty } = Object);
+      env = typeof self === "object" ? self : globalThis;
+      guard = (name2, init) => {
+        switch (name2) {
+          case "Function":
+          case "SharedWorker":
+          case "Worker":
+          case "eval":
+          case "setInterval":
+          case "setTimeout":
+            throw new TypeError("unable to deserialize " + name2);
+        }
+        return new env[name2](init);
+      };
+      deserializer = ($, _) => {
+        const as = (out, index2) => {
+          $.set(index2, out);
+          return out;
+        };
+        const unpair = (index2) => {
+          if ($.has(index2))
+            return $.get(index2);
+          const [type, value] = _[index2];
+          switch (type) {
+            case PRIMITIVE:
+            case VOID:
+              return as(value, index2);
+            case ARRAY: {
+              const arr = as([], index2);
+              for (const index3 of value)
+                arr.push(unpair(index3));
+              return arr;
+            }
+            case OBJECT: {
+              const object = as({}, index2);
+              for (const [key, index3] of value) {
+                const k = unpair(key), value2 = unpair(index3);
+                if (k === "__proto__") defineProperty(object, k, {
+                  value: value2,
+                  configurable: true,
+                  enumerable: true,
+                  writable: true
+                });
+                else object[k] = value2;
+              }
+              return object;
+            }
+            case DATE:
+              return as(new Date(value), index2);
+            case REGEXP: {
+              const { source, flags } = value;
+              return as(new RegExp(source, flags), index2);
+            }
+            case MAP: {
+              const map3 = as(/* @__PURE__ */ new Map(), index2);
+              for (const [key, index3] of value)
+                map3.set(unpair(key), unpair(index3));
+              return map3;
+            }
+            case SET: {
+              const set = as(/* @__PURE__ */ new Set(), index2);
+              for (const index3 of value)
+                set.add(unpair(index3));
+              return set;
+            }
+            case ERROR: {
+              const { name: name2, message } = value;
+              return as(
+                typeof env[name2] === "function" ? guard(name2, message) : new Error(message),
+                index2
+              );
+            }
+            case BIGINT:
+              return as(BigInt(value), index2);
+            case "BigInt":
+              return as(Object(BigInt(value)), index2);
+            case "ArrayBuffer":
+              return as(new Uint8Array(value).buffer, value);
+            case "DataView": {
+              const { buffer } = new Uint8Array(value);
+              return as(new DataView(buffer), value);
+            }
+            case "-0":
+              return -0;
+          }
+          return as(guard(type, value), index2);
+        };
+        return unpair;
+      };
+      deserialize = (serialized) => deserializer(/* @__PURE__ */ new Map(), serialized)(0);
+    }
+  });
+
+  // node_modules/@ungap/structured-clone/esm/serialize.js
+  var EMPTY, toString2, keys, is, typeOf, shouldSkip, serializer, serialize;
+  var init_serialize = __esm({
+    "node_modules/@ungap/structured-clone/esm/serialize.js"() {
+      init_types2();
+      EMPTY = "";
+      ({ toString: toString2 } = {});
+      ({ keys, is } = Object);
+      typeOf = (value) => {
+        const type = typeof value;
+        if (type !== "object" || !value)
+          return [PRIMITIVE, type];
+        const asString = toString2.call(value).slice(8, -1);
+        switch (asString) {
+          case "Array":
+            return [ARRAY, EMPTY];
+          case "Object":
+            return [OBJECT, EMPTY];
+          case "Date":
+            return [DATE, EMPTY];
+          case "RegExp":
+            return [REGEXP, EMPTY];
+          case "Map":
+            return [MAP, EMPTY];
+          case "Set":
+            return [SET, EMPTY];
+          case "DataView":
+            return [ARRAY, asString];
+        }
+        if (asString.includes("Array"))
+          return [ARRAY, asString];
+        if (value instanceof Error)
+          return [ERROR, value.name || "Error"];
+        return [OBJECT, asString];
+      };
+      shouldSkip = ([TYPE, type]) => TYPE === PRIMITIVE && (type === "function" || type === "symbol");
+      serializer = (strict, json, $, _) => {
+        const as = (out, value) => {
+          const index2 = _.push(out) - 1;
+          $.set(value, index2);
+          return index2;
+        };
+        const pair = (value) => {
+          if ($.has(value))
+            return $.get(value);
+          let [TYPE, type] = typeOf(value);
+          switch (TYPE) {
+            case PRIMITIVE: {
+              let entry = value;
+              switch (type) {
+                case "bigint":
+                  TYPE = BIGINT;
+                  entry = value.toString();
+                  break;
+                case "number":
+                  if (!value && is(value, -0))
+                    return _.push(["-0"]) - 1;
+                  break;
+                case "function":
+                case "symbol":
+                  if (strict)
+                    throw new TypeError("unable to serialize " + type);
+                  entry = null;
+                  break;
+                case "undefined":
+                  return as([VOID], value);
+              }
+              return as([TYPE, entry], value);
+            }
+            case ARRAY: {
+              if (type) {
+                let spread = value;
+                if (type === "DataView") {
+                  spread = new Uint8Array(value.buffer);
+                } else if (type === "ArrayBuffer") {
+                  spread = new Uint8Array(value);
+                }
+                return as([type, [...spread]], value);
+              }
+              const arr = [];
+              const index2 = as([TYPE, arr], value);
+              for (const entry of value)
+                arr.push(pair(entry));
+              return index2;
+            }
+            case OBJECT: {
+              if (type) {
+                switch (type) {
+                  case "BigInt":
+                    return as([type, value.toString()], value);
+                  case "Boolean":
+                  case "Number":
+                  case "String":
+                    return as([type, value.valueOf()], value);
+                }
+              }
+              if (json && "toJSON" in value)
+                return pair(value.toJSON());
+              const entries = [];
+              const index2 = as([TYPE, entries], value);
+              for (const key of keys(value)) {
+                if (strict || !shouldSkip(typeOf(value[key])))
+                  entries.push([pair(key), pair(value[key])]);
+              }
+              return index2;
+            }
+            case DATE:
+              return as([TYPE, isNaN(value.getTime()) ? EMPTY : value.toISOString()], value);
+            case REGEXP: {
+              const { source, flags } = value;
+              return as([TYPE, { source, flags }], value);
+            }
+            case MAP: {
+              const entries = [];
+              const index2 = as([TYPE, entries], value);
+              for (const [key, entry] of value) {
+                if (strict || !(shouldSkip(typeOf(key)) || shouldSkip(typeOf(entry))))
+                  entries.push([pair(key), pair(entry)]);
+              }
+              return index2;
+            }
+            case SET: {
+              const entries = [];
+              const index2 = as([TYPE, entries], value);
+              for (const entry of value) {
+                if (strict || !shouldSkip(typeOf(entry)))
+                  entries.push(pair(entry));
+              }
+              return index2;
+            }
+          }
+          const { message } = value;
+          return as([TYPE, { name: type, message }], value);
+        };
+        return pair;
+      };
+      serialize = (value, { json, lossy } = {}) => {
+        const _ = [];
+        return serializer(!(json || lossy), !!json, /* @__PURE__ */ new Map(), _)(value), _;
+      };
+    }
+  });
+
+  // node_modules/@ungap/structured-clone/esm/index.js
+  var esm_default;
+  var init_esm = __esm({
+    "node_modules/@ungap/structured-clone/esm/index.js"() {
+      init_deserialize();
+      init_serialize();
+      esm_default = typeof structuredClone === "function" ? (
+        /* c8 ignore start */
+        (any, options) => options && ("json" in options || "lossy" in options) ? deserialize(serialize(any, options)) : structuredClone(any)
+      ) : (any, options) => deserialize(serialize(any, options));
+    }
+  });
+
+  // node_modules/mdast-util-to-hast/lib/footer.js
+  function defaultFootnoteBackContent(_, rereferenceIndex) {
+    const result = [{ type: "text", value: "\u21A9" }];
+    if (rereferenceIndex > 1) {
+      result.push({
+        type: "element",
+        tagName: "sup",
+        properties: {},
+        children: [{ type: "text", value: String(rereferenceIndex) }]
+      });
+    }
+    return result;
+  }
+  function defaultFootnoteBackLabel(referenceIndex, rereferenceIndex) {
+    return "Back to reference " + (referenceIndex + 1) + (rereferenceIndex > 1 ? "-" + rereferenceIndex : "");
+  }
+  function footer(state) {
+    const clobberPrefix = typeof state.options.clobberPrefix === "string" ? state.options.clobberPrefix : "user-content-";
+    const footnoteBackContent = state.options.footnoteBackContent || defaultFootnoteBackContent;
+    const footnoteBackLabel = state.options.footnoteBackLabel || defaultFootnoteBackLabel;
+    const footnoteLabel = state.options.footnoteLabel || "Footnotes";
+    const footnoteLabelTagName = state.options.footnoteLabelTagName || "h2";
+    const footnoteLabelProperties = state.options.footnoteLabelProperties || {
+      className: ["sr-only"]
+    };
+    const listItems = [];
+    let referenceIndex = -1;
+    while (++referenceIndex < state.footnoteOrder.length) {
+      const definition3 = state.footnoteById.get(
+        state.footnoteOrder[referenceIndex]
+      );
+      if (!definition3) {
+        continue;
+      }
+      const content3 = state.all(definition3);
+      const id = String(definition3.identifier).toUpperCase();
+      const safeId = normalizeUri(id.toLowerCase());
+      let rereferenceIndex = 0;
+      const backReferences = [];
+      const counts = state.footnoteCounts.get(id);
+      while (counts !== void 0 && ++rereferenceIndex <= counts) {
+        if (backReferences.length > 0) {
+          backReferences.push({ type: "text", value: " " });
+        }
+        let children = typeof footnoteBackContent === "string" ? footnoteBackContent : footnoteBackContent(referenceIndex, rereferenceIndex);
+        if (typeof children === "string") {
+          children = { type: "text", value: children };
+        }
+        backReferences.push({
+          type: "element",
+          tagName: "a",
+          properties: {
+            href: "#" + clobberPrefix + "fnref-" + safeId + (rereferenceIndex > 1 ? "-" + rereferenceIndex : ""),
+            dataFootnoteBackref: "",
+            ariaLabel: typeof footnoteBackLabel === "string" ? footnoteBackLabel : footnoteBackLabel(referenceIndex, rereferenceIndex),
+            className: ["data-footnote-backref"]
+          },
+          children: Array.isArray(children) ? children : [children]
+        });
+      }
+      const tail = content3[content3.length - 1];
+      if (tail && tail.type === "element" && tail.tagName === "p") {
+        const tailTail = tail.children[tail.children.length - 1];
+        if (tailTail && tailTail.type === "text") {
+          tailTail.value += " ";
+        } else {
+          tail.children.push({ type: "text", value: " " });
+        }
+        tail.children.push(...backReferences);
+      } else {
+        content3.push(...backReferences);
+      }
+      const listItem3 = {
+        type: "element",
+        tagName: "li",
+        properties: { id: clobberPrefix + "fn-" + safeId },
+        children: state.wrap(content3, true)
+      };
+      state.patch(definition3, listItem3);
+      listItems.push(listItem3);
+    }
+    if (listItems.length === 0) {
+      return;
+    }
+    return {
+      type: "element",
+      tagName: "section",
+      properties: { dataFootnotes: true, className: ["footnotes"] },
+      children: [
+        {
+          type: "element",
+          tagName: footnoteLabelTagName,
+          properties: {
+            ...esm_default(footnoteLabelProperties),
+            id: "footnote-label"
+          },
+          children: [{ type: "text", value: footnoteLabel }]
+        },
+        { type: "text", value: "\n" },
+        {
+          type: "element",
+          tagName: "ol",
+          properties: {},
+          children: state.wrap(listItems, true)
+        },
+        { type: "text", value: "\n" }
+      ]
+    };
+  }
+  var init_footer = __esm({
+    "node_modules/mdast-util-to-hast/lib/footer.js"() {
+      init_esm();
+      init_micromark_util_sanitize_uri();
+    }
+  });
+
+  // node_modules/unist-util-is/lib/index.js
+  function anyFactory(tests) {
+    const checks2 = [];
+    let index2 = -1;
+    while (++index2 < tests.length) {
+      checks2[index2] = convert(tests[index2]);
+    }
+    return castFactory(any);
+    function any(...parameters) {
+      let index3 = -1;
+      while (++index3 < checks2.length) {
+        if (checks2[index3].apply(this, parameters)) return true;
+      }
+      return false;
+    }
+  }
+  function propertiesFactory(check) {
+    const checkAsRecord = (
+      /** @type {Record<string, unknown>} */
+      check
+    );
+    return castFactory(all2);
+    function all2(node2) {
+      const nodeAsRecord = (
+        /** @type {Record<string, unknown>} */
+        /** @type {unknown} */
+        node2
+      );
+      let key;
+      for (key in check) {
+        if (nodeAsRecord[key] !== checkAsRecord[key]) return false;
+      }
+      return true;
+    }
+  }
+  function typeFactory(check) {
+    return castFactory(type);
+    function type(node2) {
+      return node2 && node2.type === check;
+    }
+  }
+  function castFactory(testFunction) {
+    return check;
+    function check(value, index2, parent) {
+      return Boolean(
+        looksLikeANode(value) && testFunction.call(
+          this,
+          value,
+          typeof index2 === "number" ? index2 : void 0,
+          parent || void 0
+        )
+      );
+    }
+  }
+  function ok2() {
+    return true;
+  }
+  function looksLikeANode(value) {
+    return value !== null && typeof value === "object" && "type" in value;
+  }
+  var convert;
+  var init_lib11 = __esm({
+    "node_modules/unist-util-is/lib/index.js"() {
+      convert = // Note: overloads in JSDoc can’t yet use different `@template`s.
+      /**
+       * @type {(
+       *   (<Condition extends string>(test: Condition) => (node: unknown, index?: number | null | undefined, parent?: Parent | null | undefined, context?: unknown) => node is Node & {type: Condition}) &
+       *   (<Condition extends Props>(test: Condition) => (node: unknown, index?: number | null | undefined, parent?: Parent | null | undefined, context?: unknown) => node is Node & Condition) &
+       *   (<Condition extends TestFunction>(test: Condition) => (node: unknown, index?: number | null | undefined, parent?: Parent | null | undefined, context?: unknown) => node is Node & Predicate<Condition, Node>) &
+       *   ((test?: null | undefined) => (node?: unknown, index?: number | null | undefined, parent?: Parent | null | undefined, context?: unknown) => node is Node) &
+       *   ((test?: Test) => Check)
+       * )}
+       */
+      /**
+       * @param {Test} [test]
+       * @returns {Check}
+       */
+      (function(test) {
+        if (test === null || test === void 0) {
+          return ok2;
+        }
+        if (typeof test === "function") {
+          return castFactory(test);
+        }
+        if (typeof test === "object") {
+          return Array.isArray(test) ? anyFactory(test) : (
+            // Cast because `ReadonlyArray` goes into the above but `isArray`
+            // narrows to `Array`.
+            propertiesFactory(
+              /** @type {Props} */
+              test
+            )
+          );
+        }
+        if (typeof test === "string") {
+          return typeFactory(test);
+        }
+        throw new Error("Expected function, string, or object as test");
+      });
+    }
+  });
+
+  // node_modules/unist-util-is/index.js
+  var init_unist_util_is = __esm({
+    "node_modules/unist-util-is/index.js"() {
+      init_lib11();
+    }
+  });
+
+  // node_modules/unist-util-visit-parents/lib/color.js
+  function color(d) {
+    return d;
+  }
+  var init_color = __esm({
+    "node_modules/unist-util-visit-parents/lib/color.js"() {
+    }
+  });
+
+  // node_modules/unist-util-visit-parents/lib/index.js
+  function visitParents(tree, test, visitor, reverse) {
+    let check;
+    if (typeof test === "function" && typeof visitor !== "function") {
+      reverse = visitor;
+      visitor = test;
+    } else {
+      check = test;
+    }
+    const is3 = convert(check);
+    const step = reverse ? -1 : 1;
+    factory(tree, void 0, [])();
+    function factory(node2, index2, parents) {
+      const value = (
+        /** @type {Record<string, unknown>} */
+        node2 && typeof node2 === "object" ? node2 : {}
+      );
+      if (typeof value.type === "string") {
+        const name2 = (
+          // `hast`
+          typeof value.tagName === "string" ? value.tagName : (
+            // `xast`
+            typeof value.name === "string" ? value.name : void 0
+          )
+        );
+        Object.defineProperty(visit2, "name", {
+          value: "node (" + color(node2.type + (name2 ? "<" + name2 + ">" : "")) + ")"
+        });
+      }
+      return visit2;
+      function visit2() {
+        let result = empty2;
+        let subresult;
+        let offset;
+        let grandparents;
+        if (!test || is3(node2, index2, parents[parents.length - 1] || void 0)) {
+          result = toResult(visitor(node2, parents));
+          if (result[0] === EXIT) {
+            return result;
+          }
+        }
+        if ("children" in node2 && node2.children) {
+          const nodeAsParent = (
+            /** @type {UnistParent} */
+            node2
+          );
+          if (nodeAsParent.children && result[0] !== SKIP) {
+            offset = (reverse ? nodeAsParent.children.length : -1) + step;
+            grandparents = parents.concat(nodeAsParent);
+            while (offset > -1 && offset < nodeAsParent.children.length) {
+              const child = nodeAsParent.children[offset];
+              subresult = factory(child, offset, grandparents)();
+              if (subresult[0] === EXIT) {
+                return subresult;
+              }
+              offset = typeof subresult[1] === "number" ? subresult[1] : offset + step;
+            }
+          }
+        }
+        return result;
+      }
+    }
+  }
+  function toResult(value) {
+    if (Array.isArray(value)) {
+      return value;
+    }
+    if (typeof value === "number") {
+      return [CONTINUE, value];
+    }
+    return value === null || value === void 0 ? empty2 : [value];
+  }
+  var empty2, CONTINUE, EXIT, SKIP;
+  var init_lib12 = __esm({
+    "node_modules/unist-util-visit-parents/lib/index.js"() {
+      init_unist_util_is();
+      init_color();
+      empty2 = [];
+      CONTINUE = true;
+      EXIT = false;
+      SKIP = "skip";
+    }
+  });
+
+  // node_modules/unist-util-visit-parents/index.js
+  var init_unist_util_visit_parents = __esm({
+    "node_modules/unist-util-visit-parents/index.js"() {
+      init_lib12();
+    }
+  });
+
+  // node_modules/unist-util-visit/lib/index.js
+  function visit(tree, testOrVisitor, visitorOrReverse, maybeReverse) {
+    let reverse;
+    let test;
+    let visitor;
+    if (typeof testOrVisitor === "function" && typeof visitorOrReverse !== "function") {
+      test = void 0;
+      visitor = testOrVisitor;
+      reverse = visitorOrReverse;
+    } else {
+      test = testOrVisitor;
+      visitor = visitorOrReverse;
+      reverse = maybeReverse;
+    }
+    visitParents(tree, test, overload, reverse);
+    function overload(node2, parents) {
+      const parent = parents[parents.length - 1];
+      const index2 = parent ? parent.children.indexOf(node2) : void 0;
+      return visitor(node2, index2, parent);
+    }
+  }
+  var init_lib13 = __esm({
+    "node_modules/unist-util-visit/lib/index.js"() {
+      init_unist_util_visit_parents();
+      init_unist_util_visit_parents();
+    }
+  });
+
+  // node_modules/unist-util-visit/index.js
+  var init_unist_util_visit = __esm({
+    "node_modules/unist-util-visit/index.js"() {
+      init_lib13();
+    }
+  });
+
+  // node_modules/mdast-util-to-hast/lib/state.js
+  function createState(tree, options) {
+    const settings = options || emptyOptions3;
+    const definitionById = /* @__PURE__ */ new Map();
+    const footnoteById = /* @__PURE__ */ new Map();
+    const footnoteCounts = /* @__PURE__ */ new Map();
+    const handlers2 = { ...handlers, ...settings.handlers };
+    const state = {
+      all: all2,
+      applyData,
+      definitionById,
+      footnoteById,
+      footnoteCounts,
+      footnoteOrder: [],
+      handlers: handlers2,
+      one: one3,
+      options: settings,
+      patch,
+      wrap
+    };
+    visit(tree, function(node2) {
+      if (node2.type === "definition" || node2.type === "footnoteDefinition") {
+        const map3 = node2.type === "definition" ? definitionById : footnoteById;
+        const id = String(node2.identifier).toUpperCase();
+        if (!map3.has(id)) {
+          map3.set(id, node2);
+        }
+      }
+    });
+    return state;
+    function one3(node2, parent) {
+      const type = node2.type;
+      const handle2 = state.handlers[type];
+      if (own3.call(state.handlers, type) && handle2) {
+        return handle2(state, node2, parent);
+      }
+      if (state.options.passThrough && state.options.passThrough.includes(type)) {
+        if ("children" in node2) {
+          const { children, ...shallow } = node2;
+          const result = esm_default(shallow);
+          result.children = state.all(node2);
+          return result;
+        }
+        return esm_default(node2);
+      }
+      const unknown = state.options.unknownHandler || defaultUnknownHandler;
+      return unknown(state, node2, parent);
+    }
+    function all2(parent) {
+      const values = [];
+      if ("children" in parent) {
+        const nodes = parent.children;
+        let index2 = -1;
+        while (++index2 < nodes.length) {
+          const result = state.one(nodes[index2], parent);
+          if (result) {
+            if (index2 && nodes[index2 - 1].type === "break") {
+              if (!Array.isArray(result) && result.type === "text") {
+                result.value = trimMarkdownSpaceStart(result.value);
+              }
+              if (!Array.isArray(result) && result.type === "element") {
+                const head = result.children[0];
+                if (head && head.type === "text") {
+                  head.value = trimMarkdownSpaceStart(head.value);
+                }
+              }
+            }
+            if (Array.isArray(result)) {
+              values.push(...result);
+            } else {
+              values.push(result);
+            }
+          }
+        }
+      }
+      return values;
+    }
+  }
+  function patch(from, to) {
+    if (from.position) to.position = position(from);
+  }
+  function applyData(from, to) {
+    let result = to;
+    if (from && from.data) {
+      const hName = from.data.hName;
+      const hChildren = from.data.hChildren;
+      const hProperties = from.data.hProperties;
+      if (typeof hName === "string") {
+        if (result.type === "element") {
+          result.tagName = hName;
+        } else {
+          const children = "children" in result ? result.children : [result];
+          result = { type: "element", tagName: hName, properties: {}, children };
+        }
+      }
+      if (result.type === "element" && hProperties) {
+        Object.assign(result.properties, esm_default(hProperties));
+      }
+      if ("children" in result && result.children && hChildren !== null && hChildren !== void 0) {
+        result.children = hChildren;
+      }
+    }
+    return result;
+  }
+  function defaultUnknownHandler(state, node2) {
+    const data = node2.data || {};
+    const result = "value" in node2 && !(own3.call(data, "hProperties") || own3.call(data, "hChildren")) ? { type: "text", value: node2.value } : {
+      type: "element",
+      tagName: "div",
+      properties: {},
+      children: state.all(node2)
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+  function wrap(nodes, loose) {
+    const result = [];
+    let index2 = -1;
+    if (loose) {
+      result.push({ type: "text", value: "\n" });
+    }
+    while (++index2 < nodes.length) {
+      if (index2) result.push({ type: "text", value: "\n" });
+      result.push(nodes[index2]);
+    }
+    if (loose && nodes.length > 0) {
+      result.push({ type: "text", value: "\n" });
+    }
+    return result;
+  }
+  function trimMarkdownSpaceStart(value) {
+    let index2 = 0;
+    let code4 = value.charCodeAt(index2);
+    while (code4 === 9 || code4 === 32) {
+      index2++;
+      code4 = value.charCodeAt(index2);
+    }
+    return value.slice(index2);
+  }
+  var own3, emptyOptions3;
+  var init_state = __esm({
+    "node_modules/mdast-util-to-hast/lib/state.js"() {
+      init_esm();
+      init_unist_util_visit();
+      init_unist_util_position();
+      init_handlers();
+      own3 = {}.hasOwnProperty;
+      emptyOptions3 = {};
+    }
+  });
+
+  // node_modules/mdast-util-to-hast/lib/index.js
+  function toHast(tree, options) {
+    const state = createState(tree, options);
+    const node2 = state.one(tree, void 0);
+    const foot = footer(state);
+    const result = Array.isArray(node2) ? { type: "root", children: node2 } : node2 || { type: "root", children: [] };
+    if (foot) {
+      ok("children" in result);
+      result.children.push({ type: "text", value: "\n" }, foot);
+    }
+    return result;
+  }
+  var init_lib14 = __esm({
+    "node_modules/mdast-util-to-hast/lib/index.js"() {
+      init_default();
+      init_footer();
+      init_state();
+    }
+  });
+
+  // node_modules/mdast-util-to-hast/index.js
+  var init_mdast_util_to_hast = __esm({
+    "node_modules/mdast-util-to-hast/index.js"() {
+      init_lib14();
+    }
+  });
+
+  // node_modules/remark-rehype/lib/index.js
+  function remarkRehype(destination, options) {
+    if (destination && "run" in destination) {
+      return async function(tree, file) {
+        const hastTree = (
+          /** @type {HastRoot} */
+          toHast(tree, { file, ...options })
+        );
+        await destination.run(hastTree, file);
+      };
+    }
+    return function(tree, file) {
+      return (
+        /** @type {HastRoot} */
+        toHast(tree, { file, ...destination || options })
+      );
+    };
+  }
+  var init_lib15 = __esm({
+    "node_modules/remark-rehype/lib/index.js"() {
+      init_mdast_util_to_hast();
+    }
+  });
+
+  // node_modules/remark-rehype/index.js
+  var init_remark_rehype = __esm({
+    "node_modules/remark-rehype/index.js"() {
+      init_lib15();
+    }
+  });
+
+  // node_modules/bail/index.js
+  function bail(error) {
+    if (error) {
+      throw error;
+    }
+  }
+  var init_bail = __esm({
+    "node_modules/bail/index.js"() {
+    }
+  });
+
+  // node_modules/extend/index.js
+  var require_extend = __commonJS({
+    "node_modules/extend/index.js"(exports, module) {
+      "use strict";
+      var hasOwn = Object.prototype.hasOwnProperty;
+      var toStr = Object.prototype.toString;
+      var defineProperty2 = Object.defineProperty;
+      var gOPD = Object.getOwnPropertyDescriptor;
+      var isArray = function isArray2(arr) {
+        if (typeof Array.isArray === "function") {
+          return Array.isArray(arr);
+        }
+        return toStr.call(arr) === "[object Array]";
+      };
+      var isPlainObject2 = function isPlainObject3(obj) {
+        if (!obj || toStr.call(obj) !== "[object Object]") {
+          return false;
+        }
+        var hasOwnConstructor = hasOwn.call(obj, "constructor");
+        var hasIsPrototypeOf = obj.constructor && obj.constructor.prototype && hasOwn.call(obj.constructor.prototype, "isPrototypeOf");
+        if (obj.constructor && !hasOwnConstructor && !hasIsPrototypeOf) {
+          return false;
+        }
+        var key;
+        for (key in obj) {
+        }
+        return typeof key === "undefined" || hasOwn.call(obj, key);
+      };
+      var setProperty = function setProperty2(target, options) {
+        if (defineProperty2 && options.name === "__proto__") {
+          defineProperty2(target, options.name, {
+            enumerable: true,
+            configurable: true,
+            value: options.newValue,
+            writable: true
+          });
+        } else {
+          target[options.name] = options.newValue;
+        }
+      };
+      var getProperty = function getProperty2(obj, name2) {
+        if (name2 === "__proto__") {
+          if (!hasOwn.call(obj, name2)) {
+            return void 0;
+          } else if (gOPD) {
+            return gOPD(obj, name2).value;
+          }
+        }
+        return obj[name2];
+      };
+      module.exports = function extend2() {
+        var options, name2, src, copy, copyIsArray, clone;
+        var target = arguments[0];
+        var i = 1;
+        var length = arguments.length;
+        var deep = false;
+        if (typeof target === "boolean") {
+          deep = target;
+          target = arguments[1] || {};
+          i = 2;
+        }
+        if (target == null || typeof target !== "object" && typeof target !== "function") {
+          target = {};
+        }
+        for (; i < length; ++i) {
+          options = arguments[i];
+          if (options != null) {
+            for (name2 in options) {
+              src = getProperty(target, name2);
+              copy = getProperty(options, name2);
+              if (target !== copy) {
+                if (deep && copy && (isPlainObject2(copy) || (copyIsArray = isArray(copy)))) {
+                  if (copyIsArray) {
+                    copyIsArray = false;
+                    clone = src && isArray(src) ? src : [];
+                  } else {
+                    clone = src && isPlainObject2(src) ? src : {};
+                  }
+                  setProperty(target, { name: name2, newValue: extend2(deep, clone, copy) });
+                } else if (typeof copy !== "undefined") {
+                  setProperty(target, { name: name2, newValue: copy });
+                }
+              }
+            }
+          }
+        }
+        return target;
+      };
+    }
+  });
+
+  // node_modules/unified/node_modules/is-plain-obj/index.js
+  function isPlainObject(value) {
+    if (typeof value !== "object" || value === null) {
+      return false;
+    }
+    const prototype = Object.getPrototypeOf(value);
+    return (prototype === null || prototype === Object.prototype || Object.getPrototypeOf(prototype) === null) && !(Symbol.toStringTag in value) && !(Symbol.iterator in value);
+  }
+  var init_is_plain_obj = __esm({
+    "node_modules/unified/node_modules/is-plain-obj/index.js"() {
+    }
+  });
+
+  // node_modules/trough/lib/index.js
+  function trough() {
+    const fns = [];
+    const pipeline = { run, use };
+    return pipeline;
+    function run(...values) {
+      let middlewareIndex = -1;
+      const callback = values.pop();
+      if (typeof callback !== "function") {
+        throw new TypeError("Expected function as last argument, not " + callback);
+      }
+      next(null, ...values);
+      function next(error, ...output) {
+        const fn = fns[++middlewareIndex];
+        let index2 = -1;
+        if (error) {
+          callback(error);
+          return;
+        }
+        while (++index2 < values.length) {
+          if (output[index2] === null || output[index2] === void 0) {
+            output[index2] = values[index2];
+          }
+        }
+        values = output;
+        if (fn) {
+          wrap2(fn, next)(...output);
+        } else {
+          callback(null, ...output);
+        }
+      }
+    }
+    function use(middelware) {
+      if (typeof middelware !== "function") {
+        throw new TypeError(
+          "Expected `middelware` to be a function, not " + middelware
+        );
+      }
+      fns.push(middelware);
+      return pipeline;
+    }
+  }
+  function wrap2(middleware, callback) {
+    let called;
+    return wrapped;
+    function wrapped(...parameters) {
+      const fnExpectsCallback = middleware.length > parameters.length;
+      let result;
+      if (fnExpectsCallback) {
+        parameters.push(done);
+      }
+      try {
+        result = middleware.apply(this, parameters);
+      } catch (error) {
+        const exception = (
+          /** @type {Error} */
+          error
+        );
+        if (fnExpectsCallback && called) {
+          throw exception;
+        }
+        return done(exception);
+      }
+      if (!fnExpectsCallback) {
+        if (result && result.then && typeof result.then === "function") {
+          result.then(then, done);
+        } else if (result instanceof Error) {
+          done(result);
+        } else {
+          then(result);
+        }
+      }
+    }
+    function done(error, ...output) {
+      if (!called) {
+        called = true;
+        callback(error, ...output);
+      }
+    }
+    function then(value) {
+      done(null, value);
+    }
+  }
+  var init_lib16 = __esm({
+    "node_modules/trough/lib/index.js"() {
+    }
+  });
+
+  // node_modules/trough/index.js
+  var init_trough = __esm({
+    "node_modules/trough/index.js"() {
+      init_lib16();
+    }
+  });
+
+  // node_modules/vfile/lib/minpath.browser.js
+  function basename(path2, extname2) {
+    if (extname2 !== void 0 && typeof extname2 !== "string") {
+      throw new TypeError('"ext" argument must be a string');
+    }
+    assertPath(path2);
+    let start2 = 0;
+    let end = -1;
+    let index2 = path2.length;
+    let seenNonSlash;
+    if (extname2 === void 0 || extname2.length === 0 || extname2.length > path2.length) {
+      while (index2--) {
+        if (path2.codePointAt(index2) === 47) {
+          if (seenNonSlash) {
+            start2 = index2 + 1;
+            break;
+          }
+        } else if (end < 0) {
+          seenNonSlash = true;
+          end = index2 + 1;
+        }
+      }
+      return end < 0 ? "" : path2.slice(start2, end);
+    }
+    if (extname2 === path2) {
+      return "";
+    }
+    let firstNonSlashEnd = -1;
+    let extnameIndex = extname2.length - 1;
+    while (index2--) {
+      if (path2.codePointAt(index2) === 47) {
+        if (seenNonSlash) {
+          start2 = index2 + 1;
+          break;
+        }
+      } else {
+        if (firstNonSlashEnd < 0) {
+          seenNonSlash = true;
+          firstNonSlashEnd = index2 + 1;
+        }
+        if (extnameIndex > -1) {
+          if (path2.codePointAt(index2) === extname2.codePointAt(extnameIndex--)) {
+            if (extnameIndex < 0) {
+              end = index2;
+            }
+          } else {
+            extnameIndex = -1;
+            end = firstNonSlashEnd;
+          }
+        }
+      }
+    }
+    if (start2 === end) {
+      end = firstNonSlashEnd;
+    } else if (end < 0) {
+      end = path2.length;
+    }
+    return path2.slice(start2, end);
+  }
+  function dirname(path2) {
+    assertPath(path2);
+    if (path2.length === 0) {
+      return ".";
+    }
+    let end = -1;
+    let index2 = path2.length;
+    let unmatchedSlash;
+    while (--index2) {
+      if (path2.codePointAt(index2) === 47) {
+        if (unmatchedSlash) {
+          end = index2;
+          break;
+        }
+      } else if (!unmatchedSlash) {
+        unmatchedSlash = true;
+      }
+    }
+    return end < 0 ? path2.codePointAt(0) === 47 ? "/" : "." : end === 1 && path2.codePointAt(0) === 47 ? "//" : path2.slice(0, end);
+  }
+  function extname(path2) {
+    assertPath(path2);
+    let index2 = path2.length;
+    let end = -1;
+    let startPart = 0;
+    let startDot = -1;
+    let preDotState = 0;
+    let unmatchedSlash;
+    while (index2--) {
+      const code4 = path2.codePointAt(index2);
+      if (code4 === 47) {
+        if (unmatchedSlash) {
+          startPart = index2 + 1;
+          break;
+        }
+        continue;
+      }
+      if (end < 0) {
+        unmatchedSlash = true;
+        end = index2 + 1;
+      }
+      if (code4 === 46) {
+        if (startDot < 0) {
+          startDot = index2;
+        } else if (preDotState !== 1) {
+          preDotState = 1;
+        }
+      } else if (startDot > -1) {
+        preDotState = -1;
+      }
+    }
+    if (startDot < 0 || end < 0 || // We saw a non-dot character immediately before the dot.
+    preDotState === 0 || // The (right-most) trimmed path component is exactly `..`.
+    preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
+      return "";
+    }
+    return path2.slice(startDot, end);
+  }
+  function join(...segments) {
+    let index2 = -1;
+    let joined;
+    while (++index2 < segments.length) {
+      assertPath(segments[index2]);
+      if (segments[index2]) {
+        joined = joined === void 0 ? segments[index2] : joined + "/" + segments[index2];
+      }
+    }
+    return joined === void 0 ? "." : normalize2(joined);
+  }
+  function normalize2(path2) {
+    assertPath(path2);
+    const absolute = path2.codePointAt(0) === 47;
+    let value = normalizeString(path2, !absolute);
+    if (value.length === 0 && !absolute) {
+      value = ".";
+    }
+    if (value.length > 0 && path2.codePointAt(path2.length - 1) === 47) {
+      value += "/";
+    }
+    return absolute ? "/" + value : value;
+  }
+  function normalizeString(path2, allowAboveRoot) {
+    let result = "";
+    let lastSegmentLength = 0;
+    let lastSlash = -1;
+    let dots = 0;
+    let index2 = -1;
+    let code4;
+    let lastSlashIndex;
+    while (++index2 <= path2.length) {
+      if (index2 < path2.length) {
+        code4 = path2.codePointAt(index2);
+      } else if (code4 === 47) {
+        break;
+      } else {
+        code4 = 47;
+      }
+      if (code4 === 47) {
+        if (lastSlash === index2 - 1 || dots === 1) {
+        } else if (lastSlash !== index2 - 1 && dots === 2) {
+          if (result.length < 2 || lastSegmentLength !== 2 || result.codePointAt(result.length - 1) !== 46 || result.codePointAt(result.length - 2) !== 46) {
+            if (result.length > 2) {
+              lastSlashIndex = result.lastIndexOf("/");
+              if (lastSlashIndex !== result.length - 1) {
+                if (lastSlashIndex < 0) {
+                  result = "";
+                  lastSegmentLength = 0;
+                } else {
+                  result = result.slice(0, lastSlashIndex);
+                  lastSegmentLength = result.length - 1 - result.lastIndexOf("/");
+                }
+                lastSlash = index2;
+                dots = 0;
+                continue;
+              }
+            } else if (result.length > 0) {
+              result = "";
+              lastSegmentLength = 0;
+              lastSlash = index2;
+              dots = 0;
+              continue;
+            }
+          }
+          if (allowAboveRoot) {
+            result = result.length > 0 ? result + "/.." : "..";
+            lastSegmentLength = 2;
+          }
+        } else {
+          if (result.length > 0) {
+            result += "/" + path2.slice(lastSlash + 1, index2);
+          } else {
+            result = path2.slice(lastSlash + 1, index2);
+          }
+          lastSegmentLength = index2 - lastSlash - 1;
+        }
+        lastSlash = index2;
+        dots = 0;
+      } else if (code4 === 46 && dots > -1) {
+        dots++;
+      } else {
+        dots = -1;
+      }
+    }
+    return result;
+  }
+  function assertPath(path2) {
+    if (typeof path2 !== "string") {
+      throw new TypeError(
+        "Path must be a string. Received " + JSON.stringify(path2)
+      );
+    }
+  }
+  var minpath;
+  var init_minpath_browser = __esm({
+    "node_modules/vfile/lib/minpath.browser.js"() {
+      minpath = { basename, dirname, extname, join, sep: "/" };
+    }
+  });
+
+  // node_modules/vfile/lib/minproc.browser.js
+  function cwd() {
+    return "/";
+  }
+  var minproc;
+  var init_minproc_browser = __esm({
+    "node_modules/vfile/lib/minproc.browser.js"() {
+      minproc = { cwd };
+    }
+  });
+
+  // node_modules/vfile/lib/minurl.shared.js
+  function isUrl(fileUrlOrPath) {
+    return Boolean(
+      fileUrlOrPath !== null && typeof fileUrlOrPath === "object" && "href" in fileUrlOrPath && fileUrlOrPath.href && "protocol" in fileUrlOrPath && fileUrlOrPath.protocol && // @ts-expect-error: indexing is fine.
+      fileUrlOrPath.auth === void 0
+    );
+  }
+  var init_minurl_shared = __esm({
+    "node_modules/vfile/lib/minurl.shared.js"() {
+    }
+  });
+
+  // node_modules/vfile/lib/minurl.browser.js
+  function urlToPath(path2) {
+    if (typeof path2 === "string") {
+      path2 = new URL(path2);
+    } else if (!isUrl(path2)) {
+      const error = new TypeError(
+        'The "path" argument must be of type string or an instance of URL. Received `' + path2 + "`"
+      );
+      error.code = "ERR_INVALID_ARG_TYPE";
+      throw error;
+    }
+    if (path2.protocol !== "file:") {
+      const error = new TypeError("The URL must be of scheme file");
+      error.code = "ERR_INVALID_URL_SCHEME";
+      throw error;
+    }
+    return getPathFromURLPosix(path2);
+  }
+  function getPathFromURLPosix(url) {
+    if (url.hostname !== "") {
+      const error = new TypeError(
+        'File URL host must be "localhost" or empty on darwin'
+      );
+      error.code = "ERR_INVALID_FILE_URL_HOST";
+      throw error;
+    }
+    const pathname = url.pathname;
+    let index2 = -1;
+    while (++index2 < pathname.length) {
+      if (pathname.codePointAt(index2) === 37 && pathname.codePointAt(index2 + 1) === 50) {
+        const third = pathname.codePointAt(index2 + 2);
+        if (third === 70 || third === 102) {
+          const error = new TypeError(
+            "File URL path must not include encoded / characters"
+          );
+          error.code = "ERR_INVALID_FILE_URL_PATH";
+          throw error;
+        }
+      }
+    }
+    return decodeURIComponent(pathname);
+  }
+  var init_minurl_browser = __esm({
+    "node_modules/vfile/lib/minurl.browser.js"() {
+      init_minurl_shared();
+      init_minurl_shared();
+    }
+  });
+
+  // node_modules/vfile/lib/index.js
+  function assertPart(part, name2) {
+    if (part && part.includes(minpath.sep)) {
+      throw new Error(
+        "`" + name2 + "` cannot be a path: did not expect `" + minpath.sep + "`"
+      );
+    }
+  }
+  function assertNonEmpty(part, name2) {
+    if (!part) {
+      throw new Error("`" + name2 + "` cannot be empty");
+    }
+  }
+  function assertPath2(path2, name2) {
+    if (!path2) {
+      throw new Error("Setting `" + name2 + "` requires `path` to be set too");
+    }
+  }
+  function isUint8Array(value) {
+    return Boolean(
+      value && typeof value === "object" && "byteLength" in value && "byteOffset" in value
+    );
+  }
+  var order, VFile;
+  var init_lib17 = __esm({
+    "node_modules/vfile/lib/index.js"() {
+      init_vfile_message();
+      init_minpath_browser();
+      init_minproc_browser();
+      init_minurl_browser();
+      order = /** @type {const} */
+      [
+        "history",
+        "path",
+        "basename",
+        "stem",
+        "extname",
+        "dirname"
+      ];
+      VFile = class {
+        /**
+         * Create a new virtual file.
+         *
+         * `options` is treated as:
+         *
+         * *   `string` or `Uint8Array` — `{value: options}`
+         * *   `URL` — `{path: options}`
+         * *   `VFile` — shallow copies its data over to the new file
+         * *   `object` — all fields are shallow copied over to the new file
+         *
+         * Path related fields are set in the following order (least specific to
+         * most specific): `history`, `path`, `basename`, `stem`, `extname`,
+         * `dirname`.
+         *
+         * You cannot set `dirname` or `extname` without setting either `history`,
+         * `path`, `basename`, or `stem` too.
+         *
+         * @param {Compatible | null | undefined} [value]
+         *   File value.
+         * @returns
+         *   New instance.
+         */
+        constructor(value) {
+          let options;
+          if (!value) {
+            options = {};
+          } else if (isUrl(value)) {
+            options = { path: value };
+          } else if (typeof value === "string" || isUint8Array(value)) {
+            options = { value };
+          } else {
+            options = value;
+          }
+          this.cwd = "cwd" in options ? "" : minproc.cwd();
+          this.data = {};
+          this.history = [];
+          this.messages = [];
+          this.value;
+          this.map;
+          this.result;
+          this.stored;
+          let index2 = -1;
+          while (++index2 < order.length) {
+            const field2 = order[index2];
+            if (field2 in options && options[field2] !== void 0 && options[field2] !== null) {
+              this[field2] = field2 === "history" ? [...options[field2]] : options[field2];
+            }
+          }
+          let field;
+          for (field in options) {
+            if (!order.includes(field)) {
+              this[field] = options[field];
+            }
+          }
+        }
+        /**
+         * Get the basename (including extname) (example: `'index.min.js'`).
+         *
+         * @returns {string | undefined}
+         *   Basename.
+         */
+        get basename() {
+          return typeof this.path === "string" ? minpath.basename(this.path) : void 0;
+        }
+        /**
+         * Set basename (including extname) (`'index.min.js'`).
+         *
+         * Cannot contain path separators (`'/'` on unix, macOS, and browsers, `'\'`
+         * on windows).
+         * Cannot be nullified (use `file.path = file.dirname` instead).
+         *
+         * @param {string} basename
+         *   Basename.
+         * @returns {undefined}
+         *   Nothing.
+         */
+        set basename(basename2) {
+          assertNonEmpty(basename2, "basename");
+          assertPart(basename2, "basename");
+          this.path = minpath.join(this.dirname || "", basename2);
+        }
+        /**
+         * Get the parent path (example: `'~'`).
+         *
+         * @returns {string | undefined}
+         *   Dirname.
+         */
+        get dirname() {
+          return typeof this.path === "string" ? minpath.dirname(this.path) : void 0;
+        }
+        /**
+         * Set the parent path (example: `'~'`).
+         *
+         * Cannot be set if there’s no `path` yet.
+         *
+         * @param {string | undefined} dirname
+         *   Dirname.
+         * @returns {undefined}
+         *   Nothing.
+         */
+        set dirname(dirname2) {
+          assertPath2(this.basename, "dirname");
+          this.path = minpath.join(dirname2 || "", this.basename);
+        }
+        /**
+         * Get the extname (including dot) (example: `'.js'`).
+         *
+         * @returns {string | undefined}
+         *   Extname.
+         */
+        get extname() {
+          return typeof this.path === "string" ? minpath.extname(this.path) : void 0;
+        }
+        /**
+         * Set the extname (including dot) (example: `'.js'`).
+         *
+         * Cannot contain path separators (`'/'` on unix, macOS, and browsers, `'\'`
+         * on windows).
+         * Cannot be set if there’s no `path` yet.
+         *
+         * @param {string | undefined} extname
+         *   Extname.
+         * @returns {undefined}
+         *   Nothing.
+         */
+        set extname(extname2) {
+          assertPart(extname2, "extname");
+          assertPath2(this.dirname, "extname");
+          if (extname2) {
+            if (extname2.codePointAt(0) !== 46) {
+              throw new Error("`extname` must start with `.`");
+            }
+            if (extname2.includes(".", 1)) {
+              throw new Error("`extname` cannot contain multiple dots");
+            }
+          }
+          this.path = minpath.join(this.dirname, this.stem + (extname2 || ""));
+        }
+        /**
+         * Get the full path (example: `'~/index.min.js'`).
+         *
+         * @returns {string}
+         *   Path.
+         */
+        get path() {
+          return this.history[this.history.length - 1];
+        }
+        /**
+         * Set the full path (example: `'~/index.min.js'`).
+         *
+         * Cannot be nullified.
+         * You can set a file URL (a `URL` object with a `file:` protocol) which will
+         * be turned into a path with `url.fileURLToPath`.
+         *
+         * @param {URL | string} path
+         *   Path.
+         * @returns {undefined}
+         *   Nothing.
+         */
+        set path(path2) {
+          if (isUrl(path2)) {
+            path2 = urlToPath(path2);
+          }
+          assertNonEmpty(path2, "path");
+          if (this.path !== path2) {
+            this.history.push(path2);
+          }
+        }
+        /**
+         * Get the stem (basename w/o extname) (example: `'index.min'`).
+         *
+         * @returns {string | undefined}
+         *   Stem.
+         */
+        get stem() {
+          return typeof this.path === "string" ? minpath.basename(this.path, this.extname) : void 0;
+        }
+        /**
+         * Set the stem (basename w/o extname) (example: `'index.min'`).
+         *
+         * Cannot contain path separators (`'/'` on unix, macOS, and browsers, `'\'`
+         * on windows).
+         * Cannot be nullified (use `file.path = file.dirname` instead).
+         *
+         * @param {string} stem
+         *   Stem.
+         * @returns {undefined}
+         *   Nothing.
+         */
+        set stem(stem) {
+          assertNonEmpty(stem, "stem");
+          assertPart(stem, "stem");
+          this.path = minpath.join(this.dirname || "", stem + (this.extname || ""));
+        }
+        // Normal prototypal methods.
+        /**
+         * Create a fatal message for `reason` associated with the file.
+         *
+         * The `fatal` field of the message is set to `true` (error; file not usable)
+         * and the `file` field is set to the current file path.
+         * The message is added to the `messages` field on `file`.
+         *
+         * > 🪦 **Note**: also has obsolete signatures.
+         *
+         * @overload
+         * @param {string} reason
+         * @param {MessageOptions | null | undefined} [options]
+         * @returns {never}
+         *
+         * @overload
+         * @param {string} reason
+         * @param {Node | NodeLike | null | undefined} parent
+         * @param {string | null | undefined} [origin]
+         * @returns {never}
+         *
+         * @overload
+         * @param {string} reason
+         * @param {Point | Position | null | undefined} place
+         * @param {string | null | undefined} [origin]
+         * @returns {never}
+         *
+         * @overload
+         * @param {string} reason
+         * @param {string | null | undefined} [origin]
+         * @returns {never}
+         *
+         * @overload
+         * @param {Error | VFileMessage} cause
+         * @param {Node | NodeLike | null | undefined} parent
+         * @param {string | null | undefined} [origin]
+         * @returns {never}
+         *
+         * @overload
+         * @param {Error | VFileMessage} cause
+         * @param {Point | Position | null | undefined} place
+         * @param {string | null | undefined} [origin]
+         * @returns {never}
+         *
+         * @overload
+         * @param {Error | VFileMessage} cause
+         * @param {string | null | undefined} [origin]
+         * @returns {never}
+         *
+         * @param {Error | VFileMessage | string} causeOrReason
+         *   Reason for message, should use markdown.
+         * @param {Node | NodeLike | MessageOptions | Point | Position | string | null | undefined} [optionsOrParentOrPlace]
+         *   Configuration (optional).
+         * @param {string | null | undefined} [origin]
+         *   Place in code where the message originates (example:
+         *   `'my-package:my-rule'` or `'my-rule'`).
+         * @returns {never}
+         *   Never.
+         * @throws {VFileMessage}
+         *   Message.
+         */
+        fail(causeOrReason, optionsOrParentOrPlace, origin) {
+          const message = this.message(causeOrReason, optionsOrParentOrPlace, origin);
+          message.fatal = true;
+          throw message;
+        }
+        /**
+         * Create an info message for `reason` associated with the file.
+         *
+         * The `fatal` field of the message is set to `undefined` (info; change
+         * likely not needed) and the `file` field is set to the current file path.
+         * The message is added to the `messages` field on `file`.
+         *
+         * > 🪦 **Note**: also has obsolete signatures.
+         *
+         * @overload
+         * @param {string} reason
+         * @param {MessageOptions | null | undefined} [options]
+         * @returns {VFileMessage}
+         *
+         * @overload
+         * @param {string} reason
+         * @param {Node | NodeLike | null | undefined} parent
+         * @param {string | null | undefined} [origin]
+         * @returns {VFileMessage}
+         *
+         * @overload
+         * @param {string} reason
+         * @param {Point | Position | null | undefined} place
+         * @param {string | null | undefined} [origin]
+         * @returns {VFileMessage}
+         *
+         * @overload
+         * @param {string} reason
+         * @param {string | null | undefined} [origin]
+         * @returns {VFileMessage}
+         *
+         * @overload
+         * @param {Error | VFileMessage} cause
+         * @param {Node | NodeLike | null | undefined} parent
+         * @param {string | null | undefined} [origin]
+         * @returns {VFileMessage}
+         *
+         * @overload
+         * @param {Error | VFileMessage} cause
+         * @param {Point | Position | null | undefined} place
+         * @param {string | null | undefined} [origin]
+         * @returns {VFileMessage}
+         *
+         * @overload
+         * @param {Error | VFileMessage} cause
+         * @param {string | null | undefined} [origin]
+         * @returns {VFileMessage}
+         *
+         * @param {Error | VFileMessage | string} causeOrReason
+         *   Reason for message, should use markdown.
+         * @param {Node | NodeLike | MessageOptions | Point | Position | string | null | undefined} [optionsOrParentOrPlace]
+         *   Configuration (optional).
+         * @param {string | null | undefined} [origin]
+         *   Place in code where the message originates (example:
+         *   `'my-package:my-rule'` or `'my-rule'`).
+         * @returns {VFileMessage}
+         *   Message.
+         */
+        info(causeOrReason, optionsOrParentOrPlace, origin) {
+          const message = this.message(causeOrReason, optionsOrParentOrPlace, origin);
+          message.fatal = void 0;
+          return message;
+        }
+        /**
+         * Create a message for `reason` associated with the file.
+         *
+         * The `fatal` field of the message is set to `false` (warning; change may be
+         * needed) and the `file` field is set to the current file path.
+         * The message is added to the `messages` field on `file`.
+         *
+         * > 🪦 **Note**: also has obsolete signatures.
+         *
+         * @overload
+         * @param {string} reason
+         * @param {MessageOptions | null | undefined} [options]
+         * @returns {VFileMessage}
+         *
+         * @overload
+         * @param {string} reason
+         * @param {Node | NodeLike | null | undefined} parent
+         * @param {string | null | undefined} [origin]
+         * @returns {VFileMessage}
+         *
+         * @overload
+         * @param {string} reason
+         * @param {Point | Position | null | undefined} place
+         * @param {string | null | undefined} [origin]
+         * @returns {VFileMessage}
+         *
+         * @overload
+         * @param {string} reason
+         * @param {string | null | undefined} [origin]
+         * @returns {VFileMessage}
+         *
+         * @overload
+         * @param {Error | VFileMessage} cause
+         * @param {Node | NodeLike | null | undefined} parent
+         * @param {string | null | undefined} [origin]
+         * @returns {VFileMessage}
+         *
+         * @overload
+         * @param {Error | VFileMessage} cause
+         * @param {Point | Position | null | undefined} place
+         * @param {string | null | undefined} [origin]
+         * @returns {VFileMessage}
+         *
+         * @overload
+         * @param {Error | VFileMessage} cause
+         * @param {string | null | undefined} [origin]
+         * @returns {VFileMessage}
+         *
+         * @param {Error | VFileMessage | string} causeOrReason
+         *   Reason for message, should use markdown.
+         * @param {Node | NodeLike | MessageOptions | Point | Position | string | null | undefined} [optionsOrParentOrPlace]
+         *   Configuration (optional).
+         * @param {string | null | undefined} [origin]
+         *   Place in code where the message originates (example:
+         *   `'my-package:my-rule'` or `'my-rule'`).
+         * @returns {VFileMessage}
+         *   Message.
+         */
+        message(causeOrReason, optionsOrParentOrPlace, origin) {
+          const message = new VFileMessage(
+            // @ts-expect-error: the overloads are fine.
+            causeOrReason,
+            optionsOrParentOrPlace,
+            origin
+          );
+          if (this.path) {
+            message.name = this.path + ":" + message.name;
+            message.file = this.path;
+          }
+          message.fatal = false;
+          this.messages.push(message);
+          return message;
+        }
+        /**
+         * Serialize the file.
+         *
+         * > **Note**: which encodings are supported depends on the engine.
+         * > For info on Node.js, see:
+         * > <https://nodejs.org/api/util.html#whatwg-supported-encodings>.
+         *
+         * @param {string | null | undefined} [encoding='utf8']
+         *   Character encoding to understand `value` as when it’s a `Uint8Array`
+         *   (default: `'utf-8'`).
+         * @returns {string}
+         *   Serialized file.
+         */
+        toString(encoding) {
+          if (this.value === void 0) {
+            return "";
+          }
+          if (typeof this.value === "string") {
+            return this.value;
+          }
+          const decoder = new TextDecoder(encoding || void 0);
+          return decoder.decode(this.value);
+        }
+      };
+    }
+  });
+
+  // node_modules/vfile/index.js
+  var init_vfile = __esm({
+    "node_modules/vfile/index.js"() {
+      init_lib17();
+    }
+  });
+
+  // node_modules/unified/lib/callable-instance.js
+  var CallableInstance;
+  var init_callable_instance = __esm({
+    "node_modules/unified/lib/callable-instance.js"() {
+      CallableInstance = /**
+       * @type {new <Parameters extends Array<unknown>, Result>(property: string | symbol) => (...parameters: Parameters) => Result}
+       */
+      /** @type {unknown} */
+      /**
+       * @this {Function}
+       * @param {string | symbol} property
+       * @returns {(...parameters: Array<unknown>) => unknown}
+       */
+      (function(property) {
+        const self2 = this;
+        const constr = self2.constructor;
+        const proto = (
+          /** @type {Record<string | symbol, Function>} */
+          // Prototypes do exist.
+          // type-coverage:ignore-next-line
+          constr.prototype
+        );
+        const value = proto[property];
+        const apply = function() {
+          return value.apply(apply, arguments);
+        };
+        Object.setPrototypeOf(apply, proto);
+        return apply;
+      });
+    }
+  });
+
+  // node_modules/unified/lib/index.js
+  function assertParser(name2, value) {
+    if (typeof value !== "function") {
+      throw new TypeError("Cannot `" + name2 + "` without `parser`");
+    }
+  }
+  function assertCompiler(name2, value) {
+    if (typeof value !== "function") {
+      throw new TypeError("Cannot `" + name2 + "` without `compiler`");
+    }
+  }
+  function assertUnfrozen(name2, frozen) {
+    if (frozen) {
+      throw new Error(
+        "Cannot call `" + name2 + "` on a frozen processor.\nCreate a new processor first, by calling it: use `processor()` instead of `processor`."
+      );
+    }
+  }
+  function assertNode(node2) {
+    if (!isPlainObject(node2) || typeof node2.type !== "string") {
+      throw new TypeError("Expected node, got `" + node2 + "`");
+    }
+  }
+  function assertDone(name2, asyncName, complete) {
+    if (!complete) {
+      throw new Error(
+        "`" + name2 + "` finished async. Use `" + asyncName + "` instead"
+      );
+    }
+  }
+  function vfile(value) {
+    return looksLikeAVFile(value) ? value : new VFile(value);
+  }
+  function looksLikeAVFile(value) {
+    return Boolean(
+      value && typeof value === "object" && "message" in value && "messages" in value
+    );
+  }
+  function looksLikeAValue(value) {
+    return typeof value === "string" || isUint8Array2(value);
+  }
+  function isUint8Array2(value) {
+    return Boolean(
+      value && typeof value === "object" && "byteLength" in value && "byteOffset" in value
+    );
+  }
+  var import_extend, own4, Processor, unified;
+  var init_lib18 = __esm({
+    "node_modules/unified/lib/index.js"() {
+      init_bail();
+      import_extend = __toESM(require_extend(), 1);
+      init_default();
+      init_is_plain_obj();
+      init_trough();
+      init_vfile();
+      init_callable_instance();
+      own4 = {}.hasOwnProperty;
+      Processor = class _Processor extends CallableInstance {
+        /**
+         * Create a processor.
+         */
+        constructor() {
+          super("copy");
+          this.Compiler = void 0;
+          this.Parser = void 0;
+          this.attachers = [];
+          this.compiler = void 0;
+          this.freezeIndex = -1;
+          this.frozen = void 0;
+          this.namespace = {};
+          this.parser = void 0;
+          this.transformers = trough();
+        }
+        /**
+         * Copy a processor.
+         *
+         * @deprecated
+         *   This is a private internal method and should not be used.
+         * @returns {Processor<ParseTree, HeadTree, TailTree, CompileTree, CompileResult>}
+         *   New *unfrozen* processor ({@linkcode Processor}) that is
+         *   configured to work the same as its ancestor.
+         *   When the descendant processor is configured in the future it does not
+         *   affect the ancestral processor.
+         */
+        copy() {
+          const destination = (
+            /** @type {Processor<ParseTree, HeadTree, TailTree, CompileTree, CompileResult>} */
+            new _Processor()
+          );
+          let index2 = -1;
+          while (++index2 < this.attachers.length) {
+            const attacher = this.attachers[index2];
+            destination.use(...attacher);
+          }
+          destination.data((0, import_extend.default)(true, {}, this.namespace));
+          return destination;
+        }
+        /**
+         * Configure the processor with info available to all plugins.
+         * Information is stored in an object.
+         *
+         * Typically, options can be given to a specific plugin, but sometimes it
+         * makes sense to have information shared with several plugins.
+         * For example, a list of HTML elements that are self-closing, which is
+         * needed during all phases.
+         *
+         * > **Note**: setting information cannot occur on *frozen* processors.
+         * > Call the processor first to create a new unfrozen processor.
+         *
+         * > **Note**: to register custom data in TypeScript, augment the
+         * > {@linkcode Data} interface.
+         *
+         * @example
+         *   This example show how to get and set info:
+         *
+         *   ```js
+         *   import {unified} from 'unified'
+         *
+         *   const processor = unified().data('alpha', 'bravo')
+         *
+         *   processor.data('alpha') // => 'bravo'
+         *
+         *   processor.data() // => {alpha: 'bravo'}
+         *
+         *   processor.data({charlie: 'delta'})
+         *
+         *   processor.data() // => {charlie: 'delta'}
+         *   ```
+         *
+         * @template {keyof Data} Key
+         *
+         * @overload
+         * @returns {Data}
+         *
+         * @overload
+         * @param {Data} dataset
+         * @returns {Processor<ParseTree, HeadTree, TailTree, CompileTree, CompileResult>}
+         *
+         * @overload
+         * @param {Key} key
+         * @returns {Data[Key]}
+         *
+         * @overload
+         * @param {Key} key
+         * @param {Data[Key]} value
+         * @returns {Processor<ParseTree, HeadTree, TailTree, CompileTree, CompileResult>}
+         *
+         * @param {Data | Key} [key]
+         *   Key to get or set, or entire dataset to set, or nothing to get the
+         *   entire dataset (optional).
+         * @param {Data[Key]} [value]
+         *   Value to set (optional).
+         * @returns {unknown}
+         *   The current processor when setting, the value at `key` when getting, or
+         *   the entire dataset when getting without key.
+         */
+        data(key, value) {
+          if (typeof key === "string") {
+            if (arguments.length === 2) {
+              assertUnfrozen("data", this.frozen);
+              this.namespace[key] = value;
+              return this;
+            }
+            return own4.call(this.namespace, key) && this.namespace[key] || void 0;
+          }
+          if (key) {
+            assertUnfrozen("data", this.frozen);
+            this.namespace = key;
+            return this;
+          }
+          return this.namespace;
+        }
+        /**
+         * Freeze a processor.
+         *
+         * Frozen processors are meant to be extended and not to be configured
+         * directly.
+         *
+         * When a processor is frozen it cannot be unfrozen.
+         * New processors working the same way can be created by calling the
+         * processor.
+         *
+         * It’s possible to freeze processors explicitly by calling `.freeze()`.
+         * Processors freeze automatically when `.parse()`, `.run()`, `.runSync()`,
+         * `.stringify()`, `.process()`, or `.processSync()` are called.
+         *
+         * @returns {Processor<ParseTree, HeadTree, TailTree, CompileTree, CompileResult>}
+         *   The current processor.
+         */
+        freeze() {
+          if (this.frozen) {
+            return this;
+          }
+          const self2 = (
+            /** @type {Processor} */
+            /** @type {unknown} */
+            this
+          );
+          while (++this.freezeIndex < this.attachers.length) {
+            const [attacher, ...options] = this.attachers[this.freezeIndex];
+            if (options[0] === false) {
+              continue;
+            }
+            if (options[0] === true) {
+              options[0] = void 0;
+            }
+            const transformer = attacher.call(self2, ...options);
+            if (typeof transformer === "function") {
+              this.transformers.use(transformer);
+            }
+          }
+          this.frozen = true;
+          this.freezeIndex = Number.POSITIVE_INFINITY;
+          return this;
+        }
+        /**
+         * Parse text to a syntax tree.
+         *
+         * > **Note**: `parse` freezes the processor if not already *frozen*.
+         *
+         * > **Note**: `parse` performs the parse phase, not the run phase or other
+         * > phases.
+         *
+         * @param {Compatible | undefined} [file]
+         *   file to parse (optional); typically `string` or `VFile`; any value
+         *   accepted as `x` in `new VFile(x)`.
+         * @returns {ParseTree extends undefined ? Node : ParseTree}
+         *   Syntax tree representing `file`.
+         */
+        parse(file) {
+          this.freeze();
+          const realFile = vfile(file);
+          const parser = this.parser || this.Parser;
+          assertParser("parse", parser);
+          return parser(String(realFile), realFile);
+        }
+        /**
+         * Process the given file as configured on the processor.
+         *
+         * > **Note**: `process` freezes the processor if not already *frozen*.
+         *
+         * > **Note**: `process` performs the parse, run, and stringify phases.
+         *
+         * @overload
+         * @param {Compatible | undefined} file
+         * @param {ProcessCallback<VFileWithOutput<CompileResult>>} done
+         * @returns {undefined}
+         *
+         * @overload
+         * @param {Compatible | undefined} [file]
+         * @returns {Promise<VFileWithOutput<CompileResult>>}
+         *
+         * @param {Compatible | undefined} [file]
+         *   File (optional); typically `string` or `VFile`]; any value accepted as
+         *   `x` in `new VFile(x)`.
+         * @param {ProcessCallback<VFileWithOutput<CompileResult>> | undefined} [done]
+         *   Callback (optional).
+         * @returns {Promise<VFile> | undefined}
+         *   Nothing if `done` is given.
+         *   Otherwise a promise, rejected with a fatal error or resolved with the
+         *   processed file.
+         *
+         *   The parsed, transformed, and compiled value is available at
+         *   `file.value` (see note).
+         *
+         *   > **Note**: unified typically compiles by serializing: most
+         *   > compilers return `string` (or `Uint8Array`).
+         *   > Some compilers, such as the one configured with
+         *   > [`rehype-react`][rehype-react], return other values (in this case, a
+         *   > React tree).
+         *   > If you’re using a compiler that doesn’t serialize, expect different
+         *   > result values.
+         *   >
+         *   > To register custom results in TypeScript, add them to
+         *   > {@linkcode CompileResultMap}.
+         *
+         *   [rehype-react]: https://github.com/rehypejs/rehype-react
+         */
+        process(file, done) {
+          const self2 = this;
+          this.freeze();
+          assertParser("process", this.parser || this.Parser);
+          assertCompiler("process", this.compiler || this.Compiler);
+          return done ? executor(void 0, done) : new Promise(executor);
+          function executor(resolve, reject) {
+            const realFile = vfile(file);
+            const parseTree = (
+              /** @type {HeadTree extends undefined ? Node : HeadTree} */
+              /** @type {unknown} */
+              self2.parse(realFile)
+            );
+            self2.run(parseTree, realFile, function(error, tree, file2) {
+              if (error || !tree || !file2) {
+                return realDone(error);
+              }
+              const compileTree = (
+                /** @type {CompileTree extends undefined ? Node : CompileTree} */
+                /** @type {unknown} */
+                tree
+              );
+              const compileResult = self2.stringify(compileTree, file2);
+              if (looksLikeAValue(compileResult)) {
+                file2.value = compileResult;
+              } else {
+                file2.result = compileResult;
+              }
+              realDone(
+                error,
+                /** @type {VFileWithOutput<CompileResult>} */
+                file2
+              );
+            });
+            function realDone(error, file2) {
+              if (error || !file2) {
+                reject(error);
+              } else if (resolve) {
+                resolve(file2);
+              } else {
+                ok(done, "`done` is defined if `resolve` is not");
+                done(void 0, file2);
+              }
+            }
+          }
+        }
+        /**
+         * Process the given file as configured on the processor.
+         *
+         * An error is thrown if asynchronous transforms are configured.
+         *
+         * > **Note**: `processSync` freezes the processor if not already *frozen*.
+         *
+         * > **Note**: `processSync` performs the parse, run, and stringify phases.
+         *
+         * @param {Compatible | undefined} [file]
+         *   File (optional); typically `string` or `VFile`; any value accepted as
+         *   `x` in `new VFile(x)`.
+         * @returns {VFileWithOutput<CompileResult>}
+         *   The processed file.
+         *
+         *   The parsed, transformed, and compiled value is available at
+         *   `file.value` (see note).
+         *
+         *   > **Note**: unified typically compiles by serializing: most
+         *   > compilers return `string` (or `Uint8Array`).
+         *   > Some compilers, such as the one configured with
+         *   > [`rehype-react`][rehype-react], return other values (in this case, a
+         *   > React tree).
+         *   > If you’re using a compiler that doesn’t serialize, expect different
+         *   > result values.
+         *   >
+         *   > To register custom results in TypeScript, add them to
+         *   > {@linkcode CompileResultMap}.
+         *
+         *   [rehype-react]: https://github.com/rehypejs/rehype-react
+         */
+        processSync(file) {
+          let complete = false;
+          let result;
+          this.freeze();
+          assertParser("processSync", this.parser || this.Parser);
+          assertCompiler("processSync", this.compiler || this.Compiler);
+          this.process(file, realDone);
+          assertDone("processSync", "process", complete);
+          ok(result, "we either bailed on an error or have a tree");
+          return result;
+          function realDone(error, file2) {
+            complete = true;
+            bail(error);
+            result = file2;
+          }
+        }
+        /**
+         * Run *transformers* on a syntax tree.
+         *
+         * > **Note**: `run` freezes the processor if not already *frozen*.
+         *
+         * > **Note**: `run` performs the run phase, not other phases.
+         *
+         * @overload
+         * @param {HeadTree extends undefined ? Node : HeadTree} tree
+         * @param {RunCallback<TailTree extends undefined ? Node : TailTree>} done
+         * @returns {undefined}
+         *
+         * @overload
+         * @param {HeadTree extends undefined ? Node : HeadTree} tree
+         * @param {Compatible | undefined} file
+         * @param {RunCallback<TailTree extends undefined ? Node : TailTree>} done
+         * @returns {undefined}
+         *
+         * @overload
+         * @param {HeadTree extends undefined ? Node : HeadTree} tree
+         * @param {Compatible | undefined} [file]
+         * @returns {Promise<TailTree extends undefined ? Node : TailTree>}
+         *
+         * @param {HeadTree extends undefined ? Node : HeadTree} tree
+         *   Tree to transform and inspect.
+         * @param {(
+         *   RunCallback<TailTree extends undefined ? Node : TailTree> |
+         *   Compatible
+         * )} [file]
+         *   File associated with `node` (optional); any value accepted as `x` in
+         *   `new VFile(x)`.
+         * @param {RunCallback<TailTree extends undefined ? Node : TailTree>} [done]
+         *   Callback (optional).
+         * @returns {Promise<TailTree extends undefined ? Node : TailTree> | undefined}
+         *   Nothing if `done` is given.
+         *   Otherwise, a promise rejected with a fatal error or resolved with the
+         *   transformed tree.
+         */
+        run(tree, file, done) {
+          assertNode(tree);
+          this.freeze();
+          const transformers = this.transformers;
+          if (!done && typeof file === "function") {
+            done = file;
+            file = void 0;
+          }
+          return done ? executor(void 0, done) : new Promise(executor);
+          function executor(resolve, reject) {
+            ok(
+              typeof file !== "function",
+              "`file` can\u2019t be a `done` anymore, we checked"
+            );
+            const realFile = vfile(file);
+            transformers.run(tree, realFile, realDone);
+            function realDone(error, outputTree, file2) {
+              const resultingTree = (
+                /** @type {TailTree extends undefined ? Node : TailTree} */
+                outputTree || tree
+              );
+              if (error) {
+                reject(error);
+              } else if (resolve) {
+                resolve(resultingTree);
+              } else {
+                ok(done, "`done` is defined if `resolve` is not");
+                done(void 0, resultingTree, file2);
+              }
+            }
+          }
+        }
+        /**
+         * Run *transformers* on a syntax tree.
+         *
+         * An error is thrown if asynchronous transforms are configured.
+         *
+         * > **Note**: `runSync` freezes the processor if not already *frozen*.
+         *
+         * > **Note**: `runSync` performs the run phase, not other phases.
+         *
+         * @param {HeadTree extends undefined ? Node : HeadTree} tree
+         *   Tree to transform and inspect.
+         * @param {Compatible | undefined} [file]
+         *   File associated with `node` (optional); any value accepted as `x` in
+         *   `new VFile(x)`.
+         * @returns {TailTree extends undefined ? Node : TailTree}
+         *   Transformed tree.
+         */
+        runSync(tree, file) {
+          let complete = false;
+          let result;
+          this.run(tree, file, realDone);
+          assertDone("runSync", "run", complete);
+          ok(result, "we either bailed on an error or have a tree");
+          return result;
+          function realDone(error, tree2) {
+            bail(error);
+            result = tree2;
+            complete = true;
+          }
+        }
+        /**
+         * Compile a syntax tree.
+         *
+         * > **Note**: `stringify` freezes the processor if not already *frozen*.
+         *
+         * > **Note**: `stringify` performs the stringify phase, not the run phase
+         * > or other phases.
+         *
+         * @param {CompileTree extends undefined ? Node : CompileTree} tree
+         *   Tree to compile.
+         * @param {Compatible | undefined} [file]
+         *   File associated with `node` (optional); any value accepted as `x` in
+         *   `new VFile(x)`.
+         * @returns {CompileResult extends undefined ? Value : CompileResult}
+         *   Textual representation of the tree (see note).
+         *
+         *   > **Note**: unified typically compiles by serializing: most compilers
+         *   > return `string` (or `Uint8Array`).
+         *   > Some compilers, such as the one configured with
+         *   > [`rehype-react`][rehype-react], return other values (in this case, a
+         *   > React tree).
+         *   > If you’re using a compiler that doesn’t serialize, expect different
+         *   > result values.
+         *   >
+         *   > To register custom results in TypeScript, add them to
+         *   > {@linkcode CompileResultMap}.
+         *
+         *   [rehype-react]: https://github.com/rehypejs/rehype-react
+         */
+        stringify(tree, file) {
+          this.freeze();
+          const realFile = vfile(file);
+          const compiler2 = this.compiler || this.Compiler;
+          assertCompiler("stringify", compiler2);
+          assertNode(tree);
+          return compiler2(tree, realFile);
+        }
+        /**
+         * Configure the processor to use a plugin, a list of usable values, or a
+         * preset.
+         *
+         * If the processor is already using a plugin, the previous plugin
+         * configuration is changed based on the options that are passed in.
+         * In other words, the plugin is not added a second time.
+         *
+         * > **Note**: `use` cannot be called on *frozen* processors.
+         * > Call the processor first to create a new unfrozen processor.
+         *
+         * @example
+         *   There are many ways to pass plugins to `.use()`.
+         *   This example gives an overview:
+         *
+         *   ```js
+         *   import {unified} from 'unified'
+         *
+         *   unified()
+         *     // Plugin with options:
+         *     .use(pluginA, {x: true, y: true})
+         *     // Passing the same plugin again merges configuration (to `{x: true, y: false, z: true}`):
+         *     .use(pluginA, {y: false, z: true})
+         *     // Plugins:
+         *     .use([pluginB, pluginC])
+         *     // Two plugins, the second with options:
+         *     .use([pluginD, [pluginE, {}]])
+         *     // Preset with plugins and settings:
+         *     .use({plugins: [pluginF, [pluginG, {}]], settings: {position: false}})
+         *     // Settings only:
+         *     .use({settings: {position: false}})
+         *   ```
+         *
+         * @template {Array<unknown>} [Parameters=[]]
+         * @template {Node | string | undefined} [Input=undefined]
+         * @template [Output=Input]
+         *
+         * @overload
+         * @param {Preset | null | undefined} [preset]
+         * @returns {Processor<ParseTree, HeadTree, TailTree, CompileTree, CompileResult>}
+         *
+         * @overload
+         * @param {PluggableList} list
+         * @returns {Processor<ParseTree, HeadTree, TailTree, CompileTree, CompileResult>}
+         *
+         * @overload
+         * @param {Plugin<Parameters, Input, Output>} plugin
+         * @param {...(Parameters | [boolean])} parameters
+         * @returns {UsePlugin<ParseTree, HeadTree, TailTree, CompileTree, CompileResult, Input, Output>}
+         *
+         * @param {PluggableList | Plugin | Preset | null | undefined} value
+         *   Usable value.
+         * @param {...unknown} parameters
+         *   Parameters, when a plugin is given as a usable value.
+         * @returns {Processor<ParseTree, HeadTree, TailTree, CompileTree, CompileResult>}
+         *   Current processor.
+         */
+        use(value, ...parameters) {
+          const attachers = this.attachers;
+          const namespace = this.namespace;
+          assertUnfrozen("use", this.frozen);
+          if (value === null || value === void 0) {
+          } else if (typeof value === "function") {
+            addPlugin(value, parameters);
+          } else if (typeof value === "object") {
+            if (Array.isArray(value)) {
+              addList(value);
+            } else {
+              addPreset(value);
+            }
+          } else {
+            throw new TypeError("Expected usable value, not `" + value + "`");
+          }
+          return this;
+          function add(value2) {
+            if (typeof value2 === "function") {
+              addPlugin(value2, []);
+            } else if (typeof value2 === "object") {
+              if (Array.isArray(value2)) {
+                const [plugin, ...parameters2] = (
+                  /** @type {PluginTuple<Array<unknown>>} */
+                  value2
+                );
+                addPlugin(plugin, parameters2);
+              } else {
+                addPreset(value2);
+              }
+            } else {
+              throw new TypeError("Expected usable value, not `" + value2 + "`");
+            }
+          }
+          function addPreset(result) {
+            if (!("plugins" in result) && !("settings" in result)) {
+              throw new Error(
+                "Expected usable value but received an empty preset, which is probably a mistake: presets typically come with `plugins` and sometimes with `settings`, but this has neither"
+              );
+            }
+            addList(result.plugins);
+            if (result.settings) {
+              namespace.settings = (0, import_extend.default)(true, namespace.settings, result.settings);
+            }
+          }
+          function addList(plugins) {
+            let index2 = -1;
+            if (plugins === null || plugins === void 0) {
+            } else if (Array.isArray(plugins)) {
+              while (++index2 < plugins.length) {
+                const thing = plugins[index2];
+                add(thing);
+              }
+            } else {
+              throw new TypeError("Expected a list of plugins, not `" + plugins + "`");
+            }
+          }
+          function addPlugin(plugin, parameters2) {
+            let index2 = -1;
+            let entryIndex = -1;
+            while (++index2 < attachers.length) {
+              if (attachers[index2][0] === plugin) {
+                entryIndex = index2;
+                break;
+              }
+            }
+            if (entryIndex === -1) {
+              attachers.push([plugin, ...parameters2]);
+            } else if (parameters2.length > 0) {
+              let [primary, ...rest] = parameters2;
+              const currentPrimary = attachers[entryIndex][1];
+              if (isPlainObject(currentPrimary) && isPlainObject(primary)) {
+                primary = (0, import_extend.default)(true, currentPrimary, primary);
+              }
+              attachers[entryIndex] = [plugin, primary, ...rest];
+            }
+          }
+        }
+      };
+      unified = new Processor().freeze();
+    }
+  });
+
+  // node_modules/unified/index.js
+  var init_unified = __esm({
+    "node_modules/unified/index.js"() {
+      init_lib18();
+    }
+  });
+
+  // node_modules/react-markdown/lib/index.js
+  function Markdown(options) {
+    const processor = createProcessor(options);
+    const file = createFile(options);
+    return post(processor.runSync(processor.parse(file), file), options);
+  }
+  async function MarkdownAsync(options) {
+    const processor = createProcessor(options);
+    const file = createFile(options);
+    const tree = await processor.run(processor.parse(file), file);
+    return post(tree, options);
+  }
+  function MarkdownHooks(options) {
+    const processor = createProcessor(options);
+    const [error, setError] = (0, import_react5.useState)(
+      /** @type {Error | undefined} */
+      void 0
+    );
+    const [tree, setTree] = (0, import_react5.useState)(
+      /** @type {Root | undefined} */
+      void 0
+    );
+    (0, import_react5.useEffect)(
+      function() {
+        let cancelled = false;
+        const file = createFile(options);
+        processor.run(processor.parse(file), file, function(error2, tree2) {
+          if (!cancelled) {
+            setError(error2);
+            setTree(tree2);
+          }
+        });
+        return function() {
+          cancelled = true;
+        };
+      },
+      [
+        options.children,
+        options.rehypePlugins,
+        options.remarkPlugins,
+        options.remarkRehypeOptions
+      ]
+    );
+    if (error) throw error;
+    return tree ? post(tree, options) : options.fallback;
+  }
+  function createProcessor(options) {
+    const rehypePlugins = options.rehypePlugins || emptyPlugins;
+    const remarkPlugins = options.remarkPlugins || emptyPlugins;
+    const remarkRehypeOptions = options.remarkRehypeOptions ? { ...options.remarkRehypeOptions, ...emptyRemarkRehypeOptions } : emptyRemarkRehypeOptions;
+    const processor = unified().use(remarkParse).use(remarkPlugins).use(remarkRehype, remarkRehypeOptions).use(rehypePlugins);
+    return processor;
+  }
+  function createFile(options) {
+    const children = options.children || "";
+    const file = new VFile();
+    if (typeof children === "string") {
+      file.value = children;
+    } else {
+      unreachable(
+        "Unexpected value `" + children + "` for `children` prop, expected `string`"
+      );
+    }
+    return file;
+  }
+  function post(tree, options) {
+    const allowedElements = options.allowedElements;
+    const allowElement = options.allowElement;
+    const components = options.components;
+    const disallowedElements = options.disallowedElements;
+    const skipHtml = options.skipHtml;
+    const unwrapDisallowed = options.unwrapDisallowed;
+    const urlTransform = options.urlTransform || defaultUrlTransform;
+    for (const deprecation of deprecations) {
+      if (Object.hasOwn(options, deprecation.from)) {
+        unreachable(
+          "Unexpected `" + deprecation.from + "` prop, " + (deprecation.to ? "use `" + deprecation.to + "` instead" : "remove it") + " (see <" + changelog + "#" + deprecation.id + "> for more info)"
+        );
+      }
+    }
+    if (allowedElements && disallowedElements) {
+      unreachable(
+        "Unexpected combined `allowedElements` and `disallowedElements`, expected one or the other"
+      );
+    }
+    visit(tree, transform);
+    return toJsxRuntime(tree, {
+      Fragment: import_jsx_runtime2.Fragment,
+      components,
+      ignoreInvalidStyle: true,
+      jsx: import_jsx_runtime2.jsx,
+      jsxs: import_jsx_runtime2.jsxs,
+      passKeys: true,
+      passNode: true
+    });
+    function transform(node2, index2, parent) {
+      if (node2.type === "raw" && parent && typeof index2 === "number") {
+        if (skipHtml) {
+          parent.children.splice(index2, 1);
+        } else {
+          parent.children[index2] = { type: "text", value: node2.value };
+        }
+        return index2;
+      }
+      if (node2.type === "element") {
+        let key;
+        for (key in urlAttributes) {
+          if (Object.hasOwn(urlAttributes, key) && Object.hasOwn(node2.properties, key)) {
+            const value = node2.properties[key];
+            const test = urlAttributes[key];
+            if (test === null || test.includes(node2.tagName)) {
+              node2.properties[key] = urlTransform(String(value || ""), key, node2);
+            }
+          }
+        }
+      }
+      if (node2.type === "element") {
+        let remove = allowedElements ? !allowedElements.includes(node2.tagName) : disallowedElements ? disallowedElements.includes(node2.tagName) : false;
+        if (!remove && allowElement && typeof index2 === "number") {
+          remove = !allowElement(node2, index2, parent);
+        }
+        if (remove && parent && typeof index2 === "number") {
+          if (unwrapDisallowed && node2.children) {
+            parent.children.splice(index2, 1, ...node2.children);
+          } else {
+            parent.children.splice(index2, 1);
+          }
+          return index2;
+        }
+      }
+    }
+  }
+  function defaultUrlTransform(value) {
+    const colon = value.indexOf(":");
+    const questionMark = value.indexOf("?");
+    const numberSign = value.indexOf("#");
+    const slash = value.indexOf("/");
+    if (
+      // If there is no protocol, it’s relative.
+      colon === -1 || // If the first colon is after a `?`, `#`, or `/`, it’s not a protocol.
+      slash !== -1 && colon > slash || questionMark !== -1 && colon > questionMark || numberSign !== -1 && colon > numberSign || // It is a protocol, it should be allowed.
+      safeProtocol.test(value.slice(0, colon))
+    ) {
+      return value;
+    }
+    return "";
+  }
+  var import_jsx_runtime2, import_react5, changelog, emptyPlugins, emptyRemarkRehypeOptions, safeProtocol, deprecations;
+  var init_lib19 = __esm({
+    "node_modules/react-markdown/lib/index.js"() {
+      init_default();
+      init_hast_util_to_jsx_runtime();
+      init_html_url_attributes();
+      import_jsx_runtime2 = __toESM(require_jsx_runtime(), 1);
+      import_react5 = __toESM(require_react(), 1);
+      init_remark_parse();
+      init_remark_rehype();
+      init_unified();
+      init_unist_util_visit();
+      init_vfile();
+      changelog = "https://github.com/remarkjs/react-markdown/blob/main/changelog.md";
+      emptyPlugins = [];
+      emptyRemarkRehypeOptions = { allowDangerousHtml: true };
+      safeProtocol = /^(https?|ircs?|mailto|xmpp)$/i;
+      deprecations = [
+        { from: "astPlugins", id: "remove-buggy-html-in-markdown-parser" },
+        { from: "allowDangerousHtml", id: "remove-buggy-html-in-markdown-parser" },
+        {
+          from: "allowNode",
+          id: "replace-allownode-allowedtypes-and-disallowedtypes",
+          to: "allowElement"
+        },
+        {
+          from: "allowedTypes",
+          id: "replace-allownode-allowedtypes-and-disallowedtypes",
+          to: "allowedElements"
+        },
+        { from: "className", id: "remove-classname" },
+        {
+          from: "disallowedTypes",
+          id: "replace-allownode-allowedtypes-and-disallowedtypes",
+          to: "disallowedElements"
+        },
+        { from: "escapeHtml", id: "remove-buggy-html-in-markdown-parser" },
+        { from: "includeElementIndex", id: "#remove-includeelementindex" },
+        {
+          from: "includeNodeIndex",
+          id: "change-includenodeindex-to-includeelementindex"
+        },
+        { from: "linkTarget", id: "remove-linktarget" },
+        { from: "plugins", id: "change-plugins-to-remarkplugins", to: "remarkPlugins" },
+        { from: "rawSourcePos", id: "#remove-rawsourcepos" },
+        { from: "renderers", id: "change-renderers-to-components", to: "components" },
+        { from: "source", id: "change-source-to-children", to: "children" },
+        { from: "sourcePos", id: "#remove-sourcepos" },
+        { from: "transformImageUri", id: "#add-urltransform", to: "urlTransform" },
+        { from: "transformLinkUri", id: "#add-urltransform", to: "urlTransform" }
+      ];
+    }
+  });
+
+  // node_modules/react-markdown/index.js
+  var react_markdown_exports = {};
+  __export(react_markdown_exports, {
+    MarkdownAsync: () => MarkdownAsync,
+    MarkdownHooks: () => MarkdownHooks,
+    default: () => Markdown,
+    defaultUrlTransform: () => defaultUrlTransform
+  });
+  var init_react_markdown = __esm({
+    "node_modules/react-markdown/index.js"() {
+      init_lib19();
+    }
+  });
+
+  // node_modules/ccount/index.js
+  function ccount(value, character) {
+    const source = String(value);
+    if (typeof character !== "string") {
+      throw new TypeError("Expected character");
+    }
+    let count = 0;
+    let index2 = source.indexOf(character);
+    while (index2 !== -1) {
+      count++;
+      index2 = source.indexOf(character, index2 + character.length);
+    }
+    return count;
+  }
+  var init_ccount = __esm({
+    "node_modules/ccount/index.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-find-and-replace/node_modules/escape-string-regexp/index.js
+  function escapeStringRegexp(string3) {
+    if (typeof string3 !== "string") {
+      throw new TypeError("Expected a string");
+    }
+    return string3.replace(/[|\\{}()[\]^$+*?.]/g, "\\$&").replace(/-/g, "\\x2d");
+  }
+  var init_escape_string_regexp = __esm({
+    "node_modules/mdast-util-find-and-replace/node_modules/escape-string-regexp/index.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-find-and-replace/lib/index.js
+  function findAndReplace(tree, list4, options) {
+    const settings = options || {};
+    const ignored = convert(settings.ignore || []);
+    const pairs = toPairs(list4);
+    let pairIndex = -1;
+    while (++pairIndex < pairs.length) {
+      visitParents(tree, "text", visitor);
+    }
+    function visitor(node2, parents) {
+      let index2 = -1;
+      let grandparent;
+      while (++index2 < parents.length) {
+        const parent = parents[index2];
+        const siblings = grandparent ? grandparent.children : void 0;
+        if (ignored(
+          parent,
+          siblings ? siblings.indexOf(parent) : void 0,
+          grandparent
+        )) {
+          return;
+        }
+        grandparent = parent;
+      }
+      if (grandparent) {
+        return handler(node2, parents);
+      }
+    }
+    function handler(node2, parents) {
+      const parent = parents[parents.length - 1];
+      const find2 = pairs[pairIndex][0];
+      const replace2 = pairs[pairIndex][1];
+      let start2 = 0;
+      const siblings = parent.children;
+      const index2 = siblings.indexOf(node2);
+      let change = false;
+      let nodes = [];
+      find2.lastIndex = 0;
+      let match = find2.exec(node2.value);
+      while (match) {
+        const position3 = match.index;
+        const matchObject = {
+          index: match.index,
+          input: match.input,
+          stack: [...parents, node2]
+        };
+        let value = replace2(...match, matchObject);
+        if (typeof value === "string") {
+          value = value.length > 0 ? { type: "text", value } : void 0;
+        }
+        if (value === false) {
+          find2.lastIndex = position3 + 1;
+        } else {
+          if (start2 !== position3) {
+            nodes.push({
+              type: "text",
+              value: node2.value.slice(start2, position3)
+            });
+          }
+          if (Array.isArray(value)) {
+            nodes.push(...value);
+          } else if (value) {
+            nodes.push(value);
+          }
+          start2 = position3 + match[0].length;
+          change = true;
+        }
+        if (!find2.global) {
+          break;
+        }
+        match = find2.exec(node2.value);
+      }
+      if (change) {
+        if (start2 < node2.value.length) {
+          nodes.push({ type: "text", value: node2.value.slice(start2) });
+        }
+        parent.children.splice(index2, 1, ...nodes);
+      } else {
+        nodes = [node2];
+      }
+      return index2 + nodes.length;
+    }
+  }
+  function toPairs(tupleOrList) {
+    const result = [];
+    if (!Array.isArray(tupleOrList)) {
+      throw new TypeError("Expected find and replace tuple or list of tuples");
+    }
+    const list4 = !tupleOrList[0] || Array.isArray(tupleOrList[0]) ? tupleOrList : [tupleOrList];
+    let index2 = -1;
+    while (++index2 < list4.length) {
+      const tuple = list4[index2];
+      result.push([toExpression(tuple[0]), toFunction(tuple[1])]);
+    }
+    return result;
+  }
+  function toExpression(find2) {
+    return typeof find2 === "string" ? new RegExp(escapeStringRegexp(find2), "g") : find2;
+  }
+  function toFunction(replace2) {
+    return typeof replace2 === "function" ? replace2 : function() {
+      return replace2;
+    };
+  }
+  var init_lib20 = __esm({
+    "node_modules/mdast-util-find-and-replace/lib/index.js"() {
+      init_escape_string_regexp();
+      init_unist_util_visit_parents();
+      init_unist_util_is();
+    }
+  });
+
+  // node_modules/mdast-util-find-and-replace/index.js
+  var init_mdast_util_find_and_replace = __esm({
+    "node_modules/mdast-util-find-and-replace/index.js"() {
+      init_lib20();
+    }
+  });
+
+  // node_modules/mdast-util-gfm-autolink-literal/lib/index.js
+  function gfmAutolinkLiteralFromMarkdown() {
+    return {
+      transforms: [transformGfmAutolinkLiterals],
+      enter: {
+        literalAutolink: enterLiteralAutolink,
+        literalAutolinkEmail: enterLiteralAutolinkValue,
+        literalAutolinkHttp: enterLiteralAutolinkValue,
+        literalAutolinkWww: enterLiteralAutolinkValue
+      },
+      exit: {
+        literalAutolink: exitLiteralAutolink,
+        literalAutolinkEmail: exitLiteralAutolinkEmail,
+        literalAutolinkHttp: exitLiteralAutolinkHttp,
+        literalAutolinkWww: exitLiteralAutolinkWww
+      }
+    };
+  }
+  function gfmAutolinkLiteralToMarkdown() {
+    return {
+      unsafe: [
+        {
+          character: "@",
+          before: "[+\\-.\\w]",
+          after: "[\\-.\\w]",
+          inConstruct,
+          notInConstruct
+        },
+        {
+          character: ".",
+          before: "[Ww]",
+          after: "[\\-.\\w]",
+          inConstruct,
+          notInConstruct
+        },
+        {
+          character: ":",
+          before: "[ps]",
+          after: "\\/",
+          inConstruct,
+          notInConstruct
+        }
+      ]
+    };
+  }
+  function enterLiteralAutolink(token) {
+    this.enter({ type: "link", title: null, url: "", children: [] }, token);
+  }
+  function enterLiteralAutolinkValue(token) {
+    this.config.enter.autolinkProtocol.call(this, token);
+  }
+  function exitLiteralAutolinkHttp(token) {
+    this.config.exit.autolinkProtocol.call(this, token);
+  }
+  function exitLiteralAutolinkWww(token) {
+    this.config.exit.data.call(this, token);
+    const node2 = this.stack[this.stack.length - 1];
+    ok(node2.type === "link");
+    node2.url = "http://" + this.sliceSerialize(token);
+  }
+  function exitLiteralAutolinkEmail(token) {
+    this.config.exit.autolinkEmail.call(this, token);
+  }
+  function exitLiteralAutolink(token) {
+    this.exit(token);
+  }
+  function transformGfmAutolinkLiterals(tree) {
+    findAndReplace(
+      tree,
+      [
+        [/(https?:\/\/|www(?=\.))([-.\w]+)([^ \t\r\n]*)/gi, findUrl],
+        [/(?<=^|\s|\p{P}|\p{S})([-.\w+]+)@([-\w]+(?:\.[-\w]+)+)/gu, findEmail]
+      ],
+      { ignore: ["link", "linkReference"] }
+    );
+  }
+  function findUrl(_, protocol, domain2, path2, match) {
+    let prefix = "";
+    if (!previous2(match)) {
+      return false;
+    }
+    if (/^w/i.test(protocol)) {
+      domain2 = protocol + domain2;
+      protocol = "";
+      prefix = "http://";
+    }
+    if (!isCorrectDomain(domain2)) {
+      return false;
+    }
+    const parts = splitUrl(domain2 + path2);
+    if (!parts[0]) return false;
+    const result = {
+      type: "link",
+      title: null,
+      url: prefix + protocol + parts[0],
+      children: [{ type: "text", value: protocol + parts[0] }]
+    };
+    if (parts[1]) {
+      return [result, { type: "text", value: parts[1] }];
+    }
+    return result;
+  }
+  function findEmail(_, atext, label, match) {
+    if (
+      // Not an expected previous character.
+      !previous2(match, true) || // Label ends in not allowed character.
+      /[-\d_]$/.test(label)
+    ) {
+      return false;
+    }
+    return {
+      type: "link",
+      title: null,
+      url: "mailto:" + atext + "@" + label,
+      children: [{ type: "text", value: atext + "@" + label }]
+    };
+  }
+  function isCorrectDomain(domain2) {
+    const parts = domain2.split(".");
+    if (parts.length < 2 || parts[parts.length - 1] && (/_/.test(parts[parts.length - 1]) || !/[a-zA-Z\d]/.test(parts[parts.length - 1])) || parts[parts.length - 2] && (/_/.test(parts[parts.length - 2]) || !/[a-zA-Z\d]/.test(parts[parts.length - 2]))) {
+      return false;
+    }
+    return true;
+  }
+  function splitUrl(url) {
+    const trailExec = /[!"&'),.:;<>?\]}]+$/.exec(url);
+    if (!trailExec) {
+      return [url, void 0];
+    }
+    url = url.slice(0, trailExec.index);
+    let trail2 = trailExec[0];
+    let closingParenIndex = trail2.indexOf(")");
+    const openingParens = ccount(url, "(");
+    let closingParens = ccount(url, ")");
+    while (closingParenIndex !== -1 && openingParens > closingParens) {
+      url += trail2.slice(0, closingParenIndex + 1);
+      trail2 = trail2.slice(closingParenIndex + 1);
+      closingParenIndex = trail2.indexOf(")");
+      closingParens++;
+    }
+    return [url, trail2];
+  }
+  function previous2(match, email) {
+    const code4 = match.input.charCodeAt(match.index - 1);
+    return (match.index === 0 || unicodeWhitespace(code4) || unicodePunctuation(code4)) && // If it’s an email, the previous character should not be a slash.
+    (!email || code4 !== 47);
+  }
+  var inConstruct, notInConstruct;
+  var init_lib21 = __esm({
+    "node_modules/mdast-util-gfm-autolink-literal/lib/index.js"() {
+      init_ccount();
+      init_default();
+      init_micromark_util_character();
+      init_mdast_util_find_and_replace();
+      inConstruct = "phrasing";
+      notInConstruct = ["autolink", "link", "image", "label"];
+    }
+  });
+
+  // node_modules/mdast-util-gfm-autolink-literal/index.js
+  var init_mdast_util_gfm_autolink_literal = __esm({
+    "node_modules/mdast-util-gfm-autolink-literal/index.js"() {
+      init_lib21();
+    }
+  });
+
+  // node_modules/mdast-util-gfm-footnote/lib/index.js
+  function enterFootnoteCallString() {
+    this.buffer();
+  }
+  function enterFootnoteCall(token) {
+    this.enter({ type: "footnoteReference", identifier: "", label: "" }, token);
+  }
+  function enterFootnoteDefinitionLabelString() {
+    this.buffer();
+  }
+  function enterFootnoteDefinition(token) {
+    this.enter(
+      { type: "footnoteDefinition", identifier: "", label: "", children: [] },
+      token
+    );
+  }
+  function exitFootnoteCallString(token) {
+    const label = this.resume();
+    const node2 = this.stack[this.stack.length - 1];
+    ok(node2.type === "footnoteReference");
+    node2.identifier = normalizeIdentifier(
+      this.sliceSerialize(token)
+    ).toLowerCase();
+    node2.label = label;
+  }
+  function exitFootnoteCall(token) {
+    this.exit(token);
+  }
+  function exitFootnoteDefinitionLabelString(token) {
+    const label = this.resume();
+    const node2 = this.stack[this.stack.length - 1];
+    ok(node2.type === "footnoteDefinition");
+    node2.identifier = normalizeIdentifier(
+      this.sliceSerialize(token)
+    ).toLowerCase();
+    node2.label = label;
+  }
+  function exitFootnoteDefinition(token) {
+    this.exit(token);
+  }
+  function footnoteReferencePeek() {
+    return "[";
+  }
+  function footnoteReference2(node2, _, state, info) {
+    const tracker = state.createTracker(info);
+    let value = tracker.move("[^");
+    const exit3 = state.enter("footnoteReference");
+    const subexit = state.enter("reference");
+    value += tracker.move(
+      state.safe(state.associationId(node2), { after: "]", before: value })
+    );
+    subexit();
+    exit3();
+    value += tracker.move("]");
+    return value;
+  }
+  function gfmFootnoteFromMarkdown() {
+    return {
+      enter: {
+        gfmFootnoteCallString: enterFootnoteCallString,
+        gfmFootnoteCall: enterFootnoteCall,
+        gfmFootnoteDefinitionLabelString: enterFootnoteDefinitionLabelString,
+        gfmFootnoteDefinition: enterFootnoteDefinition
+      },
+      exit: {
+        gfmFootnoteCallString: exitFootnoteCallString,
+        gfmFootnoteCall: exitFootnoteCall,
+        gfmFootnoteDefinitionLabelString: exitFootnoteDefinitionLabelString,
+        gfmFootnoteDefinition: exitFootnoteDefinition
+      }
+    };
+  }
+  function gfmFootnoteToMarkdown(options) {
+    let firstLineBlank = false;
+    if (options && options.firstLineBlank) {
+      firstLineBlank = true;
+    }
+    return {
+      handlers: { footnoteDefinition, footnoteReference: footnoteReference2 },
+      // This is on by default already.
+      unsafe: [{ character: "[", inConstruct: ["label", "phrasing", "reference"] }]
+    };
+    function footnoteDefinition(node2, _, state, info) {
+      const tracker = state.createTracker(info);
+      let value = tracker.move("[^");
+      const exit3 = state.enter("footnoteDefinition");
+      const subexit = state.enter("label");
+      value += tracker.move(
+        state.safe(state.associationId(node2), { before: value, after: "]" })
+      );
+      subexit();
+      value += tracker.move("]:");
+      if (node2.children && node2.children.length > 0) {
+        tracker.shift(4);
+        value += tracker.move(
+          (firstLineBlank ? "\n" : " ") + state.indentLines(
+            state.containerFlow(node2, tracker.current()),
+            firstLineBlank ? mapAll : mapExceptFirst
+          )
+        );
+      }
+      exit3();
+      return value;
+    }
+  }
+  function mapExceptFirst(line, index2, blank) {
+    return index2 === 0 ? line : mapAll(line, index2, blank);
+  }
+  function mapAll(line, index2, blank) {
+    return (blank ? "" : "    ") + line;
+  }
+  var init_lib22 = __esm({
+    "node_modules/mdast-util-gfm-footnote/lib/index.js"() {
+      init_default();
+      init_micromark_util_normalize_identifier();
+      footnoteReference2.peek = footnoteReferencePeek;
+    }
+  });
+
+  // node_modules/mdast-util-gfm-footnote/index.js
+  var init_mdast_util_gfm_footnote = __esm({
+    "node_modules/mdast-util-gfm-footnote/index.js"() {
+      init_lib22();
+    }
+  });
+
+  // node_modules/mdast-util-gfm-strikethrough/lib/index.js
+  function gfmStrikethroughFromMarkdown() {
+    return {
+      canContainEols: ["delete"],
+      enter: { strikethrough: enterStrikethrough },
+      exit: { strikethrough: exitStrikethrough }
+    };
+  }
+  function gfmStrikethroughToMarkdown() {
+    return {
+      unsafe: [
+        {
+          character: "~",
+          inConstruct: "phrasing",
+          notInConstruct: constructsWithoutStrikethrough
+        }
+      ],
+      handlers: { delete: handleDelete }
+    };
+  }
+  function enterStrikethrough(token) {
+    this.enter({ type: "delete", children: [] }, token);
+  }
+  function exitStrikethrough(token) {
+    this.exit(token);
+  }
+  function handleDelete(node2, _, state, info) {
+    const tracker = state.createTracker(info);
+    const exit3 = state.enter("strikethrough");
+    let value = tracker.move("~~");
+    value += state.containerPhrasing(node2, {
+      ...tracker.current(),
+      before: value,
+      after: "~"
+    });
+    value += tracker.move("~~");
+    exit3();
+    return value;
+  }
+  function peekDelete() {
+    return "~";
+  }
+  var constructsWithoutStrikethrough;
+  var init_lib23 = __esm({
+    "node_modules/mdast-util-gfm-strikethrough/lib/index.js"() {
+      constructsWithoutStrikethrough = [
+        "autolink",
+        "destinationLiteral",
+        "destinationRaw",
+        "reference",
+        "titleQuote",
+        "titleApostrophe"
+      ];
+      handleDelete.peek = peekDelete;
+    }
+  });
+
+  // node_modules/mdast-util-gfm-strikethrough/index.js
+  var init_mdast_util_gfm_strikethrough = __esm({
+    "node_modules/mdast-util-gfm-strikethrough/index.js"() {
+      init_lib23();
+    }
+  });
+
+  // node_modules/markdown-table/index.js
+  function defaultStringLength(value) {
+    return value.length;
+  }
+  function markdownTable(table2, options) {
+    const settings = options || {};
+    const align = (settings.align || []).concat();
+    const stringLength = settings.stringLength || defaultStringLength;
+    const alignments = [];
+    const cellMatrix = [];
+    const sizeMatrix = [];
+    const longestCellByColumn = [];
+    let mostCellsPerRow = 0;
+    let rowIndex = -1;
+    while (++rowIndex < table2.length) {
+      const row2 = [];
+      const sizes2 = [];
+      let columnIndex2 = -1;
+      if (table2[rowIndex].length > mostCellsPerRow) {
+        mostCellsPerRow = table2[rowIndex].length;
+      }
+      while (++columnIndex2 < table2[rowIndex].length) {
+        const cell = serialize2(table2[rowIndex][columnIndex2]);
+        if (settings.alignDelimiters !== false) {
+          const size = stringLength(cell);
+          sizes2[columnIndex2] = size;
+          if (longestCellByColumn[columnIndex2] === void 0 || size > longestCellByColumn[columnIndex2]) {
+            longestCellByColumn[columnIndex2] = size;
+          }
+        }
+        row2.push(cell);
+      }
+      cellMatrix[rowIndex] = row2;
+      sizeMatrix[rowIndex] = sizes2;
+    }
+    let columnIndex = -1;
+    if (typeof align === "object" && "length" in align) {
+      while (++columnIndex < mostCellsPerRow) {
+        alignments[columnIndex] = toAlignment(align[columnIndex]);
+      }
+    } else {
+      const code4 = toAlignment(align);
+      while (++columnIndex < mostCellsPerRow) {
+        alignments[columnIndex] = code4;
+      }
+    }
+    columnIndex = -1;
+    const row = [];
+    const sizes = [];
+    while (++columnIndex < mostCellsPerRow) {
+      const code4 = alignments[columnIndex];
+      let before = "";
+      let after = "";
+      if (code4 === 99) {
+        before = ":";
+        after = ":";
+      } else if (code4 === 108) {
+        before = ":";
+      } else if (code4 === 114) {
+        after = ":";
+      }
+      let size = settings.alignDelimiters === false ? 1 : Math.max(
+        1,
+        longestCellByColumn[columnIndex] - before.length - after.length
+      );
+      const cell = before + "-".repeat(size) + after;
+      if (settings.alignDelimiters !== false) {
+        size = before.length + size + after.length;
+        if (size > longestCellByColumn[columnIndex]) {
+          longestCellByColumn[columnIndex] = size;
+        }
+        sizes[columnIndex] = size;
+      }
+      row[columnIndex] = cell;
+    }
+    cellMatrix.splice(1, 0, row);
+    sizeMatrix.splice(1, 0, sizes);
+    rowIndex = -1;
+    const lines = [];
+    while (++rowIndex < cellMatrix.length) {
+      const row2 = cellMatrix[rowIndex];
+      const sizes2 = sizeMatrix[rowIndex];
+      columnIndex = -1;
+      const line = [];
+      while (++columnIndex < mostCellsPerRow) {
+        const cell = row2[columnIndex] || "";
+        let before = "";
+        let after = "";
+        if (settings.alignDelimiters !== false) {
+          const size = longestCellByColumn[columnIndex] - (sizes2[columnIndex] || 0);
+          const code4 = alignments[columnIndex];
+          if (code4 === 114) {
+            before = " ".repeat(size);
+          } else if (code4 === 99) {
+            if (size % 2) {
+              before = " ".repeat(size / 2 + 0.5);
+              after = " ".repeat(size / 2 - 0.5);
+            } else {
+              before = " ".repeat(size / 2);
+              after = before;
+            }
+          } else {
+            after = " ".repeat(size);
+          }
+        }
+        if (settings.delimiterStart !== false && !columnIndex) {
+          line.push("|");
+        }
+        if (settings.padding !== false && // Don’t add the opening space if we’re not aligning and the cell is
+        // empty: there will be a closing space.
+        !(settings.alignDelimiters === false && cell === "") && (settings.delimiterStart !== false || columnIndex)) {
+          line.push(" ");
+        }
+        if (settings.alignDelimiters !== false) {
+          line.push(before);
+        }
+        line.push(cell);
+        if (settings.alignDelimiters !== false) {
+          line.push(after);
+        }
+        if (settings.padding !== false) {
+          line.push(" ");
+        }
+        if (settings.delimiterEnd !== false || columnIndex !== mostCellsPerRow - 1) {
+          line.push("|");
+        }
+      }
+      lines.push(
+        settings.delimiterEnd === false ? line.join("").replace(/ +$/, "") : line.join("")
+      );
+    }
+    return lines.join("\n");
+  }
+  function serialize2(value) {
+    return value === null || value === void 0 ? "" : String(value);
+  }
+  function toAlignment(value) {
+    const code4 = typeof value === "string" ? value.codePointAt(0) : 0;
+    return code4 === 67 || code4 === 99 ? 99 : code4 === 76 || code4 === 108 ? 108 : code4 === 82 || code4 === 114 ? 114 : 0;
+  }
+  var init_markdown_table = __esm({
+    "node_modules/markdown-table/index.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/handle/blockquote.js
+  function blockquote2(node2, _, state, info) {
+    const exit3 = state.enter("blockquote");
+    const tracker = state.createTracker(info);
+    tracker.move("> ");
+    tracker.shift(2);
+    const value = state.indentLines(
+      state.containerFlow(node2, tracker.current()),
+      map
+    );
+    exit3();
+    return value;
+  }
+  function map(line, _, blank) {
+    return ">" + (blank ? "" : " ") + line;
+  }
+  var init_blockquote2 = __esm({
+    "node_modules/mdast-util-to-markdown/lib/handle/blockquote.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/util/pattern-in-scope.js
+  function patternInScope(stack, pattern) {
+    return listInScope(stack, pattern.inConstruct, true) && !listInScope(stack, pattern.notInConstruct, false);
+  }
+  function listInScope(stack, list4, none) {
+    if (typeof list4 === "string") {
+      list4 = [list4];
+    }
+    if (!list4 || list4.length === 0) {
+      return none;
+    }
+    let index2 = -1;
+    while (++index2 < list4.length) {
+      if (stack.includes(list4[index2])) {
+        return true;
+      }
+    }
+    return false;
+  }
+  var init_pattern_in_scope = __esm({
+    "node_modules/mdast-util-to-markdown/lib/util/pattern-in-scope.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/handle/break.js
+  function hardBreak2(_, _1, state, info) {
+    let index2 = -1;
+    while (++index2 < state.unsafe.length) {
+      if (state.unsafe[index2].character === "\n" && patternInScope(state.stack, state.unsafe[index2])) {
+        return /[ \t]/.test(info.before) ? "" : " ";
+      }
+    }
+    return "\\\n";
+  }
+  var init_break2 = __esm({
+    "node_modules/mdast-util-to-markdown/lib/handle/break.js"() {
+      init_pattern_in_scope();
+    }
+  });
+
+  // node_modules/longest-streak/index.js
+  function longestStreak(value, substring) {
+    const source = String(value);
+    let index2 = source.indexOf(substring);
+    let expected = index2;
+    let count = 0;
+    let max = 0;
+    if (typeof substring !== "string") {
+      throw new TypeError("Expected substring");
+    }
+    while (index2 !== -1) {
+      if (index2 === expected) {
+        if (++count > max) {
+          max = count;
+        }
+      } else {
+        count = 1;
+      }
+      expected = index2 + substring.length;
+      index2 = source.indexOf(substring, expected);
+    }
+    return max;
+  }
+  var init_longest_streak = __esm({
+    "node_modules/longest-streak/index.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/util/format-code-as-indented.js
+  function formatCodeAsIndented(node2, state) {
+    return Boolean(
+      state.options.fences === false && node2.value && // If there’s no info…
+      !node2.lang && // And there’s a non-whitespace character…
+      /[^ \r\n]/.test(node2.value) && // And the value doesn’t start or end in a blank…
+      !/^[\t ]*(?:[\r\n]|$)|(?:^|[\r\n])[\t ]*$/.test(node2.value)
+    );
+  }
+  var init_format_code_as_indented = __esm({
+    "node_modules/mdast-util-to-markdown/lib/util/format-code-as-indented.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/util/check-fence.js
+  function checkFence(state) {
+    const marker = state.options.fence || "`";
+    if (marker !== "`" && marker !== "~") {
+      throw new Error(
+        "Cannot serialize code with `" + marker + "` for `options.fence`, expected `` ` `` or `~`"
+      );
+    }
+    return marker;
+  }
+  var init_check_fence = __esm({
+    "node_modules/mdast-util-to-markdown/lib/util/check-fence.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/handle/code.js
+  function code2(node2, _, state, info) {
+    const marker = checkFence(state);
+    const raw = node2.value || "";
+    const suffix = marker === "`" ? "GraveAccent" : "Tilde";
+    if (formatCodeAsIndented(node2, state)) {
+      const exit4 = state.enter("codeIndented");
+      const value2 = state.indentLines(raw, map2);
+      exit4();
+      return value2;
+    }
+    const tracker = state.createTracker(info);
+    const sequence = marker.repeat(Math.max(longestStreak(raw, marker) + 1, 3));
+    const exit3 = state.enter("codeFenced");
+    let value = tracker.move(sequence);
+    if (node2.lang) {
+      const subexit = state.enter(`codeFencedLang${suffix}`);
+      value += tracker.move(
+        state.safe(node2.lang, {
+          before: value,
+          after: " ",
+          encode: ["`"],
+          ...tracker.current()
+        })
+      );
+      subexit();
+    }
+    if (node2.lang && node2.meta) {
+      const subexit = state.enter(`codeFencedMeta${suffix}`);
+      value += tracker.move(" ");
+      value += tracker.move(
+        state.safe(node2.meta, {
+          before: value,
+          after: "\n",
+          encode: ["`"],
+          ...tracker.current()
+        })
+      );
+      subexit();
+    }
+    value += tracker.move("\n");
+    if (raw) {
+      value += tracker.move(raw + "\n");
+    }
+    value += tracker.move(sequence);
+    exit3();
+    return value;
+  }
+  function map2(line, _, blank) {
+    return (blank ? "" : "    ") + line;
+  }
+  var init_code2 = __esm({
+    "node_modules/mdast-util-to-markdown/lib/handle/code.js"() {
+      init_longest_streak();
+      init_format_code_as_indented();
+      init_check_fence();
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/util/check-quote.js
+  function checkQuote(state) {
+    const marker = state.options.quote || '"';
+    if (marker !== '"' && marker !== "'") {
+      throw new Error(
+        "Cannot serialize title with `" + marker + "` for `options.quote`, expected `\"`, or `'`"
+      );
+    }
+    return marker;
+  }
+  var init_check_quote = __esm({
+    "node_modules/mdast-util-to-markdown/lib/util/check-quote.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/handle/definition.js
+  function definition2(node2, _, state, info) {
+    const quote = checkQuote(state);
+    const suffix = quote === '"' ? "Quote" : "Apostrophe";
+    const exit3 = state.enter("definition");
+    let subexit = state.enter("label");
+    const tracker = state.createTracker(info);
+    let value = tracker.move("[");
+    value += tracker.move(
+      state.safe(state.associationId(node2), {
+        before: value,
+        after: "]",
+        ...tracker.current()
+      })
+    );
+    value += tracker.move("]: ");
+    subexit();
+    if (
+      // If there’s no url, or…
+      !node2.url || // If there are control characters or whitespace.
+      /[\0- \u007F]/.test(node2.url)
+    ) {
+      subexit = state.enter("destinationLiteral");
+      value += tracker.move("<");
+      value += tracker.move(
+        state.safe(node2.url, { before: value, after: ">", ...tracker.current() })
+      );
+      value += tracker.move(">");
+    } else {
+      subexit = state.enter("destinationRaw");
+      value += tracker.move(
+        state.safe(node2.url, {
+          before: value,
+          after: node2.title ? " " : "\n",
+          ...tracker.current()
+        })
+      );
+    }
+    subexit();
+    if (node2.title) {
+      subexit = state.enter(`title${suffix}`);
+      value += tracker.move(" " + quote);
+      value += tracker.move(
+        state.safe(node2.title, {
+          before: value,
+          after: quote,
+          ...tracker.current()
+        })
+      );
+      value += tracker.move(quote);
+      subexit();
+    }
+    exit3();
+    return value;
+  }
+  var init_definition2 = __esm({
+    "node_modules/mdast-util-to-markdown/lib/handle/definition.js"() {
+      init_check_quote();
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/util/check-emphasis.js
+  function checkEmphasis(state) {
+    const marker = state.options.emphasis || "*";
+    if (marker !== "*" && marker !== "_") {
+      throw new Error(
+        "Cannot serialize emphasis with `" + marker + "` for `options.emphasis`, expected `*`, or `_`"
+      );
+    }
+    return marker;
+  }
+  var init_check_emphasis = __esm({
+    "node_modules/mdast-util-to-markdown/lib/util/check-emphasis.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/util/encode-character-reference.js
+  function encodeCharacterReference(code4) {
+    return "&#x" + code4.toString(16).toUpperCase() + ";";
+  }
+  var init_encode_character_reference = __esm({
+    "node_modules/mdast-util-to-markdown/lib/util/encode-character-reference.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/util/encode-info.js
+  function encodeInfo(outside, inside, marker) {
+    const outsideKind = classifyCharacter(outside);
+    const insideKind = classifyCharacter(inside);
+    if (outsideKind === void 0) {
+      return insideKind === void 0 ? (
+        // Letter inside:
+        // we have to encode *both* letters for `_` as it is looser.
+        // it already forms for `*` (and GFMs `~`).
+        marker === "_" ? { inside: true, outside: true } : { inside: false, outside: false }
+      ) : insideKind === 1 ? (
+        // Whitespace inside: encode both (letter, whitespace).
+        { inside: true, outside: true }
+      ) : (
+        // Punctuation inside: encode outer (letter)
+        { inside: false, outside: true }
+      );
+    }
+    if (outsideKind === 1) {
+      return insideKind === void 0 ? (
+        // Letter inside: already forms.
+        { inside: false, outside: false }
+      ) : insideKind === 1 ? (
+        // Whitespace inside: encode both (whitespace).
+        { inside: true, outside: true }
+      ) : (
+        // Punctuation inside: already forms.
+        { inside: false, outside: false }
+      );
+    }
+    return insideKind === void 0 ? (
+      // Letter inside: already forms.
+      { inside: false, outside: false }
+    ) : insideKind === 1 ? (
+      // Whitespace inside: encode inner (whitespace).
+      { inside: true, outside: false }
+    ) : (
+      // Punctuation inside: already forms.
+      { inside: false, outside: false }
+    );
+  }
+  var init_encode_info = __esm({
+    "node_modules/mdast-util-to-markdown/lib/util/encode-info.js"() {
+      init_micromark_util_classify_character();
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/handle/emphasis.js
+  function emphasis2(node2, _, state, info) {
+    const marker = checkEmphasis(state);
+    const exit3 = state.enter("emphasis");
+    const tracker = state.createTracker(info);
+    const before = tracker.move(marker);
+    let between = tracker.move(
+      state.containerPhrasing(node2, {
+        after: marker,
+        before,
+        ...tracker.current()
+      })
+    );
+    const betweenHead = between.charCodeAt(0);
+    const open = encodeInfo(
+      info.before.charCodeAt(info.before.length - 1),
+      betweenHead,
+      marker
+    );
+    if (open.inside) {
+      between = encodeCharacterReference(betweenHead) + between.slice(1);
+    }
+    const betweenTail = between.charCodeAt(between.length - 1);
+    const close = encodeInfo(info.after.charCodeAt(0), betweenTail, marker);
+    if (close.inside) {
+      between = between.slice(0, -1) + encodeCharacterReference(betweenTail);
+    }
+    const after = tracker.move(marker);
+    exit3();
+    state.attentionEncodeSurroundingInfo = {
+      after: close.outside,
+      before: open.outside
+    };
+    return before + between + after;
+  }
+  function emphasisPeek(_, _1, state) {
+    return state.options.emphasis || "*";
+  }
+  var init_emphasis2 = __esm({
+    "node_modules/mdast-util-to-markdown/lib/handle/emphasis.js"() {
+      init_check_emphasis();
+      init_encode_character_reference();
+      init_encode_info();
+      emphasis2.peek = emphasisPeek;
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/util/format-heading-as-setext.js
+  function formatHeadingAsSetext(node2, state) {
+    let literalWithBreak = false;
+    visit(node2, function(node3) {
+      if ("value" in node3 && /\r?\n|\r/.test(node3.value) || node3.type === "break") {
+        literalWithBreak = true;
+        return EXIT;
+      }
+    });
+    return Boolean(
+      (!node2.depth || node2.depth < 3) && toString(node2) && (state.options.setext || literalWithBreak)
+    );
+  }
+  var init_format_heading_as_setext = __esm({
+    "node_modules/mdast-util-to-markdown/lib/util/format-heading-as-setext.js"() {
+      init_unist_util_visit();
+      init_mdast_util_to_string();
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/handle/heading.js
+  function heading2(node2, _, state, info) {
+    const rank = Math.max(Math.min(6, node2.depth || 1), 1);
+    const tracker = state.createTracker(info);
+    if (formatHeadingAsSetext(node2, state)) {
+      const exit4 = state.enter("headingSetext");
+      const subexit2 = state.enter("phrasing");
+      const value2 = state.containerPhrasing(node2, {
+        ...tracker.current(),
+        before: "\n",
+        after: "\n"
+      });
+      subexit2();
+      exit4();
+      return value2 + "\n" + (rank === 1 ? "=" : "-").repeat(
+        // The whole size…
+        value2.length - // Minus the position of the character after the last EOL (or
+        // 0 if there is none)…
+        (Math.max(value2.lastIndexOf("\r"), value2.lastIndexOf("\n")) + 1)
+      );
+    }
+    const sequence = "#".repeat(rank);
+    const exit3 = state.enter("headingAtx");
+    const subexit = state.enter("phrasing");
+    tracker.move(sequence + " ");
+    let value = state.containerPhrasing(node2, {
+      before: "# ",
+      after: "\n",
+      ...tracker.current()
+    });
+    if (/^[\t ]/.test(value)) {
+      value = encodeCharacterReference(value.charCodeAt(0)) + value.slice(1);
+    }
+    value = value ? sequence + " " + value : sequence;
+    if (state.options.closeAtx) {
+      value += " " + sequence;
+    }
+    subexit();
+    exit3();
+    return value;
+  }
+  var init_heading2 = __esm({
+    "node_modules/mdast-util-to-markdown/lib/handle/heading.js"() {
+      init_encode_character_reference();
+      init_format_heading_as_setext();
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/handle/html.js
+  function html4(node2) {
+    return node2.value || "";
+  }
+  function htmlPeek() {
+    return "<";
+  }
+  var init_html3 = __esm({
+    "node_modules/mdast-util-to-markdown/lib/handle/html.js"() {
+      html4.peek = htmlPeek;
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/handle/image.js
+  function image2(node2, _, state, info) {
+    const quote = checkQuote(state);
+    const suffix = quote === '"' ? "Quote" : "Apostrophe";
+    const exit3 = state.enter("image");
+    let subexit = state.enter("label");
+    const tracker = state.createTracker(info);
+    let value = tracker.move("![");
+    value += tracker.move(
+      state.safe(node2.alt, { before: value, after: "]", ...tracker.current() })
+    );
+    value += tracker.move("](");
+    subexit();
+    if (
+      // If there’s no url but there is a title…
+      !node2.url && node2.title || // If there are control characters or whitespace.
+      /[\0- \u007F]/.test(node2.url)
+    ) {
+      subexit = state.enter("destinationLiteral");
+      value += tracker.move("<");
+      value += tracker.move(
+        state.safe(node2.url, { before: value, after: ">", ...tracker.current() })
+      );
+      value += tracker.move(">");
+    } else {
+      subexit = state.enter("destinationRaw");
+      value += tracker.move(
+        state.safe(node2.url, {
+          before: value,
+          after: node2.title ? " " : ")",
+          ...tracker.current()
+        })
+      );
+    }
+    subexit();
+    if (node2.title) {
+      subexit = state.enter(`title${suffix}`);
+      value += tracker.move(" " + quote);
+      value += tracker.move(
+        state.safe(node2.title, {
+          before: value,
+          after: quote,
+          ...tracker.current()
+        })
+      );
+      value += tracker.move(quote);
+      subexit();
+    }
+    value += tracker.move(")");
+    exit3();
+    return value;
+  }
+  function imagePeek() {
+    return "!";
+  }
+  var init_image2 = __esm({
+    "node_modules/mdast-util-to-markdown/lib/handle/image.js"() {
+      init_check_quote();
+      image2.peek = imagePeek;
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/handle/image-reference.js
+  function imageReference2(node2, _, state, info) {
+    const type = node2.referenceType;
+    const exit3 = state.enter("imageReference");
+    let subexit = state.enter("label");
+    const tracker = state.createTracker(info);
+    let value = tracker.move("![");
+    const alt = state.safe(node2.alt, {
+      before: value,
+      after: "]",
+      ...tracker.current()
+    });
+    value += tracker.move(alt + "][");
+    subexit();
+    const stack = state.stack;
+    state.stack = [];
+    subexit = state.enter("reference");
+    const reference = state.safe(state.associationId(node2), {
+      before: value,
+      after: "]",
+      ...tracker.current()
+    });
+    subexit();
+    state.stack = stack;
+    exit3();
+    if (type === "full" || !alt || alt !== reference) {
+      value += tracker.move(reference + "]");
+    } else if (type === "shortcut") {
+      value = value.slice(0, -1);
+    } else {
+      value += tracker.move("]");
+    }
+    return value;
+  }
+  function imageReferencePeek() {
+    return "!";
+  }
+  var init_image_reference2 = __esm({
+    "node_modules/mdast-util-to-markdown/lib/handle/image-reference.js"() {
+      imageReference2.peek = imageReferencePeek;
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/handle/inline-code.js
+  function inlineCode2(node2, _, state) {
+    let value = node2.value || "";
+    let sequence = "`";
+    let index2 = -1;
+    while (new RegExp("(^|[^`])" + sequence + "([^`]|$)").test(value)) {
+      sequence += "`";
+    }
+    if (/[^ \r\n]/.test(value) && (/^[ \r\n]/.test(value) && /[ \r\n]$/.test(value) || /^`|`$/.test(value))) {
+      value = " " + value + " ";
+    }
+    while (++index2 < state.unsafe.length) {
+      const pattern = state.unsafe[index2];
+      const expression = state.compilePattern(pattern);
+      let match;
+      if (!pattern.atBreak) continue;
+      while (match = expression.exec(value)) {
+        let position3 = match.index;
+        if (value.charCodeAt(position3) === 10 && value.charCodeAt(position3 - 1) === 13) {
+          position3--;
+        }
+        value = value.slice(0, position3) + " " + value.slice(match.index + 1);
+      }
+    }
+    return sequence + value + sequence;
+  }
+  function inlineCodePeek() {
+    return "`";
+  }
+  var init_inline_code2 = __esm({
+    "node_modules/mdast-util-to-markdown/lib/handle/inline-code.js"() {
+      inlineCode2.peek = inlineCodePeek;
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/util/format-link-as-autolink.js
+  function formatLinkAsAutolink(node2, state) {
+    const raw = toString(node2);
+    return Boolean(
+      !state.options.resourceLink && // If there’s a url…
+      node2.url && // And there’s a no title…
+      !node2.title && // And the content of `node` is a single text node…
+      node2.children && node2.children.length === 1 && node2.children[0].type === "text" && // And if the url is the same as the content…
+      (raw === node2.url || "mailto:" + raw === node2.url) && // And that starts w/ a protocol…
+      /^[a-z][a-z+.-]+:/i.test(node2.url) && // And that doesn’t contain ASCII control codes (character escapes and
+      // references don’t work), space, or angle brackets…
+      !/[\0- <>\u007F]/.test(node2.url)
+    );
+  }
+  var init_format_link_as_autolink = __esm({
+    "node_modules/mdast-util-to-markdown/lib/util/format-link-as-autolink.js"() {
+      init_mdast_util_to_string();
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/handle/link.js
+  function link2(node2, _, state, info) {
+    const quote = checkQuote(state);
+    const suffix = quote === '"' ? "Quote" : "Apostrophe";
+    const tracker = state.createTracker(info);
+    let exit3;
+    let subexit;
+    if (formatLinkAsAutolink(node2, state)) {
+      const stack = state.stack;
+      state.stack = [];
+      exit3 = state.enter("autolink");
+      let value2 = tracker.move("<");
+      value2 += tracker.move(
+        state.containerPhrasing(node2, {
+          before: value2,
+          after: ">",
+          ...tracker.current()
+        })
+      );
+      value2 += tracker.move(">");
+      exit3();
+      state.stack = stack;
+      return value2;
+    }
+    exit3 = state.enter("link");
+    subexit = state.enter("label");
+    let value = tracker.move("[");
+    value += tracker.move(
+      state.containerPhrasing(node2, {
+        before: value,
+        after: "](",
+        ...tracker.current()
+      })
+    );
+    value += tracker.move("](");
+    subexit();
+    if (
+      // If there’s no url but there is a title…
+      !node2.url && node2.title || // If there are control characters or whitespace.
+      /[\0- \u007F]/.test(node2.url)
+    ) {
+      subexit = state.enter("destinationLiteral");
+      value += tracker.move("<");
+      value += tracker.move(
+        state.safe(node2.url, { before: value, after: ">", ...tracker.current() })
+      );
+      value += tracker.move(">");
+    } else {
+      subexit = state.enter("destinationRaw");
+      value += tracker.move(
+        state.safe(node2.url, {
+          before: value,
+          after: node2.title ? " " : ")",
+          ...tracker.current()
+        })
+      );
+    }
+    subexit();
+    if (node2.title) {
+      subexit = state.enter(`title${suffix}`);
+      value += tracker.move(" " + quote);
+      value += tracker.move(
+        state.safe(node2.title, {
+          before: value,
+          after: quote,
+          ...tracker.current()
+        })
+      );
+      value += tracker.move(quote);
+      subexit();
+    }
+    value += tracker.move(")");
+    exit3();
+    return value;
+  }
+  function linkPeek(node2, _, state) {
+    return formatLinkAsAutolink(node2, state) ? "<" : "[";
+  }
+  var init_link2 = __esm({
+    "node_modules/mdast-util-to-markdown/lib/handle/link.js"() {
+      init_check_quote();
+      init_format_link_as_autolink();
+      link2.peek = linkPeek;
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/handle/link-reference.js
+  function linkReference2(node2, _, state, info) {
+    const type = node2.referenceType;
+    const exit3 = state.enter("linkReference");
+    let subexit = state.enter("label");
+    const tracker = state.createTracker(info);
+    let value = tracker.move("[");
+    const text7 = state.containerPhrasing(node2, {
+      before: value,
+      after: "]",
+      ...tracker.current()
+    });
+    value += tracker.move(text7 + "][");
+    subexit();
+    const stack = state.stack;
+    state.stack = [];
+    subexit = state.enter("reference");
+    const reference = state.safe(state.associationId(node2), {
+      before: value,
+      after: "]",
+      ...tracker.current()
+    });
+    subexit();
+    state.stack = stack;
+    exit3();
+    if (type === "full" || !text7 || text7 !== reference) {
+      value += tracker.move(reference + "]");
+    } else if (type === "shortcut") {
+      value = value.slice(0, -1);
+    } else {
+      value += tracker.move("]");
+    }
+    return value;
+  }
+  function linkReferencePeek() {
+    return "[";
+  }
+  var init_link_reference2 = __esm({
+    "node_modules/mdast-util-to-markdown/lib/handle/link-reference.js"() {
+      linkReference2.peek = linkReferencePeek;
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/util/check-bullet.js
+  function checkBullet(state) {
+    const marker = state.options.bullet || "*";
+    if (marker !== "*" && marker !== "+" && marker !== "-") {
+      throw new Error(
+        "Cannot serialize items with `" + marker + "` for `options.bullet`, expected `*`, `+`, or `-`"
+      );
+    }
+    return marker;
+  }
+  var init_check_bullet = __esm({
+    "node_modules/mdast-util-to-markdown/lib/util/check-bullet.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/util/check-bullet-other.js
+  function checkBulletOther(state) {
+    const bullet = checkBullet(state);
+    const bulletOther = state.options.bulletOther;
+    if (!bulletOther) {
+      return bullet === "*" ? "-" : "*";
+    }
+    if (bulletOther !== "*" && bulletOther !== "+" && bulletOther !== "-") {
+      throw new Error(
+        "Cannot serialize items with `" + bulletOther + "` for `options.bulletOther`, expected `*`, `+`, or `-`"
+      );
+    }
+    if (bulletOther === bullet) {
+      throw new Error(
+        "Expected `bullet` (`" + bullet + "`) and `bulletOther` (`" + bulletOther + "`) to be different"
+      );
+    }
+    return bulletOther;
+  }
+  var init_check_bullet_other = __esm({
+    "node_modules/mdast-util-to-markdown/lib/util/check-bullet-other.js"() {
+      init_check_bullet();
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/util/check-bullet-ordered.js
+  function checkBulletOrdered(state) {
+    const marker = state.options.bulletOrdered || ".";
+    if (marker !== "." && marker !== ")") {
+      throw new Error(
+        "Cannot serialize items with `" + marker + "` for `options.bulletOrdered`, expected `.` or `)`"
+      );
+    }
+    return marker;
+  }
+  var init_check_bullet_ordered = __esm({
+    "node_modules/mdast-util-to-markdown/lib/util/check-bullet-ordered.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/util/check-rule.js
+  function checkRule(state) {
+    const marker = state.options.rule || "*";
+    if (marker !== "*" && marker !== "-" && marker !== "_") {
+      throw new Error(
+        "Cannot serialize rules with `" + marker + "` for `options.rule`, expected `*`, `-`, or `_`"
+      );
+    }
+    return marker;
+  }
+  var init_check_rule = __esm({
+    "node_modules/mdast-util-to-markdown/lib/util/check-rule.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/handle/list.js
+  function list3(node2, parent, state, info) {
+    const exit3 = state.enter("list");
+    const bulletCurrent = state.bulletCurrent;
+    let bullet = node2.ordered ? checkBulletOrdered(state) : checkBullet(state);
+    const bulletOther = node2.ordered ? bullet === "." ? ")" : "." : checkBulletOther(state);
+    let useDifferentMarker = parent && state.bulletLastUsed ? bullet === state.bulletLastUsed : false;
+    if (!node2.ordered) {
+      const firstListItem = node2.children ? node2.children[0] : void 0;
+      if (
+        // Bullet could be used as a thematic break marker:
+        (bullet === "*" || bullet === "-") && // Empty first list item:
+        firstListItem && (!firstListItem.children || !firstListItem.children[0]) && // Directly in two other list items:
+        state.stack[state.stack.length - 1] === "list" && state.stack[state.stack.length - 2] === "listItem" && state.stack[state.stack.length - 3] === "list" && state.stack[state.stack.length - 4] === "listItem" && // That are each the first child.
+        state.indexStack[state.indexStack.length - 1] === 0 && state.indexStack[state.indexStack.length - 2] === 0 && state.indexStack[state.indexStack.length - 3] === 0
+      ) {
+        useDifferentMarker = true;
+      }
+      if (checkRule(state) === bullet && firstListItem) {
+        let index2 = -1;
+        while (++index2 < node2.children.length) {
+          const item = node2.children[index2];
+          if (item && item.type === "listItem" && item.children && item.children[0] && item.children[0].type === "thematicBreak") {
+            useDifferentMarker = true;
+            break;
+          }
+        }
+      }
+    }
+    if (useDifferentMarker) {
+      bullet = bulletOther;
+    }
+    state.bulletCurrent = bullet;
+    const value = state.containerFlow(node2, info);
+    state.bulletLastUsed = bullet;
+    state.bulletCurrent = bulletCurrent;
+    exit3();
+    return value;
+  }
+  var init_list3 = __esm({
+    "node_modules/mdast-util-to-markdown/lib/handle/list.js"() {
+      init_check_bullet();
+      init_check_bullet_other();
+      init_check_bullet_ordered();
+      init_check_rule();
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/util/check-list-item-indent.js
+  function checkListItemIndent(state) {
+    const style = state.options.listItemIndent || "one";
+    if (style !== "tab" && style !== "one" && style !== "mixed") {
+      throw new Error(
+        "Cannot serialize items with `" + style + "` for `options.listItemIndent`, expected `tab`, `one`, or `mixed`"
+      );
+    }
+    return style;
+  }
+  var init_check_list_item_indent = __esm({
+    "node_modules/mdast-util-to-markdown/lib/util/check-list-item-indent.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/handle/list-item.js
+  function listItem2(node2, parent, state, info) {
+    const listItemIndent = checkListItemIndent(state);
+    let bullet = state.bulletCurrent || checkBullet(state);
+    if (parent && parent.type === "list" && parent.ordered) {
+      bullet = (typeof parent.start === "number" && parent.start > -1 ? parent.start : 1) + (state.options.incrementListMarker === false ? 0 : parent.children.indexOf(node2)) + bullet;
+    }
+    let size = bullet.length + 1;
+    if (listItemIndent === "tab" || listItemIndent === "mixed" && (parent && parent.type === "list" && parent.spread || node2.spread)) {
+      size = Math.ceil(size / 4) * 4;
+    }
+    const tracker = state.createTracker(info);
+    tracker.move(bullet + " ".repeat(size - bullet.length));
+    tracker.shift(size);
+    const exit3 = state.enter("listItem");
+    const value = state.indentLines(
+      state.containerFlow(node2, tracker.current()),
+      map3
+    );
+    exit3();
+    return value;
+    function map3(line, index2, blank) {
+      if (index2) {
+        return (blank ? "" : " ".repeat(size)) + line;
+      }
+      return (blank ? bullet : bullet + " ".repeat(size - bullet.length)) + line;
+    }
+  }
+  var init_list_item2 = __esm({
+    "node_modules/mdast-util-to-markdown/lib/handle/list-item.js"() {
+      init_check_bullet();
+      init_check_list_item_indent();
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/handle/paragraph.js
+  function paragraph2(node2, _, state, info) {
+    const exit3 = state.enter("paragraph");
+    const subexit = state.enter("phrasing");
+    const value = state.containerPhrasing(node2, info);
+    subexit();
+    exit3();
+    return value;
+  }
+  var init_paragraph2 = __esm({
+    "node_modules/mdast-util-to-markdown/lib/handle/paragraph.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-phrasing/lib/index.js
+  var phrasing;
+  var init_lib24 = __esm({
+    "node_modules/mdast-util-phrasing/lib/index.js"() {
+      init_unist_util_is();
+      phrasing = /** @type {(node?: unknown) => node is Exclude<PhrasingContent, Html>} */
+      convert([
+        "break",
+        "delete",
+        "emphasis",
+        // To do: next major: removed since footnotes were added to GFM.
+        "footnote",
+        "footnoteReference",
+        "image",
+        "imageReference",
+        "inlineCode",
+        // Enabled by `mdast-util-math`:
+        "inlineMath",
+        "link",
+        "linkReference",
+        // Enabled by `mdast-util-mdx`:
+        "mdxJsxTextElement",
+        // Enabled by `mdast-util-mdx`:
+        "mdxTextExpression",
+        "strong",
+        "text",
+        // Enabled by `mdast-util-directive`:
+        "textDirective"
+      ]);
+    }
+  });
+
+  // node_modules/mdast-util-phrasing/index.js
+  var init_mdast_util_phrasing = __esm({
+    "node_modules/mdast-util-phrasing/index.js"() {
+      init_lib24();
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/handle/root.js
+  function root3(node2, _, state, info) {
+    const hasPhrasing = node2.children.some(function(d) {
+      return phrasing(d);
+    });
+    const container2 = hasPhrasing ? state.containerPhrasing : state.containerFlow;
+    return container2.call(state, node2, info);
+  }
+  var init_root2 = __esm({
+    "node_modules/mdast-util-to-markdown/lib/handle/root.js"() {
+      init_mdast_util_phrasing();
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/util/check-strong.js
+  function checkStrong(state) {
+    const marker = state.options.strong || "*";
+    if (marker !== "*" && marker !== "_") {
+      throw new Error(
+        "Cannot serialize strong with `" + marker + "` for `options.strong`, expected `*`, or `_`"
+      );
+    }
+    return marker;
+  }
+  var init_check_strong = __esm({
+    "node_modules/mdast-util-to-markdown/lib/util/check-strong.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/handle/strong.js
+  function strong2(node2, _, state, info) {
+    const marker = checkStrong(state);
+    const exit3 = state.enter("strong");
+    const tracker = state.createTracker(info);
+    const before = tracker.move(marker + marker);
+    let between = tracker.move(
+      state.containerPhrasing(node2, {
+        after: marker,
+        before,
+        ...tracker.current()
+      })
+    );
+    const betweenHead = between.charCodeAt(0);
+    const open = encodeInfo(
+      info.before.charCodeAt(info.before.length - 1),
+      betweenHead,
+      marker
+    );
+    if (open.inside) {
+      between = encodeCharacterReference(betweenHead) + between.slice(1);
+    }
+    const betweenTail = between.charCodeAt(between.length - 1);
+    const close = encodeInfo(info.after.charCodeAt(0), betweenTail, marker);
+    if (close.inside) {
+      between = between.slice(0, -1) + encodeCharacterReference(betweenTail);
+    }
+    const after = tracker.move(marker + marker);
+    exit3();
+    state.attentionEncodeSurroundingInfo = {
+      after: close.outside,
+      before: open.outside
+    };
+    return before + between + after;
+  }
+  function strongPeek(_, _1, state) {
+    return state.options.strong || "*";
+  }
+  var init_strong2 = __esm({
+    "node_modules/mdast-util-to-markdown/lib/handle/strong.js"() {
+      init_check_strong();
+      init_encode_character_reference();
+      init_encode_info();
+      strong2.peek = strongPeek;
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/handle/text.js
+  function text5(node2, _, state, info) {
+    return state.safe(node2.value, info);
+  }
+  var init_text3 = __esm({
+    "node_modules/mdast-util-to-markdown/lib/handle/text.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/util/check-rule-repetition.js
+  function checkRuleRepetition(state) {
+    const repetition = state.options.ruleRepetition || 3;
+    if (repetition < 3) {
+      throw new Error(
+        "Cannot serialize rules with repetition `" + repetition + "` for `options.ruleRepetition`, expected `3` or more"
+      );
+    }
+    return repetition;
+  }
+  var init_check_rule_repetition = __esm({
+    "node_modules/mdast-util-to-markdown/lib/util/check-rule-repetition.js"() {
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/handle/thematic-break.js
+  function thematicBreak3(_, _1, state) {
+    const value = (checkRule(state) + (state.options.ruleSpaces ? " " : "")).repeat(checkRuleRepetition(state));
+    return state.options.ruleSpaces ? value.slice(0, -1) : value;
+  }
+  var init_thematic_break3 = __esm({
+    "node_modules/mdast-util-to-markdown/lib/handle/thematic-break.js"() {
+      init_check_rule_repetition();
+      init_check_rule();
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/lib/handle/index.js
+  var handle;
+  var init_handle = __esm({
+    "node_modules/mdast-util-to-markdown/lib/handle/index.js"() {
+      init_blockquote2();
+      init_break2();
+      init_code2();
+      init_definition2();
+      init_emphasis2();
+      init_heading2();
+      init_html3();
+      init_image2();
+      init_image_reference2();
+      init_inline_code2();
+      init_link2();
+      init_link_reference2();
+      init_list3();
+      init_list_item2();
+      init_paragraph2();
+      init_root2();
+      init_strong2();
+      init_text3();
+      init_thematic_break3();
+      handle = {
+        blockquote: blockquote2,
+        break: hardBreak2,
+        code: code2,
+        definition: definition2,
+        emphasis: emphasis2,
+        hardBreak: hardBreak2,
+        heading: heading2,
+        html: html4,
+        image: image2,
+        imageReference: imageReference2,
+        inlineCode: inlineCode2,
+        link: link2,
+        linkReference: linkReference2,
+        list: list3,
+        listItem: listItem2,
+        paragraph: paragraph2,
+        root: root3,
+        strong: strong2,
+        text: text5,
+        thematicBreak: thematicBreak3
+      };
+    }
+  });
+
+  // node_modules/mdast-util-to-markdown/index.js
+  var init_mdast_util_to_markdown = __esm({
+    "node_modules/mdast-util-to-markdown/index.js"() {
+      init_handle();
+    }
+  });
+
+  // node_modules/mdast-util-gfm-table/lib/index.js
+  function gfmTableFromMarkdown() {
+    return {
+      enter: {
+        table: enterTable,
+        tableData: enterCell,
+        tableHeader: enterCell,
+        tableRow: enterRow
+      },
+      exit: {
+        codeText: exitCodeText,
+        table: exitTable,
+        tableData: exit2,
+        tableHeader: exit2,
+        tableRow: exit2
+      }
+    };
+  }
+  function enterTable(token) {
+    const align = token._align;
+    ok(align, "expected `_align` on table");
+    this.enter(
+      {
+        type: "table",
+        align: align.map(function(d) {
+          return d === "none" ? null : d;
+        }),
+        children: []
+      },
+      token
+    );
+    this.data.inTable = true;
+  }
+  function exitTable(token) {
+    this.exit(token);
+    this.data.inTable = void 0;
+  }
+  function enterRow(token) {
+    this.enter({ type: "tableRow", children: [] }, token);
+  }
+  function exit2(token) {
+    this.exit(token);
+  }
+  function enterCell(token) {
+    this.enter({ type: "tableCell", children: [] }, token);
+  }
+  function exitCodeText(token) {
+    let value = this.resume();
+    if (this.data.inTable) {
+      value = value.replace(/\\([\\|])/g, replace);
+    }
+    const node2 = this.stack[this.stack.length - 1];
+    ok(node2.type === "inlineCode");
+    node2.value = value;
+    this.exit(token);
+  }
+  function replace($0, $1) {
+    return $1 === "|" ? $1 : $0;
+  }
+  function gfmTableToMarkdown(options) {
+    const settings = options || {};
+    const padding = settings.tableCellPadding;
+    const alignDelimiters = settings.tablePipeAlign;
+    const stringLength = settings.stringLength;
+    const around = padding ? " " : "|";
+    return {
+      unsafe: [
+        { character: "\r", inConstruct: "tableCell" },
+        { character: "\n", inConstruct: "tableCell" },
+        // A pipe, when followed by a tab or space (padding), or a dash or colon
+        // (unpadded delimiter row), could result in a table.
+        { atBreak: true, character: "|", after: "[	 :-]" },
+        // A pipe in a cell must be encoded.
+        { character: "|", inConstruct: "tableCell" },
+        // A colon must be followed by a dash, in which case it could start a
+        // delimiter row.
+        { atBreak: true, character: ":", after: "-" },
+        // A delimiter row can also start with a dash, when followed by more
+        // dashes, a colon, or a pipe.
+        // This is a stricter version than the built in check for lists, thematic
+        // breaks, and setex heading underlines though:
+        // <https://github.com/syntax-tree/mdast-util-to-markdown/blob/51a2038/lib/unsafe.js#L57>
+        { atBreak: true, character: "-", after: "[:|-]" }
+      ],
+      handlers: {
+        inlineCode: inlineCodeWithTable,
+        table: handleTable,
+        tableCell: handleTableCell,
+        tableRow: handleTableRow
+      }
+    };
+    function handleTable(node2, _, state, info) {
+      return serializeData(handleTableAsData(node2, state, info), node2.align);
+    }
+    function handleTableRow(node2, _, state, info) {
+      const row = handleTableRowAsData(node2, state, info);
+      const value = serializeData([row]);
+      return value.slice(0, value.indexOf("\n"));
+    }
+    function handleTableCell(node2, _, state, info) {
+      const exit3 = state.enter("tableCell");
+      const subexit = state.enter("phrasing");
+      const value = state.containerPhrasing(node2, {
+        ...info,
+        before: around,
+        after: around
+      });
+      subexit();
+      exit3();
+      return value;
+    }
+    function serializeData(matrix, align) {
+      return markdownTable(matrix, {
+        align,
+        // @ts-expect-error: `markdown-table` types should support `null`.
+        alignDelimiters,
+        // @ts-expect-error: `markdown-table` types should support `null`.
+        padding,
+        // @ts-expect-error: `markdown-table` types should support `null`.
+        stringLength
+      });
+    }
+    function handleTableAsData(node2, state, info) {
+      const children = node2.children;
+      let index2 = -1;
+      const result = [];
+      const subexit = state.enter("table");
+      while (++index2 < children.length) {
+        result[index2] = handleTableRowAsData(children[index2], state, info);
+      }
+      subexit();
+      return result;
+    }
+    function handleTableRowAsData(node2, state, info) {
+      const children = node2.children;
+      let index2 = -1;
+      const result = [];
+      const subexit = state.enter("tableRow");
+      while (++index2 < children.length) {
+        result[index2] = handleTableCell(children[index2], node2, state, info);
+      }
+      subexit();
+      return result;
+    }
+    function inlineCodeWithTable(node2, parent, state) {
+      let value = handle.inlineCode(node2, parent, state);
+      if (state.stack.includes("tableCell")) {
+        value = value.replace(/\|/g, "\\$&");
+      }
+      return value;
+    }
+  }
+  var init_lib25 = __esm({
+    "node_modules/mdast-util-gfm-table/lib/index.js"() {
+      init_default();
+      init_markdown_table();
+      init_mdast_util_to_markdown();
+    }
+  });
+
+  // node_modules/mdast-util-gfm-table/index.js
+  var init_mdast_util_gfm_table = __esm({
+    "node_modules/mdast-util-gfm-table/index.js"() {
+      init_lib25();
+    }
+  });
+
+  // node_modules/mdast-util-gfm-task-list-item/lib/index.js
+  function gfmTaskListItemFromMarkdown() {
+    return {
+      exit: {
+        taskListCheckValueChecked: exitCheck,
+        taskListCheckValueUnchecked: exitCheck,
+        paragraph: exitParagraphWithTaskListItem
+      }
+    };
+  }
+  function gfmTaskListItemToMarkdown() {
+    return {
+      unsafe: [{ atBreak: true, character: "-", after: "[:|-]" }],
+      handlers: { listItem: listItemWithTaskListItem }
+    };
+  }
+  function exitCheck(token) {
+    const node2 = this.stack[this.stack.length - 2];
+    ok(node2.type === "listItem");
+    node2.checked = token.type === "taskListCheckValueChecked";
+  }
+  function exitParagraphWithTaskListItem(token) {
+    const parent = this.stack[this.stack.length - 2];
+    if (parent && parent.type === "listItem" && typeof parent.checked === "boolean") {
+      const node2 = this.stack[this.stack.length - 1];
+      ok(node2.type === "paragraph");
+      const head = node2.children[0];
+      if (head && head.type === "text") {
+        const siblings = parent.children;
+        let index2 = -1;
+        let firstParaghraph;
+        while (++index2 < siblings.length) {
+          const sibling = siblings[index2];
+          if (sibling.type === "paragraph") {
+            firstParaghraph = sibling;
+            break;
+          }
+        }
+        if (firstParaghraph === node2) {
+          head.value = head.value.slice(1);
+          if (head.value.length === 0) {
+            node2.children.shift();
+          } else if (node2.position && head.position && typeof head.position.start.offset === "number") {
+            head.position.start.column++;
+            head.position.start.offset++;
+            node2.position.start = Object.assign({}, head.position.start);
+          }
+        }
+      }
+    }
+    this.exit(token);
+  }
+  function listItemWithTaskListItem(node2, parent, state, info) {
+    const head = node2.children[0];
+    const checkable = typeof node2.checked === "boolean" && head && head.type === "paragraph";
+    const checkbox = "[" + (node2.checked ? "x" : " ") + "] ";
+    const tracker = state.createTracker(info);
+    if (checkable) {
+      tracker.move(checkbox);
+    }
+    let value = handle.listItem(node2, parent, state, {
+      ...info,
+      ...tracker.current()
+    });
+    if (checkable) {
+      value = value.replace(/^(?:[*+-]|\d+\.)([\r\n]| {1,3})/, check);
+    }
+    return value;
+    function check($0) {
+      return $0 + checkbox;
+    }
+  }
+  var init_lib26 = __esm({
+    "node_modules/mdast-util-gfm-task-list-item/lib/index.js"() {
+      init_default();
+      init_mdast_util_to_markdown();
+    }
+  });
+
+  // node_modules/mdast-util-gfm-task-list-item/index.js
+  var init_mdast_util_gfm_task_list_item = __esm({
+    "node_modules/mdast-util-gfm-task-list-item/index.js"() {
+      init_lib26();
+    }
+  });
+
+  // node_modules/mdast-util-gfm/lib/index.js
+  function gfmFromMarkdown() {
+    return [
+      gfmAutolinkLiteralFromMarkdown(),
+      gfmFootnoteFromMarkdown(),
+      gfmStrikethroughFromMarkdown(),
+      gfmTableFromMarkdown(),
+      gfmTaskListItemFromMarkdown()
+    ];
+  }
+  function gfmToMarkdown(options) {
+    return {
+      extensions: [
+        gfmAutolinkLiteralToMarkdown(),
+        gfmFootnoteToMarkdown(options),
+        gfmStrikethroughToMarkdown(),
+        gfmTableToMarkdown(options),
+        gfmTaskListItemToMarkdown()
+      ]
+    };
+  }
+  var init_lib27 = __esm({
+    "node_modules/mdast-util-gfm/lib/index.js"() {
+      init_mdast_util_gfm_autolink_literal();
+      init_mdast_util_gfm_footnote();
+      init_mdast_util_gfm_strikethrough();
+      init_mdast_util_gfm_table();
+      init_mdast_util_gfm_task_list_item();
+    }
+  });
+
+  // node_modules/mdast-util-gfm/index.js
+  var init_mdast_util_gfm = __esm({
+    "node_modules/mdast-util-gfm/index.js"() {
+      init_lib27();
+    }
+  });
+
+  // node_modules/micromark-extension-gfm-autolink-literal/lib/syntax.js
+  function gfmAutolinkLiteral() {
+    return {
+      text: text6
+    };
+  }
+  function tokenizeEmailAutolink(effects, ok3, nok) {
+    const self2 = this;
+    let dot;
+    let data;
+    return start2;
+    function start2(code4) {
+      if (!gfmAtext(code4) || !previousEmail.call(self2, self2.previous) || previousUnbalanced(self2.events)) {
+        return nok(code4);
+      }
+      effects.enter("literalAutolink");
+      effects.enter("literalAutolinkEmail");
+      return atext(code4);
+    }
+    function atext(code4) {
+      if (gfmAtext(code4)) {
+        effects.consume(code4);
+        return atext;
+      }
+      if (code4 === 64) {
+        effects.consume(code4);
+        return emailDomain;
+      }
+      return nok(code4);
+    }
+    function emailDomain(code4) {
+      if (code4 === 46) {
+        return effects.check(emailDomainDotTrail, emailDomainAfter, emailDomainDot)(code4);
+      }
+      if (code4 === 45 || code4 === 95 || asciiAlphanumeric(code4)) {
+        data = true;
+        effects.consume(code4);
+        return emailDomain;
+      }
+      return emailDomainAfter(code4);
+    }
+    function emailDomainDot(code4) {
+      effects.consume(code4);
+      dot = true;
+      return emailDomain;
+    }
+    function emailDomainAfter(code4) {
+      if (data && dot && asciiAlpha(self2.previous)) {
+        effects.exit("literalAutolinkEmail");
+        effects.exit("literalAutolink");
+        return ok3(code4);
+      }
+      return nok(code4);
+    }
+  }
+  function tokenizeWwwAutolink(effects, ok3, nok) {
+    const self2 = this;
+    return wwwStart;
+    function wwwStart(code4) {
+      if (code4 !== 87 && code4 !== 119 || !previousWww.call(self2, self2.previous) || previousUnbalanced(self2.events)) {
+        return nok(code4);
+      }
+      effects.enter("literalAutolink");
+      effects.enter("literalAutolinkWww");
+      return effects.check(wwwPrefix, effects.attempt(domain, effects.attempt(path, wwwAfter), nok), nok)(code4);
+    }
+    function wwwAfter(code4) {
+      effects.exit("literalAutolinkWww");
+      effects.exit("literalAutolink");
+      return ok3(code4);
+    }
+  }
+  function tokenizeProtocolAutolink(effects, ok3, nok) {
+    const self2 = this;
+    let buffer = "";
+    let seen = false;
+    return protocolStart;
+    function protocolStart(code4) {
+      if ((code4 === 72 || code4 === 104) && previousProtocol.call(self2, self2.previous) && !previousUnbalanced(self2.events)) {
+        effects.enter("literalAutolink");
+        effects.enter("literalAutolinkHttp");
+        buffer += String.fromCodePoint(code4);
+        effects.consume(code4);
+        return protocolPrefixInside;
+      }
+      return nok(code4);
+    }
+    function protocolPrefixInside(code4) {
+      if (asciiAlpha(code4) && buffer.length < 5) {
+        buffer += String.fromCodePoint(code4);
+        effects.consume(code4);
+        return protocolPrefixInside;
+      }
+      if (code4 === 58) {
+        const protocol = buffer.toLowerCase();
+        if (protocol === "http" || protocol === "https") {
+          effects.consume(code4);
+          return protocolSlashesInside;
+        }
+      }
+      return nok(code4);
+    }
+    function protocolSlashesInside(code4) {
+      if (code4 === 47) {
+        effects.consume(code4);
+        if (seen) {
+          return afterProtocol;
+        }
+        seen = true;
+        return protocolSlashesInside;
+      }
+      return nok(code4);
+    }
+    function afterProtocol(code4) {
+      return code4 === null || asciiControl(code4) || markdownLineEndingOrSpace(code4) || unicodeWhitespace(code4) || unicodePunctuation(code4) ? nok(code4) : effects.attempt(domain, effects.attempt(path, protocolAfter), nok)(code4);
+    }
+    function protocolAfter(code4) {
+      effects.exit("literalAutolinkHttp");
+      effects.exit("literalAutolink");
+      return ok3(code4);
+    }
+  }
+  function tokenizeWwwPrefix(effects, ok3, nok) {
+    let size = 0;
+    return wwwPrefixInside;
+    function wwwPrefixInside(code4) {
+      if ((code4 === 87 || code4 === 119) && size < 3) {
+        size++;
+        effects.consume(code4);
+        return wwwPrefixInside;
+      }
+      if (code4 === 46 && size === 3) {
+        effects.consume(code4);
+        return wwwPrefixAfter;
+      }
+      return nok(code4);
+    }
+    function wwwPrefixAfter(code4) {
+      return code4 === null ? nok(code4) : ok3(code4);
+    }
+  }
+  function tokenizeDomain(effects, ok3, nok) {
+    let underscoreInLastSegment;
+    let underscoreInLastLastSegment;
+    let seen;
+    return domainInside;
+    function domainInside(code4) {
+      if (code4 === 46 || code4 === 95) {
+        return effects.check(trail, domainAfter, domainAtPunctuation)(code4);
+      }
+      if (code4 === null || markdownLineEndingOrSpace(code4) || unicodeWhitespace(code4) || code4 !== 45 && unicodePunctuation(code4)) {
+        return domainAfter(code4);
+      }
+      seen = true;
+      effects.consume(code4);
+      return domainInside;
+    }
+    function domainAtPunctuation(code4) {
+      if (code4 === 95) {
+        underscoreInLastSegment = true;
+      } else {
+        underscoreInLastLastSegment = underscoreInLastSegment;
+        underscoreInLastSegment = void 0;
+      }
+      effects.consume(code4);
+      return domainInside;
+    }
+    function domainAfter(code4) {
+      if (underscoreInLastLastSegment || underscoreInLastSegment || !seen) {
+        return nok(code4);
+      }
+      return ok3(code4);
+    }
+  }
+  function tokenizePath(effects, ok3) {
+    let sizeOpen = 0;
+    let sizeClose = 0;
+    return pathInside;
+    function pathInside(code4) {
+      if (code4 === 40) {
+        sizeOpen++;
+        effects.consume(code4);
+        return pathInside;
+      }
+      if (code4 === 41 && sizeClose < sizeOpen) {
+        return pathAtPunctuation(code4);
+      }
+      if (code4 === 33 || code4 === 34 || code4 === 38 || code4 === 39 || code4 === 41 || code4 === 42 || code4 === 44 || code4 === 46 || code4 === 58 || code4 === 59 || code4 === 60 || code4 === 63 || code4 === 93 || code4 === 95 || code4 === 126) {
+        return effects.check(trail, ok3, pathAtPunctuation)(code4);
+      }
+      if (code4 === null || markdownLineEndingOrSpace(code4) || unicodeWhitespace(code4)) {
+        return ok3(code4);
+      }
+      effects.consume(code4);
+      return pathInside;
+    }
+    function pathAtPunctuation(code4) {
+      if (code4 === 41) {
+        sizeClose++;
+      }
+      effects.consume(code4);
+      return pathInside;
+    }
+  }
+  function tokenizeTrail(effects, ok3, nok) {
+    return trail2;
+    function trail2(code4) {
+      if (code4 === 33 || code4 === 34 || code4 === 39 || code4 === 41 || code4 === 42 || code4 === 44 || code4 === 46 || code4 === 58 || code4 === 59 || code4 === 63 || code4 === 95 || code4 === 126) {
+        effects.consume(code4);
+        return trail2;
+      }
+      if (code4 === 38) {
+        effects.consume(code4);
+        return trailCharacterReferenceStart;
+      }
+      if (code4 === 93) {
+        effects.consume(code4);
+        return trailBracketAfter;
+      }
+      if (
+        // `<` is an end.
+        code4 === 60 || // So is whitespace.
+        code4 === null || markdownLineEndingOrSpace(code4) || unicodeWhitespace(code4)
+      ) {
+        return ok3(code4);
+      }
+      return nok(code4);
+    }
+    function trailBracketAfter(code4) {
+      if (code4 === null || code4 === 40 || code4 === 91 || markdownLineEndingOrSpace(code4) || unicodeWhitespace(code4)) {
+        return ok3(code4);
+      }
+      return trail2(code4);
+    }
+    function trailCharacterReferenceStart(code4) {
+      return asciiAlpha(code4) ? trailCharacterReferenceInside(code4) : nok(code4);
+    }
+    function trailCharacterReferenceInside(code4) {
+      if (code4 === 59) {
+        effects.consume(code4);
+        return trail2;
+      }
+      if (asciiAlpha(code4)) {
+        effects.consume(code4);
+        return trailCharacterReferenceInside;
+      }
+      return nok(code4);
+    }
+  }
+  function tokenizeEmailDomainDotTrail(effects, ok3, nok) {
+    return start2;
+    function start2(code4) {
+      effects.consume(code4);
+      return after;
+    }
+    function after(code4) {
+      return asciiAlphanumeric(code4) ? nok(code4) : ok3(code4);
+    }
+  }
+  function previousWww(code4) {
+    return code4 === null || code4 === 40 || code4 === 42 || code4 === 95 || code4 === 91 || code4 === 93 || code4 === 126 || markdownLineEndingOrSpace(code4);
+  }
+  function previousProtocol(code4) {
+    return !asciiAlpha(code4);
+  }
+  function previousEmail(code4) {
+    return !(code4 === 47 || gfmAtext(code4));
+  }
+  function gfmAtext(code4) {
+    return code4 === 43 || code4 === 45 || code4 === 46 || code4 === 95 || asciiAlphanumeric(code4);
+  }
+  function previousUnbalanced(events) {
+    let index2 = events.length;
+    let result = false;
+    while (index2--) {
+      const token = events[index2][1];
+      if ((token.type === "labelLink" || token.type === "labelImage") && !token._balanced) {
+        result = true;
+        break;
+      }
+      if (token._gfmAutolinkLiteralWalkedInto) {
+        result = false;
+        break;
+      }
+    }
+    if (events.length > 0 && !result) {
+      events[events.length - 1][1]._gfmAutolinkLiteralWalkedInto = true;
+    }
+    return result;
+  }
+  var wwwPrefix, domain, path, trail, emailDomainDotTrail, wwwAutolink, protocolAutolink, emailAutolink, text6, code3;
+  var init_syntax = __esm({
+    "node_modules/micromark-extension-gfm-autolink-literal/lib/syntax.js"() {
+      init_micromark_util_character();
+      wwwPrefix = {
+        tokenize: tokenizeWwwPrefix,
+        partial: true
+      };
+      domain = {
+        tokenize: tokenizeDomain,
+        partial: true
+      };
+      path = {
+        tokenize: tokenizePath,
+        partial: true
+      };
+      trail = {
+        tokenize: tokenizeTrail,
+        partial: true
+      };
+      emailDomainDotTrail = {
+        tokenize: tokenizeEmailDomainDotTrail,
+        partial: true
+      };
+      wwwAutolink = {
+        name: "wwwAutolink",
+        tokenize: tokenizeWwwAutolink,
+        previous: previousWww
+      };
+      protocolAutolink = {
+        name: "protocolAutolink",
+        tokenize: tokenizeProtocolAutolink,
+        previous: previousProtocol
+      };
+      emailAutolink = {
+        name: "emailAutolink",
+        tokenize: tokenizeEmailAutolink,
+        previous: previousEmail
+      };
+      text6 = {};
+      code3 = 48;
+      while (code3 < 123) {
+        text6[code3] = emailAutolink;
+        code3++;
+        if (code3 === 58) code3 = 65;
+        else if (code3 === 91) code3 = 97;
+      }
+      text6[43] = emailAutolink;
+      text6[45] = emailAutolink;
+      text6[46] = emailAutolink;
+      text6[95] = emailAutolink;
+      text6[72] = [emailAutolink, protocolAutolink];
+      text6[104] = [emailAutolink, protocolAutolink];
+      text6[87] = [emailAutolink, wwwAutolink];
+      text6[119] = [emailAutolink, wwwAutolink];
+    }
+  });
+
+  // node_modules/micromark-extension-gfm-autolink-literal/index.js
+  var init_micromark_extension_gfm_autolink_literal = __esm({
+    "node_modules/micromark-extension-gfm-autolink-literal/index.js"() {
+      init_syntax();
+    }
+  });
+
+  // node_modules/micromark-extension-gfm-footnote/lib/syntax.js
+  function gfmFootnote() {
+    return {
+      document: {
+        [91]: {
+          name: "gfmFootnoteDefinition",
+          tokenize: tokenizeDefinitionStart,
+          continuation: {
+            tokenize: tokenizeDefinitionContinuation
+          },
+          exit: gfmFootnoteDefinitionEnd
+        }
+      },
+      text: {
+        [91]: {
+          name: "gfmFootnoteCall",
+          tokenize: tokenizeGfmFootnoteCall
+        },
+        [93]: {
+          name: "gfmPotentialFootnoteCall",
+          add: "after",
+          tokenize: tokenizePotentialGfmFootnoteCall,
+          resolveTo: resolveToPotentialGfmFootnoteCall
+        }
+      }
+    };
+  }
+  function tokenizePotentialGfmFootnoteCall(effects, ok3, nok) {
+    const self2 = this;
+    let index2 = self2.events.length;
+    const defined = self2.parser.gfmFootnotes || (self2.parser.gfmFootnotes = []);
+    let labelStart;
+    while (index2--) {
+      const token = self2.events[index2][1];
+      if (token.type === "labelImage") {
+        labelStart = token;
+        break;
+      }
+      if (token.type === "gfmFootnoteCall" || token.type === "labelLink" || token.type === "label" || token.type === "image" || token.type === "link") {
+        break;
+      }
+    }
+    return start2;
+    function start2(code4) {
+      if (!labelStart || !labelStart._balanced) {
+        return nok(code4);
+      }
+      const id = normalizeIdentifier(self2.sliceSerialize({
+        start: labelStart.end,
+        end: self2.now()
+      }));
+      if (id.codePointAt(0) !== 94 || !defined.includes(id.slice(1))) {
+        return nok(code4);
+      }
+      effects.enter("gfmFootnoteCallLabelMarker");
+      effects.consume(code4);
+      effects.exit("gfmFootnoteCallLabelMarker");
+      return ok3(code4);
+    }
+  }
+  function resolveToPotentialGfmFootnoteCall(events, context) {
+    let index2 = events.length;
+    let labelStart;
+    while (index2--) {
+      if (events[index2][1].type === "labelImage" && events[index2][0] === "enter") {
+        labelStart = events[index2][1];
+        break;
+      }
+    }
+    events[index2 + 1][1].type = "data";
+    events[index2 + 3][1].type = "gfmFootnoteCallLabelMarker";
+    const call = {
+      type: "gfmFootnoteCall",
+      start: Object.assign({}, events[index2 + 3][1].start),
+      end: Object.assign({}, events[events.length - 1][1].end)
+    };
+    const marker = {
+      type: "gfmFootnoteCallMarker",
+      start: Object.assign({}, events[index2 + 3][1].end),
+      end: Object.assign({}, events[index2 + 3][1].end)
+    };
+    marker.end.column++;
+    marker.end.offset++;
+    marker.end._bufferIndex++;
+    const string3 = {
+      type: "gfmFootnoteCallString",
+      start: Object.assign({}, marker.end),
+      end: Object.assign({}, events[events.length - 1][1].start)
+    };
+    const chunk = {
+      type: "chunkString",
+      contentType: "string",
+      start: Object.assign({}, string3.start),
+      end: Object.assign({}, string3.end)
+    };
+    const replacement = [
+      // Take the `labelImageMarker` (now `data`, the `!`)
+      events[index2 + 1],
+      events[index2 + 2],
+      ["enter", call, context],
+      // The `[`
+      events[index2 + 3],
+      events[index2 + 4],
+      // The `^`.
+      ["enter", marker, context],
+      ["exit", marker, context],
+      // Everything in between.
+      ["enter", string3, context],
+      ["enter", chunk, context],
+      ["exit", chunk, context],
+      ["exit", string3, context],
+      // The ending (`]`, properly parsed and labelled).
+      events[events.length - 2],
+      events[events.length - 1],
+      ["exit", call, context]
+    ];
+    events.splice(index2, events.length - index2 + 1, ...replacement);
+    return events;
+  }
+  function tokenizeGfmFootnoteCall(effects, ok3, nok) {
+    const self2 = this;
+    const defined = self2.parser.gfmFootnotes || (self2.parser.gfmFootnotes = []);
+    let size = 0;
+    let data;
+    return start2;
+    function start2(code4) {
+      effects.enter("gfmFootnoteCall");
+      effects.enter("gfmFootnoteCallLabelMarker");
+      effects.consume(code4);
+      effects.exit("gfmFootnoteCallLabelMarker");
+      return callStart;
+    }
+    function callStart(code4) {
+      if (code4 !== 94) return nok(code4);
+      effects.enter("gfmFootnoteCallMarker");
+      effects.consume(code4);
+      effects.exit("gfmFootnoteCallMarker");
+      effects.enter("gfmFootnoteCallString");
+      effects.enter("chunkString").contentType = "string";
+      return callData;
+    }
+    function callData(code4) {
+      if (
+        // Too long.
+        size > 999 || // Closing brace with nothing.
+        code4 === 93 && !data || // Space or tab is not supported by GFM for some reason.
+        // `\n` and `[` not being supported makes sense.
+        code4 === null || code4 === 91 || markdownLineEndingOrSpace(code4)
+      ) {
+        return nok(code4);
+      }
+      if (code4 === 93) {
+        effects.exit("chunkString");
+        const token = effects.exit("gfmFootnoteCallString");
+        if (!defined.includes(normalizeIdentifier(self2.sliceSerialize(token)))) {
+          return nok(code4);
+        }
+        effects.enter("gfmFootnoteCallLabelMarker");
+        effects.consume(code4);
+        effects.exit("gfmFootnoteCallLabelMarker");
+        effects.exit("gfmFootnoteCall");
+        return ok3;
+      }
+      if (!markdownLineEndingOrSpace(code4)) {
+        data = true;
+      }
+      size++;
+      effects.consume(code4);
+      return code4 === 92 ? callEscape : callData;
+    }
+    function callEscape(code4) {
+      if (code4 === 91 || code4 === 92 || code4 === 93) {
+        effects.consume(code4);
+        size++;
+        return callData;
+      }
+      return callData(code4);
+    }
+  }
+  function tokenizeDefinitionStart(effects, ok3, nok) {
+    const self2 = this;
+    const defined = self2.parser.gfmFootnotes || (self2.parser.gfmFootnotes = []);
+    let identifier;
+    let size = 0;
+    let data;
+    return start2;
+    function start2(code4) {
+      effects.enter("gfmFootnoteDefinition")._container = true;
+      effects.enter("gfmFootnoteDefinitionLabel");
+      effects.enter("gfmFootnoteDefinitionLabelMarker");
+      effects.consume(code4);
+      effects.exit("gfmFootnoteDefinitionLabelMarker");
+      return labelAtMarker;
+    }
+    function labelAtMarker(code4) {
+      if (code4 === 94) {
+        effects.enter("gfmFootnoteDefinitionMarker");
+        effects.consume(code4);
+        effects.exit("gfmFootnoteDefinitionMarker");
+        effects.enter("gfmFootnoteDefinitionLabelString");
+        effects.enter("chunkString").contentType = "string";
+        return labelInside;
+      }
+      return nok(code4);
+    }
+    function labelInside(code4) {
+      if (
+        // Too long.
+        size > 999 || // Closing brace with nothing.
+        code4 === 93 && !data || // Space or tab is not supported by GFM for some reason.
+        // `\n` and `[` not being supported makes sense.
+        code4 === null || code4 === 91 || markdownLineEndingOrSpace(code4)
+      ) {
+        return nok(code4);
+      }
+      if (code4 === 93) {
+        effects.exit("chunkString");
+        const token = effects.exit("gfmFootnoteDefinitionLabelString");
+        identifier = normalizeIdentifier(self2.sliceSerialize(token));
+        effects.enter("gfmFootnoteDefinitionLabelMarker");
+        effects.consume(code4);
+        effects.exit("gfmFootnoteDefinitionLabelMarker");
+        effects.exit("gfmFootnoteDefinitionLabel");
+        return labelAfter;
+      }
+      if (!markdownLineEndingOrSpace(code4)) {
+        data = true;
+      }
+      size++;
+      effects.consume(code4);
+      return code4 === 92 ? labelEscape : labelInside;
+    }
+    function labelEscape(code4) {
+      if (code4 === 91 || code4 === 92 || code4 === 93) {
+        effects.consume(code4);
+        size++;
+        return labelInside;
+      }
+      return labelInside(code4);
+    }
+    function labelAfter(code4) {
+      if (code4 === 58) {
+        effects.enter("definitionMarker");
+        effects.consume(code4);
+        effects.exit("definitionMarker");
+        if (!defined.includes(identifier)) {
+          defined.push(identifier);
+        }
+        return factorySpace(effects, whitespaceAfter, "gfmFootnoteDefinitionWhitespace");
+      }
+      return nok(code4);
+    }
+    function whitespaceAfter(code4) {
+      return ok3(code4);
+    }
+  }
+  function tokenizeDefinitionContinuation(effects, ok3, nok) {
+    return effects.check(blankLine, ok3, effects.attempt(indent, ok3, nok));
+  }
+  function gfmFootnoteDefinitionEnd(effects) {
+    effects.exit("gfmFootnoteDefinition");
+  }
+  function tokenizeIndent2(effects, ok3, nok) {
+    const self2 = this;
+    return factorySpace(effects, afterPrefix, "gfmFootnoteDefinitionIndent", 4 + 1);
+    function afterPrefix(code4) {
+      const tail = self2.events[self2.events.length - 1];
+      return tail && tail[1].type === "gfmFootnoteDefinitionIndent" && tail[2].sliceSerialize(tail[1], true).length === 4 ? ok3(code4) : nok(code4);
+    }
+  }
+  var indent;
+  var init_syntax2 = __esm({
+    "node_modules/micromark-extension-gfm-footnote/lib/syntax.js"() {
+      init_micromark_core_commonmark();
+      init_micromark_factory_space();
+      init_micromark_util_character();
+      init_micromark_util_normalize_identifier();
+      indent = {
+        tokenize: tokenizeIndent2,
+        partial: true
+      };
+    }
+  });
+
+  // node_modules/micromark-extension-gfm-footnote/index.js
+  var init_micromark_extension_gfm_footnote = __esm({
+    "node_modules/micromark-extension-gfm-footnote/index.js"() {
+      init_syntax2();
+    }
+  });
+
+  // node_modules/micromark-extension-gfm-strikethrough/lib/syntax.js
+  function gfmStrikethrough(options) {
+    const options_ = options || {};
+    let single = options_.singleTilde;
+    const tokenizer = {
+      name: "strikethrough",
+      tokenize: tokenizeStrikethrough,
+      resolveAll: resolveAllStrikethrough
+    };
+    if (single === null || single === void 0) {
+      single = true;
+    }
+    return {
+      text: {
+        [126]: tokenizer
+      },
+      insideSpan: {
+        null: [tokenizer]
+      },
+      attentionMarkers: {
+        null: [126]
+      }
+    };
+    function resolveAllStrikethrough(events, context) {
+      let index2 = -1;
+      while (++index2 < events.length) {
+        if (events[index2][0] === "enter" && events[index2][1].type === "strikethroughSequenceTemporary" && events[index2][1]._close) {
+          let open = index2;
+          while (open--) {
+            if (events[open][0] === "exit" && events[open][1].type === "strikethroughSequenceTemporary" && events[open][1]._open && // If the sizes are the same:
+            events[index2][1].end.offset - events[index2][1].start.offset === events[open][1].end.offset - events[open][1].start.offset) {
+              events[index2][1].type = "strikethroughSequence";
+              events[open][1].type = "strikethroughSequence";
+              const strikethrough2 = {
+                type: "strikethrough",
+                start: Object.assign({}, events[open][1].start),
+                end: Object.assign({}, events[index2][1].end)
+              };
+              const text7 = {
+                type: "strikethroughText",
+                start: Object.assign({}, events[open][1].end),
+                end: Object.assign({}, events[index2][1].start)
+              };
+              const nextEvents = [["enter", strikethrough2, context], ["enter", events[open][1], context], ["exit", events[open][1], context], ["enter", text7, context]];
+              const insideSpan2 = context.parser.constructs.insideSpan.null;
+              if (insideSpan2) {
+                splice(nextEvents, nextEvents.length, 0, resolveAll(insideSpan2, events.slice(open + 1, index2), context));
+              }
+              splice(nextEvents, nextEvents.length, 0, [["exit", text7, context], ["enter", events[index2][1], context], ["exit", events[index2][1], context], ["exit", strikethrough2, context]]);
+              splice(events, open - 1, index2 - open + 3, nextEvents);
+              index2 = open + nextEvents.length - 2;
+              break;
+            }
+          }
+        }
+      }
+      index2 = -1;
+      while (++index2 < events.length) {
+        if (events[index2][1].type === "strikethroughSequenceTemporary") {
+          events[index2][1].type = "data";
+        }
+      }
+      return events;
+    }
+    function tokenizeStrikethrough(effects, ok3, nok) {
+      const previous3 = this.previous;
+      const events = this.events;
+      let size = 0;
+      return start2;
+      function start2(code4) {
+        if (previous3 === 126 && events[events.length - 1][1].type !== "characterEscape") {
+          return nok(code4);
+        }
+        effects.enter("strikethroughSequenceTemporary");
+        return more(code4);
+      }
+      function more(code4) {
+        const before = classifyCharacter(previous3);
+        if (code4 === 126) {
+          if (size > 1) return nok(code4);
+          effects.consume(code4);
+          size++;
+          return more;
+        }
+        if (size < 2 && !single) return nok(code4);
+        const token = effects.exit("strikethroughSequenceTemporary");
+        const after = classifyCharacter(code4);
+        token._open = !after || after === 2 && Boolean(before);
+        token._close = !before || before === 2 && Boolean(after);
+        return ok3(code4);
+      }
+    }
+  }
+  var init_syntax3 = __esm({
+    "node_modules/micromark-extension-gfm-strikethrough/lib/syntax.js"() {
+      init_micromark_util_chunked();
+      init_micromark_util_classify_character();
+      init_micromark_util_resolve_all();
+    }
+  });
+
+  // node_modules/micromark-extension-gfm-strikethrough/index.js
+  var init_micromark_extension_gfm_strikethrough = __esm({
+    "node_modules/micromark-extension-gfm-strikethrough/index.js"() {
+      init_syntax3();
+    }
+  });
+
+  // node_modules/micromark-extension-gfm-table/lib/edit-map.js
+  function addImplementation(editMap, at, remove, add) {
+    let index2 = 0;
+    if (remove === 0 && add.length === 0) {
+      return;
+    }
+    while (index2 < editMap.map.length) {
+      if (editMap.map[index2][0] === at) {
+        editMap.map[index2][1] += remove;
+        editMap.map[index2][2].push(...add);
+        return;
+      }
+      index2 += 1;
+    }
+    editMap.map.push([at, remove, add]);
+  }
+  var EditMap;
+  var init_edit_map = __esm({
+    "node_modules/micromark-extension-gfm-table/lib/edit-map.js"() {
+      EditMap = class {
+        /**
+         * Create a new edit map.
+         */
+        constructor() {
+          this.map = [];
+        }
+        /**
+         * Create an edit: a remove and/or add at a certain place.
+         *
+         * @param {number} index
+         * @param {number} remove
+         * @param {Array<Event>} add
+         * @returns {undefined}
+         */
+        add(index2, remove, add) {
+          addImplementation(this, index2, remove, add);
+        }
+        // To do: add this when moving to `micromark`.
+        // /**
+        //  * Create an edit: but insert `add` before existing additions.
+        //  *
+        //  * @param {number} index
+        //  * @param {number} remove
+        //  * @param {Array<Event>} add
+        //  * @returns {undefined}
+        //  */
+        // addBefore(index, remove, add) {
+        //   addImplementation(this, index, remove, add, true)
+        // }
+        /**
+         * Done, change the events.
+         *
+         * @param {Array<Event>} events
+         * @returns {undefined}
+         */
+        consume(events) {
+          this.map.sort(function(a, b) {
+            return a[0] - b[0];
+          });
+          if (this.map.length === 0) {
+            return;
+          }
+          let index2 = this.map.length;
+          const vecs = [];
+          while (index2 > 0) {
+            index2 -= 1;
+            vecs.push(events.slice(this.map[index2][0] + this.map[index2][1]), this.map[index2][2]);
+            events.length = this.map[index2][0];
+          }
+          vecs.push(events.slice());
+          events.length = 0;
+          let slice = vecs.pop();
+          while (slice) {
+            for (const element3 of slice) {
+              events.push(element3);
+            }
+            slice = vecs.pop();
+          }
+          this.map.length = 0;
+        }
+      };
+    }
+  });
+
+  // node_modules/micromark-extension-gfm-table/lib/infer.js
+  function gfmTableAlign(events, index2) {
+    let inDelimiterRow = false;
+    const align = [];
+    while (index2 < events.length) {
+      const event = events[index2];
+      if (inDelimiterRow) {
+        if (event[0] === "enter") {
+          if (event[1].type === "tableContent") {
+            align.push(events[index2 + 1][1].type === "tableDelimiterMarker" ? "left" : "none");
+          }
+        } else if (event[1].type === "tableContent") {
+          if (events[index2 - 1][1].type === "tableDelimiterMarker") {
+            const alignIndex = align.length - 1;
+            align[alignIndex] = align[alignIndex] === "left" ? "center" : "right";
+          }
+        } else if (event[1].type === "tableDelimiterRow") {
+          break;
+        }
+      } else if (event[0] === "enter" && event[1].type === "tableDelimiterRow") {
+        inDelimiterRow = true;
+      }
+      index2 += 1;
+    }
+    return align;
+  }
+  var init_infer = __esm({
+    "node_modules/micromark-extension-gfm-table/lib/infer.js"() {
+    }
+  });
+
+  // node_modules/micromark-extension-gfm-table/lib/syntax.js
+  function gfmTable() {
+    return {
+      flow: {
+        null: {
+          name: "table",
+          tokenize: tokenizeTable,
+          resolveAll: resolveTable
+        }
+      }
+    };
+  }
+  function tokenizeTable(effects, ok3, nok) {
+    const self2 = this;
+    let size = 0;
+    let sizeB = 0;
+    let seen;
+    return start2;
+    function start2(code4) {
+      let index2 = self2.events.length - 1;
+      while (index2 > -1) {
+        const type = self2.events[index2][1].type;
+        if (type === "lineEnding" || // Note: markdown-rs uses `whitespace` instead of `linePrefix`
+        type === "linePrefix") index2--;
+        else break;
+      }
+      const tail = index2 > -1 ? self2.events[index2][1].type : null;
+      const next = tail === "tableHead" || tail === "tableRow" ? bodyRowStart : headRowBefore;
+      if (next === bodyRowStart && self2.parser.lazy[self2.now().line]) {
+        return nok(code4);
+      }
+      return next(code4);
+    }
+    function headRowBefore(code4) {
+      effects.enter("tableHead");
+      effects.enter("tableRow");
+      return headRowStart(code4);
+    }
+    function headRowStart(code4) {
+      if (code4 === 124) {
+        return headRowBreak(code4);
+      }
+      seen = true;
+      sizeB += 1;
+      return headRowBreak(code4);
+    }
+    function headRowBreak(code4) {
+      if (code4 === null) {
+        return nok(code4);
+      }
+      if (markdownLineEnding(code4)) {
+        if (sizeB > 1) {
+          sizeB = 0;
+          self2.interrupt = true;
+          effects.exit("tableRow");
+          effects.enter("lineEnding");
+          effects.consume(code4);
+          effects.exit("lineEnding");
+          return headDelimiterStart;
+        }
+        return nok(code4);
+      }
+      if (markdownSpace(code4)) {
+        return factorySpace(effects, headRowBreak, "whitespace")(code4);
+      }
+      sizeB += 1;
+      if (seen) {
+        seen = false;
+        size += 1;
+      }
+      if (code4 === 124) {
+        effects.enter("tableCellDivider");
+        effects.consume(code4);
+        effects.exit("tableCellDivider");
+        seen = true;
+        return headRowBreak;
+      }
+      effects.enter("data");
+      return headRowData(code4);
+    }
+    function headRowData(code4) {
+      if (code4 === null || code4 === 124 || markdownLineEndingOrSpace(code4)) {
+        effects.exit("data");
+        return headRowBreak(code4);
+      }
+      effects.consume(code4);
+      return code4 === 92 ? headRowEscape : headRowData;
+    }
+    function headRowEscape(code4) {
+      if (code4 === 92 || code4 === 124) {
+        effects.consume(code4);
+        return headRowData;
+      }
+      return headRowData(code4);
+    }
+    function headDelimiterStart(code4) {
+      self2.interrupt = false;
+      if (self2.parser.lazy[self2.now().line]) {
+        return nok(code4);
+      }
+      effects.enter("tableDelimiterRow");
+      seen = false;
+      if (markdownSpace(code4)) {
+        return factorySpace(effects, headDelimiterBefore, "linePrefix", self2.parser.constructs.disable.null.includes("codeIndented") ? void 0 : 4)(code4);
+      }
+      return headDelimiterBefore(code4);
+    }
+    function headDelimiterBefore(code4) {
+      if (code4 === 45 || code4 === 58) {
+        return headDelimiterValueBefore(code4);
+      }
+      if (code4 === 124) {
+        seen = true;
+        effects.enter("tableCellDivider");
+        effects.consume(code4);
+        effects.exit("tableCellDivider");
+        return headDelimiterCellBefore;
+      }
+      return headDelimiterNok(code4);
+    }
+    function headDelimiterCellBefore(code4) {
+      if (markdownSpace(code4)) {
+        return factorySpace(effects, headDelimiterValueBefore, "whitespace")(code4);
+      }
+      return headDelimiterValueBefore(code4);
+    }
+    function headDelimiterValueBefore(code4) {
+      if (code4 === 58) {
+        sizeB += 1;
+        seen = true;
+        effects.enter("tableDelimiterMarker");
+        effects.consume(code4);
+        effects.exit("tableDelimiterMarker");
+        return headDelimiterLeftAlignmentAfter;
+      }
+      if (code4 === 45) {
+        sizeB += 1;
+        return headDelimiterLeftAlignmentAfter(code4);
+      }
+      if (code4 === null || markdownLineEnding(code4)) {
+        return headDelimiterCellAfter(code4);
+      }
+      return headDelimiterNok(code4);
+    }
+    function headDelimiterLeftAlignmentAfter(code4) {
+      if (code4 === 45) {
+        effects.enter("tableDelimiterFiller");
+        return headDelimiterFiller(code4);
+      }
+      return headDelimiterNok(code4);
+    }
+    function headDelimiterFiller(code4) {
+      if (code4 === 45) {
+        effects.consume(code4);
+        return headDelimiterFiller;
+      }
+      if (code4 === 58) {
+        seen = true;
+        effects.exit("tableDelimiterFiller");
+        effects.enter("tableDelimiterMarker");
+        effects.consume(code4);
+        effects.exit("tableDelimiterMarker");
+        return headDelimiterRightAlignmentAfter;
+      }
+      effects.exit("tableDelimiterFiller");
+      return headDelimiterRightAlignmentAfter(code4);
+    }
+    function headDelimiterRightAlignmentAfter(code4) {
+      if (markdownSpace(code4)) {
+        return factorySpace(effects, headDelimiterCellAfter, "whitespace")(code4);
+      }
+      return headDelimiterCellAfter(code4);
+    }
+    function headDelimiterCellAfter(code4) {
+      if (code4 === 124) {
+        return headDelimiterBefore(code4);
+      }
+      if (code4 === null || markdownLineEnding(code4)) {
+        if (!seen || size !== sizeB) {
+          return headDelimiterNok(code4);
+        }
+        effects.exit("tableDelimiterRow");
+        effects.exit("tableHead");
+        return ok3(code4);
+      }
+      return headDelimiterNok(code4);
+    }
+    function headDelimiterNok(code4) {
+      return nok(code4);
+    }
+    function bodyRowStart(code4) {
+      effects.enter("tableRow");
+      return bodyRowBreak(code4);
+    }
+    function bodyRowBreak(code4) {
+      if (code4 === 124) {
+        effects.enter("tableCellDivider");
+        effects.consume(code4);
+        effects.exit("tableCellDivider");
+        return bodyRowBreak;
+      }
+      if (code4 === null || markdownLineEnding(code4)) {
+        effects.exit("tableRow");
+        return ok3(code4);
+      }
+      if (markdownSpace(code4)) {
+        return factorySpace(effects, bodyRowBreak, "whitespace")(code4);
+      }
+      effects.enter("data");
+      return bodyRowData(code4);
+    }
+    function bodyRowData(code4) {
+      if (code4 === null || code4 === 124 || markdownLineEndingOrSpace(code4)) {
+        effects.exit("data");
+        return bodyRowBreak(code4);
+      }
+      effects.consume(code4);
+      return code4 === 92 ? bodyRowEscape : bodyRowData;
+    }
+    function bodyRowEscape(code4) {
+      if (code4 === 92 || code4 === 124) {
+        effects.consume(code4);
+        return bodyRowData;
+      }
+      return bodyRowData(code4);
+    }
+  }
+  function resolveTable(events, context) {
+    let index2 = -1;
+    let inFirstCellAwaitingPipe = true;
+    let rowKind = 0;
+    let lastCell = [0, 0, 0, 0];
+    let cell = [0, 0, 0, 0];
+    let afterHeadAwaitingFirstBodyRow = false;
+    let lastTableEnd = 0;
+    let currentTable;
+    let currentBody;
+    let currentCell;
+    const map3 = new EditMap();
+    while (++index2 < events.length) {
+      const event = events[index2];
+      const token = event[1];
+      if (event[0] === "enter") {
+        if (token.type === "tableHead") {
+          afterHeadAwaitingFirstBodyRow = false;
+          if (lastTableEnd !== 0) {
+            flushTableEnd(map3, context, lastTableEnd, currentTable, currentBody);
+            currentBody = void 0;
+            lastTableEnd = 0;
+          }
+          currentTable = {
+            type: "table",
+            start: Object.assign({}, token.start),
+            // Note: correct end is set later.
+            end: Object.assign({}, token.end)
+          };
+          map3.add(index2, 0, [["enter", currentTable, context]]);
+        } else if (token.type === "tableRow" || token.type === "tableDelimiterRow") {
+          inFirstCellAwaitingPipe = true;
+          currentCell = void 0;
+          lastCell = [0, 0, 0, 0];
+          cell = [0, index2 + 1, 0, 0];
+          if (afterHeadAwaitingFirstBodyRow) {
+            afterHeadAwaitingFirstBodyRow = false;
+            currentBody = {
+              type: "tableBody",
+              start: Object.assign({}, token.start),
+              // Note: correct end is set later.
+              end: Object.assign({}, token.end)
+            };
+            map3.add(index2, 0, [["enter", currentBody, context]]);
+          }
+          rowKind = token.type === "tableDelimiterRow" ? 2 : currentBody ? 3 : 1;
+        } else if (rowKind && (token.type === "data" || token.type === "tableDelimiterMarker" || token.type === "tableDelimiterFiller")) {
+          inFirstCellAwaitingPipe = false;
+          if (cell[2] === 0) {
+            if (lastCell[1] !== 0) {
+              cell[0] = cell[1];
+              currentCell = flushCell(map3, context, lastCell, rowKind, void 0, currentCell);
+              lastCell = [0, 0, 0, 0];
+            }
+            cell[2] = index2;
+          }
+        } else if (token.type === "tableCellDivider") {
+          if (inFirstCellAwaitingPipe) {
+            inFirstCellAwaitingPipe = false;
+          } else {
+            if (lastCell[1] !== 0) {
+              cell[0] = cell[1];
+              currentCell = flushCell(map3, context, lastCell, rowKind, void 0, currentCell);
+            }
+            lastCell = cell;
+            cell = [lastCell[1], index2, 0, 0];
+          }
+        }
+      } else if (token.type === "tableHead") {
+        afterHeadAwaitingFirstBodyRow = true;
+        lastTableEnd = index2;
+      } else if (token.type === "tableRow" || token.type === "tableDelimiterRow") {
+        lastTableEnd = index2;
+        if (lastCell[1] !== 0) {
+          cell[0] = cell[1];
+          currentCell = flushCell(map3, context, lastCell, rowKind, index2, currentCell);
+        } else if (cell[1] !== 0) {
+          currentCell = flushCell(map3, context, cell, rowKind, index2, currentCell);
+        }
+        rowKind = 0;
+      } else if (rowKind && (token.type === "data" || token.type === "tableDelimiterMarker" || token.type === "tableDelimiterFiller")) {
+        cell[3] = index2;
+      }
+    }
+    if (lastTableEnd !== 0) {
+      flushTableEnd(map3, context, lastTableEnd, currentTable, currentBody);
+    }
+    map3.consume(context.events);
+    index2 = -1;
+    while (++index2 < context.events.length) {
+      const event = context.events[index2];
+      if (event[0] === "enter" && event[1].type === "table") {
+        event[1]._align = gfmTableAlign(context.events, index2);
+      }
+    }
+    return events;
+  }
+  function flushCell(map3, context, range, rowKind, rowEnd, previousCell) {
+    const groupName = rowKind === 1 ? "tableHeader" : rowKind === 2 ? "tableDelimiter" : "tableData";
+    const valueName = "tableContent";
+    if (range[0] !== 0) {
+      previousCell.end = Object.assign({}, getPoint(context.events, range[0]));
+      map3.add(range[0], 0, [["exit", previousCell, context]]);
+    }
+    const now = getPoint(context.events, range[1]);
+    previousCell = {
+      type: groupName,
+      start: Object.assign({}, now),
+      // Note: correct end is set later.
+      end: Object.assign({}, now)
+    };
+    map3.add(range[1], 0, [["enter", previousCell, context]]);
+    if (range[2] !== 0) {
+      const relatedStart = getPoint(context.events, range[2]);
+      const relatedEnd = getPoint(context.events, range[3]);
+      const valueToken = {
+        type: valueName,
+        start: Object.assign({}, relatedStart),
+        end: Object.assign({}, relatedEnd)
+      };
+      map3.add(range[2], 0, [["enter", valueToken, context]]);
+      if (rowKind !== 2) {
+        const start2 = context.events[range[2]];
+        const end = context.events[range[3]];
+        start2[1].end = Object.assign({}, end[1].end);
+        start2[1].type = "chunkText";
+        start2[1].contentType = "text";
+        if (range[3] > range[2] + 1) {
+          const a = range[2] + 1;
+          const b = range[3] - range[2] - 1;
+          map3.add(a, b, []);
+        }
+      }
+      map3.add(range[3] + 1, 0, [["exit", valueToken, context]]);
+    }
+    if (rowEnd !== void 0) {
+      previousCell.end = Object.assign({}, getPoint(context.events, rowEnd));
+      map3.add(rowEnd, 0, [["exit", previousCell, context]]);
+      previousCell = void 0;
+    }
+    return previousCell;
+  }
+  function flushTableEnd(map3, context, index2, table2, tableBody) {
+    const exits = [];
+    const related = getPoint(context.events, index2);
+    if (tableBody) {
+      tableBody.end = Object.assign({}, related);
+      exits.push(["exit", tableBody, context]);
+    }
+    table2.end = Object.assign({}, related);
+    exits.push(["exit", table2, context]);
+    map3.add(index2 + 1, 0, exits);
+  }
+  function getPoint(events, index2) {
+    const event = events[index2];
+    const side = event[0] === "enter" ? "start" : "end";
+    return event[1][side];
+  }
+  var init_syntax4 = __esm({
+    "node_modules/micromark-extension-gfm-table/lib/syntax.js"() {
+      init_micromark_factory_space();
+      init_micromark_util_character();
+      init_edit_map();
+      init_infer();
+    }
+  });
+
+  // node_modules/micromark-extension-gfm-table/index.js
+  var init_micromark_extension_gfm_table = __esm({
+    "node_modules/micromark-extension-gfm-table/index.js"() {
+      init_syntax4();
+    }
+  });
+
+  // node_modules/micromark-extension-gfm-task-list-item/lib/syntax.js
+  function gfmTaskListItem() {
+    return {
+      text: {
+        [91]: tasklistCheck
+      }
+    };
+  }
+  function tokenizeTasklistCheck(effects, ok3, nok) {
+    const self2 = this;
+    return open;
+    function open(code4) {
+      if (
+        // Exit if there’s stuff before.
+        self2.previous !== null || // Exit if not in the first content that is the first child of a list
+        // item.
+        !self2._gfmTasklistFirstContentOfListItem
+      ) {
+        return nok(code4);
+      }
+      effects.enter("taskListCheck");
+      effects.enter("taskListCheckMarker");
+      effects.consume(code4);
+      effects.exit("taskListCheckMarker");
+      return inside;
+    }
+    function inside(code4) {
+      if (markdownLineEndingOrSpace(code4)) {
+        effects.enter("taskListCheckValueUnchecked");
+        effects.consume(code4);
+        effects.exit("taskListCheckValueUnchecked");
+        return close;
+      }
+      if (code4 === 88 || code4 === 120) {
+        effects.enter("taskListCheckValueChecked");
+        effects.consume(code4);
+        effects.exit("taskListCheckValueChecked");
+        return close;
+      }
+      return nok(code4);
+    }
+    function close(code4) {
+      if (code4 === 93) {
+        effects.enter("taskListCheckMarker");
+        effects.consume(code4);
+        effects.exit("taskListCheckMarker");
+        effects.exit("taskListCheck");
+        return after;
+      }
+      return nok(code4);
+    }
+    function after(code4) {
+      if (markdownLineEnding(code4)) {
+        return ok3(code4);
+      }
+      if (markdownSpace(code4)) {
+        return effects.check({
+          tokenize: spaceThenNonSpace
+        }, ok3, nok)(code4);
+      }
+      return nok(code4);
+    }
+  }
+  function spaceThenNonSpace(effects, ok3, nok) {
+    return factorySpace(effects, after, "whitespace");
+    function after(code4) {
+      return code4 === null ? nok(code4) : ok3(code4);
+    }
+  }
+  var tasklistCheck;
+  var init_syntax5 = __esm({
+    "node_modules/micromark-extension-gfm-task-list-item/lib/syntax.js"() {
+      init_micromark_factory_space();
+      init_micromark_util_character();
+      tasklistCheck = {
+        name: "tasklistCheck",
+        tokenize: tokenizeTasklistCheck
+      };
+    }
+  });
+
+  // node_modules/micromark-extension-gfm-task-list-item/index.js
+  var init_micromark_extension_gfm_task_list_item = __esm({
+    "node_modules/micromark-extension-gfm-task-list-item/index.js"() {
+      init_syntax5();
+    }
+  });
+
+  // node_modules/micromark-extension-gfm/index.js
+  function gfm(options) {
+    return combineExtensions([
+      gfmAutolinkLiteral(),
+      gfmFootnote(),
+      gfmStrikethrough(options),
+      gfmTable(),
+      gfmTaskListItem()
+    ]);
+  }
+  var init_micromark_extension_gfm = __esm({
+    "node_modules/micromark-extension-gfm/index.js"() {
+      init_micromark_util_combine_extensions();
+      init_micromark_extension_gfm_autolink_literal();
+      init_micromark_extension_gfm_footnote();
+      init_micromark_extension_gfm_strikethrough();
+      init_micromark_extension_gfm_table();
+      init_micromark_extension_gfm_task_list_item();
+    }
+  });
+
+  // node_modules/remark-gfm/lib/index.js
+  function remarkGfm(options) {
+    const self2 = (
+      /** @type {Processor<Root>} */
+      this
+    );
+    const settings = options || emptyOptions4;
+    const data = self2.data();
+    const micromarkExtensions = data.micromarkExtensions || (data.micromarkExtensions = []);
+    const fromMarkdownExtensions = data.fromMarkdownExtensions || (data.fromMarkdownExtensions = []);
+    const toMarkdownExtensions = data.toMarkdownExtensions || (data.toMarkdownExtensions = []);
+    micromarkExtensions.push(gfm(settings));
+    fromMarkdownExtensions.push(gfmFromMarkdown());
+    toMarkdownExtensions.push(gfmToMarkdown(settings));
+  }
+  var emptyOptions4;
+  var init_lib28 = __esm({
+    "node_modules/remark-gfm/lib/index.js"() {
+      init_mdast_util_gfm();
+      init_micromark_extension_gfm();
+      emptyOptions4 = {};
+    }
+  });
+
+  // node_modules/remark-gfm/index.js
+  var remark_gfm_exports = {};
+  __export(remark_gfm_exports, {
+    default: () => remarkGfm
+  });
+  var init_remark_gfm = __esm({
+    "node_modules/remark-gfm/index.js"() {
+      init_lib28();
+    }
+  });
+
   // src/webview/main.tsx
   var import_client = __toESM(require_client());
 
   // src/webview/App.tsx
-  var import_react4 = __toESM(require_react());
+  var import_react10 = __toESM(require_react());
 
-  // src/webview/HomeView.tsx
+  // src/webview/ChatView.tsx
+  var import_react6 = __toESM(require_react());
+
+  // node_modules/lucide-react/dist/esm/createLucideIcon.mjs
+  var import_react3 = __toESM(require_react(), 1);
+
+  // node_modules/lucide-react/dist/esm/shared/src/utils/mergeClasses.mjs
+  var mergeClasses = (...classes) => classes.filter((className, index2, array) => {
+    return Boolean(className) && className.trim() !== "" && array.indexOf(className) === index2;
+  }).join(" ").trim();
+
+  // node_modules/lucide-react/dist/esm/shared/src/utils/toKebabCase.mjs
+  var toKebabCase = (string3) => string3.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+
+  // node_modules/lucide-react/dist/esm/shared/src/utils/toCamelCase.mjs
+  var toCamelCase = (string3) => string3.replace(
+    /^([A-Z])|[\s-_]+(\w)/g,
+    (match, p1, p2) => p2 ? p2.toUpperCase() : p1.toLowerCase()
+  );
+
+  // node_modules/lucide-react/dist/esm/shared/src/utils/toPascalCase.mjs
+  var toPascalCase = (string3) => {
+    const camelCase = toCamelCase(string3);
+    return camelCase.charAt(0).toUpperCase() + camelCase.slice(1);
+  };
+
+  // node_modules/lucide-react/dist/esm/Icon.mjs
+  var import_react2 = __toESM(require_react(), 1);
+
+  // node_modules/lucide-react/dist/esm/defaultAttributes.mjs
+  var defaultAttributes = {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: 24,
+    height: 24,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 2,
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  };
+
+  // node_modules/lucide-react/dist/esm/shared/src/utils/hasA11yProp.mjs
+  var hasA11yProp = (props) => {
+    for (const prop in props) {
+      if (prop.startsWith("aria-") || prop === "role" || prop === "title") {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  // node_modules/lucide-react/dist/esm/context.mjs
+  var import_react = __toESM(require_react(), 1);
+  var LucideContext = (0, import_react.createContext)({});
+  var useLucideContext = () => (0, import_react.useContext)(LucideContext);
+
+  // node_modules/lucide-react/dist/esm/Icon.mjs
+  var Icon = (0, import_react2.forwardRef)(
+    ({ color: color2, size, strokeWidth, absoluteStrokeWidth, className = "", children, iconNode, ...rest }, ref) => {
+      const {
+        size: contextSize = 24,
+        strokeWidth: contextStrokeWidth = 2,
+        absoluteStrokeWidth: contextAbsoluteStrokeWidth = false,
+        color: contextColor = "currentColor",
+        className: contextClass = ""
+      } = useLucideContext() ?? {};
+      const calculatedStrokeWidth = absoluteStrokeWidth ?? contextAbsoluteStrokeWidth ? Number(strokeWidth ?? contextStrokeWidth) * 24 / Number(size ?? contextSize) : strokeWidth ?? contextStrokeWidth;
+      return (0, import_react2.createElement)(
+        "svg",
+        {
+          ref,
+          ...defaultAttributes,
+          width: size ?? contextSize ?? defaultAttributes.width,
+          height: size ?? contextSize ?? defaultAttributes.height,
+          stroke: color2 ?? contextColor,
+          strokeWidth: calculatedStrokeWidth,
+          className: mergeClasses("lucide", contextClass, className),
+          ...!children && !hasA11yProp(rest) && { "aria-hidden": "true" },
+          ...rest
+        },
+        [
+          ...iconNode.map(([tag, attrs]) => (0, import_react2.createElement)(tag, attrs)),
+          ...Array.isArray(children) ? children : [children]
+        ]
+      );
+    }
+  );
+
+  // node_modules/lucide-react/dist/esm/createLucideIcon.mjs
+  var createLucideIcon = (iconName, iconNode) => {
+    const Component = (0, import_react3.forwardRef)(
+      ({ className, ...props }, ref) => (0, import_react3.createElement)(Icon, {
+        ref,
+        iconNode,
+        className: mergeClasses(
+          `lucide-${toKebabCase(toPascalCase(iconName))}`,
+          `lucide-${iconName}`,
+          className
+        ),
+        ...props
+      })
+    );
+    Component.displayName = toPascalCase(iconName);
+    return Component;
+  };
+
+  // node_modules/lucide-react/dist/esm/icons/arrow-up.mjs
+  var __iconNode = [
+    ["path", { d: "m5 12 7-7 7 7", key: "hav0vg" }],
+    ["path", { d: "M12 19V5", key: "x0mq9r" }]
+  ];
+  var ArrowUp = createLucideIcon("arrow-up", __iconNode);
+
+  // node_modules/lucide-react/dist/esm/icons/bot.mjs
+  var __iconNode2 = [
+    ["path", { d: "M12 8V4H8", key: "hb8ula" }],
+    ["rect", { width: "16", height: "12", x: "4", y: "8", rx: "2", key: "enze0r" }],
+    ["path", { d: "M2 14h2", key: "vft8re" }],
+    ["path", { d: "M20 14h2", key: "4cs60a" }],
+    ["path", { d: "M15 13v2", key: "1xurst" }],
+    ["path", { d: "M9 13v2", key: "rq6x2g" }]
+  ];
+  var Bot = createLucideIcon("bot", __iconNode2);
+
+  // node_modules/lucide-react/dist/esm/icons/check.mjs
+  var __iconNode3 = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
+  var Check = createLucideIcon("check", __iconNode3);
+
+  // node_modules/lucide-react/dist/esm/icons/chevron-down.mjs
+  var __iconNode4 = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
+  var ChevronDown = createLucideIcon("chevron-down", __iconNode4);
+
+  // node_modules/lucide-react/dist/esm/icons/copy.mjs
+  var __iconNode5 = [
+    ["rect", { width: "14", height: "14", x: "8", y: "8", rx: "2", ry: "2", key: "17jyea" }],
+    ["path", { d: "M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2", key: "zix9uf" }]
+  ];
+  var Copy = createLucideIcon("copy", __iconNode5);
+
+  // node_modules/lucide-react/dist/esm/icons/message-square.mjs
+  var __iconNode6 = [
+    [
+      "path",
+      {
+        d: "M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z",
+        key: "18887p"
+      }
+    ]
+  ];
+  var MessageSquare = createLucideIcon("message-square", __iconNode6);
+
+  // node_modules/lucide-react/dist/esm/icons/paperclip.mjs
+  var __iconNode7 = [
+    [
+      "path",
+      {
+        d: "m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551",
+        key: "1miecu"
+      }
+    ]
+  ];
+  var Paperclip = createLucideIcon("paperclip", __iconNode7);
+
+  // node_modules/lucide-react/dist/esm/icons/refresh-cw.mjs
+  var __iconNode8 = [
+    ["path", { d: "M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8", key: "v9h5vc" }],
+    ["path", { d: "M21 3v5h-5", key: "1q7to0" }],
+    ["path", { d: "M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16", key: "3uifl3" }],
+    ["path", { d: "M8 16H3v5", key: "1cv678" }]
+  ];
+  var RefreshCw = createLucideIcon("refresh-cw", __iconNode8);
+
+  // node_modules/lucide-react/dist/esm/icons/search.mjs
+  var __iconNode9 = [
+    ["path", { d: "m21 21-4.34-4.34", key: "14j7rj" }],
+    ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
+  ];
+  var Search = createLucideIcon("search", __iconNode9);
+
+  // src/webview/utils/textDirection.ts
+  function detectDirection(text7) {
+    const rtlRegex = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/;
+    const rtlChars = (text7.match(rtlRegex) || []).length;
+    const totalChars = text7.replace(/\s/g, "").length;
+    return totalChars > 0 && rtlChars / totalChars > 0.3 ? "rtl" : "ltr";
+  }
+
+  // src/webview/ModelSelectorPopover.tsx
+  var import_react4 = __toESM(require_react());
   var import_jsx_runtime = __toESM(require_jsx_runtime());
-  function HomeView({ providers, onOpenSettings }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "page", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", { className: "heading", children: "SkyCode AI" }),
-      providers.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "empty-state", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "empty-state__icon", "aria-hidden": "true", children: "\u25C7" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { className: "empty-state__text", children: "No provider is configured yet." }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { className: "btn btn--primary", onClick: onOpenSettings, children: "Add a provider" })
-      ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", { className: "provider-list", children: providers.map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", { className: "provider-row", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "provider-row__name", children: p.displayName }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: p.hasApiKey ? "dot dot--ok" : "dot dot--warn", "aria-hidden": "true" })
-        ] }, p.id)) }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { className: "btn", onClick: onOpenSettings, children: "Manage providers" })
-      ] })
+  function ModelSelectorPopover({ targets, current, onSelect, onClose }) {
+    const [query, setQuery] = (0, import_react4.useState)("");
+    const groups = (0, import_react4.useMemo)(() => {
+      const q = query.trim().toLowerCase();
+      const filtered = targets.filter(
+        (t) => !q || t.model.toLowerCase().includes(q) || t.displayName.toLowerCase().includes(q)
+      );
+      const byProvider = /* @__PURE__ */ new Map();
+      for (const t of filtered) {
+        const list4 = byProvider.get(t.displayName) ?? [];
+        list4.push(t);
+        byProvider.set(t.displayName, list4);
+      }
+      return [...byProvider].map(([name2, items]) => ({ name: name2, items }));
+    }, [targets, query]);
+    return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+      "div",
+      {
+        role: "menu",
+        "aria-label": "Select a model",
+        className: "absolute bottom-full left-0 z-[1000] mb-2 w-72 overflow-hidden rounded-lg border border-[var(--vscode-dropdown-border)] bg-[var(--vscode-dropdown-background)] shadow-lg",
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "px-2 pb-1 pt-2", children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "relative", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Search, { className: "pointer-events-none absolute left-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[var(--vscode-descriptionForeground)]" }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+              "input",
+              {
+                autoFocus: true,
+                value: query,
+                onChange: (e) => setQuery(e.target.value),
+                placeholder: "Search models...",
+                onKeyDown: (e) => e.stopPropagation(),
+                className: "w-full rounded-md border border-[var(--vscode-input-border)] bg-[var(--vscode-input-background)] py-1.5 pl-7 pr-2 text-xs text-[var(--vscode-input-foreground)] placeholder:text-[var(--vscode-descriptionForeground)] focus:outline-none focus:ring-1 focus:ring-[var(--vscode-focusBorder)]"
+              }
+            )
+          ] }) }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "max-h-64 overflow-y-auto px-1 pb-1.5", children: [
+            groups.map((g) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "px-2 pb-0.5 pt-2 text-[10px] font-semibold uppercase tracking-wider text-[var(--vscode-descriptionForeground)]", children: g.name }),
+              g.items.map((t) => {
+                const active = current?.id === t.id && current?.model === t.model;
+                return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+                  "button",
+                  {
+                    type: "button",
+                    role: "menuitem",
+                    onClick: () => {
+                      onSelect(t);
+                      onClose();
+                    },
+                    className: "flex w-full items-center justify-between gap-2 rounded-md px-2 py-1.5 text-xs text-[var(--vscode-foreground)] transition-colors hover:bg-[var(--vscode-list-hoverBackground)]",
+                    children: [
+                      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "truncate font-mono", children: t.model }),
+                      active ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, { className: "h-3.5 w-3.5 shrink-0 text-[var(--vscode-button-background)]" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "h-3.5 w-3.5 shrink-0" })
+                    ]
+                  },
+                  `${t.id}::${t.model}`
+                );
+              })
+            ] }, g.name)),
+            groups.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "px-3 py-6 text-center text-xs text-[var(--vscode-descriptionForeground)]", children: "No models found" })
+          ] })
+        ]
+      }
+    );
+  }
+
+  // src/webview/ChatView.tsx
+  var import_jsx_runtime3 = __toESM(require_jsx_runtime());
+  var SUGGESTIONS = ["Explain this code", "Find bugs", "Write tests", "Refactor this function"];
+  function extractCodeFromChildren(children) {
+    if (typeof children === "string" || typeof children === "number") {
+      return String(children);
+    }
+    if (Array.isArray(children)) {
+      return children.map(extractCodeFromChildren).join("");
+    }
+    if (children && typeof children === "object") {
+      const el = children;
+      if (el.props?.children) {
+        return extractCodeFromChildren(el.props.children);
+      }
+    }
+    return "";
+  }
+  function extractCodeLanguage(children) {
+    if (Array.isArray(children)) {
+      for (const child of children) {
+        const lang = extractCodeLanguage(child);
+        if (lang) {
+          return lang;
+        }
+      }
+      return "";
+    }
+    if (children && typeof children === "object") {
+      const el = children;
+      const cls = el.props?.className ?? el.props?.node?.properties?.className;
+      const str = Array.isArray(cls) ? cls.join(" ") : String(cls ?? "");
+      const m = /language-([\w.+-]+)/i.exec(str);
+      return m ? m[1] : "";
+    }
+    return "";
+  }
+  var markdownComponents = {
+    pre(props) {
+      const codeText2 = extractCodeFromChildren(props.children);
+      const lang = extractCodeLanguage(props.children);
+      return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "group/code relative my-3 overflow-hidden rounded-lg border border-[var(--vscode-textCodeBlock-background)]", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex items-center justify-between bg-[var(--vscode-textCodeBlock-background)] px-3 py-1.5 text-xs text-[var(--vscode-descriptionForeground)]", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "font-medium", children: lang || "code" }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
+            "button",
+            {
+              type: "button",
+              onClick: () => void navigator.clipboard?.writeText(codeText2),
+              className: "flex items-center gap-1 rounded px-2 py-0.5 transition-colors hover:bg-[var(--vscode-toolbar-hoverBackground)] hover:text-[var(--vscode-foreground)]",
+              children: [
+                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Copy, { className: "h-3 w-3" }),
+                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "Copy" })
+              ]
+            }
+          )
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("pre", { dir: "ltr", className: "chat-code m-0 overflow-x-auto bg-[var(--vscode-textCodeBlock-background)] px-4 py-3 leading-relaxed", children: props.children })
+      ] });
+    },
+    code(props) {
+      if (!props.className) {
+        return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("code", { className: "rounded bg-[var(--vscode-textCodeBlock-background)] px-1.5 py-0.5 font-mono text-[12px] text-[var(--vscode-textPreformat-foreground)]", children: props.children });
+      }
+      return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("code", { className: String(props.className), children: props.children });
+    }
+  };
+  function MarkdownRenderer({ text: text7 }) {
+    const [md, setMd] = (0, import_react6.useState)(null);
+    (0, import_react6.useEffect)(() => {
+      let alive = true;
+      void (async () => {
+        const Mod = await Promise.resolve().then(() => (init_react_markdown(), react_markdown_exports));
+        const gfm2 = await Promise.resolve().then(() => (init_remark_gfm(), remark_gfm_exports));
+        if (alive) {
+          setMd({ Comp: Mod.default, plugins: [gfm2.default] });
+        }
+      })();
+      return () => {
+        alive = false;
+      };
+    }, []);
+    const dir = detectDirection(text7);
+    if (!md) {
+      return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { dir, className: "md", children: text7 });
+    }
+    return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { dir, className: "md", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(md.Comp, { remarkPlugins: md.plugins, components: markdownComponents, children: text7 }) });
+  }
+  function ChatView({ providers, messages, streaming, onChangeMessages, onOpenSettings, onSend }) {
+    const [input, setInput] = (0, import_react6.useState)("");
+    const [lastPrompt, setLastPrompt] = (0, import_react6.useState)(null);
+    const [selected, setSelected] = (0, import_react6.useState)(null);
+    const [modelMenuOpen, setModelMenuOpen] = (0, import_react6.useState)(false);
+    const messagesEndRef = (0, import_react6.useRef)(null);
+    const inputRef = (0, import_react6.useRef)(null);
+    const modelMenuRef = (0, import_react6.useRef)(null);
+    const toolbarRef = (0, import_react6.useRef)(null);
+    const [toolbarWidth, setToolbarWidth] = (0, import_react6.useState)(0);
+    const sorted = [...providers].sort((a) => a.hasApiKey ? -1 : 1);
+    const target = selected && sorted.some((s) => s.id === selected.p && s.model === selected.m) ? sorted.find((s) => s.id === selected.p && s.model === selected.m) : sorted[0];
+    (0, import_react6.useEffect)(() => {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [messages]);
+    (0, import_react6.useEffect)(() => {
+      if (!modelMenuOpen) {
+        return;
+      }
+      const onPointerDown = (e) => {
+        if (!modelMenuRef.current?.contains(e.target)) {
+          setModelMenuOpen(false);
+        }
+      };
+      document.addEventListener("mousedown", onPointerDown);
+      return () => document.removeEventListener("mousedown", onPointerDown);
+    }, [modelMenuOpen]);
+    (0, import_react6.useEffect)(() => {
+      const el = toolbarRef.current;
+      if (!el) {
+        return;
+      }
+      const update = () => setToolbarWidth(el.clientWidth);
+      update();
+      const ro = new ResizeObserver(update);
+      ro.observe(el);
+      return () => ro.disconnect();
+    }, []);
+    const setInputHeight = () => {
+      const el = inputRef.current;
+      if (!el) {
+        return;
+      }
+      el.style.height = "auto";
+      el.style.height = `${Math.min(el.scrollHeight, 200)}px`;
+    };
+    const run = (history, promptText) => {
+      const requestId = `chat_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
+      setLastPrompt(promptText);
+      onSend({
+        providerId: target.id,
+        model: target.model,
+        messages: [...history, { role: "user", content: promptText }],
+        requestId
+      });
+    };
+    const submit = (e) => {
+      e?.preventDefault();
+      submitWith(input);
+    };
+    const submitWith = (rawText) => {
+      const text7 = rawText.trim();
+      if (!text7 || streaming || !target) {
+        return;
+      }
+      const nextHistory = messages.concat({ role: "user", content: text7 });
+      onChangeMessages([...nextHistory, { role: "assistant", content: "" }]);
+      setInput("");
+      setInputHeight();
+      run(nextHistory, text7);
+    };
+    const regenerate = () => {
+      if (!lastPrompt || streaming) {
+        return;
+      }
+      const base = messages.filter((m) => m.role !== "assistant");
+      onChangeMessages([...base, { role: "assistant", content: "" }]);
+      run(base, lastPrompt);
+    };
+    const copy = (content3) => {
+      void navigator.clipboard?.writeText(content3);
+    };
+    const lastIndex = messages.length - 1;
+    const showTyping = streaming && messages[lastIndex]?.role === "assistant" && messages[lastIndex]?.content === "";
+    const iconOnly = toolbarWidth > 0 && toolbarWidth < 300;
+    const fullModel = !iconOnly && toolbarWidth >= 560;
+    const modelLabel = target ? `${target.displayName} \xB7 ${target.model}` : "Select a model";
+    const modelShort = target ? target.model : "Model";
+    return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex h-screen flex-col bg-[var(--vscode-editor-background)] text-[var(--vscode-editor-foreground)]", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "flex-1 overflow-y-auto px-4 py-6", children: messages.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "flex min-h-full flex-col items-center justify-center px-4 py-16 text-center", children: providers.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex flex-col items-center gap-3", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Bot, { className: "h-12 w-12 text-[var(--vscode-descriptionForeground)]" }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h2", { className: "text-lg font-semibold", children: "No provider configured" }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: "text-sm text-[var(--vscode-descriptionForeground)]", children: "Add a provider to start chatting with your models." }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+          "button",
+          {
+            type: "button",
+            onClick: onOpenSettings,
+            className: "mt-2 rounded-lg bg-[var(--vscode-button-background)] px-4 py-2 text-sm font-medium text-[var(--vscode-button-foreground)] transition-opacity hover:opacity-90",
+            children: "Add a provider"
+          }
+        )
+      ] }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex flex-col items-center gap-6", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Bot, { className: "h-16 w-16 text-[var(--vscode-descriptionForeground)]" }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h2", { className: "text-xl font-semibold", children: "How can I help you today?" }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "grid max-w-lg grid-cols-2 gap-3", children: SUGGESTIONS.map((s) => /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+          "button",
+          {
+            type: "button",
+            onClick: () => submitWith(s),
+            className: "rounded-lg border border-[var(--vscode-button-border)] bg-[var(--vscode-button-secondaryBackground)] px-4 py-3 text-left text-sm text-[var(--vscode-button-secondaryForeground)] transition-colors hover:bg-[var(--vscode-button-secondaryHoverBackground)]",
+            children: s
+          },
+          s
+        )) })
+      ] }) }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "mx-auto max-w-3xl space-y-6", children: [
+        messages.map(
+          (m, i) => m.role === "user" ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "flex justify-end", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+            "div",
+            {
+              dir: detectDirection(m.content),
+              className: "max-w-[80%] whitespace-pre-wrap break-words rounded-2xl rounded-tr-sm bg-[var(--vscode-button-background)] px-4 py-3 text-[var(--vscode-button-foreground)]",
+              children: m.content
+            }
+          ) }, i) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "group flex justify-start", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "max-w-[85%] rounded-2xl rounded-tl-sm border border-[var(--vscode-editorWidget-border)] bg-[var(--vscode-editorWidget-background)] px-4 py-3", children: [
+            m.content === "" && showTyping ? /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex gap-1.5 py-1", "aria-label": "AI is thinking", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                "span",
+                {
+                  className: "h-2 w-2 animate-bounce rounded-full bg-[var(--vscode-descriptionForeground)]",
+                  style: { animationDelay: "0ms" }
+                }
+              ),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                "span",
+                {
+                  className: "h-2 w-2 animate-bounce rounded-full bg-[var(--vscode-descriptionForeground)]",
+                  style: { animationDelay: "150ms" }
+                }
+              ),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                "span",
+                {
+                  className: "h-2 w-2 animate-bounce rounded-full bg-[var(--vscode-descriptionForeground)]",
+                  style: { animationDelay: "300ms" }
+                }
+              )
+            ] }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(MarkdownRenderer, { text: m.content }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "mt-2 flex gap-1 opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                "button",
+                {
+                  type: "button",
+                  title: "Copy",
+                  "aria-label": "Copy answer",
+                  disabled: !m.content,
+                  onClick: () => copy(m.content),
+                  className: "rounded-md p-1.5 text-[var(--vscode-descriptionForeground)] transition-colors hover:bg-[var(--vscode-list-hoverBackground)] hover:text-[var(--vscode-foreground)] disabled:pointer-events-none disabled:opacity-50",
+                  children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Copy, { className: "h-4 w-4" })
+                }
+              ),
+              i === lastIndex && !streaming && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                "button",
+                {
+                  type: "button",
+                  title: "Regenerate",
+                  "aria-label": "Regenerate",
+                  onClick: regenerate,
+                  className: "rounded-md p-1.5 text-[var(--vscode-descriptionForeground)] transition-colors hover:bg-[var(--vscode-list-hoverBackground)] hover:text-[var(--vscode-foreground)]",
+                  children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(RefreshCw, { className: "h-4 w-4" })
+                }
+              )
+            ] })
+          ] }) }, i)
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { ref: messagesEndRef })
+      ] }) }),
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "border-t border-[var(--vscode-panel-border)] bg-[var(--vscode-editor-background)] p-4", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "mx-auto max-w-3xl", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
+          "form",
+          {
+            onSubmit: submit,
+            className: "relative rounded-xl border border-[var(--vscode-input-border)] bg-[var(--vscode-input-background)]",
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                "textarea",
+                {
+                  ref: inputRef,
+                  value: input,
+                  placeholder: "Message\u2026",
+                  rows: 1,
+                  onChange: (e) => {
+                    setInput(e.target.value);
+                    setInputHeight();
+                  },
+                  onKeyDown: (e) => {
+                    if (e.key === "Enter" && !e.shiftKey) {
+                      e.preventDefault();
+                      submit();
+                    }
+                  },
+                  className: "w-full resize-none overflow-auto border-0 bg-transparent px-3 py-3 text-sm leading-relaxed text-[var(--vscode-input-foreground)] placeholder:text-[var(--vscode-descriptionForeground)] focus:ring-0 focus:outline-none"
+                }
+              ),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { ref: toolbarRef, className: "flex items-center justify-between gap-2 border-t border-[var(--vscode-input-border)] px-2 py-1.5", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex min-w-0 items-center gap-1", children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                    "button",
+                    {
+                      type: "button",
+                      title: "Attach (coming soon)",
+                      "aria-label": "Attach file",
+                      className: "flex shrink-0 items-center gap-1.5 rounded-md px-2 py-1.5 text-xs text-[var(--vscode-descriptionForeground)] transition-colors hover:bg-[var(--vscode-toolbar-hoverBackground)] hover:text-[var(--vscode-foreground)]",
+                      children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Paperclip, { className: "h-3.5 w-3.5" })
+                    }
+                  ),
+                  /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
+                    "button",
+                    {
+                      type: "button",
+                      title: "Chat",
+                      className: "flex shrink-0 items-center gap-1.5 rounded-md px-2 py-1.5 text-xs text-[var(--vscode-descriptionForeground)] transition-colors hover:bg-[var(--vscode-toolbar-hoverBackground)] hover:text-[var(--vscode-foreground)]",
+                      children: [
+                        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(MessageSquare, { className: "h-3.5 w-3.5" }),
+                        !iconOnly && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "Chat" }),
+                        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ChevronDown, { className: "h-3 w-3" })
+                      ]
+                    }
+                  ),
+                  /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "relative min-w-0", ref: modelMenuRef, children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
+                      "button",
+                      {
+                        type: "button",
+                        onClick: () => setModelMenuOpen((o) => !o),
+                        className: "flex min-w-0 items-center gap-1.5 rounded-md px-2 py-1.5 text-xs text-[var(--vscode-descriptionForeground)] transition-colors hover:bg-[var(--vscode-toolbar-hoverBackground)] hover:text-[var(--vscode-foreground)]",
+                        children: [
+                          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Bot, { className: "h-3.5 w-3.5 shrink-0" }),
+                          !iconOnly && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "truncate", title: fullModel ? void 0 : modelLabel, children: fullModel ? modelLabel : modelShort }),
+                          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ChevronDown, { className: "h-3 w-3 shrink-0" })
+                        ]
+                      }
+                    ),
+                    modelMenuOpen && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                      ModelSelectorPopover,
+                      {
+                        targets: sorted,
+                        current: target,
+                        onSelect: (t) => setSelected({ p: t.id, m: t.model }),
+                        onClose: () => setModelMenuOpen(false)
+                      }
+                    )
+                  ] })
+                ] }),
+                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "flex shrink-0 items-center gap-1", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                  "button",
+                  {
+                    type: "submit",
+                    title: streaming ? "Sending\u2026" : !target ? "Select a provider first" : "Send",
+                    "aria-label": "Send message",
+                    disabled: streaming || !input.trim() || !target,
+                    className: "flex items-center rounded-md bg-[var(--vscode-button-background)] p-2 text-[var(--vscode-button-foreground)] transition-colors hover:bg-[var(--vscode-button-hoverBackground)] disabled:cursor-not-allowed disabled:opacity-50",
+                    children: streaming ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(RefreshCw, { className: "h-4 w-4 animate-spin" }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ArrowUp, { className: "h-4 w-4" })
+                  }
+                ) })
+              ] })
+            ]
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: "pt-1.5 text-center text-xs text-[var(--vscode-descriptionForeground)]", children: "Enter to send \xB7 Shift+Enter for new line" })
+      ] }) })
     ] });
+  }
+  function applyChatDelta(prev, r) {
+    const list4 = prev.slice();
+    const idx = list4.length - 1;
+    if (list4.length === 0 || list4[idx].role !== "assistant") {
+      return [...prev, { role: "assistant", content: r.error ? `\u26A0 ${r.error}` : r.text }];
+    }
+    const content3 = list4[idx].content + (r.error ? "" : r.text);
+    return [...list4.slice(0, idx), { role: "assistant", content: content3 }];
   }
 
   // src/webview/SettingsView.tsx
-  var import_react3 = __toESM(require_react());
+  var import_react9 = __toESM(require_react());
 
   // src/settings/types.ts
   var PROVIDER_CATALOG = [
@@ -21780,10 +36846,10 @@
   ];
 
   // src/webview/ProviderForm.tsx
-  var import_react2 = __toESM(require_react());
+  var import_react8 = __toESM(require_react());
 
   // src/webview/ModelListEditor.tsx
-  var import_jsx_runtime2 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime4 = __toESM(require_jsx_runtime());
   var RESPONSE_TYPE_LABELS = {
     "chat-completion": "Chat Completions",
     "response": "Responses API"
@@ -21801,25 +36867,26 @@
     infoErrors,
     onAutoFill
   }) {
-    const update = (index, patch) => {
-      onChange(models.map((m, i) => i === index ? { ...m, ...patch } : m));
+    const update = (index2, patch2) => {
+      onChange(models.map((m, i) => i === index2 ? { ...m, ...patch2 } : m));
     };
-    const remove = (index) => onChange(models.filter((_, i) => i !== index));
-    const add = () => onChange([...models, { id: "", supportsStreaming: true }]);
+    const remove = (index2) => onChange(models.filter((_, i) => i !== index2));
+    const addApi = () => onChange([...models, { id: "", source: "api", supportsStreaming: true }]);
+    const addManual = () => onChange([...models, { id: "", source: "manual" }]);
     const autoFill = (id) => {
       if (id && onAutoFill) {
         onAutoFill(id);
       }
     };
-    return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "field", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "field__label", children: "Models" }),
-      models.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { className: "field__hint", children: "No models. Add one manually or fetch the list from the API." }),
+    return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "field", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "field__label", children: "Models" }),
+      models.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { className: "field__hint", children: "No models. Add one manually or fetch the list from the API." }),
       models.map((m, i) => {
         const pending = infoPending?.has(m.id) ?? false;
         const error = m.id ? infoErrors?.[m.id] : void 0;
-        return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "model-row", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "model-row__main", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+        return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "model-row", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "model-row__main", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
               "input",
               {
                 className: "input model-row__id",
@@ -21829,12 +36896,30 @@
                 onChange: (e) => update(i, { id: e.target.value })
               }
             ),
-            (m.parameterSize || m.quantizationLevel) && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { className: "model-row__badges", children: [
-              m.parameterSize && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "badge", children: m.parameterSize }),
-              m.quantizationLevel && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "badge", children: m.quantizationLevel })
-            ] })
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("span", { className: "model-row__badges", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+                "span",
+                {
+                  className: `badge badge--source badge--${m.source ?? "api"}`,
+                  title: m.source === "manual" ? "Manually added model" : "Discovered model \xE2\u20AC\u201D refreshable from the API",
+                  children: m.source === "manual" ? "\xE2\u0153\x8F\xEF\xB8\x8F Manual" : "\xF0\u0178\u201D\u201E API"
+                }
+              ),
+              m.parameterSize && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "badge", children: m.parameterSize }),
+              m.quantizationLevel && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "badge", children: m.quantizationLevel })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+              "input",
+              {
+                className: "input model-row__endpoint",
+                value: m.endpoint ?? "",
+                placeholder: "Custom endpoint (optional)",
+                "aria-label": `Custom endpoint for ${m.id || "model"}`,
+                onChange: (e) => update(i, { endpoint: e.target.value })
+              }
+            )
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
             "input",
             {
               className: "input model-row__ctx",
@@ -21846,7 +36931,7 @@
               onChange: (e) => update(i, { contextLength: e.target.value ? Number(e.target.value) : void 0 })
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
             "select",
             {
               className: "input model-row__rt",
@@ -21854,10 +36939,10 @@
               title: "Request/response style",
               value: m.responseType ?? "chat-completion",
               onChange: (e) => update(i, { responseType: e.target.value }),
-              children: supportedResponseTypes.map((rt) => /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("option", { value: rt, children: RESPONSE_TYPE_LABELS[rt] ?? rt }, rt))
+              children: supportedResponseTypes.map((rt) => /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("option", { value: rt, children: RESPONSE_TYPE_LABELS[rt] ?? rt }, rt))
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
             "select",
             {
               className: "input model-row__rf",
@@ -21865,11 +36950,11 @@
               title: "Output format",
               value: m.responseFormat ?? "text",
               onChange: (e) => update(i, { responseFormat: e.target.value }),
-              children: supportedResponseFormats.map((rf) => /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("option", { value: rf, children: RESPONSE_FORMAT_LABELS[rf] ?? rf }, rf))
+              children: supportedResponseFormats.map((rf) => /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("option", { value: rf, children: RESPONSE_FORMAT_LABELS[rf] ?? rf }, rf))
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("label", { className: "check", title: "Streaming supported", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("label", { className: "check", title: "Streaming supported", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
               "input",
               {
                 type: "checkbox",
@@ -21879,8 +36964,8 @@
             ),
             "stream"
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("label", { className: "check", title: "Vision (image input) supported", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("label", { className: "check", title: "Vision (image input) supported", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
               "input",
               {
                 type: "checkbox",
@@ -21890,8 +36975,8 @@
             ),
             "vision"
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("label", { className: "check", title: "Tool/function calling supported", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("label", { className: "check", title: "Tool/function calling supported", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
               "input",
               {
                 type: "checkbox",
@@ -21901,56 +36986,59 @@
             ),
             "tools"
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
             "button",
             {
               type: "button",
               className: "btn btn--ghost model-row__auto",
               disabled: !m.id || pending,
-              title: !m.id ? "Enter a model id first" : pending ? "Fetching\u2026" : "Auto-fill from Ollama /api/show",
+              title: !m.id ? "Enter a model id first" : pending ? "Fetching\xE2\u20AC\xA6" : "Auto-fill from Ollama /api/show",
               onClick: () => autoFill(m.id),
-              children: pending ? "\u2026" : "Auto"
+              children: pending ? "\xE2\u20AC\xA6" : "Auto"
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
             "button",
             {
               type: "button",
               className: "btn btn--danger model-row__remove",
               onClick: () => remove(i),
               "aria-label": `Remove model ${m.id || i + 1}`,
-              children: "\u2715"
+              children: "\xE2\u0153\u2022"
             }
           ),
-          error && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { className: "field__error model-row__error", children: error })
+          error && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { className: "field__error model-row__error", children: error })
         ] }, i);
       }),
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { type: "button", className: "btn", onClick: add, children: "Add model" }) })
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "model-actions", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("button", { type: "button", className: "btn", onClick: addApi, children: "Add model" }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("button", { type: "button", className: "btn btn--ghost", onClick: addManual, children: "+ Add Manual Model" })
+      ] })
     ] });
   }
   function mergeFetchedModels(current, fetched) {
     const known = new Set(current.map((m) => m.id));
-    const additions = fetched.filter((id) => id && !known.has(id)).map((id) => ({ id, supportsStreaming: true }));
+    const additions = fetched.filter((id) => id && !known.has(id)).map((id) => ({ id, source: "api", supportsStreaming: true }));
     return [...current, ...additions];
   }
 
   // src/webview/KeysEditor.tsx
-  var import_react = __toESM(require_react());
-  var import_jsx_runtime3 = __toESM(require_jsx_runtime());
+  var import_react7 = __toESM(require_react());
+  var import_jsx_runtime5 = __toESM(require_jsx_runtime());
   function KeysEditor({
     providerId,
-    keys,
+    keys: keys2,
     activeKeyId,
     onSaveKey,
     onDeleteKey,
     onSetActiveKey
   }) {
-    const [newLabel, setNewLabel] = (0, import_react.useState)("");
-    const [newValue, setNewValue] = (0, import_react.useState)("");
-    const [editingId, setEditingId] = (0, import_react.useState)(null);
-    const [editLabel, setEditLabel] = (0, import_react.useState)("");
-    const [editValue, setEditValue] = (0, import_react.useState)("");
-    const [open, setOpen] = (0, import_react.useState)(false);
+    const [newLabel, setNewLabel] = (0, import_react7.useState)("");
+    const [newValue, setNewValue] = (0, import_react7.useState)("");
+    const [editingId, setEditingId] = (0, import_react7.useState)(null);
+    const [editLabel, setEditLabel] = (0, import_react7.useState)("");
+    const [editValue, setEditValue] = (0, import_react7.useState)("");
+    const [open, setOpen] = (0, import_react7.useState)(false);
     const canPersist = providerId !== "";
     const addKey = () => {
       if (!newLabel.trim() || !newValue.trim()) {
@@ -21960,10 +37048,10 @@
       setNewLabel("");
       setNewValue("");
     };
-    return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "field", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "keys-head", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "field__label", children: "API keys" }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "field", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "keys-head", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "field__label", children: "API keys" }),
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
           "button",
           {
             type: "button",
@@ -21974,11 +37062,11 @@
           }
         )
       ] }),
-      keys.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: "field__hint", children: "No keys yet." }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("ul", { className: "key-list", children: keys.map((k) => {
-        const isActive = k.id === (activeKeyId ?? keys[0].id);
+      keys2.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("p", { className: "field__hint", children: "No keys yet." }) : /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("ul", { className: "key-list", children: keys2.map((k) => {
+        const isActive = k.id === (activeKeyId ?? keys2[0].id);
         const isEditing = editingId === k.id;
-        return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("li", { className: "key-row", children: isEditing ? /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(import_jsx_runtime3.Fragment, { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+        return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("li", { className: "key-row", children: isEditing ? /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(import_jsx_runtime5.Fragment, { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
             "input",
             {
               className: "input key-row__label",
@@ -21987,7 +37075,7 @@
               "aria-label": "Key label"
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
             "input",
             {
               className: "input key-row__value",
@@ -21999,7 +37087,7 @@
               "aria-label": "New secret value"
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
             "button",
             {
               type: "button",
@@ -22012,9 +37100,9 @@
               children: "Save"
             }
           )
-        ] }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(import_jsx_runtime3.Fragment, { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("label", { className: "check", title: "Use this key for requests", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+        ] }) : /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(import_jsx_runtime5.Fragment, { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("label", { className: "check", title: "Use this key for requests", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
               "input",
               {
                 type: "radio",
@@ -22026,8 +37114,8 @@
             ),
             k.label
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "key-row__actions", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "key-row__actions", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
               "button",
               {
                 type: "button",
@@ -22040,7 +37128,7 @@
                 children: "Edit"
               }
             ),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
               "button",
               {
                 type: "button",
@@ -22052,8 +37140,8 @@
           ] })
         ] }) }, k.id);
       }) }),
-      open && canPersist && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "key-add", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+      open && canPersist && /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "key-add", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
           "input",
           {
             className: "input key-row__label",
@@ -22062,7 +37150,7 @@
             onChange: (e) => setNewLabel(e.target.value)
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
           "input",
           {
             className: "input key-row__value",
@@ -22073,7 +37161,7 @@
             onChange: (e) => setNewValue(e.target.value)
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
           "button",
           {
             type: "button",
@@ -22085,12 +37173,12 @@
           }
         )
       ] }),
-      !canPersist && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: "field__hint", children: "Save the provider once to be able to add keys." })
+      !canPersist && /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("p", { className: "field__hint", children: "Save the provider once to be able to add keys." })
     ] });
   }
 
   // src/webview/ProviderForm.tsx
-  var import_jsx_runtime4 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime6 = __toESM(require_jsx_runtime());
   var urlPattern = /^https?:\/\/\S+$/;
   var CATALOG_ADAPTER_TYPE = {
     ollamaCloud: "ollama",
@@ -22154,24 +37242,24 @@
     onFetchModelInfo,
     onConsumeInfoResults
   }) {
-    const [displayName, setDisplayName] = (0, import_react2.useState)(entry.displayName);
+    const [displayName, setDisplayName] = (0, import_react8.useState)(entry.displayName);
     const adapterId = CATALOG_ADAPTER_TYPE[entry.providerId] ? entry.providerId : "ollamaCloud";
-    const [selectedType, setSelectedType] = (0, import_react2.useState)(adapterId);
+    const [selectedType, setSelectedType] = (0, import_react8.useState)(adapterId);
     const meta = ADAPTER_META[selectedType];
-    const [baseUrl, setBaseUrl] = (0, import_react2.useState)(entry.baseUrl);
-    const [modelsUrl, setModelsUrl] = (0, import_react2.useState)(
+    const [baseUrl, setBaseUrl] = (0, import_react8.useState)(entry.baseUrl);
+    const [modelsUrl, setModelsUrl] = (0, import_react8.useState)(
       entry.modelsUrl?.trim() || (entry.baseUrl ? `${entry.baseUrl}/models` : "")
     );
-    const [chatEndpoint, setChatEndpoint] = (0, import_react2.useState)(entry.chatEndpoint?.trim() || "");
-    const [models, setModels] = (0, import_react2.useState)(entry.models);
-    const [defaultModel, setDefaultModel] = (0, import_react2.useState)(entry.defaultModel ?? "");
-    const [touched, setTouched] = (0, import_react2.useState)({});
-    const [lastHandledFetch, setLastHandledFetch] = (0, import_react2.useState)(null);
-    const [fetchedModels, setFetchedModels] = (0, import_react2.useState)(null);
-    const [selected, setSelected] = (0, import_react2.useState)(/* @__PURE__ */ new Set());
-    const [infoPending, setInfoPending] = (0, import_react2.useState)(/* @__PURE__ */ new Set());
-    const [infoErrors, setInfoErrors] = (0, import_react2.useState)({});
-    (0, import_react2.useEffect)(() => {
+    const [chatEndpoint, setChatEndpoint] = (0, import_react8.useState)(entry.chatEndpoint?.trim() || "");
+    const [models, setModels] = (0, import_react8.useState)(entry.models);
+    const [defaultModel, setDefaultModel] = (0, import_react8.useState)(entry.defaultModel ?? "");
+    const [touched, setTouched] = (0, import_react8.useState)({});
+    const [lastHandledFetch, setLastHandledFetch] = (0, import_react8.useState)(null);
+    const [fetchedModels, setFetchedModels] = (0, import_react8.useState)(null);
+    const [selected, setSelected] = (0, import_react8.useState)(/* @__PURE__ */ new Set());
+    const [infoPending, setInfoPending] = (0, import_react8.useState)(/* @__PURE__ */ new Set());
+    const [infoErrors, setInfoErrors] = (0, import_react8.useState)({});
+    (0, import_react8.useEffect)(() => {
       if (modelInfoResults.length === 0) {
         return;
       }
@@ -22290,14 +37378,14 @@
         }
       });
     };
-    return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("form", { className: "page", onSubmit: handleSubmit, noValidate: true, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "page-header", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("h1", { className: "heading", children: isNew ? "Add provider" : "Edit provider" }),
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("button", { type: "button", className: "btn btn--ghost", onClick: onCancel, "aria-label": "Cancel", children: "Cancel" })
+    return /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("form", { className: "page", onSubmit: handleSubmit, noValidate: true, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "page-header", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("h1", { className: "heading", children: isNew ? "Add provider" : "Edit provider" }),
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("button", { type: "button", className: "btn btn--ghost", onClick: onCancel, "aria-label": "Cancel", children: "Cancel" })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "field", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("label", { className: "field__label", htmlFor: "f-adapter", children: "Adapter" }),
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "field", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("label", { className: "field__label", htmlFor: "f-adapter", children: "Adapter" }),
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
           "select",
           {
             id: "f-adapter",
@@ -22306,21 +37394,21 @@
             disabled: !isNew,
             title: !isNew ? "Adapter of a saved provider cannot be changed." : void 0,
             onChange: (e) => handleAdapterChange(e.target.value),
-            children: PROVIDER_CATALOG.map((p) => /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("option", { value: p.providerId, children: [
+            children: PROVIDER_CATALOG.map((p) => /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("option", { value: p.providerId, children: [
               p.displayName,
               " \u2014 ",
               ADAPTER_META[p.providerId].description
             ] }, p.providerId))
           }
         ),
-        !isNew ? /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("p", { className: "field__hint", children: [
+        !isNew ? /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("p", { className: "field__hint", children: [
           "Set when the provider was created. ",
           meta.adapterType
-        ] }) : /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { className: "field__hint", children: "Pick the adapter that matches your service, then fill in its settings below." })
+        ] }) : /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("p", { className: "field__hint", children: "Pick the adapter that matches your service, then fill in its settings below." })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "field", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("label", { className: "field__label", htmlFor: "f-name", children: "Name" }),
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "field", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("label", { className: "field__label", htmlFor: "f-name", children: "Name" }),
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
           "input",
           {
             id: "f-name",
@@ -22333,12 +37421,12 @@
             "aria-describedby": showError("displayName") ? "f-name-err" : void 0
           }
         ),
-        showError("displayName") ? /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { className: "field__error", id: "f-name-err", children: showError("displayName") }) : /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { className: "field__hint", children: "Shown in lists and menus." })
+        showError("displayName") ? /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("p", { className: "field__error", id: "f-name-err", children: showError("displayName") }) : /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("p", { className: "field__hint", children: "Shown in lists and menus." })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "field", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("label", { className: "field__label", htmlFor: "f-url", children: "Endpoint URL" }),
-        baseUrlRequired && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "field__label-required", "aria-hidden": "true", children: " *" }),
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "field", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("label", { className: "field__label", htmlFor: "f-url", children: "Endpoint URL" }),
+        baseUrlRequired && /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { className: "field__label-required", "aria-hidden": "true", children: " *" }),
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
           "input",
           {
             id: "f-url",
@@ -22353,12 +37441,12 @@
             "aria-describedby": showError("baseUrl") ? "f-url-err" : void 0
           }
         ),
-        showError("baseUrl") ? /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { className: "field__error", id: "f-url-err", children: showError("baseUrl") }) : /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("p", { className: "field__hint", children: [
+        showError("baseUrl") ? /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("p", { className: "field__error", id: "f-url-err", children: showError("baseUrl") }) : /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("p", { className: "field__hint", children: [
           "OpenAI-compatible base URL. ",
           meta.baseUrlDefault ? `Defaults to ${meta.baseUrlDefault}.` : "Required for this adapter."
         ] })
       ] }),
-      !isNew && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+      !isNew && /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
         KeysEditor,
         {
           providerId: entry.id,
@@ -22369,11 +37457,11 @@
           onSetActiveKey: (keyId) => onSetActiveKey(entry.id, keyId)
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "advanced", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("details", { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("summary", { className: "advanced__summary", children: "Advanced options" }),
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "field", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("label", { className: "field__label", htmlFor: "f-models-url", children: "Models URL" }),
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("div", { className: "advanced", children: /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("details", { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("summary", { className: "advanced__summary", children: "Advanced options" }),
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "field", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("label", { className: "field__label", htmlFor: "f-models-url", children: "Models URL" }),
+          /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
             "input",
             {
               id: "f-models-url",
@@ -22385,13 +37473,13 @@
               "aria-describedby": "f-models-url-hint"
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("p", { className: "field__hint", id: "f-models-url-hint", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("p", { className: "field__hint", id: "f-models-url-hint", children: [
             "Where the model list is fetched from. Uses the active API key. Empty \u2192 ",
             meta.modelsUrlPlaceholder,
             "."
           ] }),
-          !isNew && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "models-fetch", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+          !isNew && /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "models-fetch", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
               "button",
               {
                 type: "button",
@@ -22402,14 +37490,14 @@
                 children: modelsFetch?.pending ? "Fetching\u2026" : "Fetch models from API"
               }
             ),
-            modelsFetch?.error && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { className: "field__error", children: modelsFetch.error }),
-            fetchedModels && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "model-pick", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "model-pick__head", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("span", { className: "field__hint", children: [
+            modelsFetch?.error && /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("p", { className: "field__error", children: modelsFetch.error }),
+            fetchedModels && /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "model-pick", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "model-pick__head", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("span", { className: "field__hint", children: [
                   fetchedModels.length,
                   " available \u2014 pick the ones to add:"
                 ] }),
-                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+                /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
                   "button",
                   {
                     type: "button",
@@ -22419,8 +37507,8 @@
                   }
                 )
               ] }),
-              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("ul", { className: "model-pick__list", children: fetchedModels.map((id) => /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("label", { className: "check", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+              /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("ul", { className: "model-pick__list", children: fetchedModels.map((id) => /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("label", { className: "check", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
                   "input",
                   {
                     type: "checkbox",
@@ -22430,7 +37518,7 @@
                 ),
                 models.some((m) => m.id === id) ? `${id} (already added)` : id
               ] }) }, id)) }),
-              /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+              /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(
                 "button",
                 {
                   type: "button",
@@ -22448,9 +37536,9 @@
             ] })
           ] })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "field", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("label", { className: "field__label", htmlFor: "f-chat-endpoint", children: "Chat endpoint (optional)" }),
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "field", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("label", { className: "field__label", htmlFor: "f-chat-endpoint", children: "Chat endpoint (optional)" }),
+          /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
             "input",
             {
               id: "f-chat-endpoint",
@@ -22462,10 +37550,10 @@
               "aria-describedby": "f-chat-endpoint-hint"
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { className: "field__hint", id: "f-chat-endpoint-hint", children: "Override the chat path. Leave empty to use the provider default." })
+          /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("p", { className: "field__hint", id: "f-chat-endpoint-hint", children: "Override the chat path. Leave empty to use the provider default." })
         ] })
       ] }) }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
         ModelListEditor,
         {
           models,
@@ -22477,28 +37565,28 @@
           onAutoFill: autoFillInfo
         }
       ),
-      models.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "field", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("label", { className: "field__label", htmlFor: "f-default", children: "Default model" }),
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+      models.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "field", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("label", { className: "field__label", htmlFor: "f-default", children: "Default model" }),
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
           "select",
           {
             id: "f-default",
             className: "input",
             value: models.some((m) => m.id === defaultModel) ? defaultModel : models[0].id,
             onChange: (e) => setDefaultModel(e.target.value),
-            children: models.map((m) => /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("option", { value: m.id, children: m.id }, m.id))
+            children: models.map((m) => /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("option", { value: m.id, children: m.id }, m.id))
           }
         )
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "form-actions", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("button", { type: "submit", className: "btn btn--primary", children: "Save" }),
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("button", { type: "button", className: "btn", onClick: onCancel, children: "Close" })
+      /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "form-actions", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("button", { type: "submit", className: "btn btn--primary", children: "Save" }),
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("button", { type: "button", className: "btn", onClick: onCancel, children: "Close" })
       ] })
     ] });
   }
 
   // src/webview/SettingsView.tsx
-  var import_jsx_runtime5 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime7 = __toESM(require_jsx_runtime());
   var RESPONSE_TYPES_BY_PROVIDER = {
     ollamaCloud: ["chat-completion"],
     openai: ["chat-completion", "response"],
@@ -22539,10 +37627,10 @@
     onFetchModelInfo,
     onConsumeInfoResults
   }) {
-    const [editing, setEditing] = (0, import_react3.useState)(null);
+    const [editing, setEditing] = (0, import_react9.useState)(null);
     const isNew = editing !== null && editing.id === "";
     if (editing) {
-      return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
+      return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
         ProviderForm,
         {
           entry: editing,
@@ -22563,55 +37651,66 @@
         }
       );
     }
-    return /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "page", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "page-header", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("h1", { className: "heading", children: "Settings" }),
-        /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("button", { className: "btn btn--ghost", onClick: onClose, "aria-label": "Back", children: "Back" })
+    return /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "page", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "page-header", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("h1", { className: "heading", children: "Settings" }),
+        /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("button", { className: "btn btn--ghost", onClick: onClose, "aria-label": "Back", children: "Back" })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("h2", { className: "section-label", children: "Providers" }),
-      providers.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("p", { className: "hint", children: "No providers yet. Add one to start using AI features." }) : /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("ul", { className: "provider-list", children: providers.map((p) => /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("li", { className: "provider-card", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "provider-card__head", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "provider-card__name", children: p.displayName }),
-          /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "provider-card__actions", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("button", { className: "btn btn--ghost", onClick: () => setEditing({ ...p }), children: "Edit" }),
-            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("button", { className: "btn btn--danger", onClick: () => onDelete(p.id), children: "Remove" })
+      /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("h2", { className: "section-label", children: "Providers" }),
+      providers.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("p", { className: "hint", children: "No providers yet. Add one to start using AI features." }) : /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("ul", { className: "provider-list", children: providers.map((p) => /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("li", { className: "provider-card", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "provider-card__head", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "provider-card__name", children: p.displayName }),
+          /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "provider-card__actions", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("button", { className: "btn btn--ghost", onClick: () => setEditing({ ...p }), children: "Edit" }),
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("button", { className: "btn btn--danger", onClick: () => onDelete(p.id), children: "Remove" })
           ] })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("dl", { className: "provider-card__meta", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "meta-row", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("dt", { children: "Endpoint" }),
-            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("dd", { children: p.baseUrl })
+        /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("dl", { className: "provider-card__meta", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "meta-row", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("dt", { children: "Endpoint" }),
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("dd", { children: p.baseUrl })
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "meta-row", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("dt", { children: "Models" }),
-            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("dd", { children: p.models.length > 0 ? p.models.map((m) => m.id).join(", ") : "\u2014" })
+          /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "meta-row", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("dt", { children: "Models" }),
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("dd", { children: p.models.length > 0 ? p.models.map((m) => m.id).join(", ") : "\u2014" })
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "meta-row", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("dt", { children: "Default" }),
-            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("dd", { children: p.defaultModel ?? "\u2014" })
+          /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "meta-row", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("dt", { children: "Default" }),
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("dd", { children: p.defaultModel ?? "\u2014" })
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "meta-row", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("dt", { children: "Keys" }),
-            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("dd", { children: p.keys.length > 0 ? `${p.keys.length} key${p.keys.length > 1 ? "s" : ""}` : "None" })
+          /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "meta-row", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("dt", { children: "Keys" }),
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("dd", { children: p.keys.length > 0 ? `${p.keys.length} key${p.keys.length > 1 ? "s" : ""}` : "None" })
           ] })
         ] })
       ] }, p.id)) }),
-      /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("button", { className: "btn btn--primary", onClick: () => setEditing(blankEntry("ollamaCloud")), children: "Add provider" })
+      /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("button", { className: "btn btn--primary", onClick: () => setEditing(blankEntry("ollamaCloud")), children: "Add provider" })
     ] });
   }
 
   // src/webview/App.tsx
-  var import_jsx_runtime6 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime8 = __toESM(require_jsx_runtime());
   var vscode = acquireVsCodeApi();
   function postToHost(msg) {
     vscode.postMessage(msg);
   }
+  function withChatTargets(settings) {
+    const targets = [];
+    for (const p of settings.providers) {
+      for (const m of p.models) {
+        targets.push({ id: p.id, model: m.id, displayName: p.displayName, hasApiKey: p.hasApiKey });
+      }
+    }
+    return targets;
+  }
   function App() {
-    const [view, setView] = (0, import_react4.useState)("home");
-    const [settings, setSettings] = (0, import_react4.useState)({ providers: [] });
-    const [modelsFetch, setModelsFetch] = (0, import_react4.useState)(null);
-    const [infoResults, setInfoResults] = (0, import_react4.useState)([]);
-    (0, import_react4.useEffect)(() => {
+    const [view, setView] = (0, import_react10.useState)("home");
+    const [settings, setSettings] = (0, import_react10.useState)({ providers: [] });
+    const [modelsFetch, setModelsFetch] = (0, import_react10.useState)(null);
+    const [infoResults, setInfoResults] = (0, import_react10.useState)([]);
+    const [chatMessages, setChatMessages] = (0, import_react10.useState)([]);
+    const [streaming, setStreaming] = (0, import_react10.useState)(false);
+    (0, import_react10.useEffect)(() => {
       const handler = (event) => {
         const msg = event.data;
         switch (msg.type) {
@@ -22629,13 +37728,21 @@
           case "modelInfoFetched":
             setInfoResults((prev) => [...prev, msg]);
             break;
+          case "chatChunk":
+            setChatMessages(
+              (prev) => applyChatDelta(prev, { requestId: msg.requestId, text: msg.text, error: msg.error })
+            );
+            if (msg.done) {
+              setStreaming(false);
+            }
+            break;
         }
       };
       window.addEventListener("message", handler);
       postToHost({ type: "ready" });
       return () => window.removeEventListener("message", handler);
     }, []);
-    const consumeInfoResults = (0, import_react4.useCallback)((requestIds) => {
+    const consumeInfoResults = (0, import_react10.useCallback)((requestIds) => {
       setInfoResults((prev) => prev.filter((r) => !requestIds.includes(r.requestId)));
     }, []);
     const keyOps = {
@@ -22650,7 +37757,7 @@
       onConsumeInfoResults: consumeInfoResults
     };
     if (view === "settings") {
-      return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+      return /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
         SettingsView,
         {
           providers: settings.providers,
@@ -22663,14 +37770,33 @@
         }
       );
     }
-    return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(HomeView, { providers: settings.providers, onOpenSettings: () => setView("settings") });
+    return /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
+      ChatView,
+      {
+        providers: withChatTargets(settings),
+        messages: chatMessages,
+        streaming,
+        onChangeMessages: setChatMessages,
+        onOpenSettings: () => setView("settings"),
+        onSend: (track) => {
+          setStreaming(true);
+          postToHost({
+            type: "sendChatMessage",
+            providerId: track.providerId,
+            modelIdentifier: track.model,
+            messages: track.messages,
+            requestId: track.requestId
+          });
+        }
+      }
+    );
   }
 
   // src/webview/main.tsx
-  var import_jsx_runtime7 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime9 = __toESM(require_jsx_runtime());
   var container = document.getElementById("root");
   if (container) {
-    (0, import_client.createRoot)(container).render(/* @__PURE__ */ (0, import_jsx_runtime7.jsx)(App, {}));
+    (0, import_client.createRoot)(container).render(/* @__PURE__ */ (0, import_jsx_runtime9.jsx)(App, {}));
   }
 })();
 /*! Bundled license information:
@@ -22728,6 +37854,32 @@ react/cjs/react-jsx-runtime.development.js:
    *
    * This source code is licensed under the MIT license found in the
    * LICENSE file in the root directory of this source tree.
+   *)
+
+lucide-react/dist/esm/shared/src/utils/mergeClasses.mjs:
+lucide-react/dist/esm/shared/src/utils/toKebabCase.mjs:
+lucide-react/dist/esm/shared/src/utils/toCamelCase.mjs:
+lucide-react/dist/esm/shared/src/utils/toPascalCase.mjs:
+lucide-react/dist/esm/defaultAttributes.mjs:
+lucide-react/dist/esm/shared/src/utils/hasA11yProp.mjs:
+lucide-react/dist/esm/context.mjs:
+lucide-react/dist/esm/Icon.mjs:
+lucide-react/dist/esm/createLucideIcon.mjs:
+lucide-react/dist/esm/icons/arrow-up.mjs:
+lucide-react/dist/esm/icons/bot.mjs:
+lucide-react/dist/esm/icons/check.mjs:
+lucide-react/dist/esm/icons/chevron-down.mjs:
+lucide-react/dist/esm/icons/copy.mjs:
+lucide-react/dist/esm/icons/message-square.mjs:
+lucide-react/dist/esm/icons/paperclip.mjs:
+lucide-react/dist/esm/icons/refresh-cw.mjs:
+lucide-react/dist/esm/icons/search.mjs:
+lucide-react/dist/esm/lucide-react.mjs:
+  (**
+   * @license lucide-react v1.40.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
    *)
 */
 //# sourceMappingURL=webview.js.map

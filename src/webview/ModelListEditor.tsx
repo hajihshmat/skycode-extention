@@ -1,5 +1,5 @@
-import { ModelEntry } from '../settings/types';
-import type { ResponseFormat, ResponseType } from '../core/types';
+﻿import { ModelEntry } from '../settings/types';
+import type { ModelSource, ResponseFormat, ResponseType } from '../core/types';
 
 interface ModelListEditorProps {
 	models: ModelEntry[];
@@ -42,7 +42,8 @@ export function ModelListEditor({
 		onChange(models.map((m, i) => (i === index ? { ...m, ...patch } : m)));
 	};
 	const remove = (index: number) => onChange(models.filter((_, i) => i !== index));
-	const add = () => onChange([...models, { id: '', supportsStreaming: true }]);
+	const addApi = () => onChange([...models, { id: '', source: 'api', supportsStreaming: true }]);
+	const addManual = () => onChange([...models, { id: '', source: 'manual' }]);
 	const autoFill = (id: string) => {
 		if (id && onAutoFill) {
 			onAutoFill(id);
@@ -68,12 +69,23 @@ export function ModelListEditor({
 								aria-label="Model id"
 								onChange={e => update(i, { id: e.target.value })}
 							/>
-							{(m.parameterSize || m.quantizationLevel) && (
-								<span className="model-row__badges">
-									{m.parameterSize && <span className="badge">{m.parameterSize}</span>}
-									{m.quantizationLevel && <span className="badge">{m.quantizationLevel}</span>}
+							<span className="model-row__badges">
+								<span
+									className={`badge badge--source badge--${m.source ?? 'api'}`}
+									title={m.source === 'manual' ? 'Manually added model' : 'Discovered model â€” refreshable from the API'}
+								>
+									{m.source === 'manual' ? 'âœï¸ Manual' : 'ðŸ”„ API'}
 								</span>
-							)}
+								{m.parameterSize && <span className="badge">{m.parameterSize}</span>}
+								{m.quantizationLevel && <span className="badge">{m.quantizationLevel}</span>}
+							</span>
+							<input
+								className="input model-row__endpoint"
+								value={m.endpoint ?? ''}
+								placeholder="Custom endpoint (optional)"
+								aria-label={`Custom endpoint for ${m.id || 'model'}`}
+								onChange={e => update(i, { endpoint: e.target.value })}
+							/>
 						</div>
 						<input
 							className="input model-row__ctx"
@@ -134,10 +146,10 @@ export function ModelListEditor({
 							type="button"
 							className="btn btn--ghost model-row__auto"
 							disabled={!m.id || pending}
-							title={!m.id ? 'Enter a model id first' : pending ? 'Fetching…' : 'Auto-fill from Ollama /api/show'}
+							title={!m.id ? 'Enter a model id first' : pending ? 'Fetchingâ€¦' : 'Auto-fill from Ollama /api/show'}
 							onClick={() => autoFill(m.id)}
 						>
-							{pending ? '…' : 'Auto'}
+							{pending ? 'â€¦' : 'Auto'}
 						</button>
 						<button
 							type="button"
@@ -145,14 +157,15 @@ export function ModelListEditor({
 							onClick={() => remove(i)}
 							aria-label={`Remove model ${m.id || i + 1}`}
 						>
-							✕
+							âœ•
 						</button>
 						{error && <p className="field__error model-row__error">{error}</p>}
 					</div>
 				);
 			})}
-			<div>
-				<button type="button" className="btn" onClick={add}>Add model</button>
+			<div className="model-actions">
+				<button type="button" className="btn" onClick={addApi}>Add model</button>
+				<button type="button" className="btn btn--ghost" onClick={addManual}>+ Add Manual Model</button>
 			</div>
 		</div>
 	);
@@ -163,6 +176,6 @@ export function mergeFetchedModels(current: ModelEntry[], fetched: string[]): Mo
 	const known = new Set(current.map(m => m.id));
 	const additions = fetched
 		.filter(id => id && !known.has(id))
-		.map(id => ({ id, supportsStreaming: true }));
+		.map(id => ({ id, source: 'api' as const, supportsStreaming: true }));
 	return [...current, ...additions];
 }

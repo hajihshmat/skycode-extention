@@ -29,6 +29,7 @@ Thumbs.db
 node_modules/*
 .agents
 .vscode
+.skills
 
 # IDE
 .idea/

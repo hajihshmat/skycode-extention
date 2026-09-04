@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import { SettingsStore } from './settings/store';
 import { HostToWebviewMessage, WebviewToHostMessage } from './settings/types';
 import { getAdapter } from './core/adapterRegistry';
-import { ProviderEntity } from './core/types';
+import { ChatMessageInput, ProviderEntity } from './core/types';
 
 /** UI catalog id → core adapter type ('ollamaCloud' → 'ollama'; others identity). */
 function uiToAdapterType(uiId: string): string {
@@ -107,6 +107,12 @@ export class SkyCodeSidebarProvider implements vscode.WebviewViewProvider {
 			case 'fetchModelInfo':
 				await this.fetchModelInfo(msg.providerId, msg.requestId, msg.modelId, webview);
 				break;
+			case 'sendChatMessage':
+					await this.streamChatMessage(
+						{ providerId: msg.providerId, modelIdentifier: msg.modelIdentifier, messages: msg.messages, requestId: msg.requestId },
+						webview
+					);
+					break;
 		}
 	}
 
@@ -120,7 +126,7 @@ export class SkyCodeSidebarProvider implements vscode.WebviewViewProvider {
 		modelId: string,
 		webview: vscode.Webview
 	): Promise<void> {
-		const provider = this.store.getSettings().providers.find(p => p.id === providerId);
+		const provider = (await this.store.getSettings()).providers.find(p => p.id === providerId);
 		if (!provider) {
 			await webview.postMessage({ type: 'modelInfoFetched', requestId, modelId, error: 'Provider not found' } satisfies HostToWebviewMessage);
 			return;
@@ -151,7 +157,7 @@ export class SkyCodeSidebarProvider implements vscode.WebviewViewProvider {
 
 	/** Model discovery through the provider adapter. */
 	private async fetchModels(providerId: string, requestId: string, webview: vscode.Webview): Promise<void> {
-		const provider = this.store.getSettings().providers.find(p => p.id === providerId);
+		const provider = (await this.store.getSettings()).providers.find(p => p.id === providerId);
 		if (!provider) {
 			await webview.postMessage({ type: 'modelsFetched', requestId, error: 'Provider not found' } satisfies HostToWebviewMessage);
 			return;
@@ -176,8 +182,40 @@ export class SkyCodeSidebarProvider implements vscode.WebviewViewProvider {
 	}
 
 	private async pushSettings(webview: vscode.Webview): Promise<void> {
-		const settings = await this.store.withKeyFlags(this.store.getSettings());
+		const settings = await this.store.withKeyFlags(await this.store.getSettings());
 		await webview.postMessage({ type: 'settingsUpdated', settings } satisfies HostToWebviewMessage);
+	}
+
+	/** Stream a chat completion through the core ChatEngine and relay deltas. */
+	private async streamChatMessage(
+		msg: { providerId: string; modelIdentifier: string; messages: ChatMessageInput[]; requestId: string },
+		webview: vscode.Webview
+	): Promise<void> {
+		try {
+			for await (const chunk of this.store.streamChat(msg.providerId, msg.modelIdentifier, msg.messages)) {
+				await webview.postMessage({
+					type: 'chatChunk',
+					requestId: msg.requestId,
+					text: chunk.content,
+					...(chunk.done && { done: true })
+				} satisfies HostToWebviewMessage);
+			}
+			await webview.postMessage({
+				type: 'chatChunk',
+				requestId: msg.requestId,
+				text: '',
+				done: true
+			} satisfies HostToWebviewMessage);
+		} catch (err) {
+			const message = err instanceof Error ? err.message : String(err);
+			await webview.postMessage({
+				type: 'chatChunk',
+				requestId: msg.requestId,
+				text: '',
+				done: true,
+				error: message
+			} satisfies HostToWebviewMessage);
+		}
 	}
 
 	private getHtml(webview: vscode.Webview): string {
@@ -187,15 +225,31 @@ export class SkyCodeSidebarProvider implements vscode.WebviewViewProvider {
 		const stylesUri = webview.asWebviewUri(
 			vscode.Uri.joinPath(this.context.extensionUri, 'media', 'webview.css')
 		);
+		// Local font resource (no CDN): served from the extension via webview.cspSource.
+		const fontRegular = webview.asWebviewUri(
+			vscode.Uri.joinPath(this.context.extensionUri, 'media', 'fonts', 'AmirRooxFont-Regular.woff2')
+		).toString();
 		const nonce = getNonce();
 
 		return /* html */ `<!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 	<meta charset="UTF-8" />
-	<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src ${webview.cspSource}; script-src 'nonce-${nonce}';" />
+	<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${webview.cspSource} https: data:; style-src ${webview.cspSource} 'nonce-${nonce}'; font-src ${webview.cspSource} data:; script-src 'nonce-${nonce}';" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link href="${stylesUri}" rel="stylesheet" />
+	<style nonce="${nonce}">
+		@font-face {
+			font-family: 'AmirRoox';
+			src: url('${fontRegular}') format('woff2');
+			font-weight: 400;
+			font-style: normal;
+			font-display: swap;
+		}
+		:root {
+			--sc-font-farsi: 'AmirRoox', 'Segoe UI', Tahoma, sans-serif;
+		}
+	</style>
 	<title>SkyCode</title>
 </head>
 <body>

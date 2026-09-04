@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { HostToWebviewMessage, ModelInfoFetchedMessage, SkyCodeSettings, WebviewToHostMessage } from '../settings/types';
-import { HomeView } from './HomeView';
+import { ChatMessage, ChatTarget, ChatView, applyChatDelta } from './ChatView';
 import { SettingsView } from './SettingsView';
 import { ModelsFetchState } from './ProviderForm';
 
@@ -14,11 +14,26 @@ export function postToHost(msg: WebviewToHostMessage): void {
 	vscode.postMessage(msg);
 }
 
+/** Flatten configured providers into selectable chat targets (one entry per model). */
+function withChatTargets(settings: SkyCodeSettings): ChatTarget[] {
+	const targets: ChatTarget[] = [];
+	for (const p of settings.providers) {
+		for (const m of p.models) {
+			targets.push({ id: p.id, model: m.id, displayName: p.displayName, hasApiKey: p.hasApiKey });
+		}
+	}
+	return targets;
+}
+
 export function App() {
 	const [view, setView] = useState<ViewName>('home');
 	const [settings, setSettings] = useState<SkyCodeSettings>({ providers: [] });
 	const [modelsFetch, setModelsFetch] = useState<ModelsFetchState | null>(null);
 	const [infoResults, setInfoResults] = useState<ModelInfoFetchedMessage[]>([]);
+	const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
+	// Tracks whether the current chat completion is still streaming, so the UI can
+	// re-enable the Send button the moment the host reports `done: true`.
+	const [streaming, setStreaming] = useState(false);
 
 	useEffect(() => {
 		const handler = (event: MessageEvent<HostToWebviewMessage>) => {
@@ -39,6 +54,15 @@ export function App() {
 					break;
 				case 'modelInfoFetched':
 					setInfoResults(prev => [...prev, msg]);
+					break;
+				case 'chatChunk':
+					setChatMessages(prev =>
+						applyChatDelta(prev, { requestId: msg.requestId, text: msg.text, error: msg.error })
+					);
+					// The host always emits a `done: true` chunk on completion or error.
+					if (msg.done) {
+						setStreaming(false);
+					}
 					break;
 			}
 		};
@@ -80,5 +104,24 @@ export function App() {
 			/>
 		);
 	}
-	return <HomeView providers={settings.providers} onOpenSettings={() => setView('settings')} />;
+
+	return (
+		<ChatView
+			providers={withChatTargets(settings)}
+			messages={chatMessages}
+			streaming={streaming}
+			onChangeMessages={setChatMessages}
+			onOpenSettings={() => setView('settings')}
+			onSend={track => {
+				setStreaming(true);
+				postToHost({
+					type: 'sendChatMessage',
+					providerId: track.providerId,
+					modelIdentifier: track.model,
+					messages: track.messages,
+					requestId: track.requestId
+				});
+			}}
+		/>
+	);
 }

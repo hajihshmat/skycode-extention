@@ -3,7 +3,7 @@
  * API keys never travel to the webview — only labels and a `hasApiKey` flag.
  */
 
-import type { ResponseFormat, ResponseType } from '../core/types';
+import type { ModelSource, ResponseFormat, ResponseType } from '../core/types';
 
 export const PROVIDER_CATALOG = [
 	{
@@ -37,6 +37,10 @@ export type ProviderTypeId = (typeof PROVIDER_CATALOG)[number]['providerId'];
 /** Capabilities/attributes of a single model. */
 export interface ModelEntry {
 	id: string;
+	/** How the model was created: 'api' (fetched/discovered) or 'manual' (user-defined). */
+	source?: ModelSource;
+	/** User-chosen endpoint override (absolute URL or path). */
+	endpoint?: string;
 	/** Maximum context window in tokens. */
 	contextLength?: number;
 	/** Request/response style chosen by the user (default: chat-completion). */
@@ -113,11 +117,25 @@ export interface ModelsFetchedMessage {
 	error?: string;
 }
 
+/** Streaming chat: one text delta for a request (host → webview). */
+export interface ChatChunkMessage {
+	type: 'chatChunk';
+	/** Echoed request id so the UI can match it. */
+	requestId: string;
+	/** Incremental text delta. */
+	text: string;
+	/** True on the final chunk (deltas are complete). */
+	done?: boolean;
+	/** When done and the completion failed. */
+	error?: string;
+}
+
 export type HostToWebviewMessage =
 	| SettingsUpdatedMessage
 	| NavigateMessage
 	| ModelsFetchedMessage
-	| ModelInfoFetchedMessage;
+	| ModelInfoFetchedMessage
+	| ChatChunkMessage;
 
 /* --- Messages: webview -> host --- */
 export interface SaveProviderMessage {
@@ -183,6 +201,16 @@ export interface ModelInfoFetchedMessage {
 	error?: string;
 }
 
+/** Ask the host to stream a chat completion for the given provider/model. */
+export interface SendChatMessage {
+	type: 'sendChatMessage';
+	providerId: string;
+	modelIdentifier: string;
+	/** Full conversation (history + the new user message) in order. */
+	messages: { role: 'system' | 'user' | 'assistant'; content: string }[];
+	requestId: string;
+}
+
 export type WebviewToHostMessage =
 	| SaveProviderMessage
 	| DeleteProviderMessage
@@ -191,4 +219,5 @@ export type WebviewToHostMessage =
 	| SetActiveKeyMessage
 	| FetchModelsMessage
 	| FetchModelInfoMessage
+	| SendChatMessage
 	| ReadyMessage;

@@ -14,14 +14,24 @@
 	--sc-font: var(--vscode-font-family);
 	--sc-mono: var(--vscode-editor-font-family);
 	--sc-radius: 6px;
+	/* Hallmark tokens — spacing scale, easing, duration, z scale */
+	--space-3xs: 0.125rem; --space-2xs: 0.25rem; --space-xs: 0.5rem;
+	--space-sm: 0.75rem;   --space-md: 1rem;     --space-lg: 1.5rem;
+	--space-xl: 2.5rem;    --space-2xl: 4rem;    --space-3xl: 6rem;
+	--ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+	--ease-in:  cubic-bezier(0.7,  0, 0.84, 0);
+	--ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+	--dur-micro: 120ms; --dur-short: 220ms; --dur-long: 420ms;
+	--z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-modal: 400; --z-tooltip: 600;
 }
 
 body {
 	margin: 0;
 	background: var(--sc-surface);
 	color: var(--sc-ink);
-	font-family: var(--sc-font);
+	font-family: var(--sc-font-farsi, var(--sc-font));
 	font-size: 13px;
+	line-height: 1.55;
 }
 
 /* --- Layout --- */
@@ -404,4 +414,94 @@ select.input {
 
 .advanced .field {
 	padding-top: 8px;
+}
+.badge--manual {
+	background: var(--vscode-input-background);
+	border: 1px solid var(--vscode-input-border, rgba(128, 128, 128, 0.35));
+	color: var(--vscode-input-foreground);
+}
+.badge--api {
+	background: var(--vscode-badge-background);
+	color: var(--vscode-badge-foreground);
+}
+.model-row__endpoint {
+	width: 100%;
+	font-family: var(--sc-mono);
+	font-size:  11px;
+	color: var(--vscode-descriptionForeground);
+	margin-top:  2px;
+}
+.model-actions {
+	display: flex;
+	gap:  6px;
+	flex-flow: row wrap;
+	margin-top:  8px;
+}
+/* --- Markdown: direction-aware, follows the wrapper dir attribute --- */
+.md {
+	color: var(--sc-ink);
+	font-size: 12.5px;
+	line-height: 1.6;
+	word-break: break-word;
+}
+.md > *:first-child { margin-top: 0; }
+.md > *:last-child { margin-bottom: 0; }
+.md p,
+.md ul,
+.md ol,
+.md blockquote,
+.md h1,
+.md h2,
+.md h3,
+.md h4,
+.md table {
+	margin: 6px 0;
+}
+.md pre {
+	direction: ltr;
+	text-align: left;
+	font-family: var(--sc-mono, "JetBrains Mono", "Fira Code", Consolas, monospace);
+}
+.md code {
+	font-family: var(--sc-mono, "JetBrains Mono", "Fira Code", Consolas, monospace);
+	font-size: 12px;
+	direction: ltr;
+	unicode-bidi: embed;
+}
+/* Spacing/background for code is handled by the component's Tailwind classes
+   (see `markdownComponents` in ChatView.tsx). */
+.md pre code { background: none; padding: 0; }
+/* Fenced code blocks: enforce a reliable mono stack (webview has no default). */
+.md pre.chat-code code {
+	font-family: inherit;
+	font-size: 12.5px;
+	line-height: 1.6;
+}
+.md a { color: var(--vscode-textLink-foreground); }
+.md blockquote {
+	border-inline-start: 3px solid var(--sc-rule);
+	margin-inline-start: 0;
+	padding-inline-start: 10px;
+	color: var(--sc-muted);
+}
+.md table { border-collapse: collapse; }
+.md th,
+.md td {
+	border: 1px solid var(--sc-rule);
+	padding: 4px 8px;
+}
+/* Message prose direction: auto RTL for Persian/Arabic/Hebrew, LTR otherwise */
+[dir='rtl'] .md { direction: rtl; text-align: right; }
+[dir='ltr'] .md { direction: ltr; text-align: left; }
+
+/* Reduced motion: collapse all spatial motion to opacity crossfade */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
 }

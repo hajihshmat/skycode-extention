@@ -5,7 +5,8 @@ import { ModelRegistry } from '../core/modelRegistry';
 import { CredentialStore } from '../core/credentialStore';
 import { resolveModel } from '../core/modelService';
 import { getAdapter } from '../core/adapterRegistry';
-import { Capabilities, ModelEntity, ProviderEntity, ResponseFormat, ResponseType } from '../core/types';
+import { ChatEngine } from '../core/chatEngine';
+import { ChatMessageInput, ChatStreamChunk, Capabilities, ModelEntity, ProviderEntity, ResponseFormat, ResponseType } from '../core/types';
 import { ModelDraft } from '../core/adapters/providerAdapter';
 import { ProviderSettingsEntry, SkyCodeSettings } from './types';
 
@@ -30,10 +31,28 @@ export class SettingsStore {
 		this.credentials = new CredentialStore(this.storage);
 	}
 
-	getSettings(): SkyCodeSettings {
-		return {
-			providers: this.providers.listProviders().map(p => this.toLegacyEntry(p))
-		};
+	async getSettings(): Promise<SkyCodeSettings> {
+		return { providers: this.providers.listProviders().map(p => this.toLegacyEntry(p)) };
+	}
+
+	/**
+	 * Stream a chat completion for the given provider/model. Wires the core
+	 * ChatEngine (with its credential rotation/cooldown) to the stored entities.
+	 */
+	async *streamChat(
+		providerId: string,
+		modelIdentifier: string,
+		messages: ChatMessageInput[]
+	): AsyncGenerator<ChatStreamChunk> {
+		const engine = new ChatEngine(this.storage, this.providers, this.models, this.credentials);
+		for await (const chunk of engine.sendChatStream({
+			providerId,
+			modelIdentifier,
+			messages,
+			options: {}
+		})) {
+			yield chunk;
+		}
 	}
 
 	/** Keep drafts of the last discovery run so selected models are saved as 'api'. */
@@ -109,6 +128,8 @@ export class SettingsStore {
 		// User's response-type/format choices live in overrides (survive refreshes).
 		const responseTypePatch = { responseType: m.responseType as ResponseType | undefined };
 		const responseFormatPatch = { responseFormat: m.responseFormat as ResponseFormat | undefined };
+		// Endpoint override also lives in overrides, so it survives API refreshes.
+		const endpointPatch = { endpoint: m.endpoint?.trim() ? m.endpoint.trim() : undefined };
 
 		const apiCaps = existing?.apiValues?.capabilities ?? stagedDraft?.capabilities;
 		if (apiCaps) {
@@ -127,12 +148,13 @@ export class SettingsStore {
 						? m.contextLength
 						: existing?.overrides?.contextWindow,
 				...responseTypePatch,
-				...responseFormatPatch
+				...responseFormatPatch,
+				...endpointPatch
 			};
 		} else {
 			patch.capabilities = finalCaps;
 			patch.contextWindow = m.contextLength;
-			patch.overrides = { ...existing?.overrides, ...responseTypePatch, ...responseFormatPatch };
+			patch.overrides = { ...existing?.overrides, ...responseTypePatch, ...responseFormatPatch, ...endpointPatch };
 		}
 
 		if (existing) {
@@ -188,6 +210,8 @@ export class SettingsStore {
 				const resolved = resolveModel(m);
 				return {
 					id: m.modelIdentifier,
+					source: m.source,
+					endpoint: resolved.endpointOverride,
 					responseType: resolved.responseType,
 					responseFormat: resolved.responseFormat,
 					contextLength: resolved.contextWindow,
