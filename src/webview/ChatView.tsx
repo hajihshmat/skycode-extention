@@ -262,37 +262,38 @@ export function ChatView({ providers, messages, streaming, onChangeMessages, onO
 	const modelShort = target ? target.model : 'Model';
 
 	return (
-		<div className="flex h-screen flex-col bg-[var(--vscode-editor-background)] text-[var(--vscode-editor-foreground)]">
+		<div className="chat-shell">
 {/* Messages area */}
-			<div className="flex-1 overflow-y-auto px-4 py-6">
+			<div className="chat-scroll">
 				{messages.length === 0 ? (
-					<div className="flex min-h-full flex-col items-center justify-center px-4 py-16 text-center">
+					<div className="chat-welcome">
 						{providers.length === 0 ? (
-							<div className="flex flex-col items-center gap-3">
-								<Bot className="h-12 w-12 text-[var(--vscode-descriptionForeground)]" />
-								<h2 className="text-lg font-semibold">No provider configured</h2>
-								<p className="text-sm text-[var(--vscode-descriptionForeground)]">
+							<div className="chat-welcome__content">
+								<div className="chat-mark"><Bot aria-hidden="true" /></div>
+								<h2 className="chat-welcome__title">No provider configured</h2>
+								<p className="chat-welcome__copy">
 									Add a provider to start chatting with your models.
 								</p>
 								<button
 									type="button"
 									onClick={onOpenSettings}
-									className="mt-2 rounded-lg bg-[var(--vscode-button-background)] px-4 py-2 text-sm font-medium text-[var(--vscode-button-foreground)] transition-opacity hover:opacity-90"
+									className="chat-primary-action"
 								>
 									Add a provider
 								</button>
 							</div>
 						) : (
-							<div className="flex flex-col items-center gap-6">
-								<Bot className="h-16 w-16 text-[var(--vscode-descriptionForeground)]" />
-								<h2 className="text-xl font-semibold">How can I help you today?</h2>
-								<div className="grid max-w-lg grid-cols-2 gap-3">
+							<div className="chat-welcome__content">
+								<div className="chat-mark"><Bot aria-hidden="true" /></div>
+								<h2 className="chat-welcome__title">What are we working on?</h2>
+								<p className="chat-welcome__copy">Ask SkyCode about the open workspace, or start with a quick task.</p>
+								<div className="chat-suggestions">
 									{SUGGESTIONS.map(s => (
 										<button
 											key={s}
 											type="button"
 											onClick={() => submitWith(s)}
-											className="rounded-lg border border-[var(--vscode-button-border)] bg-[var(--vscode-button-secondaryBackground)] px-4 py-3 text-left text-sm text-[var(--vscode-button-secondaryForeground)] transition-colors hover:bg-[var(--vscode-button-secondaryHoverBackground)]"
+											className="chat-suggestion"
 										>
 											{s}
 										</button>
@@ -302,20 +303,21 @@ export function ChatView({ providers, messages, streaming, onChangeMessages, onO
 						)}
 					</div>
 				) : (
-					<div className="mx-auto max-w-3xl space-y-6">
+					<div className="chat-transcript">
 						{messages.map((m, i) =>
 							m.role === 'user' ? (
-								<div key={i} className="flex justify-end">
+								<div key={i} className="chat-message chat-message--user">
 									<div
 										dir={detectDirection(m.content)}
-										className="max-w-[80%] whitespace-pre-wrap break-words rounded-2xl rounded-tr-sm bg-[var(--vscode-button-background)] px-4 py-3 text-[var(--vscode-button-foreground)]"
+										className="chat-bubble chat-bubble--user"
 									>
 										{m.content}
 									</div>
 								</div>
 							) : (
-								<div key={i} className="group flex justify-start">
-									<div className="max-w-[85%] rounded-2xl rounded-tl-sm border border-[var(--vscode-editorWidget-border)] bg-[var(--vscode-editorWidget-background)] px-4 py-3">
+								<div key={i} className="chat-message chat-message--assistant">
+									<div className="chat-assistant-mark"><Bot aria-hidden="true" /></div>
+									<div className="chat-bubble chat-bubble--assistant">
 										{m.content === '' && showTyping ? (
 											<div className="flex gap-1.5 py-1" aria-label="AI is thinking">
 												<span
@@ -334,7 +336,7 @@ export function ChatView({ providers, messages, streaming, onChangeMessages, onO
 										) : (
 											<MarkdownRenderer text={m.content} />
 										)}
-										<div className="mt-2 flex gap-1 opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100">
+										<div className="chat-message-actions">
 											<button
 												type="button"
 												title="Copy"
@@ -366,11 +368,11 @@ export function ChatView({ providers, messages, streaming, onChangeMessages, onO
 				)}
 			</div>
 {/* Input area */}
-			<div className="border-t border-[var(--vscode-panel-border)] bg-[var(--vscode-editor-background)] p-4">
-				<div className="mx-auto max-w-3xl">
+			<div className="chat-composer-area">
+				<div className="chat-composer-wrap">
 					<form
 						onSubmit={submit}
-						className="relative rounded-xl border border-[var(--vscode-input-border)] bg-[var(--vscode-input-background)]"
+						className="chat-composer"
 					>
 						{/* Composer textarea */}
 						<textarea
@@ -388,17 +390,17 @@ export function ChatView({ providers, messages, streaming, onChangeMessages, onO
 									submit();
 								}
 							}}
-							className="w-full resize-none overflow-auto border-0 bg-transparent px-3 py-3 text-sm leading-relaxed text-[var(--vscode-input-foreground)] placeholder:text-[var(--vscode-descriptionForeground)] focus:ring-0 focus:outline-none"
+							className="chat-composer__input"
 						/>
 
 						{/* Toolbar */}
-						<div ref={toolbarRef} className="flex items-center justify-between gap-2 border-t border-[var(--vscode-input-border)] px-2 py-1.5">
+						<div ref={toolbarRef} className="chat-composer__toolbar">
 							<div className="flex min-w-0 items-center gap-1">
 								<button
 									type="button"
 									title="Attach (coming soon)"
 									aria-label="Attach file"
-									className="flex shrink-0 items-center gap-1.5 rounded-md px-2 py-1.5 text-xs text-[var(--vscode-descriptionForeground)] transition-colors hover:bg-[var(--vscode-toolbar-hoverBackground)] hover:text-[var(--vscode-foreground)]"
+									className="composer-tool"
 								>
 									<Paperclip className="h-3.5 w-3.5" />
 								</button>
@@ -406,7 +408,7 @@ export function ChatView({ providers, messages, streaming, onChangeMessages, onO
 								<button
 									type="button"
 									title="Chat"
-									className="flex shrink-0 items-center gap-1.5 rounded-md px-2 py-1.5 text-xs text-[var(--vscode-descriptionForeground)] transition-colors hover:bg-[var(--vscode-toolbar-hoverBackground)] hover:text-[var(--vscode-foreground)]"
+									className="composer-tool"
 								>
 									<MessageSquare className="h-3.5 w-3.5" />
 									{!iconOnly && <span>Chat</span>}
@@ -418,7 +420,7 @@ export function ChatView({ providers, messages, streaming, onChangeMessages, onO
 									<button
 										type="button"
 										onClick={() => setModelMenuOpen(o => !o)}
-										className="flex min-w-0 items-center gap-1.5 rounded-md px-2 py-1.5 text-xs text-[var(--vscode-descriptionForeground)] transition-colors hover:bg-[var(--vscode-toolbar-hoverBackground)] hover:text-[var(--vscode-foreground)]"
+										className="composer-tool composer-tool--model"
 									>
 										<Bot className="h-3.5 w-3.5 shrink-0" />
 										{!iconOnly && (
@@ -445,7 +447,7 @@ export function ChatView({ providers, messages, streaming, onChangeMessages, onO
 									title={streaming ? 'Sending…' : !target ? 'Select a provider first' : 'Send'}
 									aria-label="Send message"
 									disabled={streaming || !input.trim() || !target}
-									className="flex items-center rounded-md bg-[var(--vscode-button-background)] p-2 text-[var(--vscode-button-foreground)] transition-colors hover:bg-[var(--vscode-button-hoverBackground)] disabled:cursor-not-allowed disabled:opacity-50"
+									className="composer-send"
 								>
 									{streaming ? <RefreshCw className="h-4 w-4 animate-spin" /> : <ArrowUp className="h-4 w-4" />}
 								</button>
@@ -453,7 +455,7 @@ export function ChatView({ providers, messages, streaming, onChangeMessages, onO
 						</div>
 					</form>
 
-					<p className="pt-1.5 text-center text-xs text-[var(--vscode-descriptionForeground)]">
+					<p className="chat-composer__hint">
 						Enter to send · Shift+Enter for new line
 					</p>
 				</div>

@@ -35,28 +35,28 @@ export function ModelSelectorPopover({ targets, current, onSelect, onClose }: Mo
 		<div
 			role="menu"
 			aria-label="Select a model"
-			className="absolute bottom-full left-0 z-[1000] mb-2 w-72 overflow-hidden rounded-lg border border-[var(--vscode-dropdown-border)] bg-[var(--vscode-dropdown-background)] shadow-lg"
+			className="model-popover"
 		>
 			{/* Search */}
-			<div className="px-2 pb-1 pt-2">
-				<div className="relative">
-					<Search className="pointer-events-none absolute left-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[var(--vscode-descriptionForeground)]" />
+			<div className="model-popover__search-wrap">
+				<div className="model-popover__search">
+					<Search className="model-popover__search-icon" />
 					<input
 						autoFocus
 						value={query}
 						onChange={e => setQuery(e.target.value)}
 						placeholder="Search models..."
 						onKeyDown={e => e.stopPropagation()}
-						className="w-full rounded-md border border-[var(--vscode-input-border)] bg-[var(--vscode-input-background)] py-1.5 pl-7 pr-2 text-xs text-[var(--vscode-input-foreground)] placeholder:text-[var(--vscode-descriptionForeground)] focus:outline-none focus:ring-1 focus:ring-[var(--vscode-focusBorder)]"
+						className="model-popover__input"
 					/>
 				</div>
 			</div>
 
 			{/* Grouped list */}
-			<div className="max-h-64 overflow-y-auto px-1 pb-1.5">
+			<div className="model-popover__list">
 				{groups.map(g => (
 					<div key={g.name}>
-						<div className="px-2 pb-0.5 pt-2 text-[10px] font-semibold uppercase tracking-wider text-[var(--vscode-descriptionForeground)]">
+						<div className="model-popover__group">
 							{g.name}
 						</div>
 						{g.items.map(t => {
@@ -70,7 +70,7 @@ export function ModelSelectorPopover({ targets, current, onSelect, onClose }: Mo
 										onSelect(t);
 										onClose();
 									}}
-									className="flex w-full items-center justify-between gap-2 rounded-md px-2 py-1.5 text-xs text-[var(--vscode-foreground)] transition-colors hover:bg-[var(--vscode-list-hoverBackground)]"
+									className="model-popover__option"
 								>
 									<span className="truncate font-mono">{t.model}</span>
 									{active ? (
@@ -84,7 +84,7 @@ export function ModelSelectorPopover({ targets, current, onSelect, onClose }: Mo
 					</div>
 				))}
 				{groups.length === 0 && (
-					<div className="px-3 py-6 text-center text-xs text-[var(--vscode-descriptionForeground)]">
+					<div className="model-popover__empty">
 						No models found
 					</div>
 				)}

@@ -36396,10 +36396,10 @@
       {
         role: "menu",
         "aria-label": "Select a model",
-        className: "absolute bottom-full left-0 z-[1000] mb-2 w-72 overflow-hidden rounded-lg border border-[var(--vscode-dropdown-border)] bg-[var(--vscode-dropdown-background)] shadow-lg",
+        className: "model-popover",
         children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "px-2 pb-1 pt-2", children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "relative", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Search, { className: "pointer-events-none absolute left-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[var(--vscode-descriptionForeground)]" }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "model-popover__search-wrap", children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "model-popover__search", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Search, { className: "model-popover__search-icon" }),
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
               "input",
               {
@@ -36408,13 +36408,13 @@
                 onChange: (e) => setQuery(e.target.value),
                 placeholder: "Search models...",
                 onKeyDown: (e) => e.stopPropagation(),
-                className: "w-full rounded-md border border-[var(--vscode-input-border)] bg-[var(--vscode-input-background)] py-1.5 pl-7 pr-2 text-xs text-[var(--vscode-input-foreground)] placeholder:text-[var(--vscode-descriptionForeground)] focus:outline-none focus:ring-1 focus:ring-[var(--vscode-focusBorder)]"
+                className: "model-popover__input"
               }
             )
           ] }) }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "max-h-64 overflow-y-auto px-1 pb-1.5", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "model-popover__list", children: [
             groups.map((g) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "px-2 pb-0.5 pt-2 text-[10px] font-semibold uppercase tracking-wider text-[var(--vscode-descriptionForeground)]", children: g.name }),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "model-popover__group", children: g.name }),
               g.items.map((t) => {
                 const active = current?.id === t.id && current?.model === t.model;
                 return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
@@ -36426,7 +36426,7 @@
                       onSelect(t);
                       onClose();
                     },
-                    className: "flex w-full items-center justify-between gap-2 rounded-md px-2 py-1.5 text-xs text-[var(--vscode-foreground)] transition-colors hover:bg-[var(--vscode-list-hoverBackground)]",
+                    className: "model-popover__option",
                     children: [
                       /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "truncate font-mono", children: t.model }),
                       active ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, { className: "h-3.5 w-3.5 shrink-0 text-[var(--vscode-button-background)]" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "h-3.5 w-3.5 shrink-0" })
@@ -36436,7 +36436,7 @@
                 );
               })
             ] }, g.name)),
-            groups.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "px-3 py-6 text-center text-xs text-[var(--vscode-descriptionForeground)]", children: "No models found" })
+            groups.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "model-popover__empty", children: "No models found" })
           ] })
         ]
       }
@@ -36619,101 +36619,105 @@
     const fullModel = !iconOnly && toolbarWidth >= 560;
     const modelLabel = target ? `${target.displayName} \xB7 ${target.model}` : "Select a model";
     const modelShort = target ? target.model : "Model";
-    return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex h-screen flex-col bg-[var(--vscode-editor-background)] text-[var(--vscode-editor-foreground)]", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "flex-1 overflow-y-auto px-4 py-6", children: messages.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "flex min-h-full flex-col items-center justify-center px-4 py-16 text-center", children: providers.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex flex-col items-center gap-3", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Bot, { className: "h-12 w-12 text-[var(--vscode-descriptionForeground)]" }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h2", { className: "text-lg font-semibold", children: "No provider configured" }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: "text-sm text-[var(--vscode-descriptionForeground)]", children: "Add a provider to start chatting with your models." }),
+    return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "chat-shell", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "chat-scroll", children: messages.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "chat-welcome", children: providers.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "chat-welcome__content", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "chat-mark", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Bot, { "aria-hidden": "true" }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h2", { className: "chat-welcome__title", children: "No provider configured" }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: "chat-welcome__copy", children: "Add a provider to start chatting with your models." }),
         /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
           "button",
           {
             type: "button",
             onClick: onOpenSettings,
-            className: "mt-2 rounded-lg bg-[var(--vscode-button-background)] px-4 py-2 text-sm font-medium text-[var(--vscode-button-foreground)] transition-opacity hover:opacity-90",
+            className: "chat-primary-action",
             children: "Add a provider"
           }
         )
-      ] }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex flex-col items-center gap-6", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Bot, { className: "h-16 w-16 text-[var(--vscode-descriptionForeground)]" }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h2", { className: "text-xl font-semibold", children: "How can I help you today?" }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "grid max-w-lg grid-cols-2 gap-3", children: SUGGESTIONS.map((s) => /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+      ] }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "chat-welcome__content", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "chat-mark", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Bot, { "aria-hidden": "true" }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h2", { className: "chat-welcome__title", children: "What are we working on?" }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: "chat-welcome__copy", children: "Ask SkyCode about the open workspace, or start with a quick task." }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "chat-suggestions", children: SUGGESTIONS.map((s) => /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
           "button",
           {
             type: "button",
             onClick: () => submitWith(s),
-            className: "rounded-lg border border-[var(--vscode-button-border)] bg-[var(--vscode-button-secondaryBackground)] px-4 py-3 text-left text-sm text-[var(--vscode-button-secondaryForeground)] transition-colors hover:bg-[var(--vscode-button-secondaryHoverBackground)]",
+            className: "chat-suggestion",
             children: s
           },
           s
         )) })
-      ] }) }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "mx-auto max-w-3xl space-y-6", children: [
+      ] }) }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "chat-transcript", children: [
         messages.map(
-          (m, i) => m.role === "user" ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "flex justify-end", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+          (m, i) => m.role === "user" ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "chat-message chat-message--user", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
             "div",
             {
               dir: detectDirection(m.content),
-              className: "max-w-[80%] whitespace-pre-wrap break-words rounded-2xl rounded-tr-sm bg-[var(--vscode-button-background)] px-4 py-3 text-[var(--vscode-button-foreground)]",
+              className: "chat-bubble chat-bubble--user",
               children: m.content
             }
-          ) }, i) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "group flex justify-start", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "max-w-[85%] rounded-2xl rounded-tl-sm border border-[var(--vscode-editorWidget-border)] bg-[var(--vscode-editorWidget-background)] px-4 py-3", children: [
-            m.content === "" && showTyping ? /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex gap-1.5 py-1", "aria-label": "AI is thinking", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-                "span",
-                {
-                  className: "h-2 w-2 animate-bounce rounded-full bg-[var(--vscode-descriptionForeground)]",
-                  style: { animationDelay: "0ms" }
-                }
-              ),
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-                "span",
-                {
-                  className: "h-2 w-2 animate-bounce rounded-full bg-[var(--vscode-descriptionForeground)]",
-                  style: { animationDelay: "150ms" }
-                }
-              ),
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-                "span",
-                {
-                  className: "h-2 w-2 animate-bounce rounded-full bg-[var(--vscode-descriptionForeground)]",
-                  style: { animationDelay: "300ms" }
-                }
-              )
-            ] }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(MarkdownRenderer, { text: m.content }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "mt-2 flex gap-1 opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-                "button",
-                {
-                  type: "button",
-                  title: "Copy",
-                  "aria-label": "Copy answer",
-                  disabled: !m.content,
-                  onClick: () => copy(m.content),
-                  className: "rounded-md p-1.5 text-[var(--vscode-descriptionForeground)] transition-colors hover:bg-[var(--vscode-list-hoverBackground)] hover:text-[var(--vscode-foreground)] disabled:pointer-events-none disabled:opacity-50",
-                  children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Copy, { className: "h-4 w-4" })
-                }
-              ),
-              i === lastIndex && !streaming && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-                "button",
-                {
-                  type: "button",
-                  title: "Regenerate",
-                  "aria-label": "Regenerate",
-                  onClick: regenerate,
-                  className: "rounded-md p-1.5 text-[var(--vscode-descriptionForeground)] transition-colors hover:bg-[var(--vscode-list-hoverBackground)] hover:text-[var(--vscode-foreground)]",
-                  children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(RefreshCw, { className: "h-4 w-4" })
-                }
-              )
+          ) }, i) : /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "chat-message chat-message--assistant", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "chat-assistant-mark", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Bot, { "aria-hidden": "true" }) }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "chat-bubble chat-bubble--assistant", children: [
+              m.content === "" && showTyping ? /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex gap-1.5 py-1", "aria-label": "AI is thinking", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                  "span",
+                  {
+                    className: "h-2 w-2 animate-bounce rounded-full bg-[var(--vscode-descriptionForeground)]",
+                    style: { animationDelay: "0ms" }
+                  }
+                ),
+                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                  "span",
+                  {
+                    className: "h-2 w-2 animate-bounce rounded-full bg-[var(--vscode-descriptionForeground)]",
+                    style: { animationDelay: "150ms" }
+                  }
+                ),
+                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                  "span",
+                  {
+                    className: "h-2 w-2 animate-bounce rounded-full bg-[var(--vscode-descriptionForeground)]",
+                    style: { animationDelay: "300ms" }
+                  }
+                )
+              ] }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(MarkdownRenderer, { text: m.content }),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "chat-message-actions", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                  "button",
+                  {
+                    type: "button",
+                    title: "Copy",
+                    "aria-label": "Copy answer",
+                    disabled: !m.content,
+                    onClick: () => copy(m.content),
+                    className: "rounded-md p-1.5 text-[var(--vscode-descriptionForeground)] transition-colors hover:bg-[var(--vscode-list-hoverBackground)] hover:text-[var(--vscode-foreground)] disabled:pointer-events-none disabled:opacity-50",
+                    children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Copy, { className: "h-4 w-4" })
+                  }
+                ),
+                i === lastIndex && !streaming && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                  "button",
+                  {
+                    type: "button",
+                    title: "Regenerate",
+                    "aria-label": "Regenerate",
+                    onClick: regenerate,
+                    className: "rounded-md p-1.5 text-[var(--vscode-descriptionForeground)] transition-colors hover:bg-[var(--vscode-list-hoverBackground)] hover:text-[var(--vscode-foreground)]",
+                    children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(RefreshCw, { className: "h-4 w-4" })
+                  }
+                )
+              ] })
             ] })
-          ] }) }, i)
+          ] }, i)
         ),
         /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { ref: messagesEndRef })
       ] }) }),
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "border-t border-[var(--vscode-panel-border)] bg-[var(--vscode-editor-background)] p-4", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "mx-auto max-w-3xl", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "chat-composer-area", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "chat-composer-wrap", children: [
         /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
           "form",
           {
             onSubmit: submit,
-            className: "relative rounded-xl border border-[var(--vscode-input-border)] bg-[var(--vscode-input-background)]",
+            className: "chat-composer",
             children: [
               /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
                 "textarea",
@@ -36732,10 +36736,10 @@
                       submit();
                     }
                   },
-                  className: "w-full resize-none overflow-auto border-0 bg-transparent px-3 py-3 text-sm leading-relaxed text-[var(--vscode-input-foreground)] placeholder:text-[var(--vscode-descriptionForeground)] focus:ring-0 focus:outline-none"
+                  className: "chat-composer__input"
                 }
               ),
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { ref: toolbarRef, className: "flex items-center justify-between gap-2 border-t border-[var(--vscode-input-border)] px-2 py-1.5", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { ref: toolbarRef, className: "chat-composer__toolbar", children: [
                 /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex min-w-0 items-center gap-1", children: [
                   /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
                     "button",
@@ -36743,7 +36747,7 @@
                       type: "button",
                       title: "Attach (coming soon)",
                       "aria-label": "Attach file",
-                      className: "flex shrink-0 items-center gap-1.5 rounded-md px-2 py-1.5 text-xs text-[var(--vscode-descriptionForeground)] transition-colors hover:bg-[var(--vscode-toolbar-hoverBackground)] hover:text-[var(--vscode-foreground)]",
+                      className: "composer-tool",
                       children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Paperclip, { className: "h-3.5 w-3.5" })
                     }
                   ),
@@ -36752,7 +36756,7 @@
                     {
                       type: "button",
                       title: "Chat",
-                      className: "flex shrink-0 items-center gap-1.5 rounded-md px-2 py-1.5 text-xs text-[var(--vscode-descriptionForeground)] transition-colors hover:bg-[var(--vscode-toolbar-hoverBackground)] hover:text-[var(--vscode-foreground)]",
+                      className: "composer-tool",
                       children: [
                         /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(MessageSquare, { className: "h-3.5 w-3.5" }),
                         !iconOnly && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "Chat" }),
@@ -36766,7 +36770,7 @@
                       {
                         type: "button",
                         onClick: () => setModelMenuOpen((o) => !o),
-                        className: "flex min-w-0 items-center gap-1.5 rounded-md px-2 py-1.5 text-xs text-[var(--vscode-descriptionForeground)] transition-colors hover:bg-[var(--vscode-toolbar-hoverBackground)] hover:text-[var(--vscode-foreground)]",
+                        className: "composer-tool composer-tool--model",
                         children: [
                           /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Bot, { className: "h-3.5 w-3.5 shrink-0" }),
                           !iconOnly && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "truncate", title: fullModel ? void 0 : modelLabel, children: fullModel ? modelLabel : modelShort }),
@@ -36792,7 +36796,7 @@
                     title: streaming ? "Sending\u2026" : !target ? "Select a provider first" : "Send",
                     "aria-label": "Send message",
                     disabled: streaming || !input.trim() || !target,
-                    className: "flex items-center rounded-md bg-[var(--vscode-button-background)] p-2 text-[var(--vscode-button-foreground)] transition-colors hover:bg-[var(--vscode-button-hoverBackground)] disabled:cursor-not-allowed disabled:opacity-50",
+                    className: "composer-send",
                     children: streaming ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(RefreshCw, { className: "h-4 w-4 animate-spin" }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ArrowUp, { className: "h-4 w-4" })
                   }
                 ) })
@@ -36800,7 +36804,7 @@
             ]
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: "pt-1.5 text-center text-xs text-[var(--vscode-descriptionForeground)]", children: "Enter to send \xB7 Shift+Enter for new line" })
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: "chat-composer__hint", children: "Enter to send \xB7 Shift+Enter for new line" })
       ] }) })
     ] });
   }
