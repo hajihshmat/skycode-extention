@@ -2,6 +2,7 @@ import { OllamaClient, parseOpenAiStreamChunk, parseSseFrame } from '../utils/ol
 import { ChatMessageInput, ChatError, ChatRequestContext, ChatResponse, ChatStreamChunk, classifyHttpError, ProviderEntity, ResponseFormat, ResponseType } from '../types';
 import { joinUrl } from '../modelService';
 import { ModelDraft, ProviderAdapter } from './providerAdapter';
+import { request } from '../utils/http';
 
 /**
  * OpenAI adapter — the chat/completions wire format is identical to the
@@ -44,7 +45,7 @@ export class OpenAIAdapter implements ProviderAdapter {
 			// Chat Completions uses `response_format: { type: 'json_object' }`.
 			...(ctx.responseFormat === 'json_object' && { response_format: { type: 'json_object' } }),
 			...ctx.options
-		});
+		}, ctx.signal);
 		return { text: content, raw };
 	}
 
@@ -85,13 +86,14 @@ export class OpenAIAdapter implements ProviderAdapter {
 			...(ctx.responseFormat === 'json_object' && { text: { format: { type: 'json_object' } } })
 		};
 
-		const response = await fetch(url, {
+		const response = await request(url, {
 			method: 'POST',
 			headers: {
 				'content-type': 'application/json',
 				...(ctx.apiKey && { authorization: `Bearer ${ctx.apiKey}` })
 			},
-			body: JSON.stringify(body)
+			body: JSON.stringify(body),
+			signal: ctx.signal
 		});
 		this.checkStatus(response);
 		const json = (await response.json()) as {
@@ -140,7 +142,7 @@ export class OpenAIAdapter implements ProviderAdapter {
 			stream: true
 		};
 
-		const response = await fetch(`${base}/responses`, {
+		const response = await request(`${base}/responses`, {
 			method: 'POST',
 			headers: {
 				'content-type': 'application/json',

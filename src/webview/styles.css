@@ -715,6 +715,7 @@ body {
 	transition: color var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out);
 }
 .composer-tool--model { max-width: 15rem; }
+.composer-tool--approval.is-active { background: var(--sc-surface-hover); color: var(--sc-accent); }
 .composer-send {
 	display: grid;
 	width: 1.875rem;

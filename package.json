@@ -12,6 +12,35 @@
   "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
+	"configuration": {
+	  "title": "SkyCode",
+	  "properties": {
+		"skycode.autoSuggestion.enabled": {
+		  "type": "boolean",
+		  "default": true,
+		  "description": "Show AI inline code suggestions."
+		},
+		"skycode.autoSuggestion.delayMs": {
+		  "type": "number",
+		  "default": 180,
+		  "minimum": 0,
+		  "maximum": 2000,
+		  "description": "Delay before requesting an inline suggestion."
+		},
+		"skycode.autoSuggestion.cacheTtlMs": {
+		  "type": "number",
+		  "default": 30000,
+		  "minimum": 1000,
+		  "maximum": 300000,
+		  "description": "How long a suggestion for an unchanged cursor position stays cached."
+		},
+		"skycode.nextEditSuggestion.enabled": {
+		  "type": "boolean",
+		  "default": true,
+		  "description": "Offer AI code actions to fix file errors or suggest the next file edit."
+		}
+	  }
+	},
     "viewsContainers": {
       "activitybar": [
         {
@@ -49,6 +78,10 @@
         "command": "skycode.history",
         "title": "History",
         "icon": "$(history)"
+	  },
+	  {
+		"command": "skycode.suggestNextEdit",
+		"title": "SkyCode: Suggest Next Edit"
       }
     ],
     "menus": {

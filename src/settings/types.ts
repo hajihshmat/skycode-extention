@@ -209,6 +209,8 @@ export interface SendChatMessage {
 	/** Full conversation (history + the new user message) in order. */
 	messages: { role: 'system' | 'user' | 'assistant'; content: string }[];
 	requestId: string;
+	/** When true, workspace-changing chat tools skip their per-action confirmation. */
+	autoApproveTools?: boolean;
 }
 
 /** Cancel one in-flight chat stream. */

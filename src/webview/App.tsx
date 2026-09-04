@@ -125,7 +125,8 @@ export function App() {
 					providerId: track.providerId,
 					modelIdentifier: track.model,
 					messages: track.messages,
-					requestId: track.requestId
+					requestId: track.requestId,
+					autoApproveTools: track.autoApproveTools
 				});
 			}}
 			onCancel={() => {

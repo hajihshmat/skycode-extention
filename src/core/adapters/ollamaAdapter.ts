@@ -52,7 +52,7 @@ export class OllamaAdapter implements ProviderAdapter {
 			// Ollama uses `format: 'json'` to force valid JSON output.
 			...(ctx.responseFormat === 'json_object' && { format: 'json' }),
 			...ctx.options
-		});
+		}, ctx.signal);
 		return { text: content, raw };
 	}
 

@@ -12,6 +12,7 @@ import {
 } from '../types';
 import { joinUrl } from '../modelService';
 import { ModelDraft, ProviderAdapter } from './providerAdapter';
+import { request } from '../utils/http';
 
 const ANTHROPIC_VERSION = '2023-06-01';
 const DEFAULT_MAX_TOKENS = 4096;
@@ -50,7 +51,7 @@ export class AnthropicAdapter implements ProviderAdapter {
 
 	async discoverModels(provider: ProviderEntity, apiKey?: string): Promise<ModelDraft[]> {
 		const { models } = this.resolveEndpoints(provider);
-		const response = await fetch(models, { method: 'GET', headers: this.headers(apiKey) });
+		const response = await request(models, { method: 'GET', headers: this.headers(apiKey) });
 		this.checkStatus(response);
 		const json = (await response.json()) as { data?: { id?: string }[] };
 		return (json.data ?? [])
@@ -70,7 +71,7 @@ export class AnthropicAdapter implements ProviderAdapter {
 			...(ctx.options?.temperature !== undefined && { temperature: ctx.options.temperature })
 		};
 
-		const response = await fetch(ctx.endpoint, {
+		const response = await request(ctx.endpoint, {
 			method: 'POST',
 			headers: this.headers(ctx.apiKey),
 			body: JSON.stringify(body),
@@ -122,7 +123,7 @@ export class AnthropicAdapter implements ProviderAdapter {
 			stream: true
 		};
 
-		const response = await fetch(ctx.endpoint, {
+		const response = await request(ctx.endpoint, {
 			method: 'POST',
 			headers: { ...this.headers(ctx.apiKey), accept: 'text/event-stream' },
 			body: JSON.stringify(body),

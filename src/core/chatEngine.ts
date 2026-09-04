@@ -75,6 +75,9 @@ export class ChatEngine {
 			}
 
 			try {
+				if (input.signal?.aborted) {
+					throw new DOMException('Request cancelled', 'AbortError');
+				}
 				const ctx = {
 					endpoint: model?.endpointOverride
 						? resolveModelEndpoint(endpoints.chat, model.endpointOverride)
@@ -83,7 +86,8 @@ export class ChatEngine {
 					model: input.modelIdentifier,
 					messages: input.messages,
 					options: input.options,
-					responseFormat
+					responseFormat,
+					signal: input.signal
 				};
 				// No provider if/else: the adapter decides how each response type executes.
 				const response = responseType === 'response'

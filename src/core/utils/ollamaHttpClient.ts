@@ -20,6 +20,7 @@ export interface ChatRequestBody {
 }
 
 import { ChatStreamUsage, classifyHttpError } from '../types';
+import { networkFailureMessage } from './http';
 
 /** An SSE "data:" payload parsed from a streaming response. */
 export interface SsePayload {
@@ -58,6 +59,11 @@ export class OllamaClient {
 		signal?.addEventListener('abort', abort, { once: true });
 		try {
 			return await fetch(url, { ...init, signal: controller.signal });
+		} catch (error) {
+			if (!signal?.aborted && !controller.signal.aborted) {
+				throw new Error(networkFailureMessage(url, error), { cause: error });
+			}
+			throw error;
 		} finally {
 			clearTimeout(timer);
 			signal?.removeEventListener('abort', abort);
@@ -94,12 +100,12 @@ export class OllamaClient {
 	}
 
 	/** POST {baseUrl}/chat/completions (non-streaming). */
-	async chat(body: ChatRequestBody): Promise<{ content: string; raw: unknown }> {
+	async chat(body: ChatRequestBody, signal?: AbortSignal): Promise<{ content: string; raw: unknown }> {
 		const response = await this.fetchWithTimeout(`${this.options.baseUrl}/chat/completions`, {
 			method: 'POST',
 			headers: this.headers(),
 			body: JSON.stringify({ ...body, stream: false })
-		});
+		}, signal);
 		this.handleStatus(response);
 		const json = (await response.json()) as {
 			choices?: { message?: { content?: string } }[];

@@ -3,6 +3,8 @@
 import * as vscode from 'vscode';
 import { SkyCodeSidebarProvider } from './sidebarView';
 import { SettingsStore } from './settings/store';
+import { AutoSuggestionProvider } from './completion/autoSuggestionProvider';
+import { NextEditSuggestionProvider } from './completion/nextEditSuggestionProvider';
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -14,9 +16,22 @@ export function activate(context: vscode.ExtensionContext) {
 
 	// Settings persistence (globalState + SecretStorage for API keys)
 	const store = new SettingsStore(context);
+	const autoSuggestionOutput = vscode.window.createOutputChannel('SkyCode Auto Suggestion');
+	const autoSuggestionProvider = new AutoSuggestionProvider(store, autoSuggestionOutput);
+	const nextEditSuggestionProvider = new NextEditSuggestionProvider(store, autoSuggestionOutput);
+	context.subscriptions.push(
+		autoSuggestionOutput,
+		autoSuggestionProvider,
+		vscode.languages.registerInlineCompletionItemProvider({ pattern: '**' }, autoSuggestionProvider),
+		nextEditSuggestionProvider,
+		vscode.languages.registerCodeActionsProvider({ pattern: '**' }, nextEditSuggestionProvider, NextEditSuggestionProvider.metadata),
+		vscode.commands.registerCommand('skycode.suggestNextEdit', (uri?: vscode.Uri, intent?: 'fix-errors' | 'next-edit') =>
+			nextEditSuggestionProvider.suggest(uri, intent)
+		)
+	);
 
 	// Sidebar view (activity bar icon -> SkyCode panel)
-	const sidebarProvider = new SkyCodeSidebarProvider(context, store);
+	const sidebarProvider = new SkyCodeSidebarProvider(context, store, autoSuggestionOutput);
 	context.subscriptions.push(
 		vscode.window.registerWebviewViewProvider(SkyCodeSidebarProvider.viewId, sidebarProvider)
 	);

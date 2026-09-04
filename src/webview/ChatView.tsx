@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import type { FormEvent, ReactNode } from 'react';
-import { ArrowUp, Bot, ChevronDown, Copy, MessageSquare, Paperclip, RefreshCw, Square } from 'lucide-react';
+import { ArrowUp, Bot, ChevronDown, Copy, MessageSquare, Paperclip, RefreshCw, ShieldCheck, ShieldOff, Square } from 'lucide-react';
 import type { Components } from 'react-markdown' with { 'resolution-mode': 'import' };
 import { detectDirection } from './utils/textDirection';
 import { ModelSelectorPopover } from './ModelSelectorPopover';
@@ -23,7 +23,7 @@ interface ChatViewProps {
 	streaming: boolean;
 	onChangeMessages: (next: ChatMessage[]) => void;
 	onOpenSettings: () => void;
-	onSend: (track: { providerId: string; model: string; messages: ChatMessage[]; requestId: string }) => void;
+	onSend: (track: { providerId: string; model: string; messages: ChatMessage[]; requestId: string; autoApproveTools: boolean }) => void;
 	onCancel: () => void;
 }
 
@@ -154,6 +154,7 @@ export function ChatView({ providers, messages, streaming, onChangeMessages, onO
 	const [lastPrompt, setLastPrompt] = useState<string | null>(null);
 	const [selected, setSelected] = useState<{ p: string; m: string } | null>(null);
 	const [modelMenuOpen, setModelMenuOpen] = useState(false);
+	const [autoApproveTools, setAutoApproveTools] = useState(false);
 	const messagesEndRef = useRef<HTMLDivElement>(null);
 	const inputRef = useRef<HTMLTextAreaElement>(null);
 	const modelMenuRef = useRef<HTMLDivElement>(null);
@@ -215,7 +216,8 @@ export function ChatView({ providers, messages, streaming, onChangeMessages, onO
 			providerId: target.id,
 			model: target.model,
 			messages: [...history, { role: 'user', content: promptText }],
-			requestId
+			requestId,
+			autoApproveTools
 		});
 	};
 
@@ -404,6 +406,18 @@ export function ChatView({ providers, messages, streaming, onChangeMessages, onO
 									className="composer-tool"
 								>
 									<Paperclip className="h-3.5 w-3.5" />
+								</button>
+
+								<button
+									type="button"
+									onClick={() => setAutoApproveTools(enabled => !enabled)}
+									title={autoApproveTools ? 'Auto-approve tools is on' : 'Auto-approve tools is off'}
+									aria-label={autoApproveTools ? 'Disable auto-approve tools' : 'Enable auto-approve tools'}
+									aria-pressed={autoApproveTools}
+									className={`composer-tool composer-tool--approval${autoApproveTools ? ' is-active' : ''}`}
+								>
+									{autoApproveTools ? <ShieldCheck className="h-3.5 w-3.5" /> : <ShieldOff className="h-3.5 w-3.5" />}
+									{!iconOnly && <span>Auto approve</span>}
 								</button>
 
 								<button

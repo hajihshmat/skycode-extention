@@ -36365,11 +36365,44 @@
   ];
   var Search = createLucideIcon("search", __iconNode9);
 
-  // node_modules/lucide-react/dist/esm/icons/square.mjs
+  // node_modules/lucide-react/dist/esm/icons/shield-check.mjs
   var __iconNode10 = [
+    [
+      "path",
+      {
+        d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
+        key: "oel41y"
+      }
+    ],
+    ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
+  ];
+  var ShieldCheck = createLucideIcon("shield-check", __iconNode10);
+
+  // node_modules/lucide-react/dist/esm/icons/shield-off.mjs
+  var __iconNode11 = [
+    ["path", { d: "m2 2 20 20", key: "1ooewy" }],
+    [
+      "path",
+      {
+        d: "M5 5a1 1 0 0 0-1 1v7c0 5 3.5 7.5 7.67 8.94a1 1 0 0 0 .67.01c2.35-.82 4.48-1.97 5.9-3.71",
+        key: "1jlk70"
+      }
+    ],
+    [
+      "path",
+      {
+        d: "M9.309 3.652A12.252 12.252 0 0 0 11.24 2.28a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1v7a9.784 9.784 0 0 1-.08 1.264",
+        key: "18rp1v"
+      }
+    ]
+  ];
+  var ShieldOff = createLucideIcon("shield-off", __iconNode11);
+
+  // node_modules/lucide-react/dist/esm/icons/square.mjs
+  var __iconNode12 = [
     ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }]
   ];
-  var Square = createLucideIcon("square", __iconNode10);
+  var Square = createLucideIcon("square", __iconNode12);
 
   // src/webview/utils/textDirection.ts
   function detectDirection(text7) {
@@ -36542,6 +36575,7 @@
     const [lastPrompt, setLastPrompt] = (0, import_react6.useState)(null);
     const [selected, setSelected] = (0, import_react6.useState)(null);
     const [modelMenuOpen, setModelMenuOpen] = (0, import_react6.useState)(false);
+    const [autoApproveTools, setAutoApproveTools] = (0, import_react6.useState)(false);
     const messagesEndRef = (0, import_react6.useRef)(null);
     const inputRef = (0, import_react6.useRef)(null);
     const modelMenuRef = (0, import_react6.useRef)(null);
@@ -36590,7 +36624,8 @@
         providerId: target.id,
         model: target.model,
         messages: [...history, { role: "user", content: promptText }],
-        requestId
+        requestId,
+        autoApproveTools
       });
     };
     const submit = (e) => {
@@ -36755,6 +36790,21 @@
                       "aria-label": "Attach file",
                       className: "composer-tool",
                       children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Paperclip, { className: "h-3.5 w-3.5" })
+                    }
+                  ),
+                  /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
+                    "button",
+                    {
+                      type: "button",
+                      onClick: () => setAutoApproveTools((enabled) => !enabled),
+                      title: autoApproveTools ? "Auto-approve tools is on" : "Auto-approve tools is off",
+                      "aria-label": autoApproveTools ? "Disable auto-approve tools" : "Enable auto-approve tools",
+                      "aria-pressed": autoApproveTools,
+                      className: `composer-tool composer-tool--approval${autoApproveTools ? " is-active" : ""}`,
+                      children: [
+                        autoApproveTools ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ShieldCheck, { className: "h-3.5 w-3.5" }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ShieldOff, { className: "h-3.5 w-3.5" }),
+                        !iconOnly && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "Auto approve" })
+                      ]
                     }
                   ),
                   /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
@@ -37802,7 +37852,8 @@
             providerId: track.providerId,
             modelIdentifier: track.model,
             messages: track.messages,
-            requestId: track.requestId
+            requestId: track.requestId,
+            autoApproveTools: track.autoApproveTools
           });
         },
         onCancel: () => {
@@ -37900,6 +37951,8 @@ lucide-react/dist/esm/icons/message-square.mjs:
 lucide-react/dist/esm/icons/paperclip.mjs:
 lucide-react/dist/esm/icons/refresh-cw.mjs:
 lucide-react/dist/esm/icons/search.mjs:
+lucide-react/dist/esm/icons/shield-check.mjs:
+lucide-react/dist/esm/icons/shield-off.mjs:
 lucide-react/dist/esm/icons/square.mjs:
 lucide-react/dist/esm/lucide-react.mjs:
   (**

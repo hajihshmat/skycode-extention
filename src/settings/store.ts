@@ -57,6 +57,56 @@ export class SettingsStore {
 		}
 	}
 
+	/** First configured, usable model for editor completions. */
+	async getCompletionTarget(): Promise<{ providerId: string; modelIdentifier: string } | undefined> {
+		for (const provider of this.providers.listProviders()) {
+			if (!provider.enabled) {
+				continue;
+			}
+			const adapter = getAdapter(provider.adapterType);
+			if (adapter.requiresCredentials && !(await this.getActiveKeySecret(provider.id))) {
+				continue;
+			}
+			const model = this.models.listModels(provider.id).find(candidate => candidate.enabled);
+			if (model) {
+				return { providerId: provider.id, modelIdentifier: model.modelIdentifier };
+			}
+		}
+		return undefined;
+	}
+
+	/** Runs a short, non-streaming completion request through the existing provider pipeline. */
+	async completeChat(
+		providerId: string,
+		modelIdentifier: string,
+		prompt: string,
+		signal: AbortSignal
+	): Promise<string> {
+		return this.completeMessages(providerId, modelIdentifier, [{ role: 'user', content: prompt }], signal, {
+			temperature: 0.15,
+			max_tokens: 256
+		});
+	}
+
+	/** Non-streaming model turn for the approval-gated workspace tool agent. */
+	async completeMessages(
+		providerId: string,
+		modelIdentifier: string,
+		messages: ChatMessageInput[],
+		signal: AbortSignal,
+		options: Record<string, unknown> = {}
+	): Promise<string> {
+		const engine = new ChatEngine(this.storage, this.providers, this.models, this.credentials);
+		const response = await engine.sendChat({
+			providerId,
+			modelIdentifier,
+			messages,
+			options,
+			signal
+		});
+		return response.text;
+	}
+
 	/** Keep drafts of the last discovery run so selected models are saved as 'api'. */
 	stageDiscovered(providerId: string, drafts: { modelIdentifier: string; capabilities?: Capabilities }[]): void {
 		this.models.stageDiscovered(providerId, drafts);

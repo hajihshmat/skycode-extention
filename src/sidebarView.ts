@@ -3,6 +3,7 @@ import { SettingsStore } from './settings/store';
 import { HostToWebviewMessage, WebviewToHostMessage } from './settings/types';
 import { getAdapter } from './core/adapterRegistry';
 import { ChatMessageInput, ProviderEntity } from './core/types';
+import { ChatToolAgent } from './tools/chatToolAgent';
 
 /** UI catalog id → core adapter type ('ollamaCloud' → 'ollama'; others identity). */
 function uiToAdapterType(uiId: string): string {
@@ -39,7 +40,8 @@ export class SkyCodeSidebarProvider implements vscode.WebviewViewProvider {
 
 	constructor(
 		private readonly context: vscode.ExtensionContext,
-		private readonly store: SettingsStore
+		private readonly store: SettingsStore,
+		private readonly output: vscode.OutputChannel
 	) {}
 
 	resolveWebviewView(webviewView: vscode.WebviewView): void {
@@ -115,7 +117,7 @@ export class SkyCodeSidebarProvider implements vscode.WebviewViewProvider {
 					const controller = new AbortController();
 					this.activeChatRequests.set(msg.requestId, controller);
 					void this.streamChatMessage(
-						{ providerId: msg.providerId, modelIdentifier: msg.modelIdentifier, messages: msg.messages, requestId: msg.requestId },
+						{ providerId: msg.providerId, modelIdentifier: msg.modelIdentifier, messages: msg.messages, requestId: msg.requestId, autoApproveTools: msg.autoApproveTools === true },
 						webview,
 						controller
 					);
@@ -198,23 +200,23 @@ export class SkyCodeSidebarProvider implements vscode.WebviewViewProvider {
 
 	/** Stream a chat completion through the core ChatEngine and relay deltas. */
 	private async streamChatMessage(
-		msg: { providerId: string; modelIdentifier: string; messages: ChatMessageInput[]; requestId: string },
+		msg: { providerId: string; modelIdentifier: string; messages: ChatMessageInput[]; requestId: string; autoApproveTools: boolean },
 		webview: vscode.Webview,
 		controller: AbortController
 	): Promise<void> {
 		try {
-			for await (const chunk of this.store.streamChat(msg.providerId, msg.modelIdentifier, msg.messages, controller.signal)) {
-				await webview.postMessage({
-					type: 'chatChunk',
-					requestId: msg.requestId,
-					text: chunk.content,
-					...(chunk.done && { done: true })
-				} satisfies HostToWebviewMessage);
+			const tools = new ChatToolAgent(
+				(messages, signal) => this.store.completeMessages(msg.providerId, msg.modelIdentifier, messages, signal, { temperature: 0.2, max_tokens: 1_000 }),
+				this.output
+			);
+			const response = await tools.run(msg.messages, msg.autoApproveTools, controller.signal);
+			if (controller.signal.aborted) {
+				return;
 			}
 			await webview.postMessage({
 				type: 'chatChunk',
 				requestId: msg.requestId,
-				text: '',
+				text: response,
 				done: true
 			} satisfies HostToWebviewMessage);
 		} catch (err) {
