@@ -74,9 +74,9 @@ export function ModelSelectorPopover({ targets, current, onSelect, onClose }: Mo
 								>
 									<span className="truncate font-mono">{t.model}</span>
 									{active ? (
-										<Check className="h-3.5 w-3.5 shrink-0 text-[var(--vscode-button-background)]" />
+										<Check className="model-popover__check" aria-hidden="true" />
 									) : (
-										<span className="h-3.5 w-3.5 shrink-0" />
+										<span className="model-popover__check-space" aria-hidden="true" />
 									)}
 								</button>
 							);

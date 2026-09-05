@@ -52,10 +52,30 @@ export class ChatToolAgent {
 			if (signal.aborted) {
 				return '';
 			}
-			const raw = await this.complete(turns, signal);
-			const action = parseAgentResponse(raw);
+			let raw = await this.complete(turns, signal);
+			let action = parseAgentResponse(raw);
+			if (!action && !signal.aborted) {
+				// Models sometimes wrap the JSON in <think>…</think>, prose, or get
+				// cut off by token limits. One repair turn beats showing raw junk.
+				const preview = stripThinking(raw).slice(0, 200);
+				this.output.appendLine(`[chat-agent] unparseable reply (len=${raw.length}): ${preview || '<empty>'}`);
+				raw = await this.complete(
+					[
+						...turns,
+						{ role: 'assistant', content: raw.slice(0, 4_000) },
+						{
+							role: 'user',
+							content:
+								'Your previous reply was not valid tool JSON (it may have been cut off or contained extra text). Respond again with exactly one JSON object: {"type":"tool","name":"TOOL_NAME","arguments":{...}} or {"type":"final","content":"…"} — no other text.'
+						}
+					],
+					signal
+				);
+				action = parseAgentResponse(raw);
+			}
 			if (!action) {
-				return raw;
+				const cleaned = stripThinking(raw).trim();
+				return cleaned || 'The model returned an empty reply. Please try again.';
 			}
 			if (action.type === 'final') {
 				return action.content;
@@ -239,26 +259,82 @@ export class ChatToolAgent {
 	}
 }
 
-function parseAgentResponse(raw: string): ToolCall | FinalReply | undefined {
-	const cleaned = raw.trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '');
+/** Parse a model reply into a tool call or a final answer. Exported for tests. */
+export function parseAgentResponse(raw: string): ToolCall | FinalReply | undefined {
+	const cleaned = extractJson(raw);
+	if (!cleaned) {
+		return undefined;
+	}
 	try {
 		const response = JSON.parse(cleaned) as {
 			type?: unknown;
 			name?: unknown;
+			tool?: unknown;
 			arguments?: unknown;
 			content?: unknown;
 		};
 		if (response.type === 'final' && typeof response.content === 'string') {
 			return { type: 'final', content: response.content };
 		}
-		if (response.type === 'tool' && isToolName(response.name) && response.arguments && typeof response.arguments === 'object' && !Array.isArray(response.arguments)) {
-			return { type: 'tool', name: response.name, arguments: response.arguments as Record<string, unknown> };
+		const name = response.name ?? response.tool;
+		if (isToolName(name) && response.arguments && typeof response.arguments === 'object' && !Array.isArray(response.arguments)) {
+			return { type: 'tool', name, arguments: response.arguments as Record<string, unknown> };
+		}
+		// Some models drop "type" and emit the tool call as {"tool":"...","arguments":{...}}.
+		if (response.type === undefined && typeof response.content === 'string' && !isToolName(name)) {
+			return { type: 'final', content: response.content };
 		}
 	} catch {
 		return undefined;
 	}
 	return undefined;
 }
+
+/** Remove reasoning-model `<think>…</think>` blocks before parsing. */
+export function stripThinking(raw: string): string {
+	return raw.replace(/<think>[\s\S]*?<\/think>/gi, '').replace(/<think>[\s\S]*$/i, '').trim();
+}
+
+/**
+ * Pull the first balanced JSON object out of a reply. Models routinely wrap
+ * tool JSON in prose or code fences, and truncation can leave it unterminated —
+ * a plain `JSON.parse(trim)` fails on all of those.
+ */
+export function extractJson(raw: string): string | undefined {
+	const text = stripThinking(raw).replace(/^```(?:json)?\s*/i, '').replace(/\s*```\s*$/, '');
+	const start = text.indexOf('{');
+	if (start < 0) {
+		return undefined;
+	}
+	let depth = 0;
+	let inString = false;
+	let escaped = false;
+	for (let i = start; i < text.length; i++) {
+		const ch = text[i];
+		if (inString) {
+			if (escaped) {
+				escaped = false;
+			} else if (ch === '\\') {
+				escaped = true;
+			} else if (ch === '"') {
+				inString = false;
+			}
+			continue;
+		}
+		if (ch === '"') {
+			inString = true;
+		} else if (ch === '{') {
+			depth++;
+		} else if (ch === '}') {
+			depth--;
+			if (depth === 0) {
+				return text.slice(start, i + 1);
+			}
+		}
+	}
+	return undefined;
+}
+
 
 function isToolName(value: unknown): value is ToolName {
 	return value === 'read-file' || value === 'check-workspace' || value === 'create-file' || value === 'edit-file' || value === 'delete-file' || value === 'run-command';

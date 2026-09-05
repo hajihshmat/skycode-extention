@@ -211,7 +211,8 @@ export class SkyCodeSidebarProvider implements vscode.WebviewViewProvider {
 	): Promise<void> {
 		try {
 			const tools = new ChatToolAgent(
-				(messages, signal) => this.store.completeMessages(msg.providerId, msg.modelIdentifier, messages, signal, { temperature: 0.2, max_tokens: 1_000 }),
+				(messages, signal) => this.store.completeMessages(msg.providerId, msg.modelIdentifier, messages, signal, { temperature: 0.2, max_tokens: 4_096 }),
+
 				this.output,
 				{
 					activity: event => {

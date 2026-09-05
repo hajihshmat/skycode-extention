@@ -1,10 +1,40 @@
 import { useEffect, useRef, useState } from 'react';
 import type { FormEvent, ReactNode } from 'react';
-import { ArrowUp, Bot, ChevronDown, Copy, MessageSquare, Paperclip, RefreshCw, ShieldCheck, ShieldOff, Square } from 'lucide-react';
+import {
+	ArrowUp,
+	Bot,
+	Check,
+	ChevronDown,
+	Copy,
+	FileCode,
+	FilePen,
+	FilePlus,
+	FolderTree,
+	ListChecks,
+	Loader,
+	MessageSquare,
+	Plus,
+	RefreshCw,
+	Settings,
+	ShieldCheck,
+	ShieldOff,
+	ShieldQuestion,
+	Sparkles,
+	Square,
+	Terminal,
+	Trash2,
+	TriangleAlert,
+	Wrench,
+	X,
+	Zap
+} from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import type { Components } from 'react-markdown' with { 'resolution-mode': 'import' };
 import { detectDirection } from './utils/textDirection';
 import { ModelSelectorPopover } from './ModelSelectorPopover';
-import type { ToolActivityMessage, ToolApprovalRequestedMessage } from '../settings/types';
+import { CHAT_MODES, buildRequestMessages, getChatMode } from './chatModes';
+import type { ChatModeId, ChatRequestMessage } from './chatModes';
+import type { ChatToolName, ToolActivityMessage, ToolApprovalRequestedMessage } from '../settings/types';
 
 export interface ChatMessage {
 	role: 'user' | 'assistant';
@@ -26,13 +56,35 @@ interface ChatViewProps {
 	toolApprovals: ToolApprovalRequestedMessage[];
 	onChangeMessages: (next: ChatMessage[]) => void;
 	onOpenSettings: () => void;
-	onSend: (track: { providerId: string; model: string; messages: ChatMessage[]; requestId: string; autoApproveTools: boolean }) => void;
+	onSend: (track: { providerId: string; model: string; messages: ChatRequestMessage[]; requestId: string; autoApproveTools: boolean }) => void;
 	onCancel: () => void;
 	onResolveToolApproval: (approval: ToolApprovalRequestedMessage, approved: boolean) => void;
 }
 
+/** Icon per composer mode; the copy itself lives in `chatModes.ts`. */
+const MODE_ICONS: Record<ChatModeId, LucideIcon> = {
+	chat: MessageSquare,
+	agent: Zap,
+	plan: ListChecks
+};
+
 /** Small suggestion prompts shown in the empty (welcome) state. */
-const SUGGESTIONS = ['Explain this code', 'Find bugs', 'Write tests', 'Refactor this function'];
+const SUGGESTIONS: { text: string; icon: LucideIcon }[] = [
+	{ text: 'Explain this code', icon: FileCode },
+	{ text: 'Find bugs', icon: TriangleAlert },
+	{ text: 'Write tests', icon: Check },
+	{ text: 'Refactor this function', icon: Sparkles }
+];
+
+/** Icon per workspace tool, so the timeline reads at a glance. */
+const TOOL_ICONS: Record<ChatToolName, LucideIcon> = {
+	'read-file': FileCode,
+	'check-workspace': FolderTree,
+	'create-file': FilePlus,
+	'edit-file': FilePen,
+	'delete-file': Trash2,
+	'run-command': Terminal
+};
 
 /** Recursively pull the plain text out of a (possibly nested) React subtree. */
 function extractCodeFromChildren(children: unknown): string {
@@ -83,19 +135,19 @@ const markdownComponents: Components = {
 		const codeText = extractCodeFromChildren(props.children);
 		const lang = extractCodeLanguage(props.children);
 		return (
-			<div className="group/code relative my-3 overflow-hidden rounded-lg border border-[var(--vscode-textCodeBlock-background)]">
-				<div className="flex items-center justify-between bg-[var(--vscode-textCodeBlock-background)] px-3 py-1.5 text-xs text-[var(--vscode-descriptionForeground)]">
-					<span className="font-medium">{lang || 'code'}</span>
+			<div className="code-card">
+				<div className="code-card__head">
+					<span className="code-card__lang">{lang || 'code'}</span>
 					<button
 						type="button"
 						onClick={() => void navigator.clipboard?.writeText(codeText)}
-						className="flex items-center gap-1 rounded px-2 py-0.5 transition-colors hover:bg-[var(--vscode-toolbar-hoverBackground)] hover:text-[var(--vscode-foreground)]"
+						className="code-card__action"
 					>
-						<Copy className="h-3 w-3" />
+						<Copy aria-hidden="true" />
 						<span>Copy</span>
 					</button>
 				</div>
-				<pre dir="ltr" className="chat-code m-0 overflow-x-auto bg-[var(--vscode-textCodeBlock-background)] px-4 py-3 leading-relaxed">
+				<pre dir="ltr" className="chat-code">
 					{props.children}
 				</pre>
 			</div>
@@ -103,11 +155,7 @@ const markdownComponents: Components = {
 	},
 	code(props) {
 		if (!props.className) {
-			return (
-				<code className="rounded bg-[var(--vscode-textCodeBlock-background)] px-1.5 py-0.5 font-mono text-[12px] text-[var(--vscode-textPreformat-foreground)]">
-					{props.children}
-				</code>
-			);
+			return <code className="code-inline">{props.children}</code>;
 		}
 		// Block code — styled by the wrapping `pre` renderer above.
 		return <code className={String(props.className)}>{props.children}</code>;
@@ -159,16 +207,21 @@ export function ChatView({ providers, messages, streaming, toolActivities, toolA
 	const [selected, setSelected] = useState<{ p: string; m: string } | null>(null);
 	const [modelMenuOpen, setModelMenuOpen] = useState(false);
 	const [autoApproveTools, setAutoApproveTools] = useState(false);
+	const [mode, setMode] = useState<ChatModeId>('chat');
 	const messagesEndRef = useRef<HTMLDivElement>(null);
 	const inputRef = useRef<HTMLTextAreaElement>(null);
 	const modelMenuRef = useRef<HTMLDivElement>(null);
 	const toolbarRef = useRef<HTMLDivElement>(null);
+	const modeRefs = useRef<Record<string, HTMLButtonElement | null>>({});
 	const [toolbarWidth, setToolbarWidth] = useState(0);
+	// Sliding thumb geometry for the mode switcher (transform-only animation).
+	const [thumb, setThumb] = useState<{ left: number; width: number }>({ left: 0, width: 0 });
 
 	const sorted = [...providers].sort(a => (a.hasApiKey ? -1 : 1));
 	const target = selected && sorted.some(s => s.id === selected.p && s.model === selected.m)
 		? sorted.find(s => s.id === selected.p && s.model === selected.m)!
 		: sorted[0];
+	const activeMode = getChatMode(mode);
 
 	// Keep the composer growing smoothly when streaming.
 	useEffect(() => {
@@ -188,6 +241,25 @@ export function ChatView({ providers, messages, streaming, toolActivities, toolA
 		document.addEventListener('mousedown', onPointerDown);
 		return () => document.removeEventListener('mousedown', onPointerDown);
 	}, [modelMenuOpen]);
+
+	// Measure the active mode button so the thumb can slide to it. Re-measured on
+	// resize because the switcher reflows with the sidebar width.
+	useEffect(() => {
+		const measure = () => {
+			const el = modeRefs.current[mode];
+			if (el) {
+				setThumb({ left: el.offsetLeft, width: el.offsetWidth });
+			}
+		};
+		measure();
+		const ro = new ResizeObserver(measure);
+		for (const el of Object.values(modeRefs.current)) {
+			if (el) {
+				ro.observe(el);
+			}
+		}
+		return () => ro.disconnect();
+	}, [mode]);
 
 	// Track the toolbar width so labels can collapse to icons on narrow sidebars
 	// and always stay inside the box on wide ones.
@@ -219,7 +291,7 @@ export function ChatView({ providers, messages, streaming, toolActivities, toolA
 		onSend({
 			providerId: target.id,
 			model: target.model,
-			messages: [...history, { role: 'user', content: promptText }],
+			messages: buildRequestMessages(mode, history, promptText),
 			requestId,
 			autoApproveTools
 		});
@@ -256,6 +328,18 @@ export function ChatView({ providers, messages, streaming, toolActivities, toolA
 		void navigator.clipboard?.writeText(content);
 	};
 
+	/** Clear the transcript. Cancels an in-flight stream first. */
+	const newChat = () => {
+		if (streaming) {
+			onCancel();
+		}
+		onChangeMessages([]);
+		setLastPrompt(null);
+		setInput('');
+		setInputHeight();
+		inputRef.current?.focus();
+	};
+
 	const lastIndex = messages.length - 1;
 	const showTyping = streaming && messages[lastIndex]?.role === 'assistant' && messages[lastIndex]?.content === '';
 
@@ -270,7 +354,47 @@ export function ChatView({ providers, messages, streaming, toolActivities, toolA
 
 	return (
 		<div className="chat-shell">
-{/* Messages area */}
+			{/* Loom header: mark + wordmark, live status, quiet actions */}
+			<header className="chat-topbar">
+				<div className="chat-topbar__brand">
+					<div className="chat-topbar__mark"><Bot aria-hidden="true" /></div>
+					<div className="chat-topbar__text">
+						<h1 className="chat-topbar__title">SkyCode</h1>
+						<p className="chat-topbar__meta">
+							<span
+								className={`status-dot ${streaming ? 'status-dot--live' : target ? 'status-dot--ready' : 'status-dot--warn'}`}
+								aria-hidden="true"
+							/>
+							<span className="truncate">
+								{streaming ? 'Thinking…' : target ? `${activeMode.label} · ${target.model}` : 'No model'}
+							</span>
+						</p>
+					</div>
+				</div>
+				<div className="chat-topbar__actions">
+					<button
+						type="button"
+						title="New chat"
+						aria-label="New chat"
+						disabled={messages.length === 0}
+						onClick={newChat}
+						className="chat-icon-btn"
+					>
+						<Plus aria-hidden="true" />
+					</button>
+					<button
+						type="button"
+						title="Settings"
+						aria-label="Open settings"
+						onClick={onOpenSettings}
+						className="chat-icon-btn"
+					>
+						<Settings aria-hidden="true" />
+					</button>
+				</div>
+			</header>
+
+			{/* Messages area */}
 			<div className="chat-scroll">
 				{messages.length === 0 ? (
 					<div className="chat-welcome">
@@ -295,14 +419,15 @@ export function ChatView({ providers, messages, streaming, toolActivities, toolA
 								<h2 className="chat-welcome__title">What are we working on?</h2>
 								<p className="chat-welcome__copy">Ask SkyCode about the open workspace, or start with a quick task.</p>
 								<div className="chat-suggestions">
-									{SUGGESTIONS.map(s => (
+									{SUGGESTIONS.map(({ text, icon: Icon }) => (
 										<button
-											key={s}
+											key={text}
 											type="button"
-											onClick={() => submitWith(s)}
+											onClick={() => submitWith(text)}
 											className="chat-suggestion"
 										>
-											{s}
+											<Icon aria-hidden="true" />
+											<span>{text}</span>
 										</button>
 									))}
 								</div>
@@ -326,19 +451,10 @@ export function ChatView({ providers, messages, streaming, toolActivities, toolA
 									<div className="chat-assistant-mark"><Bot aria-hidden="true" /></div>
 									<div className="chat-bubble chat-bubble--assistant">
 										{m.content === '' && showTyping ? (
-											<div className="flex gap-1.5 py-1" aria-label="AI is thinking">
-												<span
-													className="h-2 w-2 animate-bounce rounded-full bg-[var(--vscode-descriptionForeground)]"
-													style={{ animationDelay: '0ms' }}
-												/>
-												<span
-													className="h-2 w-2 animate-bounce rounded-full bg-[var(--vscode-descriptionForeground)]"
-													style={{ animationDelay: '150ms' }}
-												/>
-												<span
-													className="h-2 w-2 animate-bounce rounded-full bg-[var(--vscode-descriptionForeground)]"
-													style={{ animationDelay: '300ms' }}
-												/>
+											<div className="chat-typing" role="status" aria-label="SkyCode is thinking">
+												<span />
+												<span />
+												<span />
 											</div>
 										) : (
 											<MarkdownRenderer text={m.content} />
@@ -350,9 +466,9 @@ export function ChatView({ providers, messages, streaming, toolActivities, toolA
 												aria-label="Copy answer"
 												disabled={!m.content}
 												onClick={() => copy(m.content)}
-												className="rounded-md p-1.5 text-[var(--vscode-descriptionForeground)] transition-colors hover:bg-[var(--vscode-list-hoverBackground)] hover:text-[var(--vscode-foreground)] disabled:pointer-events-none disabled:opacity-50"
+												className="chat-message-action"
 											>
-												<Copy className="h-4 w-4" />
+												<Copy aria-hidden="true" />
 											</button>
 											{i === lastIndex && !streaming && (
 												<button
@@ -360,9 +476,9 @@ export function ChatView({ providers, messages, streaming, toolActivities, toolA
 													title="Regenerate"
 													aria-label="Regenerate"
 													onClick={regenerate}
-													className="rounded-md p-1.5 text-[var(--vscode-descriptionForeground)] transition-colors hover:bg-[var(--vscode-list-hoverBackground)] hover:text-[var(--vscode-foreground)]"
+													className="chat-message-action"
 												>
-													<RefreshCw className="h-4 w-4" />
+													<RefreshCw aria-hidden="true" />
 												</button>
 											)}
 										</div>
@@ -372,24 +488,45 @@ export function ChatView({ providers, messages, streaming, toolActivities, toolA
 						)}
 						{toolActivities.length > 0 && (
 							<div className="tool-timeline" aria-label="Tool activity">
-								{toolActivities.map(activity => (
-									<div key={activity.activityId} className={`tool-card tool-card--${activity.status}`}>
-										<div className="tool-card__head">
-											<span className="tool-card__name">{activity.tool.replace('-', ' ')}</span>
-											<span className="tool-card__status">{activity.status}</span>
+								{toolActivities.map(activity => {
+									const ToolIcon = TOOL_ICONS[activity.tool] ?? Wrench;
+									const StatusIcon = activity.status === 'running' ? Loader : ToolIcon;
+									return (
+										<div key={activity.activityId} className={`tool-card tool-card--${activity.status}`}>
+											<div className="tool-card__head">
+												<span className="tool-card__icon" aria-hidden="true">
+													<StatusIcon />
+												</span>
+												<span className="tool-card__name">{activity.tool}</span>
+												<span className="tool-card__status">{activity.status}</span>
+											</div>
+											<div className="tool-card__body" aria-live="polite">
+												<p>{activity.summary}</p>
+												{activity.detail && <p className="tool-card__detail">{activity.detail}</p>}
+											</div>
 										</div>
-										<p>{activity.summary}</p>
-										{activity.detail && <p className="tool-card__detail">{activity.detail}</p>}
-									</div>
-								))}
+									);
+								})}
 							</div>
 						)}
 						{toolApprovals.map(approval => (
 							<div key={approval.approvalId} className="tool-approval" role="group" aria-label="Tool permission request">
-								<p>SkyCode wants to <strong>{approval.summary}</strong></p>
-								<div className="tool-approval__actions">
-									<button type="button" className="tool-action tool-action--allow" onClick={() => onResolveToolApproval(approval, true)}>Allow once</button>
-									<button type="button" className="tool-action" onClick={() => onResolveToolApproval(approval, false)}>Reject</button>
+								<div className="tool-approval__head">
+									<ShieldQuestion aria-hidden="true" />
+									<span>Permission needed</span>
+								</div>
+								<div className="tool-approval__body">
+									<p>SkyCode wants to <strong>{approval.summary}</strong></p>
+									<div className="tool-approval__actions">
+										<button type="button" className="tool-action tool-action--allow" onClick={() => onResolveToolApproval(approval, true)}>
+											<Check aria-hidden="true" />
+											Allow once
+										</button>
+										<button type="button" className="tool-action" onClick={() => onResolveToolApproval(approval, false)}>
+											<X aria-hidden="true" />
+											Reject
+										</button>
+									</div>
 								</div>
 							</div>
 						))}
@@ -400,6 +537,34 @@ export function ChatView({ providers, messages, streaming, toolActivities, toolA
 {/* Input area */}
 			<div className="chat-composer-area">
 				<div className="chat-composer-wrap">
+					{/* Mode switcher: Chat / Agent / Plan with a sliding thumb */}
+					<div className="mode-switch" role="tablist" aria-label="Composer mode">
+						<span
+							className="mode-switch__thumb"
+							aria-hidden="true"
+							style={{ width: `${thumb.width}px`, transform: `translateX(${thumb.left}px)` }}
+						/>
+						{CHAT_MODES.map(({ id, label }) => {
+							const Icon = MODE_ICONS[id];
+							return (
+								<button
+									key={id}
+									ref={el => {
+										modeRefs.current[id] = el;
+									}}
+									type="button"
+									role="tab"
+									aria-selected={mode === id}
+									onClick={() => setMode(id)}
+									className={`mode-btn${mode === id ? ' is-active' : ''}`}
+								>
+									<Icon aria-hidden="true" />
+									{!iconOnly && <span>{label}</span>}
+								</button>
+							);
+						})}
+					</div>
+
 					<form
 						onSubmit={submit}
 						className="chat-composer"
@@ -408,7 +573,7 @@ export function ChatView({ providers, messages, streaming, toolActivities, toolA
 						<textarea
 							ref={inputRef}
 							value={input}
-							placeholder="Message…"
+							placeholder={activeMode.placeholder}
 							rows={1}
 							onChange={e => {
 								setInput(e.target.value);
@@ -428,33 +593,14 @@ export function ChatView({ providers, messages, streaming, toolActivities, toolA
 							<div className="flex min-w-0 items-center gap-1">
 								<button
 									type="button"
-									title="Attach (coming soon)"
-									aria-label="Attach file"
-									className="composer-tool"
-								>
-									<Paperclip className="h-3.5 w-3.5" />
-								</button>
-
-								<button
-									type="button"
 									onClick={() => setAutoApproveTools(enabled => !enabled)}
 									title={autoApproveTools ? 'Auto-approve tools is on' : 'Auto-approve tools is off'}
 									aria-label={autoApproveTools ? 'Disable auto-approve tools' : 'Enable auto-approve tools'}
 									aria-pressed={autoApproveTools}
 									className={`composer-tool composer-tool--approval${autoApproveTools ? ' is-active' : ''}`}
 								>
-									{autoApproveTools ? <ShieldCheck className="h-3.5 w-3.5" /> : <ShieldOff className="h-3.5 w-3.5" />}
+									{autoApproveTools ? <ShieldCheck className="h-3 w-3" /> : <ShieldOff className="h-3 w-3" />}
 									{!iconOnly && <span>Auto approve</span>}
-								</button>
-
-								<button
-									type="button"
-									title="Chat"
-									className="composer-tool"
-								>
-									<MessageSquare className="h-3.5 w-3.5" />
-									{!iconOnly && <span>Chat</span>}
-									<ChevronDown className="h-3 w-3" />
 								</button>
 
 								{/* Model selector (popover anchor) */}
@@ -462,11 +608,17 @@ export function ChatView({ providers, messages, streaming, toolActivities, toolA
 									<button
 										type="button"
 										onClick={() => setModelMenuOpen(o => !o)}
+										aria-haspopup="menu"
+										aria-expanded={modelMenuOpen}
+										title={modelLabel}
 										className="composer-tool composer-tool--model"
 									>
-										<Bot className="h-3.5 w-3.5 shrink-0" />
+										<span
+											className={`status-dot ${target ? 'status-dot--ready' : 'status-dot--warn'}`}
+											aria-hidden="true"
+										/>
 										{!iconOnly && (
-											<span className="truncate" title={fullModel ? undefined : modelLabel}>
+											<span className="truncate">
 												{fullModel ? modelLabel : modelShort}
 											</span>
 										)}
@@ -492,7 +644,7 @@ export function ChatView({ providers, messages, streaming, toolActivities, toolA
 									className={`composer-send${streaming ? ' composer-send--cancel' : ''}`}
 									onClick={streaming ? onCancel : undefined}
 								>
-									{streaming ? <Square className="h-3.5 w-3.5" /> : <ArrowUp className="h-4 w-4" />}
+									{streaming ? <Square className="h-3 w-3" /> : <ArrowUp className="h-3.5 w-3.5" />}
 								</button>
 							</div>
 						</div>
@@ -517,6 +669,6 @@ export function applyChatDelta(
 	if (list.length === 0 || list[idx].role !== 'assistant') {
 		return [...prev, { role: 'assistant', content: r.error ? `⚠ ${r.error}` : r.text }];
 	}
-	const content = list[idx].content + (r.error ? '' : r.text);
+	const content = r.error && !list[idx].content ? `⚠ ${r.error}` : list[idx].content + (r.error ? '' : r.text);
 	return [...list.slice(0, idx), { role: 'assistant', content }];
 }

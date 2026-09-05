@@ -36325,8 +36325,102 @@
   ];
   var Copy = createLucideIcon("copy", __iconNode5);
 
-  // node_modules/lucide-react/dist/esm/icons/message-square.mjs
+  // node_modules/lucide-react/dist/esm/icons/file-code.mjs
   var __iconNode6 = [
+    [
+      "path",
+      {
+        d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z",
+        key: "1oefj6"
+      }
+    ],
+    ["path", { d: "M14 2v5a1 1 0 0 0 1 1h5", key: "wfsgrz" }],
+    ["path", { d: "M10 12.5 8 15l2 2.5", key: "1tg20x" }],
+    ["path", { d: "m14 12.5 2 2.5-2 2.5", key: "yinavb" }]
+  ];
+  var FileCode = createLucideIcon("file-code", __iconNode6);
+
+  // node_modules/lucide-react/dist/esm/icons/file-pen.mjs
+  var __iconNode7 = [
+    [
+      "path",
+      {
+        d: "M12.659 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v9.34",
+        key: "o6klzx"
+      }
+    ],
+    ["path", { d: "M14 2v5a1 1 0 0 0 1 1h5", key: "wfsgrz" }],
+    [
+      "path",
+      {
+        d: "M10.378 12.622a1 1 0 0 1 3 3.003L8.36 20.637a2 2 0 0 1-.854.506l-2.867.837a.5.5 0 0 1-.62-.62l.836-2.869a2 2 0 0 1 .506-.853z",
+        key: "zhnas1"
+      }
+    ]
+  ];
+  var FilePen = createLucideIcon("file-pen", __iconNode7);
+
+  // node_modules/lucide-react/dist/esm/icons/file-plus.mjs
+  var __iconNode8 = [
+    [
+      "path",
+      {
+        d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z",
+        key: "1oefj6"
+      }
+    ],
+    ["path", { d: "M14 2v5a1 1 0 0 0 1 1h5", key: "wfsgrz" }],
+    ["path", { d: "M9 15h6", key: "cctwl0" }],
+    ["path", { d: "M12 18v-6", key: "17g6i2" }]
+  ];
+  var FilePlus = createLucideIcon("file-plus", __iconNode8);
+
+  // node_modules/lucide-react/dist/esm/icons/folder-tree.mjs
+  var __iconNode9 = [
+    [
+      "path",
+      {
+        d: "M20 10a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-2.5a1 1 0 0 1-.8-.4l-.9-1.2A1 1 0 0 0 15 3h-2a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1Z",
+        key: "hod4my"
+      }
+    ],
+    [
+      "path",
+      {
+        d: "M20 21a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-2.9a1 1 0 0 1-.88-.55l-.42-.85a1 1 0 0 0-.92-.6H13a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1Z",
+        key: "w4yl2u"
+      }
+    ],
+    ["path", { d: "M3 5a2 2 0 0 0 2 2h3", key: "f2jnh7" }],
+    ["path", { d: "M3 3v13a2 2 0 0 0 2 2h3", key: "k8epm1" }]
+  ];
+  var FolderTree = createLucideIcon("folder-tree", __iconNode9);
+
+  // node_modules/lucide-react/dist/esm/icons/list-checks.mjs
+  var __iconNode10 = [
+    ["path", { d: "M13 5h8", key: "a7qcls" }],
+    ["path", { d: "M13 12h8", key: "h98zly" }],
+    ["path", { d: "M13 19h8", key: "c3s6r1" }],
+    ["path", { d: "m3 17 2 2 4-4", key: "1jhpwq" }],
+    ["path", { d: "m3 7 2 2 4-4", key: "1obspn" }]
+  ];
+  var ListChecks = createLucideIcon("list-checks", __iconNode10);
+
+  // node_modules/lucide-react/dist/esm/icons/loader.mjs
+  var __iconNode11 = [
+    ["path", { d: "M12 2v4", key: "3427ic" }],
+    ["path", { d: "m16.2 7.8 2.9-2.9", key: "r700ao" }],
+    ["path", { d: "M18 12h4", key: "wj9ykh" }],
+    ["path", { d: "m16.2 16.2 2.9 2.9", key: "1bxg5t" }],
+    ["path", { d: "M12 18v4", key: "jadmvz" }],
+    ["path", { d: "m4.9 19.1 2.9-2.9", key: "bwix9q" }],
+    ["path", { d: "M2 12h4", key: "j09sii" }],
+    ["path", { d: "m4.9 4.9 2.9 2.9", key: "giyufr" }]
+  ];
+  var Loader = createLucideIcon("loader", __iconNode11);
+
+  // node_modules/lucide-react/dist/esm/icons/message-square.mjs
+  var __iconNode12 = [
     [
       "path",
       {
@@ -36335,38 +36429,46 @@
       }
     ]
   ];
-  var MessageSquare = createLucideIcon("message-square", __iconNode6);
+  var MessageSquare = createLucideIcon("message-square", __iconNode12);
 
-  // node_modules/lucide-react/dist/esm/icons/paperclip.mjs
-  var __iconNode7 = [
-    [
-      "path",
-      {
-        d: "m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551",
-        key: "1miecu"
-      }
-    ]
+  // node_modules/lucide-react/dist/esm/icons/plus.mjs
+  var __iconNode13 = [
+    ["path", { d: "M5 12h14", key: "1ays0h" }],
+    ["path", { d: "M12 5v14", key: "s699le" }]
   ];
-  var Paperclip = createLucideIcon("paperclip", __iconNode7);
+  var Plus = createLucideIcon("plus", __iconNode13);
 
   // node_modules/lucide-react/dist/esm/icons/refresh-cw.mjs
-  var __iconNode8 = [
+  var __iconNode14 = [
     ["path", { d: "M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8", key: "v9h5vc" }],
     ["path", { d: "M21 3v5h-5", key: "1q7to0" }],
     ["path", { d: "M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16", key: "3uifl3" }],
     ["path", { d: "M8 16H3v5", key: "1cv678" }]
   ];
-  var RefreshCw = createLucideIcon("refresh-cw", __iconNode8);
+  var RefreshCw = createLucideIcon("refresh-cw", __iconNode14);
 
   // node_modules/lucide-react/dist/esm/icons/search.mjs
-  var __iconNode9 = [
+  var __iconNode15 = [
     ["path", { d: "m21 21-4.34-4.34", key: "14j7rj" }],
     ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
   ];
-  var Search = createLucideIcon("search", __iconNode9);
+  var Search = createLucideIcon("search", __iconNode15);
+
+  // node_modules/lucide-react/dist/esm/icons/settings.mjs
+  var __iconNode16 = [
+    [
+      "path",
+      {
+        d: "M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915",
+        key: "1i5ecw"
+      }
+    ],
+    ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
+  ];
+  var Settings = createLucideIcon("settings", __iconNode16);
 
   // node_modules/lucide-react/dist/esm/icons/shield-check.mjs
-  var __iconNode10 = [
+  var __iconNode17 = [
     [
       "path",
       {
@@ -36376,10 +36478,10 @@
     ],
     ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
   ];
-  var ShieldCheck = createLucideIcon("shield-check", __iconNode10);
+  var ShieldCheck = createLucideIcon("shield-check", __iconNode17);
 
   // node_modules/lucide-react/dist/esm/icons/shield-off.mjs
-  var __iconNode11 = [
+  var __iconNode18 = [
     ["path", { d: "m2 2 20 20", key: "1ooewy" }],
     [
       "path",
@@ -36396,13 +36498,104 @@
       }
     ]
   ];
-  var ShieldOff = createLucideIcon("shield-off", __iconNode11);
+  var ShieldOff = createLucideIcon("shield-off", __iconNode18);
+
+  // node_modules/lucide-react/dist/esm/icons/shield-question-mark.mjs
+  var __iconNode19 = [
+    [
+      "path",
+      {
+        d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
+        key: "oel41y"
+      }
+    ],
+    ["path", { d: "M9.1 9a3 3 0 0 1 5.82 1c0 2-3 3-3 3", key: "mhlwft" }],
+    ["path", { d: "M12 17h.01", key: "p32p05" }]
+  ];
+  var ShieldQuestionMark = createLucideIcon("shield-question-mark", __iconNode19);
+
+  // node_modules/lucide-react/dist/esm/icons/sparkles.mjs
+  var __iconNode20 = [
+    [
+      "path",
+      {
+        d: "M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z",
+        key: "1s2grr"
+      }
+    ],
+    ["path", { d: "M20 2v4", key: "1rf3ol" }],
+    ["path", { d: "M22 4h-4", key: "gwowj6" }],
+    ["circle", { cx: "4", cy: "20", r: "2", key: "6kqj1y" }]
+  ];
+  var Sparkles = createLucideIcon("sparkles", __iconNode20);
 
   // node_modules/lucide-react/dist/esm/icons/square.mjs
-  var __iconNode12 = [
+  var __iconNode21 = [
     ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }]
   ];
-  var Square = createLucideIcon("square", __iconNode12);
+  var Square = createLucideIcon("square", __iconNode21);
+
+  // node_modules/lucide-react/dist/esm/icons/terminal.mjs
+  var __iconNode22 = [
+    ["path", { d: "M12 19h8", key: "baeox8" }],
+    ["path", { d: "m4 17 6-6-6-6", key: "1yngyt" }]
+  ];
+  var Terminal = createLucideIcon("terminal", __iconNode22);
+
+  // node_modules/lucide-react/dist/esm/icons/trash-2.mjs
+  var __iconNode23 = [
+    ["path", { d: "M10 11v6", key: "nco0om" }],
+    ["path", { d: "M14 11v6", key: "outv1u" }],
+    ["path", { d: "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6", key: "miytrc" }],
+    ["path", { d: "M3 6h18", key: "d0wm0j" }],
+    ["path", { d: "M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2", key: "e791ji" }]
+  ];
+  var Trash2 = createLucideIcon("trash-2", __iconNode23);
+
+  // node_modules/lucide-react/dist/esm/icons/triangle-alert.mjs
+  var __iconNode24 = [
+    [
+      "path",
+      {
+        d: "m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3",
+        key: "wmoenq"
+      }
+    ],
+    ["path", { d: "M12 9v4", key: "juzpu7" }],
+    ["path", { d: "M12 17h.01", key: "p32p05" }]
+  ];
+  var TriangleAlert = createLucideIcon("triangle-alert", __iconNode24);
+
+  // node_modules/lucide-react/dist/esm/icons/wrench.mjs
+  var __iconNode25 = [
+    [
+      "path",
+      {
+        d: "M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z",
+        key: "1ngwbx"
+      }
+    ]
+  ];
+  var Wrench = createLucideIcon("wrench", __iconNode25);
+
+  // node_modules/lucide-react/dist/esm/icons/x.mjs
+  var __iconNode26 = [
+    ["path", { d: "M18 6 6 18", key: "1bl5f8" }],
+    ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
+  ];
+  var X = createLucideIcon("x", __iconNode26);
+
+  // node_modules/lucide-react/dist/esm/icons/zap.mjs
+  var __iconNode27 = [
+    [
+      "path",
+      {
+        d: "M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z",
+        key: "1v7up4"
+      }
+    ]
+  ];
+  var Zap = createLucideIcon("zap", __iconNode27);
 
   // src/webview/utils/textDirection.ts
   function detectDirection(text7) {
@@ -36468,7 +36661,7 @@
                     className: "model-popover__option",
                     children: [
                       /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "truncate font-mono", children: t.model }),
-                      active ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, { className: "h-3.5 w-3.5 shrink-0 text-[var(--vscode-button-background)]" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "h-3.5 w-3.5 shrink-0" })
+                      active ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, { className: "model-popover__check", "aria-hidden": "true" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "model-popover__check-space", "aria-hidden": "true" })
                     ]
                   },
                   `${t.id}::${t.model}`
@@ -36482,9 +36675,59 @@
     );
   }
 
+  // src/webview/chatModes.ts
+  var CHAT_MODES = [
+    {
+      id: "chat",
+      label: "Chat",
+      placeholder: "Ask SkyCode about the open workspace\u2026"
+    },
+    {
+      id: "agent",
+      label: "Agent",
+      placeholder: "Tell SkyCode what to build \u2014 it can edit files and run commands",
+      directive: "Work autonomously: use the workspace tools to inspect and change files until the task is finished, then summarise what changed."
+    },
+    {
+      id: "plan",
+      label: "Plan",
+      placeholder: "Describe the goal \u2014 SkyCode drafts a plan before touching code",
+      directive: "Plan only. You may read files, but never create, edit, delete, or run anything. Reply with a numbered plan naming the files each step touches."
+    }
+  ];
+  function getChatMode(id) {
+    return CHAT_MODES.find((m) => m.id === id) ?? CHAT_MODES[0];
+  }
+  function buildRequestMessages(mode, history, prompt) {
+    const { directive } = getChatMode(mode);
+    return [
+      ...directive ? [{ role: "system", content: directive }] : [],
+      ...history,
+      { role: "user", content: prompt }
+    ];
+  }
+
   // src/webview/ChatView.tsx
   var import_jsx_runtime3 = __toESM(require_jsx_runtime());
-  var SUGGESTIONS = ["Explain this code", "Find bugs", "Write tests", "Refactor this function"];
+  var MODE_ICONS = {
+    chat: MessageSquare,
+    agent: Zap,
+    plan: ListChecks
+  };
+  var SUGGESTIONS = [
+    { text: "Explain this code", icon: FileCode },
+    { text: "Find bugs", icon: TriangleAlert },
+    { text: "Write tests", icon: Check },
+    { text: "Refactor this function", icon: Sparkles }
+  ];
+  var TOOL_ICONS = {
+    "read-file": FileCode,
+    "check-workspace": FolderTree,
+    "create-file": FilePlus,
+    "edit-file": FilePen,
+    "delete-file": Trash2,
+    "run-command": Terminal
+  };
   function extractCodeFromChildren(children) {
     if (typeof children === "string" || typeof children === "number") {
       return String(children);
@@ -36523,28 +36766,28 @@
     pre(props) {
       const codeText2 = extractCodeFromChildren(props.children);
       const lang = extractCodeLanguage(props.children);
-      return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "group/code relative my-3 overflow-hidden rounded-lg border border-[var(--vscode-textCodeBlock-background)]", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex items-center justify-between bg-[var(--vscode-textCodeBlock-background)] px-3 py-1.5 text-xs text-[var(--vscode-descriptionForeground)]", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "font-medium", children: lang || "code" }),
+      return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "code-card", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "code-card__head", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "code-card__lang", children: lang || "code" }),
           /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
             "button",
             {
               type: "button",
               onClick: () => void navigator.clipboard?.writeText(codeText2),
-              className: "flex items-center gap-1 rounded px-2 py-0.5 transition-colors hover:bg-[var(--vscode-toolbar-hoverBackground)] hover:text-[var(--vscode-foreground)]",
+              className: "code-card__action",
               children: [
-                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Copy, { className: "h-3 w-3" }),
+                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Copy, { "aria-hidden": "true" }),
                 /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "Copy" })
               ]
             }
           )
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("pre", { dir: "ltr", className: "chat-code m-0 overflow-x-auto bg-[var(--vscode-textCodeBlock-background)] px-4 py-3 leading-relaxed", children: props.children })
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("pre", { dir: "ltr", className: "chat-code", children: props.children })
       ] });
     },
     code(props) {
       if (!props.className) {
-        return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("code", { className: "rounded bg-[var(--vscode-textCodeBlock-background)] px-1.5 py-0.5 font-mono text-[12px] text-[var(--vscode-textPreformat-foreground)]", children: props.children });
+        return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("code", { className: "code-inline", children: props.children });
       }
       return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("code", { className: String(props.className), children: props.children });
     }
@@ -36576,13 +36819,17 @@
     const [selected, setSelected] = (0, import_react6.useState)(null);
     const [modelMenuOpen, setModelMenuOpen] = (0, import_react6.useState)(false);
     const [autoApproveTools, setAutoApproveTools] = (0, import_react6.useState)(false);
+    const [mode, setMode] = (0, import_react6.useState)("chat");
     const messagesEndRef = (0, import_react6.useRef)(null);
     const inputRef = (0, import_react6.useRef)(null);
     const modelMenuRef = (0, import_react6.useRef)(null);
     const toolbarRef = (0, import_react6.useRef)(null);
+    const modeRefs = (0, import_react6.useRef)({});
     const [toolbarWidth, setToolbarWidth] = (0, import_react6.useState)(0);
+    const [thumb, setThumb] = (0, import_react6.useState)({ left: 0, width: 0 });
     const sorted = [...providers].sort((a) => a.hasApiKey ? -1 : 1);
     const target = selected && sorted.some((s) => s.id === selected.p && s.model === selected.m) ? sorted.find((s) => s.id === selected.p && s.model === selected.m) : sorted[0];
+    const activeMode = getChatMode(mode);
     (0, import_react6.useEffect)(() => {
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages, toolActivities, toolApprovals]);
@@ -36598,6 +36845,22 @@
       document.addEventListener("mousedown", onPointerDown);
       return () => document.removeEventListener("mousedown", onPointerDown);
     }, [modelMenuOpen]);
+    (0, import_react6.useEffect)(() => {
+      const measure = () => {
+        const el = modeRefs.current[mode];
+        if (el) {
+          setThumb({ left: el.offsetLeft, width: el.offsetWidth });
+        }
+      };
+      measure();
+      const ro = new ResizeObserver(measure);
+      for (const el of Object.values(modeRefs.current)) {
+        if (el) {
+          ro.observe(el);
+        }
+      }
+      return () => ro.disconnect();
+    }, [mode]);
     (0, import_react6.useEffect)(() => {
       const el = toolbarRef.current;
       if (!el) {
@@ -36623,7 +36886,7 @@
       onSend({
         providerId: target.id,
         model: target.model,
-        messages: [...history, { role: "user", content: promptText }],
+        messages: buildRequestMessages(mode, history, promptText),
         requestId,
         autoApproveTools
       });
@@ -36654,6 +36917,16 @@
     const copy = (content3) => {
       void navigator.clipboard?.writeText(content3);
     };
+    const newChat = () => {
+      if (streaming) {
+        onCancel();
+      }
+      onChangeMessages([]);
+      setLastPrompt(null);
+      setInput("");
+      setInputHeight();
+      inputRef.current?.focus();
+    };
     const lastIndex = messages.length - 1;
     const showTyping = streaming && messages[lastIndex]?.role === "assistant" && messages[lastIndex]?.content === "";
     const iconOnly = toolbarWidth > 0 && toolbarWidth < 300;
@@ -36661,6 +36934,49 @@
     const modelLabel = target ? `${target.displayName} \xB7 ${target.model}` : "Select a model";
     const modelShort = target ? target.model : "Model";
     return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "chat-shell", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("header", { className: "chat-topbar", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "chat-topbar__brand", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "chat-topbar__mark", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Bot, { "aria-hidden": "true" }) }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "chat-topbar__text", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h1", { className: "chat-topbar__title", children: "SkyCode" }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("p", { className: "chat-topbar__meta", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                "span",
+                {
+                  className: `status-dot ${streaming ? "status-dot--live" : target ? "status-dot--ready" : "status-dot--warn"}`,
+                  "aria-hidden": "true"
+                }
+              ),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "truncate", children: streaming ? "Thinking\u2026" : target ? `${activeMode.label} \xB7 ${target.model}` : "No model" })
+            ] })
+          ] })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "chat-topbar__actions", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+            "button",
+            {
+              type: "button",
+              title: "New chat",
+              "aria-label": "New chat",
+              disabled: messages.length === 0,
+              onClick: newChat,
+              className: "chat-icon-btn",
+              children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Plus, { "aria-hidden": "true" })
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+            "button",
+            {
+              type: "button",
+              title: "Settings",
+              "aria-label": "Open settings",
+              onClick: onOpenSettings,
+              className: "chat-icon-btn",
+              children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Settings, { "aria-hidden": "true" })
+            }
+          )
+        ] })
+      ] }),
       /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "chat-scroll", children: messages.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "chat-welcome", children: providers.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "chat-welcome__content", children: [
         /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "chat-mark", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Bot, { "aria-hidden": "true" }) }),
         /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h2", { className: "chat-welcome__title", children: "No provider configured" }),
@@ -36678,15 +36994,18 @@
         /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "chat-mark", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Bot, { "aria-hidden": "true" }) }),
         /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h2", { className: "chat-welcome__title", children: "What are we working on?" }),
         /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: "chat-welcome__copy", children: "Ask SkyCode about the open workspace, or start with a quick task." }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "chat-suggestions", children: SUGGESTIONS.map((s) => /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "chat-suggestions", children: SUGGESTIONS.map(({ text: text7, icon: Icon2 }) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
           "button",
           {
             type: "button",
-            onClick: () => submitWith(s),
+            onClick: () => submitWith(text7),
             className: "chat-suggestion",
-            children: s
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Icon2, { "aria-hidden": "true" }),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: text7 })
+            ]
           },
-          s
+          text7
         )) })
       ] }) }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "chat-transcript", children: [
         messages.map(
@@ -36700,28 +37019,10 @@
           ) }, i) : /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "chat-message chat-message--assistant", children: [
             /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "chat-assistant-mark", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Bot, { "aria-hidden": "true" }) }),
             /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "chat-bubble chat-bubble--assistant", children: [
-              m.content === "" && showTyping ? /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex gap-1.5 py-1", "aria-label": "AI is thinking", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-                  "span",
-                  {
-                    className: "h-2 w-2 animate-bounce rounded-full bg-[var(--vscode-descriptionForeground)]",
-                    style: { animationDelay: "0ms" }
-                  }
-                ),
-                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-                  "span",
-                  {
-                    className: "h-2 w-2 animate-bounce rounded-full bg-[var(--vscode-descriptionForeground)]",
-                    style: { animationDelay: "150ms" }
-                  }
-                ),
-                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-                  "span",
-                  {
-                    className: "h-2 w-2 animate-bounce rounded-full bg-[var(--vscode-descriptionForeground)]",
-                    style: { animationDelay: "300ms" }
-                  }
-                )
+              m.content === "" && showTyping ? /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "chat-typing", role: "status", "aria-label": "SkyCode is thinking", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", {}),
+                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", {}),
+                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", {})
               ] }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(MarkdownRenderer, { text: m.content }),
               /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "chat-message-actions", children: [
                 /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
@@ -36732,8 +37033,8 @@
                     "aria-label": "Copy answer",
                     disabled: !m.content,
                     onClick: () => copy(m.content),
-                    className: "rounded-md p-1.5 text-[var(--vscode-descriptionForeground)] transition-colors hover:bg-[var(--vscode-list-hoverBackground)] hover:text-[var(--vscode-foreground)] disabled:pointer-events-none disabled:opacity-50",
-                    children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Copy, { className: "h-4 w-4" })
+                    className: "chat-message-action",
+                    children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Copy, { "aria-hidden": "true" })
                   }
                 ),
                 i === lastIndex && !streaming && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
@@ -36743,35 +37044,85 @@
                     title: "Regenerate",
                     "aria-label": "Regenerate",
                     onClick: regenerate,
-                    className: "rounded-md p-1.5 text-[var(--vscode-descriptionForeground)] transition-colors hover:bg-[var(--vscode-list-hoverBackground)] hover:text-[var(--vscode-foreground)]",
-                    children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(RefreshCw, { className: "h-4 w-4" })
+                    className: "chat-message-action",
+                    children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(RefreshCw, { "aria-hidden": "true" })
                   }
                 )
               ] })
             ] })
           ] }, i)
         ),
-        toolActivities.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "tool-timeline", "aria-label": "Tool activity", children: toolActivities.map((activity) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: `tool-card tool-card--${activity.status}`, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "tool-card__head", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "tool-card__name", children: activity.tool.replace("-", " ") }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "tool-card__status", children: activity.status })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { children: activity.summary }),
-          activity.detail && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: "tool-card__detail", children: activity.detail })
-        ] }, activity.activityId)) }),
+        toolActivities.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "tool-timeline", "aria-label": "Tool activity", children: toolActivities.map((activity) => {
+          const ToolIcon = TOOL_ICONS[activity.tool] ?? Wrench;
+          const StatusIcon = activity.status === "running" ? Loader : ToolIcon;
+          return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: `tool-card tool-card--${activity.status}`, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "tool-card__head", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "tool-card__icon", "aria-hidden": "true", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(StatusIcon, {}) }),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "tool-card__name", children: activity.tool }),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "tool-card__status", children: activity.status })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "tool-card__body", "aria-live": "polite", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { children: activity.summary }),
+              activity.detail && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: "tool-card__detail", children: activity.detail })
+            ] })
+          ] }, activity.activityId);
+        }) }),
         toolApprovals.map((approval) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "tool-approval", role: "group", "aria-label": "Tool permission request", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("p", { children: [
-            "SkyCode wants to ",
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("strong", { children: approval.summary })
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "tool-approval__head", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ShieldQuestionMark, { "aria-hidden": "true" }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "Permission needed" })
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "tool-approval__actions", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", className: "tool-action tool-action--allow", onClick: () => onResolveToolApproval(approval, true), children: "Allow once" }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", className: "tool-action", onClick: () => onResolveToolApproval(approval, false), children: "Reject" })
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "tool-approval__body", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("p", { children: [
+              "SkyCode wants to ",
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("strong", { children: approval.summary })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "tool-approval__actions", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("button", { type: "button", className: "tool-action tool-action--allow", onClick: () => onResolveToolApproval(approval, true), children: [
+                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Check, { "aria-hidden": "true" }),
+                "Allow once"
+              ] }),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("button", { type: "button", className: "tool-action", onClick: () => onResolveToolApproval(approval, false), children: [
+                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(X, { "aria-hidden": "true" }),
+                "Reject"
+              ] })
+            ] })
           ] })
         ] }, approval.approvalId)),
         /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { ref: messagesEndRef })
       ] }) }),
       /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "chat-composer-area", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "chat-composer-wrap", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "mode-switch", role: "tablist", "aria-label": "Composer mode", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+            "span",
+            {
+              className: "mode-switch__thumb",
+              "aria-hidden": "true",
+              style: { width: `${thumb.width}px`, transform: `translateX(${thumb.left}px)` }
+            }
+          ),
+          CHAT_MODES.map(({ id, label }) => {
+            const Icon2 = MODE_ICONS[id];
+            return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
+              "button",
+              {
+                ref: (el) => {
+                  modeRefs.current[id] = el;
+                },
+                type: "button",
+                role: "tab",
+                "aria-selected": mode === id,
+                onClick: () => setMode(id),
+                className: `mode-btn${mode === id ? " is-active" : ""}`,
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Icon2, { "aria-hidden": "true" }),
+                  !iconOnly && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: label })
+                ]
+              },
+              id
+            );
+          })
+        ] }),
         /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
           "form",
           {
@@ -36783,7 +37134,7 @@
                 {
                   ref: inputRef,
                   value: input,
-                  placeholder: "Message\u2026",
+                  placeholder: activeMode.placeholder,
                   rows: 1,
                   onChange: (e) => {
                     setInput(e.target.value);
@@ -36800,16 +37151,6 @@
               ),
               /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { ref: toolbarRef, className: "chat-composer__toolbar", children: [
                 /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex min-w-0 items-center gap-1", children: [
-                  /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-                    "button",
-                    {
-                      type: "button",
-                      title: "Attach (coming soon)",
-                      "aria-label": "Attach file",
-                      className: "composer-tool",
-                      children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Paperclip, { className: "h-3.5 w-3.5" })
-                    }
-                  ),
                   /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
                     "button",
                     {
@@ -36820,21 +37161,8 @@
                       "aria-pressed": autoApproveTools,
                       className: `composer-tool composer-tool--approval${autoApproveTools ? " is-active" : ""}`,
                       children: [
-                        autoApproveTools ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ShieldCheck, { className: "h-3.5 w-3.5" }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ShieldOff, { className: "h-3.5 w-3.5" }),
+                        autoApproveTools ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ShieldCheck, { className: "h-3 w-3" }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ShieldOff, { className: "h-3 w-3" }),
                         !iconOnly && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "Auto approve" })
-                      ]
-                    }
-                  ),
-                  /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
-                    "button",
-                    {
-                      type: "button",
-                      title: "Chat",
-                      className: "composer-tool",
-                      children: [
-                        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(MessageSquare, { className: "h-3.5 w-3.5" }),
-                        !iconOnly && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "Chat" }),
-                        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ChevronDown, { className: "h-3 w-3" })
                       ]
                     }
                   ),
@@ -36844,10 +37172,19 @@
                       {
                         type: "button",
                         onClick: () => setModelMenuOpen((o) => !o),
+                        "aria-haspopup": "menu",
+                        "aria-expanded": modelMenuOpen,
+                        title: modelLabel,
                         className: "composer-tool composer-tool--model",
                         children: [
-                          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Bot, { className: "h-3.5 w-3.5 shrink-0" }),
-                          !iconOnly && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "truncate", title: fullModel ? void 0 : modelLabel, children: fullModel ? modelLabel : modelShort }),
+                          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                            "span",
+                            {
+                              className: `status-dot ${target ? "status-dot--ready" : "status-dot--warn"}`,
+                              "aria-hidden": "true"
+                            }
+                          ),
+                          !iconOnly && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "truncate", children: fullModel ? modelLabel : modelShort }),
                           /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ChevronDown, { className: "h-3 w-3 shrink-0" })
                         ]
                       }
@@ -36872,7 +37209,7 @@
                     disabled: !streaming && (!input.trim() || !target),
                     className: `composer-send${streaming ? " composer-send--cancel" : ""}`,
                     onClick: streaming ? onCancel : void 0,
-                    children: streaming ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Square, { className: "h-3.5 w-3.5" }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ArrowUp, { className: "h-4 w-4" })
+                    children: streaming ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Square, { className: "h-3 w-3" }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ArrowUp, { className: "h-3.5 w-3.5" })
                   }
                 ) })
               ] })
@@ -36889,7 +37226,7 @@
     if (list4.length === 0 || list4[idx].role !== "assistant") {
       return [...prev, { role: "assistant", content: r.error ? `\u26A0 ${r.error}` : r.text }];
     }
-    const content3 = list4[idx].content + (r.error ? "" : r.text);
+    const content3 = r.error && !list4[idx].content ? `\u26A0 ${r.error}` : list4[idx].content + (r.error ? "" : r.text);
     return [...list4.slice(0, idx), { role: "assistant", content: content3 }];
   }
 
@@ -37990,13 +38327,28 @@ lucide-react/dist/esm/icons/bot.mjs:
 lucide-react/dist/esm/icons/check.mjs:
 lucide-react/dist/esm/icons/chevron-down.mjs:
 lucide-react/dist/esm/icons/copy.mjs:
+lucide-react/dist/esm/icons/file-code.mjs:
+lucide-react/dist/esm/icons/file-pen.mjs:
+lucide-react/dist/esm/icons/file-plus.mjs:
+lucide-react/dist/esm/icons/folder-tree.mjs:
+lucide-react/dist/esm/icons/list-checks.mjs:
+lucide-react/dist/esm/icons/loader.mjs:
 lucide-react/dist/esm/icons/message-square.mjs:
-lucide-react/dist/esm/icons/paperclip.mjs:
+lucide-react/dist/esm/icons/plus.mjs:
 lucide-react/dist/esm/icons/refresh-cw.mjs:
 lucide-react/dist/esm/icons/search.mjs:
+lucide-react/dist/esm/icons/settings.mjs:
 lucide-react/dist/esm/icons/shield-check.mjs:
 lucide-react/dist/esm/icons/shield-off.mjs:
+lucide-react/dist/esm/icons/shield-question-mark.mjs:
+lucide-react/dist/esm/icons/sparkles.mjs:
 lucide-react/dist/esm/icons/square.mjs:
+lucide-react/dist/esm/icons/terminal.mjs:
+lucide-react/dist/esm/icons/trash-2.mjs:
+lucide-react/dist/esm/icons/triangle-alert.mjs:
+lucide-react/dist/esm/icons/wrench.mjs:
+lucide-react/dist/esm/icons/x.mjs:
+lucide-react/dist/esm/icons/zap.mjs:
 lucide-react/dist/esm/lucide-react.mjs:
   (**
    * @license lucide-react v1.40.0 - ISC
