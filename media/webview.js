@@ -36728,6 +36728,9 @@
     "delete-file": Trash2,
     "run-command": Terminal
   };
+  function createMessageId() {
+    return `msg_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
+  }
   function extractCodeFromChildren(children) {
     if (typeof children === "string" || typeof children === "number") {
       return String(children);
@@ -36768,7 +36771,7 @@
       const lang = extractCodeLanguage(props.children);
       return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "code-card", children: [
         /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "code-card__head", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "code-card__lang", children: lang || "code" }),
+          lang && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "code-card__lang", children: lang }),
           /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
             "button",
             {
@@ -36792,17 +36795,24 @@
       return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("code", { className: String(props.className), children: props.children });
     }
   };
+  var markdownModulePromise = null;
+  function loadMarkdownModule() {
+    if (!markdownModulePromise) {
+      markdownModulePromise = Promise.all([Promise.resolve().then(() => (init_react_markdown(), react_markdown_exports)), Promise.resolve().then(() => (init_remark_gfm(), remark_gfm_exports))]).then(
+        ([Mod, gfm2]) => ({ Comp: Mod.default, plugins: [gfm2.default] })
+      );
+    }
+    return markdownModulePromise;
+  }
   function MarkdownRenderer({ text: text7 }) {
     const [md, setMd] = (0, import_react6.useState)(null);
     (0, import_react6.useEffect)(() => {
       let alive = true;
-      void (async () => {
-        const Mod = await Promise.resolve().then(() => (init_react_markdown(), react_markdown_exports));
-        const gfm2 = await Promise.resolve().then(() => (init_remark_gfm(), remark_gfm_exports));
+      void loadMarkdownModule().then((mod) => {
         if (alive) {
-          setMd({ Comp: Mod.default, plugins: [gfm2.default] });
+          setMd(mod);
         }
-      })();
+      });
       return () => {
         alive = false;
       };
@@ -36812,6 +36822,63 @@
       return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { dir, className: "md", children: text7 });
     }
     return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { dir, className: "md", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(md.Comp, { remarkPlugins: md.plugins, components: markdownComponents, children: text7 }) });
+  }
+  function TypingDots() {
+    return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "chat-typing", role: "status", "aria-label": "SkyCode is thinking", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", {}),
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", {}),
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", {})
+    ] });
+  }
+  function ToolTimeline({ activities }) {
+    if (activities.length === 0) {
+      return null;
+    }
+    return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "tool-timeline", "aria-label": "Tool activity", children: activities.map((activity) => {
+      const ToolIcon = TOOL_ICONS[activity.tool] ?? Wrench;
+      const StatusIcon = activity.status === "running" ? Loader : ToolIcon;
+      return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: `tool-card tool-card--${activity.status}`, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "tool-card__head", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "tool-card__icon", "aria-hidden": "true", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(StatusIcon, {}) }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "tool-card__name", children: activity.tool }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "tool-card__status", children: activity.status })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "tool-card__body", "aria-live": "polite", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { children: activity.summary }),
+          activity.detail && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: "tool-card__detail", children: activity.detail })
+        ] })
+      ] }, activity.activityId);
+    }) });
+  }
+  function ToolApprovals({
+    approvals,
+    onResolve
+  }) {
+    if (approvals.length === 0) {
+      return null;
+    }
+    return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_jsx_runtime3.Fragment, { children: approvals.map((approval) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "tool-approval", role: "group", "aria-label": "Tool permission request", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "tool-approval__head", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ShieldQuestionMark, { "aria-hidden": "true" }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "Permission needed" })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "tool-approval__body", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("p", { children: [
+          "SkyCode wants to ",
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("strong", { children: approval.summary })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "tool-approval__actions", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("button", { type: "button", className: "tool-action tool-action--allow", onClick: () => onResolve(approval, true), children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Check, { "aria-hidden": "true" }),
+            "Allow once"
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("button", { type: "button", className: "tool-action", onClick: () => onResolve(approval, false), children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(X, { "aria-hidden": "true" }),
+            "Reject"
+          ] })
+        ] })
+      ] })
+    ] }, approval.approvalId)) });
   }
   function ChatView({ providers, messages, streaming, toolActivities, toolApprovals, onChangeMessages, onOpenSettings, onSend, onCancel, onResolveToolApproval }) {
     const [input, setInput] = (0, import_react6.useState)("");
@@ -36827,7 +36894,7 @@
     const modeRefs = (0, import_react6.useRef)({});
     const [toolbarWidth, setToolbarWidth] = (0, import_react6.useState)(0);
     const [thumb, setThumb] = (0, import_react6.useState)({ left: 0, width: 0 });
-    const sorted = [...providers].sort((a) => a.hasApiKey ? -1 : 1);
+    const sorted = [...providers].sort((a, b) => Number(b.hasApiKey) - Number(a.hasApiKey));
     const target = selected && sorted.some((s) => s.id === selected.p && s.model === selected.m) ? sorted.find((s) => s.id === selected.p && s.model === selected.m) : sorted[0];
     const activeMode = getChatMode(mode);
     (0, import_react6.useEffect)(() => {
@@ -36881,6 +36948,9 @@
       el.style.height = `${Math.min(el.scrollHeight, 200)}px`;
     };
     const run = (history, promptText) => {
+      if (!target) {
+        return;
+      }
       const requestId = `chat_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
       setLastPrompt(promptText);
       onSend({
@@ -36900,18 +36970,19 @@
       if (!text7 || streaming || !target) {
         return;
       }
-      const nextHistory = messages.concat({ role: "user", content: text7 });
-      onChangeMessages([...nextHistory, { role: "assistant", content: "" }]);
+      const nextHistory = messages.concat({ role: "user", content: text7, id: createMessageId() });
+      onChangeMessages([...nextHistory, { role: "assistant", content: "", id: createMessageId() }]);
       setInput("");
       setInputHeight();
       run(nextHistory, text7);
     };
     const regenerate = () => {
-      if (!lastPrompt || streaming) {
+      if (!lastPrompt || streaming || !target) {
         return;
       }
-      const base = messages.filter((m) => m.role !== "assistant");
-      onChangeMessages([...base, { role: "assistant", content: "" }]);
+      const lastIsAssistant2 = messages.length > 0 && messages[messages.length - 1].role === "assistant";
+      const base = lastIsAssistant2 ? messages.slice(0, -1) : messages;
+      onChangeMessages([...base, { role: "assistant", content: "", id: createMessageId() }]);
       run(base, lastPrompt);
     };
     const copy = (content3) => {
@@ -36928,7 +36999,8 @@
       inputRef.current?.focus();
     };
     const lastIndex = messages.length - 1;
-    const showTyping = streaming && messages[lastIndex]?.role === "assistant" && messages[lastIndex]?.content === "";
+    const lastIsAssistant = messages[lastIndex]?.role === "assistant";
+    const showTyping = streaming && lastIsAssistant && messages[lastIndex]?.content === "";
     const iconOnly = toolbarWidth > 0 && toolbarWidth < 300;
     const fullModel = !iconOnly && toolbarWidth >= 560;
     const modelLabel = target ? `${target.displayName} \xB7 ${target.model}` : "Select a model";
@@ -37008,22 +37080,24 @@
           text7
         )) })
       ] }) }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "chat-transcript", children: [
-        messages.map(
-          (m, i) => m.role === "user" ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "chat-message chat-message--user", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+        messages.map((m, i) => {
+          const isLast = i === lastIndex;
+          const activitiesHere = isLast && m.role === "assistant" ? toolActivities : [];
+          const approvalsHere = isLast && m.role === "assistant" ? toolApprovals : [];
+          const hasToolContent = activitiesHere.length > 0 || approvalsHere.length > 0;
+          return m.role === "user" ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "chat-message chat-message--user", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
             "div",
             {
               dir: detectDirection(m.content),
               className: "chat-bubble chat-bubble--user",
               children: m.content
             }
-          ) }, i) : /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "chat-message chat-message--assistant", children: [
+          ) }, m.id ?? i) : /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "chat-message chat-message--assistant", children: [
             /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "chat-assistant-mark", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Bot, { "aria-hidden": "true" }) }),
             /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "chat-bubble chat-bubble--assistant", children: [
-              m.content === "" && showTyping ? /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "chat-typing", role: "status", "aria-label": "SkyCode is thinking", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", {}),
-                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", {}),
-                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", {})
-              ] }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(MarkdownRenderer, { text: m.content }),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ToolTimeline, { activities: activitiesHere }),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ToolApprovals, { approvals: approvalsHere, onResolve: onResolveToolApproval }),
+              m.content === "" && showTyping && isLast ? !hasToolContent && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(TypingDots, {}) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(MarkdownRenderer, { text: m.content }),
               /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "chat-message-actions", children: [
                 /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
                   "button",
@@ -37031,13 +37105,13 @@
                     type: "button",
                     title: "Copy",
                     "aria-label": "Copy answer",
-                    disabled: !m.content,
+                    disabled: !m.content || streaming && isLast,
                     onClick: () => copy(m.content),
                     className: "chat-message-action",
                     children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Copy, { "aria-hidden": "true" })
                   }
                 ),
-                i === lastIndex && !streaming && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                isLast && !streaming && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
                   "button",
                   {
                     type: "button",
@@ -37050,45 +37124,8 @@
                 )
               ] })
             ] })
-          ] }, i)
-        ),
-        toolActivities.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "tool-timeline", "aria-label": "Tool activity", children: toolActivities.map((activity) => {
-          const ToolIcon = TOOL_ICONS[activity.tool] ?? Wrench;
-          const StatusIcon = activity.status === "running" ? Loader : ToolIcon;
-          return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: `tool-card tool-card--${activity.status}`, children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "tool-card__head", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "tool-card__icon", "aria-hidden": "true", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(StatusIcon, {}) }),
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "tool-card__name", children: activity.tool }),
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "tool-card__status", children: activity.status })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "tool-card__body", "aria-live": "polite", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { children: activity.summary }),
-              activity.detail && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: "tool-card__detail", children: activity.detail })
-            ] })
-          ] }, activity.activityId);
-        }) }),
-        toolApprovals.map((approval) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "tool-approval", role: "group", "aria-label": "Tool permission request", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "tool-approval__head", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ShieldQuestionMark, { "aria-hidden": "true" }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "Permission needed" })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "tool-approval__body", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("p", { children: [
-              "SkyCode wants to ",
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("strong", { children: approval.summary })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "tool-approval__actions", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("button", { type: "button", className: "tool-action tool-action--allow", onClick: () => onResolveToolApproval(approval, true), children: [
-                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Check, { "aria-hidden": "true" }),
-                "Allow once"
-              ] }),
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("button", { type: "button", className: "tool-action", onClick: () => onResolveToolApproval(approval, false), children: [
-                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(X, { "aria-hidden": "true" }),
-                "Reject"
-              ] })
-            ] })
-          ] })
-        ] }, approval.approvalId)),
+          ] }, m.id ?? i);
+        }),
         /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { ref: messagesEndRef })
       ] }) }),
       /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "chat-composer-area", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "chat-composer-wrap", children: [
@@ -37224,10 +37261,10 @@
     const list4 = prev.slice();
     const idx = list4.length - 1;
     if (list4.length === 0 || list4[idx].role !== "assistant") {
-      return [...prev, { role: "assistant", content: r.error ? `\u26A0 ${r.error}` : r.text }];
+      return [...prev, { role: "assistant", content: r.error ? `\u26A0 ${r.error}` : r.text, id: createMessageId() }];
     }
     const content3 = r.error && !list4[idx].content ? `\u26A0 ${r.error}` : list4[idx].content + (r.error ? "" : r.text);
-    return [...list4.slice(0, idx), { role: "assistant", content: content3 }];
+    return [...list4.slice(0, idx), { ...list4[idx], content: content3 }];
   }
 
   // src/webview/SettingsView.tsx
